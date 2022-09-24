@@ -36,7 +36,6 @@ public class ReadTXTtoJsonObjUtil {
 
     public static JSONObject[] stringToObj(String s){
         s = s.replaceAll("\r|\n|\\s*","");
-        int a = ReadTXTtoJsonObjUtil.stringCount(s);
         JSONObject jsonObject = null;
         JSONObject[] jsonObjects = null;
         if(!"".equals(s) && s != null){
@@ -55,14 +54,5 @@ public class ReadTXTtoJsonObjUtil {
             }
         }
         return jsonObjects;
-    }
-
-    public static int stringCount(String s){
-        int conut = 0;
-        if(s.contains("baiyx")){
-            conut = (s.length() - s.replaceAll("baiyx","").length())/"baiyx".length();
-            return conut;
-        }
-        return 0;
     }
 }
