@@ -3,8 +3,8 @@ package com.baiyx.wfwbitest.controller;
 import com.baiyx.wfwbitest.customAnnotations.NullDisable;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 
-import com.baiyx.wfwbitest.entity.Projbase;
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
+import com.baiyx.wfwbitest.entity.ResultMsg;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.util.ExcelUtil;
@@ -182,7 +182,7 @@ public class UserController {
 
     @WebLog(description = "消除转义")
     @RequestMapping(value = "removeESC", method = RequestMethod.POST)
-    public void removeESC() {
-        UserService.removeESC();
+    public ResultMsg removeESC() {
+        return UserService.removeESC();
     }
 }

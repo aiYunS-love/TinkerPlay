@@ -2,6 +2,7 @@ package com.baiyx.wfwbitest.service;
 
 import com.baiyx.wfwbitest.entity.Projbase;
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
+import com.baiyx.wfwbitest.entity.ResultMsg;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.util.RowConvertColUtil;
 
@@ -53,7 +54,7 @@ public interface UserService {
     List<User> getIPorMACaddress(HttpServletRequest request) throws UnknownHostException, Exception;
 
     // 消除转义
-    void removeESC();
+    ResultMsg removeESC();
 
     // 批量查询
     // List findByprojbase(List<Projbase> projbase);
