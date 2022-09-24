@@ -1,0 +1,60 @@
+package com.baiyx.wfwbitest.service;
+
+import com.baiyx.wfwbitest.entity.Projbase;
+import com.baiyx.wfwbitest.entity.QueryRequestVo;
+import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.util.RowConvertColUtil;
+
+import javax.servlet.http.HttpServletRequest;
+import java.net.UnknownHostException;
+import java.util.List;
+
+/**
+ * @Author: 白宇鑫
+ * @Date: 2021/6/30 上午 11:30
+ * @Description:
+ */
+public interface UserService {
+
+    /**
+    * @Author: 白宇鑫
+    * @Description: 查
+    * @Date: 2021/6/30 上午 11:31
+    * @Param:
+    * @return: java.util.List<com.baiyx.wfwbitest.entity.user>
+    */
+    List<User> findAll();
+
+    // 增
+    void insertOne(QueryRequestVo queryRequestVo);
+
+    // 删
+    void deleteByName(QueryRequestVo queryRequestVo);
+
+    // 改
+    void updateOne(QueryRequestVo queryRequestVo);
+
+    // 根据id查
+    User findById(QueryRequestVo queryRequestVo);
+
+    // 根据name查
+    User findByName(QueryRequestVo queryRequestVo);
+
+    // 根据时间区间查询
+    List<User> findByTime(QueryRequestVo queryRequestVo);
+
+    // 行转列
+    RowConvertColUtil.ConvertData RowConvertCol(QueryRequestVo queryRequestVo);
+
+    // 批量插入
+    void insertAll(List<User> userList);
+
+    // 获取IP或MAC地址
+    List<User> getIPorMACaddress(HttpServletRequest request) throws UnknownHostException, Exception;
+
+    // 消除转义
+    void removeESC();
+
+    // 批量查询
+    // List findByprojbase(List<Projbase> projbase);
+}

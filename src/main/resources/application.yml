@@ -1,0 +1,82 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /api
+
+spring:
+  datasource:
+    dynamic:
+      # 设置默认的数据源或者数据源组,默认值即为master
+      primary: master
+      # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
+      strict: false
+      datasource:
+        master:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          username: root
+          password: 19930218
+#        slave_1:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#          username: sgtt
+#          password: Sgtt1215
+  redis:
+    database: 0
+    #    cluster:
+    #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
+    # 非集群使用
+    port: 6379
+    host: 127.0.0.1
+    # host: 192.168.119.129
+    # 密码
+    # password: b0650fa
+    password:
+    timeout: 60000 #连接超时时间（毫秒）
+    # 缓存配置
+    cache:
+      type: redis
+    client-name: BiTest
+    pool:
+      # 连接池中的最大空闲连接
+      max-idle: 3000
+      # 连接池最大连接数（使用负值表示没有限制）
+      max-active: 6000
+      # 连接池最大阻塞等待时间（使用负值表示没有限制）
+      max-wait: -1
+#  rabbitmq:
+#    # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
+#    addresses: 192.168.119.129:5672
+#    username: admin
+#    password: admin
+#    #开启消息确认模式，新版本已经弃用
+#    #publisher-confirms: true
+#    #开启消息送达提示
+#    publisher-returns: true
+#    # springboot.rabbitmq.publisher-confirm 新版本已被弃用，现在使用 spring.rabbitmq.publisher-confirm-type = correlated 实现相同效果
+#    publisher-confirm-type: correlated
+#    virtual-host: /
+#    listener:
+#      type: simple
+#      simple:
+#        acknowledge-mode: auto #确认模式
+#        prefetch: 1 #限制每次发送一条数据。
+#        concurrency: 3 #同一个队列启动几个消费者
+#        max-concurrency: 3 #启动消费者最大数量
+#        #重试策略相关配置
+#        retry:
+#          # 开启消费者(程序出现异常)重试机制，默认开启并一直重试
+#          enabled: true
+#          # 最大重试次数
+#          max-attempts: 5
+#          # 重试间隔时间(毫秒)
+#          initial-interval: 3000
+
+mybatis:
+  #映射的xml的sql文件路径
+  mapper-locations: classpath:mapper/*.xml
+  #实体类路径
+  type-aliases-package: com/baiyx/wfwbitest/entity
+  # configuration:
+    # 打印SQL日志
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

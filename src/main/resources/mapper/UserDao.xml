@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyx.wfwbitest.dao.UserDao">
+
+    <select id="findAll" resultType="com.baiyx.wfwbitest.entity.User">
+        select * from user;
+    </select>
+
+    <insert id="insertOne" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo">
+        insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
+    </insert>
+
+    <delete id="deleteByName" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo">
+        delete from user where username=#{username};
+    </delete>
+
+    <update id="updateOne" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo">
+        update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id=#{id};
+    </update>
+
+    <select id="findById" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.entity.User">
+        select * from user where id=#{id};
+    </select>
+
+    <select id="findByName" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.entity.User">
+        select * from user where username=#{username};
+    </select>
+
+    <select id="findByTime" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.entity.User">
+        select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
+    </select>
+
+    <select id="RowConvertCol" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.util.RowConvertColUtil">
+        select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
+    </select>
+
+    <insert id="insertAll" parameterType="list" useGeneratedKeys="false">
+        insert into user(id,username,birthday,sex,address) values
+        <foreach collection="list" item="User" separator=",">
+            (#{User.id},#{User.username},#{User.birthday},#{User.sex},#{User.address})
+        </foreach>
+    </insert>
+
+    <select id="getIPorMACaddress" resultType="com.baiyx.wfwbitest.entity.User">
+        select * from user;
+    </select>
+
+    <insert id="removeESC" parameterType="list" useGeneratedKeys="false">
+        insert into projbase(ywh,projId,jsonObj,projectName,applyName,applyCardNo) values
+        <foreach collection="list" item="Projbase" separator=",">
+            (#{Projbase.projId},#{Projbase.projId},#{Projbase.jsonObj},#{Projbase.projectName},#{Projbase.applyName},#{Projbase.applyCardNo})
+        </foreach>
+    </insert>
+
+    <select id="findByprojbase" parameterType="arraylist" resultType="string">
+        select projId from projbase where projId in
+        <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
