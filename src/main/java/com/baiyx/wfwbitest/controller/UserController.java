@@ -1,9 +1,12 @@
 package com.baiyx.wfwbitest.controller;
 
+import com.baiyx.wfwbitest.customAnnotations.Decrypt;
+import com.baiyx.wfwbitest.customAnnotations.Encrypt;
 import com.baiyx.wfwbitest.customAnnotations.NullDisable;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
+import com.baiyx.wfwbitest.entity.R;
 import com.baiyx.wfwbitest.entity.ResultMsg;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.service.UserService;
@@ -44,11 +47,18 @@ public class UserController {
     public List<User> findAll(){
         return UserService.findAll();
     }
-
+    /*
+    * @Author: 白宇鑫
+    * @Description: 测试加密的参数解密
+    * @Date: 2022-9-25 下午 04:39
+    * @Param: QueryRequestVo
+     * @param null
+    * @return:
+    */
     @WebLog(description = "插入一条")
     @RequestMapping(value = "insertOne",method= RequestMethod.POST,produces = "application/json")
-    public void insertOne(@RequestBody QueryRequestVo queryRequestVo){
-        UserService.insertOne(queryRequestVo);
+    public R insertOne(@RequestBody @Decrypt User user){
+        return UserService.insertOne(user);
     }
 
     @WebLog(description = "根据名字删除")
@@ -66,26 +76,25 @@ public class UserController {
     /*
     * @Author: 白宇鑫
     * @Description: @Nullable 注解可以标注在方法、字段、参数之上，表示对应的值可以为空
+    *               测试加解密:加密数据返回
     * @Date: 2022-9-15 上午 10:38
-    * @Param:
+    * @Param: QueryRequestVo
      * @param null
     * @return:
     */
-
+    @Encrypt
     @WebLog(description = "根据ID查询")
     @RequestMapping(value = "findById",method = RequestMethod.GET)
-    public User findById(@RequestBody @NullDisable QueryRequestVo queryRequestVo){
-        User u = new User();
-        u = UserService.findById(queryRequestVo);
-        return u;
+    public R findById(@RequestBody @NullDisable QueryRequestVo queryRequestVo){
+        return UserService.findById(queryRequestVo);
     }
 
     /*
     * @Author: 白宇鑫
     * @Description: 测试HttpUtil和MacUtil工具类
     * @Date: 2022-9-15 上午 10:32
-    * @Param:
-     * @param null
+    * @Param: QueryRequestVo
+     * @param User
     * @return:
     */
 
@@ -100,8 +109,8 @@ public class UserController {
     * @Description: 测试BI组件与后端交互
     *               @CrossOrigin注解用于解决跨域问题
     * @Date: 2022-9-15 上午 10:39
-    * @Param:
-    * @return:
+    * @Param: QueryRequestVo
+    * @return: List<User>
     */
 
     @WebLog(description = "根据时间段查询")
@@ -119,8 +128,8 @@ public class UserController {
     * @Author: 白宇鑫
     * @Description: 测试行转列RowConvertColUtil工具类
     * @Date: 2022-9-15 上午 10:40
-    * @Param:
-    * @return:
+    * @Param: queryRequestVo
+    * @return: RowConvertColUtil.ConvertData
     */
 
     @WebLog(description = "行转列Test")
@@ -139,7 +148,7 @@ public class UserController {
     *               @Param的作用就是给参数命名，比如在mapper里面某方法A（int id），当添加注解后A（@Param("userId") int id），
     *               也就是说外部想要取出传入的id值，只需要取它的参数名userId就可以了。将参数值传如SQL语句中，通过#{userId}进行取值给SQL的参数赋值。
     * @Date: 2022-9-15 上午 10:41
-    * @Param:
+    * @Param: List<User>
     * @return:  
     */
     

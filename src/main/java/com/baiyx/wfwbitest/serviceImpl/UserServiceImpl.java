@@ -36,13 +36,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertOne(QueryRequestVo queryRequestVo) {
+    public R insertOne(User user) {
         User u = new User();
-        u = UserDao.findById(queryRequestVo.getUser().getId());
+        u = UserDao.findByName(user.getUsername());
         if (u == null) {
-            UserDao.insertOne(queryRequestVo.getUser());
+            UserDao.insertOne(user);
+            return R.ok("ok",user);
         } else {
-            throw new RuntimeException("已存在编号为" + queryRequestVo.getUser().getId() + "的数据,请重新插入...");
+            return R.error("已存在编号为" + user.getId() + "的数据,请重新插入...");
         }
     }
 
@@ -69,8 +70,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(QueryRequestVo queryRequestVo) {
-        return UserDao.findById(queryRequestVo.getUser().getId());
+    public R findById(QueryRequestVo queryRequestVo) {
+        User u = UserDao.findById(queryRequestVo.getUser().getId());
+        return R.ok("请求成功",u);
     }
 
     @Override
@@ -209,23 +211,23 @@ public class UserServiceImpl implements UserService {
             resultMsg.setRequestId(sbObj.getString("requestId"));
             resultMsg.setSuccess(sbObj.getString("success"));
             if(ywhs != null && ywhs.size() != 0){
-                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在数据库!");
+                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
             }else{
                 resultMsg.setMessage(sbObj.getString("message"));
             }
             return resultMsg;
         }else{
             resultMsg.setStatus("89757");
-            resultMsg.setMsg("不存在可推的数据或数据已存在数据库!!!");
+            resultMsg.setMsg("不存在可推的数据或数据已存在projbase表中!!!");
             resultMsg.setData("");
             resultMsg.setCode("-1");
             resultMsg.setStackTrace("stackTrace");
             resultMsg.setRequestId("123456789");
             resultMsg.setSuccess("false");
             if(ywhs != null && ywhs.size() != 0){
-                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在数据库!");
+                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
             }else{
-                resultMsg.setMessage("不存在可推的数据或数据已存在数据库!!!");
+                resultMsg.setMessage("不存在可推的数据或数据已存在projbase表中!!!");
             }
             return resultMsg;
         }

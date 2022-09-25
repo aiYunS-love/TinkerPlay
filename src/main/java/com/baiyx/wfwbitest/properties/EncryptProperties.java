@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.properties;
 
+import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
@@ -7,12 +8,13 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @Date: 2022-9-13 上午 11:33
  * @Description: 读取用户自定义配置的key
  */
-@ConfigurationProperties(prefix = "spring.encrypt")
+@ConfigurationProperties(prefix = "body.encrypt")
+@Data
 public class EncryptProperties {
     //默认的key
-    private final static String DEFAULT_KEY = "@bAiTestKey.!*%@";
+    //private final static String DEFAULT_KEY = "iamwalkerencrypt";
 
-    private String key = DEFAULT_KEY;
+    private String key;
 
     public String getKey() {
         return key;

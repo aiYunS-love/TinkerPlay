@@ -72,6 +72,11 @@ spring:
 #          # 重试间隔时间(毫秒)
 #          initial-interval: 3000
 
+# RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
+body:
+  encrypt:
+    key: iamwalkerencrypt
+
 mybatis:
   #映射的xml的sql文件路径
   mapper-locations: classpath:mapper/*.xml

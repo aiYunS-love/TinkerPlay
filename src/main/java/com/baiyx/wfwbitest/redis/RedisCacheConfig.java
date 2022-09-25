@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
 import com.baiyx.wfwbitest.util.SpringContextUtils;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
@@ -98,23 +99,43 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
             public Object generate(Object o, Method method, Object... objects) {
                 //自定义缓存key字符串
                 StringBuilder sb = new StringBuilder();
+                boolean isappen = false;
                 //追加类名
                 //String className = o.getClass().getName();
                 //className = className.substring(className.lastIndexOf(".")+1);
                 //sb.append(className + "_");
-
                 //追加方法名
+                for(Object o1 : objects){
+                    if(o1 != null){
+                        isappen = true;
+                    }
+                }
                 sb.append(method.getName());
-                sb.append(":");
+                if(objects.length != 0 && isappen){
 
-                //遍历参数并且追加
-                for (Object obj : objects) {
-                    if(obj instanceof java.util.Date){
-                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-                        String strObj = sdf.format(obj).toString().replace("-","");
-                        sb.append(strObj + "_");
-                    }else{
-                        sb.append(obj.toString() + "_");
+                    sb.append(":");
+
+                    //遍历参数并且追加
+                    for (int i=0; i<objects.length;i++) {
+                        Object obj = objects[i];
+                        String strObj = null;
+                        if(obj instanceof java.util.Date){
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            strObj = sdf.format(obj).toString().replace("-","");
+                            if(i == objects.length-1){
+                                sb.append(strObj);
+                            }else{
+                                sb.append(strObj);
+                                sb.append("_");
+                            }
+                        }else{
+                            if(i == objects.length-1){
+                                sb.append(obj.toString());
+                            }else{
+                                sb.append(obj.toString());
+                                sb.append("_");
+                            }
+                        }
                     }
                 }
                 System.out.println("Redis缓存的Key : " + sb.toString());

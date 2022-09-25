@@ -1,9 +1,6 @@
 package com.baiyx.wfwbitest.service;
 
-import com.baiyx.wfwbitest.entity.Projbase;
-import com.baiyx.wfwbitest.entity.QueryRequestVo;
-import com.baiyx.wfwbitest.entity.ResultMsg;
-import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.util.RowConvertColUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,7 +24,7 @@ public interface UserService {
     List<User> findAll();
 
     // 增
-    void insertOne(QueryRequestVo queryRequestVo);
+    R insertOne(User user);
 
     // 删
     void deleteByName(QueryRequestVo queryRequestVo);
@@ -36,7 +33,7 @@ public interface UserService {
     void updateOne(QueryRequestVo queryRequestVo);
 
     // 根据id查
-    User findById(QueryRequestVo queryRequestVo);
+    R findById(QueryRequestVo queryRequestVo);
 
     // 根据name查
     User findByName(QueryRequestVo queryRequestVo);

@@ -9,8 +9,9 @@ import java.util.Base64;
  * @Date: 2022-9-13 上午 10:26
  * @Description: 加解密工具类
  */
-public class AESUtils {
+public class AESUtil {
 
+    private final static String AES="AES";
     private static final String AES_ALGORITHM = "AES/ECB/PKCS5Padding";
 
     // 获取cipher
@@ -30,7 +31,8 @@ public class AESUtils {
     // AES解密
     public static byte[] decrypt(byte[] data, byte[] key) throws Exception{
         Cipher cipher = getCipher(key,Cipher.DECRYPT_MODE);
-        return cipher.doFinal(Base64.getDecoder().decode(data));
+        //return cipher.doFinal(Base64.getDecoder().decode(data));
+        return cipher.doFinal(Base64.getMimeDecoder().decode(data));
     }
 
 }
