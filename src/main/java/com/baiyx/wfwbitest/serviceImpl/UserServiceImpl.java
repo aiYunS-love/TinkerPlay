@@ -6,6 +6,7 @@ import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.util.*;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -146,7 +147,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //@DS("slave_1")
+    @DS("slave_1")
     public ResultMsg removeESC() {
         JSONObject[] jsonObjects = ReadTXTtoJsonObjUtil.readTXTtoObj("");
         List<Projbase> projbaseList = null;
