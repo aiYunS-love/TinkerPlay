@@ -38,12 +38,20 @@ public class ReadTXTtoJsonObjUtil {
         s = s.replaceAll("\r|\n|\\s*","");
         JSONObject jsonObject = null;
         JSONObject[] jsonObjects = null;
+        String strObj = "";
         if(!"".equals(s) && s != null){
             String[] arr = s.split("=====baiyx=====");
             jsonObjects = new JSONObject[arr.length];
             for(int i=0;i<arr.length;i++){
-                String strObj = StringEscapeUtils.unescapeJava(arr[i]).replaceAll("\r|\n|\\s*","");
-                if(!"".equals(strObj) && "\"}".equals(strObj.substring(strObj.length()-2,strObj.length()))){
+                System.out.println("\\\"suffInfoList\\\":[]}\"}");
+                if(arr[i].endsWith("\\\"suffInfoList\\\":[]}\"}")){
+                    strObj = StringEscapeUtils.unescapeJava(arr[i]).replaceAll("\r|\n|\\s*","");
+                }else{
+                    strObj = arr[i];
+                }
+                System.out.println("\"suffInfoList\": []\n" +
+                        "}");
+                if(!"".equals(strObj) && "\"}".equals(strObj.substring(strObj.length()-2,strObj.length())) && strObj.endsWith("\"suffInfoList\":[]}\"}")){
                     strObj = strObj.substring(0,strObj.length()-2);
                 }
                 //System.out.println(strObj);
