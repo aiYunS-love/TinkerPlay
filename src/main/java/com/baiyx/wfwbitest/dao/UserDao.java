@@ -36,6 +36,7 @@ public interface UserDao {
     void updateOne(User user);
 
     // 根据id查
+    @Cacheable
     User findById(int id);
 
     // 根据name查

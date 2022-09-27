@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
 
 //@EnableRabbit
-//@EnableCaching
+@EnableCaching
 @SpringBootApplication
 public class WfwBiTestApplication {
 

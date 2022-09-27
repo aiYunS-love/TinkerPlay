@@ -1,13 +1,8 @@
 package com.baiyx.wfwbitest.controller;
 
-import com.baiyx.wfwbitest.customAnnotations.Decrypt;
-import com.baiyx.wfwbitest.customAnnotations.Encrypt;
-import com.baiyx.wfwbitest.customAnnotations.NullDisable;
-import com.baiyx.wfwbitest.customAnnotations.WebLog;
-
+import com.baiyx.wfwbitest.customAnnotations.*;
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
 import com.baiyx.wfwbitest.entity.R;
-import com.baiyx.wfwbitest.entity.ResultMsg;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.util.ExcelUtil;
@@ -15,7 +10,6 @@ import com.baiyx.wfwbitest.util.RowConvertColUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -24,7 +18,7 @@ import java.util.List;
 /**
  * @Author: 白宇鑫
  * @Date: 2021/6/30 上午 11:35
- * @Description:
+ * @Description: 控制器-入口
  */
 @RestController
 @RequestMapping(value ="userController",produces = "application/json;charset=UTF-8")
@@ -47,18 +41,22 @@ public class UserController {
     public List<User> findAll(){
         return UserService.findAll();
     }
-    /*
-    * @Author: 白宇鑫
-    * @Description: 测试加密的参数解密
-    * @Date: 2022-9-25 下午 04:39
-    * @Param: QueryRequestVo
-     * @param null
-    * @return:
-    */
+
+    /***
+     * @Author: 白宇鑫
+     * @Description: 使用insertOne方法册测试延时双删;因为UserServiceImpl使用findByName方法先查询数据是否存在,
+     *               所以UserController的insertOne入口处为@Decrypt(description = "findByName")
+     *               会模糊寻找redis缓存key为findByName的缓存
+     * @Date: 2022-9-27 下午 05:01
+     * @param user
+     * @return: com.baiyx.wfwbitest.entity.R
+     */
     @WebLog(description = "插入一条")
     @RequestMapping(value = "insertOne",method= RequestMethod.POST,produces = "application/json")
-    public R insertOne(@RequestBody @Decrypt User user){
-        return UserService.insertOne(user);
+    @Decrypt(description = "findByName")
+    @ClearAndReloadCache(name = "findByName")
+    public R insertOne(@RequestBody User user){
+        return R.ok("ok",UserService.insertOne(user));
     }
 
     @WebLog(description = "根据名字删除")
@@ -69,6 +67,7 @@ public class UserController {
 
     @WebLog(description = "更新一条数据")
     @RequestMapping(value = "updateOne",method = RequestMethod.POST)
+    @ClearAndReloadCache(name = "findById") //依旧测试延时双删
     public void updateOne(@RequestBody QueryRequestVo queryRequestVo){
         UserService.updateOne(queryRequestVo);
     }
@@ -76,17 +75,17 @@ public class UserController {
     /*
     * @Author: 白宇鑫
     * @Description: @Nullable 注解可以标注在方法、字段、参数之上，表示对应的值可以为空
-    *               测试加解密:加密数据返回
     * @Date: 2022-9-15 上午 10:38
-    * @Param: QueryRequestVo
+    * @Param:
      * @param null
-    * @return:
+    * @return: User
     */
-    @Encrypt
+
     @WebLog(description = "根据ID查询")
     @RequestMapping(value = "findById",method = RequestMethod.GET)
+    @Encrypt(description = "根据ID查询加密查询结果")
     public R findById(@RequestBody @NullDisable QueryRequestVo queryRequestVo){
-        return UserService.findById(queryRequestVo);
+        return R.ok("ok",UserService.findById(queryRequestVo));
     }
 
     /*
@@ -94,8 +93,7 @@ public class UserController {
     * @Description: 测试HttpUtil和MacUtil工具类
     * @Date: 2022-9-15 上午 10:32
     * @Param: QueryRequestVo
-     * @param User
-    * @return:
+    * @return: User
     */
 
     @WebLog(description = "根据名字查询")
@@ -115,12 +113,9 @@ public class UserController {
 
     @WebLog(description = "根据时间段查询")
     @RequestMapping(value = "findByTime",method = RequestMethod.POST)
-    @CrossOrigin(value = "http://localhost:10104")
+    @CrossOrigin(value = "http://localhost:10104") // 该注解解决跨域问题
     public List<User> findByTime(@RequestBody QueryRequestVo queryRequestVo) {
-            //long startTime = System.currentTimeMillis();
-            List<User> users = UserService.findByTime(queryRequestVo);;
-            //long endTime = System.currentTimeMillis();
-            //System.out.println(" 耗时: " + (endTime-startTime)+"ms");
+            List<User> users = UserService.findByTime(queryRequestVo);
             return users;
     }
 
@@ -128,17 +123,14 @@ public class UserController {
     * @Author: 白宇鑫
     * @Description: 测试行转列RowConvertColUtil工具类
     * @Date: 2022-9-15 上午 10:40
-    * @Param: queryRequestVo
+    * @Param: QueryRequestVo
     * @return: RowConvertColUtil.ConvertData
     */
 
     @WebLog(description = "行转列Test")
     @RequestMapping(value = "RowConvertCol",method = RequestMethod.POST)
     public RowConvertColUtil.ConvertData RowConvertCol(@RequestBody QueryRequestVo queryRequestVo) {
-        //long startTime = System.currentTimeMillis();
         RowConvertColUtil.ConvertData users = UserService.RowConvertCol(queryRequestVo);;
-        //long endTime = System.currentTimeMillis();
-        //System.out.println(" 耗时: " + (endTime-startTime)+"ms");
         return users;
     }
     
@@ -149,7 +141,7 @@ public class UserController {
     *               也就是说外部想要取出传入的id值，只需要取它的参数名userId就可以了。将参数值传如SQL语句中，通过#{userId}进行取值给SQL的参数赋值。
     * @Date: 2022-9-15 上午 10:41
     * @Param: List<User>
-    * @return:  
+    * @return: void
     */
     
     @WebLog(description = "批量插入")
@@ -164,8 +156,8 @@ public class UserController {
     *               测试导出查询数据为Excel功能
     *               测试阿里开源工具包easyExcle
     * @Date: 2022-9-15 上午 10:44
-    * @Param:
-    * @return:
+    * @Param: HttpServletResponse
+    * @return: String
     */
 
     //导出为Excel
@@ -191,7 +183,7 @@ public class UserController {
 
     @WebLog(description = "消除转义")
     @RequestMapping(value = "removeESC", method = RequestMethod.POST)
-    public ResultMsg removeESC() {
-        return UserService.removeESC();
+    public void removeESC() {
+        UserService.removeESC();
     }
 }

@@ -39,12 +39,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public R insertOne(User user) {
         User u = new User();
+        // 因为此处使用的findByName方法先查询数据是否存在,
+        // 所以UserController的insertOne入口处为@Decrypt(description = "findByName")
         u = UserDao.findByName(user.getUsername());
         if (u == null) {
             UserDao.insertOne(user);
             return R.ok("ok",user);
         } else {
-            return R.error("已存在编号为" + user.getId() + "的数据,请重新插入...");
+            return R.error("已存在编号为" + u.toString() + "的数据,请重新插入...");
         }
     }
 
@@ -73,7 +75,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public R findById(QueryRequestVo queryRequestVo) {
         User u = UserDao.findById(queryRequestVo.getUser().getId());
-        return R.ok("请求成功",u);
+        if(u == null){
+            return R.error("查询失败",u);
+        }
+        return R.ok("查询成功",u);
     }
 
     @Override
