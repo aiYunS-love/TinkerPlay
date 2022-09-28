@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.aop;
+package com.baiyx.wfwbitest.exception;
 
 /**
  * @Author: 白宇鑫

@@ -1,8 +1,6 @@
 package com.baiyx.wfwbitest.service;
 
-import com.baiyx.wfwbitest.entity.Projbase;
-import com.baiyx.wfwbitest.entity.QueryRequestVo;
-import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.util.RowConvertColUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +24,7 @@ public interface UserService {
     List<User> findAll();
 
     // 增
-    void insertOne(QueryRequestVo queryRequestVo);
+    R insertOne(User user);
 
     // 删
     void deleteByName(QueryRequestVo queryRequestVo);
@@ -35,7 +33,7 @@ public interface UserService {
     void updateOne(QueryRequestVo queryRequestVo);
 
     // 根据id查
-    User findById(QueryRequestVo queryRequestVo);
+    R findById(QueryRequestVo queryRequestVo);
 
     // 根据name查
     User findByName(QueryRequestVo queryRequestVo);
@@ -53,7 +51,7 @@ public interface UserService {
     List<User> getIPorMACaddress(HttpServletRequest request) throws UnknownHostException, Exception;
 
     // 消除转义
-    void removeESC();
+    ResultMsg removeESC();
 
     // 批量查询
     // List findByprojbase(List<Projbase> projbase);

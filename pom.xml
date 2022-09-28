@@ -17,38 +17,24 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 浏览器解析工具jar -->
         <dependency>
             <groupId>eu.bitwalker</groupId>
             <artifactId>UserAgentUtils</artifactId>
             <version>1.21</version>
         </dependency>
-        <!-- 读取属性类所需 -->
+        <!-- 读取属性类所需: 生产配置元数据 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- 数据库表导出成 Excel -->
+        <!-- 数据库表导出成 Excel 所需jar -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
             <version>3.1.1</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi</artifactId>-->
-<!--            <version>3.8</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi-ooxml</artifactId>-->
-<!--            <version>3.8</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>org.apache.poi</groupId>-->
-<!--            <artifactId>poi-ooxml-schemas</artifactId>-->
-<!--            <version>3.8</version>-->
-<!--        </dependency>-->
         <!--AMQP依赖，包含RabbitMQ-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -78,6 +64,7 @@
             <artifactId>spring-security-rsa</artifactId>
             <version>1.0.3.RELEASE</version>
         </dependency>
+        <!-- Gson包 -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -94,21 +81,24 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.12.0</version>
         </dependency>
+        <!-- 集成redis所需jar -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
+        <!-- SpringBoot内置缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
+        <!-- Web启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
+            <artifactId>spring-boot-starter-test</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
@@ -117,16 +107,13 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-web</artifactId>-->
-<!--        </dependency>-->
+        <!-- 1.自动发现存在的DataSource; 2.利用SqlSessionFactoryBean创建并注册SqlSessionFactory; 3.创建并注册SqlSessionTemplate; 4.自动扫描Mappers，并注册到Spring上下文环境方便程序的注入使用 -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.1.4</version>
         </dependency>
-
+        <!-- 自动插入到编辑器和构建工具中，增强java的性能。不需要再写getter、setter或equals方法，只要有一个注解，你的类就有一个功能齐全的构建器、自动记录变量等等 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -137,21 +124,25 @@
 <!--            <artifactId>spring-boot-starter-test</artifactId>-->
 <!--            <scope>test</scope>-->
 <!--        </dependency>-->
+        <!-- Mybatis包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
             <version>3.4.6</version>
         </dependency>
+        <!-- 自动装配:配置文件配置项值、环境变量值、操作系统等等自定义可变量，自动将对应的组件（对象）注入到我们的应用中 -->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
             <version>2.1.4</version>
         </dependency>
+        <!-- JSON包 -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.73</version>
         </dependency>
+        <!-- AOP切面包 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
@@ -161,6 +152,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <!-- 通过注解指定Spring配置类， 在Spring容器中的对象均可自动装配 -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
@@ -169,6 +161,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
         </dependency>
+        <!-- AssertJ提供了一组丰富而直观的strongly-typed断言，用于单元测试（使用JUnit、TestNG或任何其他测试框架） -->
         <dependency>
             <groupId>org.assertj</groupId>
             <artifactId>assertj-core</artifactId>

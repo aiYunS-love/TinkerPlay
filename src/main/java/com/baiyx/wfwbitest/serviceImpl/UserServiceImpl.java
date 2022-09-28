@@ -3,12 +3,10 @@ package com.baiyx.wfwbitest.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.dao.UserDao;
-import com.baiyx.wfwbitest.entity.ClientMsg;
-import com.baiyx.wfwbitest.entity.Projbase;
-import com.baiyx.wfwbitest.entity.QueryRequestVo;
-import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.util.*;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +37,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void insertOne(QueryRequestVo queryRequestVo) {
+    public R insertOne(User user) {
         User u = new User();
-        u = UserDao.findById(queryRequestVo.getUser().getId());
+        // 因为此处使用的findByName方法先查询数据是否存在,
+        // 所以UserController的insertOne入口处为@Decrypt(description = "findByName")
+        u = UserDao.findByName(user.getUsername());
         if (u == null) {
-            UserDao.insertOne(queryRequestVo.getUser());
+            UserDao.insertOne(user);
+            return R.ok("ok",user);
         } else {
-            throw new RuntimeException("已存在编号为" + queryRequestVo.getUser().getId() + "的数据,请重新插入...");
+            return R.error("已存在编号为" + u.toString() + "的数据,请重新插入...");
         }
     }
 
@@ -72,8 +73,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findById(QueryRequestVo queryRequestVo) {
-        return UserDao.findById(queryRequestVo.getUser().getId());
+    public R findById(QueryRequestVo queryRequestVo) {
+        User u = UserDao.findById(queryRequestVo.getUser().getId());
+        if(u == null){
+            return R.error("查询失败",u);
+        }
+        return R.ok("查询成功",u);
     }
 
     @Override
@@ -147,13 +152,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    //@DS("slave_1")
-    public void removeESC() {
+    @DS("slave_1")
+    public ResultMsg removeESC() {
         JSONObject[] jsonObjects = ReadTXTtoJsonObjUtil.readTXTtoObj("");
         List<Projbase> projbaseList = null;
         ArrayList projIds = null;
         ArrayList ywhs = null;
         ArrayList projId = null;
+        ResultMsg resultMsg = new ResultMsg();
         //存放推送的业务号
         if (jsonObjects != null && jsonObjects.length != 0){
             projbaseList = new ArrayList<>(jsonObjects.length);
@@ -188,7 +194,6 @@ public class UserServiceImpl implements UserService {
                         ywhs.add(projId.toArray()[i]);
                     }
                 }
-                System.out.println("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在数据库!");
                 // projbaseList中已存在的ywh进行剔除后在推送.
                 for (int i = 0; i < ywhs.size(); i++) {
                     for (int k = 0; k < projbaseList.size(); k++) {
@@ -204,12 +209,33 @@ public class UserServiceImpl implements UserService {
             //调办结接口
             StringBuffer stringBuffer = ToInterface.interfaceUtil("https://govbdctj.zjzwfw.gov.cn:7079/api/right/ignoreOuth/house/callback/fillhousefinish",projIds.toString(),"POST");
             JSONObject sbObj = (JSONObject) JSON.parse(stringBuffer.toString());
-            if("200".equals(sbObj.getString("status")) && "OK".equals(sbObj.getString("msg")) && "true".equals(sbObj.getString("success"))){
-            }else if("false".equals(sbObj.getString("success")) && !"OK".equals(sbObj.getString("msg"))){
-                throw new RuntimeException("调办结接口报错: " +sbObj.toJSONString());
+            resultMsg.setStatus(sbObj.getString("status"));
+            resultMsg.setMsg(sbObj.getString("msg"));
+            resultMsg.setData(sbObj.getString("data"));
+            resultMsg.setCode(sbObj.getString("code"));
+            resultMsg.setStackTrace(sbObj.getString("stackTrace"));
+            resultMsg.setRequestId(sbObj.getString("requestId"));
+            resultMsg.setSuccess(sbObj.getString("success"));
+            if(ywhs != null && ywhs.size() != 0){
+                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
+            }else{
+                resultMsg.setMessage(sbObj.getString("message"));
             }
+            return resultMsg;
         }else{
-            throw new RuntimeException("不存在可推的数据或数据已存在数据库!!!");
+            resultMsg.setStatus("89757");
+            resultMsg.setMsg("不存在可推的数据或数据已存在projbase表中!!!");
+            resultMsg.setData("");
+            resultMsg.setCode("-1");
+            resultMsg.setStackTrace("stackTrace");
+            resultMsg.setRequestId("123456789");
+            resultMsg.setSuccess("false");
+            if(ywhs != null && ywhs.size() != 0){
+                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
+            }else{
+                resultMsg.setMessage("不存在可推的数据或数据已存在projbase表中!!!");
+            }
+            return resultMsg;
         }
     }
 }

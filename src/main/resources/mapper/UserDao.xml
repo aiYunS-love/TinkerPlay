@@ -6,7 +6,7 @@
         select * from user;
     </select>
 
-    <insert id="insertOne" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo">
+    <insert id="insertOne" parameterType="com.baiyx.wfwbitest.entity.User">
         insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
     </insert>
 
@@ -22,8 +22,8 @@
         select * from user where id=#{id};
     </select>
 
-    <select id="findByName" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.entity.User">
-        select * from user where username=#{username};
+    <select id="findByName" parameterType="string" resultType="com.baiyx.wfwbitest.entity.User">
+        select id,username,address,sex,birthday from user where username=#{username};
     </select>
 
     <select id="findByTime" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.entity.User">
