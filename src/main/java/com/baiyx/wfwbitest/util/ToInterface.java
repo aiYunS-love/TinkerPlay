@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.util;
 
 import com.baiyx.wfwbitest.controller.UserController;
-import com.sun.istack.internal.logging.Logger;
+import org.apache.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
