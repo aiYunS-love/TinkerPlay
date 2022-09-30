@@ -134,7 +134,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
                         }
                     }
                 }
-                System.out.println("Redis缓存的Key : " + sb.toString());
+                //System.out.println("Redis缓存的Key : " + sb.toString());
                 return sb.toString();
             }
         };

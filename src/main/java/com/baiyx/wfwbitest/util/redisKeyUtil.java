@@ -22,8 +22,8 @@ public class redisKeyUtil {
                 redisKey.append("*");
             }else if(methodName.contains("Name")){
                 redisKey.append("*");
-                //redisKey.append(methodName);
-                //redisKey.append(":");
+                redisKey.append(methodName);
+                redisKey.append(":");
                 redisKey.append(user.getUsername());
                 redisKey.append("*");
             }else if(methodName.contains("Time")){

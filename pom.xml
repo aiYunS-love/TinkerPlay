@@ -17,6 +17,18 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 使用org.apache.log4j.Logger所需,在org.slf4j也有Logger所需,注意区分 -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.12</version>
+        </dependency>
+        <!-- 操作redis所需包 -->
+        <dependency>
+            <groupId>redis.clients</groupId>
+            <artifactId>jedis</artifactId>
+            <version>3.9.0</version>
+        </dependency>
         <!-- 浏览器解析工具jar -->
         <dependency>
             <groupId>eu.bitwalker</groupId>
@@ -87,10 +99,10 @@
             <artifactId>spring-boot-starter-data-redis</artifactId>
         </dependency>
         <!-- SpringBoot内置缓存 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-cache</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-cache</artifactId>-->
+<!--        </dependency>-->
         <!-- Web启动器 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
