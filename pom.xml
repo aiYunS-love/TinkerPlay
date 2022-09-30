@@ -41,11 +41,11 @@
             <artifactId>spring-boot-starter-amqp</artifactId>
         </dependency>
         <!-- 配置多数据源的包 -->
-<!--        <dependency>-->
-<!--            <groupId>com.baomidou</groupId>-->
-<!--            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>-->
-<!--            <version>3.5.1</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>3.5.1</version>
+        </dependency>
         <!-- 德鲁伊数据连接池 -->
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba</groupId>-->
