@@ -5,9 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
-import com.baiyx.wfwbitest.util.SpringContextUtils;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
@@ -112,9 +110,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
                 }
                 sb.append(method.getName());
                 if(objects.length != 0 && isappen){
-
                     sb.append(":");
-
                     //遍历参数并且追加
                     for (int i=0; i<objects.length;i++) {
                         Object obj = objects[i];

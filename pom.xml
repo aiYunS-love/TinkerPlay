@@ -99,12 +99,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <scope>runtime</scope>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- 1.自动发现存在的DataSource; 2.利用SqlSessionFactoryBean创建并注册SqlSessionFactory; 3.创建并注册SqlSessionTemplate; 4.自动扫描Mappers，并注册到Spring上下文环境方便程序的注入使用 -->
@@ -119,11 +113,6 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
         <!-- Mybatis包 -->
         <dependency>
             <groupId>org.mybatis</groupId>
@@ -153,10 +142,10 @@
             <artifactId>junit</artifactId>
         </dependency>
         <!-- 通过注解指定Spring配置类， 在Spring容器中的对象均可自动装配 -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework</groupId>-->
+<!--            <artifactId>spring-test</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>

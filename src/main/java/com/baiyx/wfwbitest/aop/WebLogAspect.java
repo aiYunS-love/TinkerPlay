@@ -29,7 +29,7 @@ public class WebLogAspect {
 
     private final static Logger logger = LoggerFactory.getLogger(WebLogAspect.class);
     //换行符
-    private static final String lINE_SEPARATOR = System.lineSeparator();
+    private static final String LINE_SEPARATOR = System.lineSeparator();
     private Object result = null;
     private long startTime = 0;
 

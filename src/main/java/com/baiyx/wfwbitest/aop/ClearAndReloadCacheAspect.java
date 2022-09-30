@@ -1,6 +1,9 @@
 package com.baiyx.wfwbitest.aop;
 
 import com.baiyx.wfwbitest.customAnnotations.ClearAndReloadCache;
+import com.baiyx.wfwbitest.entity.QueryRequestVo;
+import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.util.redisKeyUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -12,6 +15,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -54,12 +58,27 @@ public class ClearAndReloadCacheAspect {
         String name = annotation.name();//获取自定义注解的方法对象的参数即name
 
         /**
-         * 后期完善改造尽量根据redis缓存精确的key去精确删除
+         * 完善改造尽量根据redis缓存精确的key去精确删除
          */
-
+        //Set<String> keys = new HashSet<>();
+//        Object[] args = proceedingJoinPoint.getArgs();
+//        for(int i=0;i<args.length;i++){
+//            if (args[i] instanceof com.baiyx.wfwbitest.entity.User){
+//                User user = (User) args[i];
+//                keys.add(redisKeyUtil.redisKey(name,user,args));
+//            }else if(args[i] instanceof com.baiyx.wfwbitest.entity.QueryRequestVo){
+//                QueryRequestVo queryRequestVo = (QueryRequestVo) args[i];
+//                keys.add(redisKeyUtil.redisKey(name,queryRequestVo,args));
+//            }else{
+//                keys = stringRedisTemplate.keys("*" + name + "*");//模糊定义ke
+//            }
+//        }
+//
+//        if(keys.size() == 0){
+//            keys = stringRedisTemplate.keys("*" + name + "*");//模糊定义ke
+//        }
         Set<String> keys = stringRedisTemplate.keys("*" + name + "*");//模糊定义key
         stringRedisTemplate.delete(keys);//模糊删除redis的key值,延时双删第一删
-
         //执行加入双删注解的改动数据库的业务 即controller中的方法业务
         Object proceed = null;
         try {
@@ -70,17 +89,17 @@ public class ClearAndReloadCacheAspect {
 
         // 开一个线程 延迟1分（此处是1分测试，可以改成自己的业务）
         // 在线程中延迟删除  同时将业务代码的结果返回 这样不影响业务代码的执行
+        //Set<String> keys1 = keys;
         new Thread(() -> {
             try {
-                Thread.sleep(60000);
+                Thread.sleep(5000);
                 Set<String> keys1 = stringRedisTemplate.keys("*" + name + "*");//模糊删除
-                stringRedisTemplate.delete(keys1);//延时双删第二删
+                stringRedisTemplate.delete(keys1); // 延时双删第二删
                 System.out.println("-----------1秒钟后，在线程中延迟删除完毕 -----------");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }).start();
-
         return proceed;//返回业务代码的值
     }
 }

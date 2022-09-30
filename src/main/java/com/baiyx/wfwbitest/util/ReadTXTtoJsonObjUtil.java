@@ -14,11 +14,11 @@ import java.io.FileReader;
  */
 public class ReadTXTtoJsonObjUtil {
 
-    private static String filePath = "D:/Users/lenovo/Desktop/jsonObj.txt";
+    private static String FILEPATH = "D:/Users/lenovo/Desktop/jsonObj.txt";
 
     public static JSONObject[] readTXTtoObj(String filePath){
         if(filePath == "" || filePath == null){
-            filePath = ReadTXTtoJsonObjUtil.filePath;
+            filePath = ReadTXTtoJsonObjUtil.FILEPATH;
         }
         StringBuilder result = new StringBuilder();
         try{
@@ -38,23 +38,39 @@ public class ReadTXTtoJsonObjUtil {
         s = s.replaceAll("\r|\n|\\s*","");
         JSONObject jsonObject = null;
         JSONObject[] jsonObjects = null;
-        String strObj = "";
         if(!"".equals(s) && s != null){
             String[] arr = s.split("=====baiyx=====");
             jsonObjects = new JSONObject[arr.length];
             for(int i=0;i<arr.length;i++){
-                System.out.println("\\\"suffInfoList\\\":[]}\"}");
-                if(arr[i].endsWith("\\\"suffInfoList\\\":[]}\"}")){
-                    strObj = StringEscapeUtils.unescapeJava(arr[i]).replaceAll("\r|\n|\\s*","");
-                }else{
+                String strObj = "";
+                // JSON格式有问题的处理:长得截取,短得补齐
+                if(arr[i].endsWith("\\\"suffInfoList\\\":[]}\"}") || arr[i].endsWith("\"suffInfoList\":[]}")){
                     strObj = arr[i];
+                }else if(!arr[i].endsWith("\\\"suffInfoList\\\":[]}\"}") && arr[i].contains("\\\"suffInfoList\\\":[]}\"}")){
+                    strObj = StringEscapeUtils.unescapeJava(arr[i].substring(0,arr[i].indexOf("\\\"suffInfoList\\\":[]}\"}")+22));
+                }else if(arr[i].contains("\"suffInfoList\":[]}") && !arr[i].endsWith("\"suffInfoList\":[]}")){
+                    strObj = StringEscapeUtils.unescapeJava(arr[i].substring(0,arr[i].indexOf("\"suffInfoList\":[]}")+19));
+                }else if(!arr[i].endsWith("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}") && arr[i].contains("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}")){
+                    strObj = StringEscapeUtils.unescapeJava(arr[i].substring(0,arr[i].indexOf("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}")+27));
+                }else if(arr[i].contains("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"") && !arr[i].endsWith("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"")){
+                    strObj = arr[i] + "}";
+                    strObj = StringEscapeUtils.unescapeJava(strObj.substring(0,strObj.indexOf("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}")+27));
+                }else if(arr[i].contains("\\\\\\\"suffInfoList\\\\\\\":[]}") && arr[i].endsWith("\\\\\\\"suffInfoList\\\\\\\":[]}")){
+                    strObj = arr[i] + "\\\"}";
+                    strObj = StringEscapeUtils.unescapeJava(strObj.substring(0,strObj.indexOf("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}")+27));
+                }else if(arr[i].contains("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"") && arr[i].endsWith("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"")){
+                    strObj = arr[i] + "}";
+                    strObj = StringEscapeUtils.unescapeJava(strObj.substring(0,strObj.indexOf("\\\\\\\"suffInfoList\\\\\\\":[]}\\\"}")+27));
+                }else if(arr[i].contains("\\\"suffInfoList\\\":[]}") && arr[i].endsWith("\\\"suffInfoList\\\":[]}")){
+                    strObj = arr[i] + "\"}";
+                    strObj = StringEscapeUtils.unescapeJava(strObj);
                 }
-                System.out.println("\"suffInfoList\": []\n" +
-                        "}");
+                if(strObj.endsWith("\\\"suffInfoList\\\":[]}\"}")){
+                    strObj = StringEscapeUtils.unescapeJava(strObj);
+                }
                 if(!"".equals(strObj) && "\"}".equals(strObj.substring(strObj.length()-2,strObj.length())) && strObj.endsWith("\"suffInfoList\":[]}\"}")){
                     strObj = strObj.substring(0,strObj.length()-2);
                 }
-                //System.out.println(strObj);
                 if(strObj != null && !"".equals(strObj)){
                     jsonObject = JSON.parseObject(strObj);
                     jsonObjects[i] = jsonObject;
