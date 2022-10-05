@@ -2,6 +2,8 @@ server:
   port: 9090
   servlet:
     context-path: /api
+#    tomcat:
+#      basedir: E:\baiyx\Temp
 
 spring:
   datasource:
@@ -16,11 +18,27 @@ spring:
           url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
           username: root
           password: 19930218
-        slave_1:
-          driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-          username: sgtt
-          password: Sgtt1215
+#        slave_1:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#          username: sgtt
+#          password: Sgtt1215
+  # 文件上传功能开启
+  servlet:
+    multipart:
+      # 是否开启文件上传支持，默认为true
+      enabled: true
+      # 文件写入磁盘的阈值，默认为0
+      file-size-threshold: 0
+      # 上传文件的临时保存位置
+      # location: /Test/Temp
+      location: E:\baiyx\Temp
+      # 上传的单个文件的最大大小，默认为1MB
+      max-file-size: 5MB
+      # 多文件上传时文件的总大小，默认为10MB
+      max-request-size: 10MB
+      # 文件是否延迟解析，默认为false
+      resolve-lazily: false
   redis:
     database: 0
     #    cluster:
@@ -76,6 +94,10 @@ spring:
 body:
   encrypt:
     key: iamwalkerencrypt
+
+# 文件上传位置
+# file-save-path: /Test/uploadFile/
+file-save-path: E:\baiyx\uploadFile\
 
 mybatis:
   #映射的xml的sql文件路径
