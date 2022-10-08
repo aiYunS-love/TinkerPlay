@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest;
 
+import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
 import com.baiyx.wfwbitest.buildermodel.JDBCConfig;
 import com.baiyx.wfwbitest.buildermodel.JDBCConfig.JDBCBuilder;
 import com.baiyx.wfwbitest.dao.UserDao;
@@ -14,15 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: 白宇鑫
@@ -185,10 +184,16 @@ public class junitTest {
         System.out.println(ReadTXTtoJsonObjUtil.readTXTtoObj(""));
     }
 
+    @Test
+    public void test11(){
+        //TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File("D:\\Users\\lenovo\\Desktop"),"nginx_BI.conf");
+        TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File("E:\\"),"config.js");
+        System.out.println("该文件路径在: " +filePath);
+    }
+
       //测试springboot框架集成rabbitmq消息中间件
 //    @Autowired
 //    DirectProvider directProvider;
-
 //    @Test
 //    public void test10() throws InterruptedException {
 //        for(int i=1;i<10000;i++){

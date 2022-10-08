@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.controller;
 
+import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
 import com.baiyx.wfwbitest.customAnnotations.*;
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
 import com.baiyx.wfwbitest.entity.R;
@@ -13,8 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: 白宇鑫
@@ -173,7 +175,7 @@ public class UserController {
 
     @WebLog(description = "获取IP或MAC地址")
     @RequestMapping(value = "getIPorMACaddress")
-    public List<User> getIPorMACaddress(HttpServletRequest request) {
+    public Map getIPorMACaddress(HttpServletRequest request) {
         try {
             return UserService.getIPorMACaddress(request);
         } catch (Exception e) {
@@ -186,5 +188,14 @@ public class UserController {
     @RequestMapping(value = "removeESC", method = RequestMethod.POST)
     public ResultMsg removeESC() {
         return UserService.removeESC();
+    }
+
+    @WebLog(description = "递归_文件搜索")
+    @RequestMapping(value = "recursion", method = RequestMethod.GET)
+    public TreeSet recursion(String path, String searchContent) {
+        //先行判断上一次查询的内容与本次查询的是否一致
+        RecursiveAlgorithm.clean(searchContent);
+        TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File(path),searchContent);
+        return filePath;
     }
 }

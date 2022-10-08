@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: 白宇鑫
@@ -49,7 +50,7 @@ public interface UserService {
     void insertAll(List<User> userList);
 
     // 获取IP或MAC地址
-    List<User> getIPorMACaddress(HttpServletRequest request) throws UnknownHostException, Exception;
+    Map getIPorMACaddress(HttpServletRequest request) throws UnknownHostException, Exception;
 
     // 消除转义
     ResultMsg removeESC();

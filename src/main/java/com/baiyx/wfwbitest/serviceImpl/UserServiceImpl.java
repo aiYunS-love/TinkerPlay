@@ -13,9 +13,7 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Author: 白宇鑫
@@ -139,7 +137,8 @@ public class UserServiceImpl implements UserService {
 
     //测试MacUtil工具类和批量查询
     @Override
-    public List<User> getIPorMACaddress(HttpServletRequest request) throws Exception {
+    public Map getIPorMACaddress(HttpServletRequest request) throws Exception {
+        Map<String,String> address = new HashMap<String,String>();
         ClientMsg RequestMsg = MacUtil.getRequestMsg(request);
         String IpAddr =  MacUtil.getIpAddr(request);
         String addr = MacUtil.getAddress(IpAddr);
@@ -147,8 +146,11 @@ public class UserServiceImpl implements UserService {
         String macAddress2 = MacUtil.getMACAddress(InetAddress.getByName(IpAddr));
         String macAddress3 = MacUtil.getMACAddress(InetAddress.getLocalHost());
         //String macAddress4 = MacUtil.getMACAddress(InetAddress.getLoopbackAddress());
-        List<User> users = UserDao.findAll();
-        return users;
+        address.put("RequestMsg", RequestMsg.toString());
+        address.put("IpAddr", IpAddr);
+        address.put("macAddress-getByName", macAddress2);
+        address.put("macAddress-getLocalHost",macAddress3);
+        return address;
     }
 
     @Override

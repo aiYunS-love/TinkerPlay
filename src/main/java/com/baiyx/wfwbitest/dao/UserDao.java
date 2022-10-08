@@ -54,9 +54,6 @@ public interface UserDao {
     // 批量插入
     void insertAll(List<User> userList);
 
-    // 获取IP或MAC地址
-    List<User> getIPorMACaddress(HttpServletRequest request);
-
     // 消除转义
     void removeESC(List<Projbase> projbase);
     // 批量查询
