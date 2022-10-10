@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.buildermodel;
+package com.baiyx.wfwbitest.builderModel;
 
 import org.apache.commons.lang3.StringUtils;
 

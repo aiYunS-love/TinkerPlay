@@ -11,6 +11,7 @@ import com.baiyx.wfwbitest.util.ExcelUtil;
 import com.baiyx.wfwbitest.util.RowConvertColUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,7 @@ import java.util.*;
  * @Description: 控制器-入口
  */
 @RestController
+@Component("TestTimedTask")
 @RequestMapping(value ="userController",produces = "application/json;charset=UTF-8")
 public class UserController {
 

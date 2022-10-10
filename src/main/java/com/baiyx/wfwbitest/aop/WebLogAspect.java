@@ -92,34 +92,41 @@ public class WebLogAspect {
         }
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        // 获取 @WebLog 注解的描述信息
-        String methodDescription = getAspectLogDescription(joinPoint);
-        // 打印请求相关参数
-        logger.info("====================== Start =====================");
-        // 打印请求 url
-        logger.info("URL           : {}",request.getRequestURL().toString());
-        // 打印描述信息
-        logger.info("Description   : {}",methodDescription);
-        // 打印 HTTP Method
-        logger.info("HTTP Method   : {}",request.getMethod());
-        // 打印调用 controller 的全路径以及执行方法
-        logger.info("Class Method  : {}.{}",joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
-        // 打印请求的 IP
-        logger.info("IP            : {}",request.getRemoteAddr());
-        // 打印请求入参
-        //logger.info("Request Args  : {}",new Gson().toJson(joinPoint.getArgs()));
-        if(request.getRequestURL().toString().contains("/downloadexcel")){
-            logger.info("Request Args  : {}","null");
+        // 因为测试定时任务,并非是正常的请求进来,导致RequestContextHolder.getRequestAttributes()获取不到信息
+        if(attributes == null){
+            // 暂时处理,不让报错空指针,研究出方案此处做处理
+            System.out.println("###################### 等待研究,暂未处理 #########################");
+
         }else{
-            //logger.info("Request Args  : {}",JSON.toJSONString(joinPoint.getArgs()));
-            logger.info("Request Args  : {}",paramter);
+            HttpServletRequest request = attributes.getRequest();
+            // 获取 @WebLog 注解的描述信息
+            String methodDescription = getAspectLogDescription(joinPoint);
+            // 打印请求相关参数
+            logger.info("====================== Start =====================");
+            // 打印请求 url
+            logger.info("URL           : {}",request.getRequestURL().toString());
+            // 打印描述信息
+            logger.info("Description   : {}",methodDescription);
+            // 打印 HTTP Method
+            logger.info("HTTP Method   : {}",request.getMethod());
+            // 打印调用 controller 的全路径以及执行方法
+            logger.info("Class Method  : {}.{}",joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
+            // 打印请求的 IP
+            logger.info("IP            : {}",request.getRemoteAddr());
+            // 打印请求入参
+            //logger.info("Request Args  : {}",new Gson().toJson(joinPoint.getArgs()));
+            if(request.getRequestURL().toString().contains("/downloadexcel")){
+                logger.info("Request Args  : {}","null");
+            }else{
+                //logger.info("Request Args  : {}",JSON.toJSONString(joinPoint.getArgs()));
+                logger.info("Request Args  : {}",paramter);
+            }
+            // 打印出参
+            // logger.info("Response Args : {}",new Gson().toJson(result));
+            logger.info("Response Args : {}",JSON.toJSONString(result));
+            // 执行耗时
+            logger.info("Time-Consuming : {} ms",System.currentTimeMillis() - startTime);
         }
-        // 打印出参
-        // logger.info("Response Args : {}",new Gson().toJson(result));
-        logger.info("Response Args : {}",JSON.toJSONString(result));
-        // 执行耗时
-        logger.info("Time-Consuming : {} ms",System.currentTimeMillis() - startTime);
     }
 
     /*

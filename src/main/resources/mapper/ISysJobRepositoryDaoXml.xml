@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyx.wfwbitest.dao.ISysJobRepository">
+
+    <insert id="addSysJob" parameterType="com.baiyx.wfwbitest.entity.SysJobPO">
+        insert into timedtask(beanName,methodName,methodParams,cronExpression,remark,jobStatus,createTime,updateTime) values
+        (#{beanName},#{methodName},#{methodParams},#{cronExpression},#{remark},#{jobStatus},now(),now());
+    </insert>
+
+    <select id="getSysJobListByStatus" parameterType="int" resultType="com.baiyx.wfwbitest.entity.SysJobPO">
+        select * from timedtask where jobStatus=#{jobStatus};
+    </select>
+
+    <update id="editSysJob" parameterType="com.baiyx.wfwbitest.entity.SysJobPO">
+        update timedtask set beanName=#{beanName},methodName=#{methodName},methodParams=#{methodParams},cronExpression=#{cronExpression},remark=#{remark},jobStatus=#{jobStatus},updateTime=now() where jobId=#{jobId};
+    </update>
+
+    <delete id="deleteSysJob" parameterType="int">
+        delete from timedtask where jobId=#{jobId};
+    </delete>
+
+    <select id="findAllSysJob" resultType="com.baiyx.wfwbitest.entity.SysJobPO">
+        select * from timedtask;
+    </select>
+
+</mapper>

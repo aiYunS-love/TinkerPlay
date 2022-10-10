@@ -56,6 +56,7 @@ public interface UserDao {
 
     // 消除转义
     void removeESC(List<Projbase> projbase);
+
     // 批量查询
     ArrayList findByprojbase(ArrayList projbase);
 }

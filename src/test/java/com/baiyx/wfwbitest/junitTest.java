@@ -1,8 +1,8 @@
 package com.baiyx.wfwbitest;
 
 import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
-import com.baiyx.wfwbitest.buildermodel.JDBCConfig;
-import com.baiyx.wfwbitest.buildermodel.JDBCConfig.JDBCBuilder;
+import com.baiyx.wfwbitest.builderModel.JDBCConfig;
+import com.baiyx.wfwbitest.builderModel.JDBCConfig.JDBCBuilder;
 import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.util.DBUtil;
