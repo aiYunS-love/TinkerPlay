@@ -3,11 +3,14 @@ package com.baiyx.wfwbitest.aop;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 import com.alibaba.fastjson.JSON;
+import com.baiyx.wfwbitest.dao.ISysJobRepository;
+import com.baiyx.wfwbitest.timedTask.SchedulingRunnable;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,6 +35,9 @@ public class WebLogAspect {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private Object result = null;
     private long startTime = 0;
+
+    @Autowired
+    private ISysJobRepository sysJobRepository;
 
     /*
     * @Author: 白宇鑫
@@ -92,34 +98,39 @@ public class WebLogAspect {
         }
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
-        // 获取 @WebLog 注解的描述信息
-        String methodDescription = getAspectLogDescription(joinPoint);
-        // 打印请求相关参数
-        logger.info("====================== Start =====================");
-        // 打印请求 url
-        logger.info("URL           : {}",request.getRequestURL().toString());
-        // 打印描述信息
-        logger.info("Description   : {}",methodDescription);
-        // 打印 HTTP Method
-        logger.info("HTTP Method   : {}",request.getMethod());
-        // 打印调用 controller 的全路径以及执行方法
-        logger.info("Class Method  : {}.{}",joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
-        // 打印请求的 IP
-        logger.info("IP            : {}",request.getRemoteAddr());
-        // 打印请求入参
-        //logger.info("Request Args  : {}",new Gson().toJson(joinPoint.getArgs()));
-        if(request.getRequestURL().toString().contains("/downloadexcel")){
-            logger.info("Request Args  : {}","null");
+        // 因为测试定时任务,并非是正常的请求进来,导致RequestContextHolder.getRequestAttributes()获取不到信息
+        if(attributes == null ){
+            // 这里为了处理定时任务不报空指针,不做任何处理,定时任务的日志输出放在了定时任务执行时
         }else{
-            //logger.info("Request Args  : {}",JSON.toJSONString(joinPoint.getArgs()));
-            logger.info("Request Args  : {}",paramter);
+            HttpServletRequest request = attributes.getRequest();
+            // 获取 @WebLog 注解的描述信息
+            String methodDescription = getAspectLogDescription(joinPoint);
+            // 打印请求相关参数
+            logger.info("====================== Start =====================");
+            // 打印请求 url
+            logger.info("URL           : {}",request.getRequestURL().toString());
+            // 打印描述信息
+            logger.info("Description   : {}",methodDescription);
+            // 打印 HTTP Method
+            logger.info("HTTP Method   : {}",request.getMethod());
+            // 打印调用 controller 的全路径以及执行方法
+            logger.info("Class Method  : {}.{}",joinPoint.getSignature().getDeclaringTypeName(),joinPoint.getSignature().getName());
+            // 打印请求的 IP
+            logger.info("IP            : {}",request.getRemoteAddr());
+            // 打印请求入参
+            //logger.info("Request Args  : {}",new Gson().toJson(joinPoint.getArgs()));
+            if(request.getRequestURL().toString().contains("/downloadexcel")){
+                logger.info("Request Args  : {}","null");
+            }else{
+                //logger.info("Request Args  : {}",JSON.toJSONString(joinPoint.getArgs()));
+                logger.info("Request Args  : {}",paramter);
+            }
+            // 打印出参
+            // logger.info("Response Args : {}",new Gson().toJson(result));
+            logger.info("Response Args : {}",JSON.toJSONString(result));
+            // 执行耗时
+            logger.info("Time-Consuming : {} ms",System.currentTimeMillis() - startTime);
         }
-        // 打印出参
-        // logger.info("Response Args : {}",new Gson().toJson(result));
-        logger.info("Response Args : {}",JSON.toJSONString(result));
-        // 执行耗时
-        logger.info("Time-Consuming : {} ms",System.currentTimeMillis() - startTime);
     }
 
     /*

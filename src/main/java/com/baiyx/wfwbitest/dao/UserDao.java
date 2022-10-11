@@ -56,6 +56,8 @@ public interface UserDao {
 
     // 消除转义
     void removeESC(List<Projbase> projbase);
+
     // 批量查询
+    // xml中的sql定义的resultType="string",这里方法的返回值类型为ArrayList,导致红色下划波浪线
     ArrayList findByprojbase(ArrayList projbase);
 }

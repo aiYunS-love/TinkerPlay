@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-7-14 上午 10:59
- * @Description: 行转列工具类,可运行,结果不如意
+ * @Description: 行转列工具类
  */
 public class RowConvertColUtil {
 

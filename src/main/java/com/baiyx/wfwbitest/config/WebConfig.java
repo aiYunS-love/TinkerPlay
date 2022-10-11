@@ -1,19 +1,14 @@
-package com.baiyx.wfwbitest.WebConfig;
+package com.baiyx.wfwbitest.config;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.servlet.MultipartConfigFactory;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import javax.servlet.MultipartConfigElement;
-import java.io.File;
-
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-30 下午 04:43
- * @Description: 说明
+ * @Description: 文件上传所需
  */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
