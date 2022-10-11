@@ -11,6 +11,10 @@ import com.baiyx.wfwbitest.util.ExcelUtil;
 import com.baiyx.wfwbitest.util.RowConvertColUtil;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +31,8 @@ import java.util.*;
 @RestController
 @Component("TestTimedTask")
 @RequestMapping(value ="userController",produces = "application/json;charset=UTF-8")
+@EnableScheduling // 1.开启定时任务
+@EnableAsync // 2.开启多线程
 public class UserController {
 
     @Autowired
@@ -37,10 +43,14 @@ public class UserController {
     * @Description: 测试Aop层面统一打印自定义日志格式
      *              测试RedisCacheConfig缓存管理器
      *              测试@WebLog自定义日志打印的注解
+     *              测试自定义定时任务功能
+     *              测试Springboot框架自带的定时任务注解 @EnableScheduling @EnableAsync @Async @Scheduled
     * @Date: 2021/6/30 上午 11:43
     * @Param:  
     * @return: java.util.List<com.baiyx.wfwbitest.entity.user> 
     */
+    // @Async
+    // @Scheduled(fixedDelay = 30000)  //间隔1秒
     @WebLog(description = "查询所有")
     @RequestMapping(value = "findAll")
     public List<User> findAll(){

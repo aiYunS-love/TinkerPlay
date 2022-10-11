@@ -52,7 +52,7 @@
         </foreach>
     </insert>
 
-    <select id="findByprojbase" parameterType="arraylist" resultType="arraylist">
+    <select id="findByprojbase" parameterType="arraylist" resultType="string">
         select projId from projbase where projId in
         <foreach collection="list" index="index" item="item" open="(" separator="," close=")">
             #{item}

@@ -3,11 +3,14 @@ package com.baiyx.wfwbitest.aop;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 import com.alibaba.fastjson.JSON;
+import com.baiyx.wfwbitest.dao.ISysJobRepository;
+import com.baiyx.wfwbitest.timedTask.SchedulingRunnable;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -32,6 +35,9 @@ public class WebLogAspect {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private Object result = null;
     private long startTime = 0;
+
+    @Autowired
+    private ISysJobRepository sysJobRepository;
 
     /*
     * @Author: 白宇鑫
@@ -93,10 +99,8 @@ public class WebLogAspect {
         // 开始打印请求日志
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         // 因为测试定时任务,并非是正常的请求进来,导致RequestContextHolder.getRequestAttributes()获取不到信息
-        if(attributes == null){
-            // 暂时处理,不让报错空指针,研究出方案此处做处理
-            System.out.println("###################### 等待研究,暂未处理 #########################");
-
+        if(attributes == null ){
+            // 这里为了处理定时任务不报空指针,不做任何处理,定时任务的日志输出放在了定时任务执行时
         }else{
             HttpServletRequest request = attributes.getRequest();
             // 获取 @WebLog 注解的描述信息

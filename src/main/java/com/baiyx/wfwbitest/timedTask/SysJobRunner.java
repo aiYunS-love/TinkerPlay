@@ -31,6 +31,7 @@ public class SysJobRunner implements CommandLineRunner {
         // 初始加载数据库里状态为正常的定时任务
         // List<SysJobPO> jobList = sysJobRepository.getSysJobListByStatus(SysJobStatus.NORMAL.ordinal());
         List<SysJobPO> jobList = sysJobRepository.getSysJobListByStatus(1);
+        // 程序启动时,一次性加载数据库里面状态为1的正常的定时任务
         if (CollectionUtils.isNotEmpty(jobList)) {
             for (SysJobPO job : jobList) {
                 SchedulingRunnable task = new SchedulingRunnable(job.getBeanName(), job.getMethodName(), job.getMethodParams());

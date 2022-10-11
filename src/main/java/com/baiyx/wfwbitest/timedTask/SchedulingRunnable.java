@@ -37,7 +37,9 @@ public class SchedulingRunnable implements Runnable{
 
     @Override
     public void run() {
+        // 定时任务执行时,定时任务的日志信息输出放到了这里
         logger.info("定时任务开始执行 - bean：{}，方法：{}，参数：{}", beanName, methodName, params);
+
         long startTime = System.currentTimeMillis();
 
         try {
@@ -92,4 +94,5 @@ public class SchedulingRunnable implements Runnable{
 
         return Objects.hash(beanName, methodName, params);
     }
+
 }
