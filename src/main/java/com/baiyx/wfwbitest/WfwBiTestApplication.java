@@ -21,7 +21,7 @@ public class WfwBiTestApplication {
         // 启动打开默认浏览器访问
         try {
             Runtime.getRuntime().exec("cmd /c start http://localhost:9090/api/upload.html");
-            //Runtime.getRuntime().exec("cmd /c start http://192.168.119.129:9090/api/upload.html");
+            // Runtime.getRuntime().exec("cmd /c start http://192.168.119.129:9090/api/upload.html");
         } catch (Exception e) {
             e.printStackTrace();
         }
