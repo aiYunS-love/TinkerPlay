@@ -192,14 +192,15 @@ public class junitTest {
     }
 
     @Test
-    public void test12(){
+    public void test12() throws Exception{
         /** 方法一
          * fileName:Excel文件路径
          * StatrRow：读取的开始行数（默认填0）
          * EndRow：读取的结束行数（填-1为全部）
          * ExistTop:是否存在头部（如存在则读取数据时会把头部拼接到对应数据作为KEY，若无则KEY为当前列数）
          */
-        List<List<Map<String,Object>> >result = ReadExcelUtil.ReadExcelByRC("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1,true,"-1");
+        // List<List<Map<String,Object>> >result = ReadExcelUtil.ReadExcelByRC("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1,true,"-1");
+        List<List<Map<String,Object>> >result = ReadExcelUtil.ReadExcelByRC("D:\\Users\\lenovo\\Desktop\\每㎡大于10万-副本.xlsx",0,-1,true,"-1");
         System.out.println(result.size());
         System.out.println(result);
 
@@ -212,19 +213,9 @@ public class junitTest {
          * Class<T>：传过来的实体类类型
          */
         List<List<Object>> result2 = null;
-        try {
-            result2 = ReadExcelUtil.ReadExcelByPOJO("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1, ExcelPOJO.class,"-1");
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (IntrospectionException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
+
+            // result2 = ReadExcelUtil.ReadExcelByPOJO("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1, ExcelPOJO.class,"-1");
+            result2 = ReadExcelUtil.ReadExcelByPOJO("D:\\Users\\lenovo\\Desktop\\每㎡大于10万-副本.xlsx",0,-1, ExcelPOJO.class,"-1");
         System.out.println(result2.size());
         System.out.println(result2);
     }

@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.bean;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-13 上午 10:56
- * @Description: 备用的响应工具类
+ * @Description: 备用的响应类
  */
 public class RespBean {
 
