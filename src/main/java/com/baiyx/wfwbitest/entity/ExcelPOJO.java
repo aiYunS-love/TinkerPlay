@@ -14,36 +14,100 @@ import com.baiyx.wfwbitest.customAnnotations.excelRescoure;
 
 public class ExcelPOJO {
 
+    @excelRescoure(value = "业务号")
+    private String ywh;
+    @excelRescoure(value = "权利标识码")
+    private String qlbsm;
+    @excelRescoure(value = "区县代码")
+    private String qxdm;
+    @excelRescoure(value = "服务器编码")
+    private String fwqbm;
+    @excelRescoure(value = "抵押金额(万元)")
+    private String dyje;
+    @excelRescoure(value = "登簿时间")
+    private String dbsj;
+    @excelRescoure(value = "房屋面积㎡")
+    private String fwmj;
+    @excelRescoure(value = "土地使用权面积㎡")
+    private String tdsyqmj;
+
     public ExcelPOJO() {}
 
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public String getPasswork() {
-        return passwork;
-    }
-    public void setPasswork(String passwork) {
-        this.passwork = passwork;
-    }
-    public String getLook() {
-        return look;
-    }
-    public void setLook(String look) {
-        this.look = look;
+    public String getYwh() {
+        return ywh;
     }
 
-    @excelRescoure(value = "XM")
-    private  String name;
-    @excelRescoure(value = "SFZH")
-    private  String passwork;
-    @excelRescoure()
-    private  String look;
+    public void setYwh(String ywh) {
+        this.ywh = ywh;
+    }
+
+    public String getQlbsm() {
+        return qlbsm;
+    }
+
+    public void setQlbsm(String qlbsm) {
+        this.qlbsm = qlbsm;
+    }
+
+    public String getQxdm() {
+        return qxdm;
+    }
+
+    public void setQxdm(String qxdm) {
+        this.qxdm = qxdm;
+    }
+
+    public String getFwqbm() {
+        return fwqbm;
+    }
+
+    public void setFwqbm(String fwqbm) {
+        this.fwqbm = fwqbm;
+    }
+
+    public String getDyje() {
+        return dyje;
+    }
+
+    public void setDyje(String dyje) {
+        this.dyje = dyje;
+    }
+
+    public String getDbsj() {
+        return dbsj;
+    }
+
+    public void setDbsj(String dbsj) {
+        this.dbsj = dbsj;
+    }
+
+    public String getFwmj() {
+        return fwmj;
+    }
+
+    public void setFwmj(String fwmj) {
+        this.fwmj = fwmj;
+    }
+
+    public String getTdsyqmj() {
+        return tdsyqmj;
+    }
+
+    public void setTdsyqmj(String tdsyqmj) {
+        this.tdsyqmj = tdsyqmj;
+    }
 
     @Override
-    public String toString(){
-        return "name:"+this.getName()+",passwork:"+this.getPasswork()+",look:"+this.getLook();
+    public String toString() {
+        return "ExcelPOJO{" +
+                "ywh='" + ywh + '\'' +
+                ", qlbsm='" + qlbsm + '\'' +
+                ", qxdm='" + qxdm + '\'' +
+                ", fwqbm='" + fwqbm + '\'' +
+                ", dyje='" + dyje + '\'' +
+                ", dbsj='" + dbsj + '\'' +
+                ", fwmj='" + fwmj + '\'' +
+                ", tdsyqmj='" + tdsyqmj + '\'' +
+                '}';
     }
 }

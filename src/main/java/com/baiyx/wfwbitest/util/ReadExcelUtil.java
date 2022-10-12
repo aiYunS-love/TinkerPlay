@@ -115,9 +115,9 @@ public class ReadExcelUtil {
      *  HandleData函数数据读取实际操作的抽离部分
      * */
     private static List<List<Map<String, Object>>> ReadData(Workbook workbook, int StatrRow, int EndRow, boolean ExistTop,Integer[] SheetNumArray){
-        //声明返回结果集result
+        // 声明返回结果集result
         List<List<Map<String, Object>>> result = new ArrayList<>();
-        //声明一个Excel头部函数
+        // 声明一个Excel头部函数
         ArrayList<String> top = new ArrayList<>();
         for (int sheetNum = 0; sheetNum < SheetNumArray.length; sheetNum++) {
             //声明中间返回结果集result
@@ -127,7 +127,7 @@ public class ReadExcelUtil {
             if (sheet == null) {
                 continue;
             }
-            //如存在头部，处理头部数据
+            // 如存在头部，处理头部数据
             if (ExistTop) {
                 int firstRowNum = sheet.getFirstRowNum();
                 Row firstRow = sheet.getRow(firstRowNum);
@@ -193,7 +193,7 @@ public class ReadExcelUtil {
             logger.warn("输入的开始行值比结束行值大，请重新输入正确的行数");
             return null;
         }
-        if (SheetNum==null||SheetNum.isEmpty()||"".equals(SheetNum)){
+        if (SheetNum == null||SheetNum.isEmpty()||"".equals(SheetNum)){
             logger.warn("请输入需要读取的Sheet页数，页数从0开始");
             return null;
         }
@@ -386,7 +386,7 @@ public class ReadExcelUtil {
                     Field field = texcel.getClass().getDeclaredField((String) map.getValue());
                     String object = field.getGenericType().getTypeName();
                     if (object.endsWith("String")) {
-                        if (celldata!=null&&!"".equals(celldata)&&!celldata.isEmpty()){
+                        if (celldata != null && !"".equals(celldata) && !celldata.isEmpty()){
                             //执行set方法
                             method.invoke(texcel, celldata);
                         }
