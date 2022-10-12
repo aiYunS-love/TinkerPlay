@@ -5,6 +5,7 @@ import com.baiyx.wfwbitest.builderModel.JDBCConfig;
 import com.baiyx.wfwbitest.builderModel.JDBCConfig.JDBCBuilder;
 import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.ExcelPOJO;
+import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.util.*;
 import org.junit.Test;
@@ -144,9 +145,9 @@ public class junitTest {
     //测试resolveTokenUtil工具类解析token
     @Test
     public void test8() {
-        Map<String,Object> o = ResolveTokenUtil.resolveToken("Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY1OTk3NDY1MSwianRpIjoiNTYxNzZjYTgtMWY2Ni00MzUzLWEwMDktZTVlMWI1NzJhZmI5In0.mUaeLwj6HdLtyMy3hbducirjAGX8_kvOR-Qhlbu6dTqf_QqqefWhYKOxAfixjza39rKkJtF6rmad3zrmsxJD_FMnLbO6DcLuJ9CaluQ2liAsXtjFdd1dAfnNLfK5ZqKWjCc0GlaTCooPu6f0ajxT3kGfYXFyWm8Pj8Pi0CDJ8durd_iJZMfCmHwEZ-bBKLbPNnC1BnIqOdHwiE6-RyYzxnkc7m2_gBkFCBSioASUaWI7VAGcBE-9Wf29di6_WhqPgV0-uEJZAGtTZ7ih4sq5SJTqnGUUQHyOvdz77RIKaeSyRAY4aCG_A1s5ziYcq677qEiVMwzfn2kDxKyi8EWk2g");
+        TokenAccess tokenAccess = ResolveTokenUtil.resolveToken("Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY1OTk3NDY1MSwianRpIjoiNTYxNzZjYTgtMWY2Ni00MzUzLWEwMDktZTVlMWI1NzJhZmI5In0.mUaeLwj6HdLtyMy3hbducirjAGX8_kvOR-Qhlbu6dTqf_QqqefWhYKOxAfixjza39rKkJtF6rmad3zrmsxJD_FMnLbO6DcLuJ9CaluQ2liAsXtjFdd1dAfnNLfK5ZqKWjCc0GlaTCooPu6f0ajxT3kGfYXFyWm8Pj8Pi0CDJ8durd_iJZMfCmHwEZ-bBKLbPNnC1BnIqOdHwiE6-RyYzxnkc7m2_gBkFCBSioASUaWI7VAGcBE-9Wf29di6_WhqPgV0-uEJZAGtTZ7ih4sq5SJTqnGUUQHyOvdz77RIKaeSyRAY4aCG_A1s5ziYcq677qEiVMwzfn2kDxKyi8EWk2g");
         System.out.println("=========================================================");
-        System.out.println("测试解析Token = " + o);
+        System.out.println("测试解析Token = " + tokenAccess);
         System.out.println("=========================================================");
     }
 

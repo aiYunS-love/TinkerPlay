@@ -104,6 +104,6 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
   type-aliases-package: com/baiyx/wfwbitest/entity
-  # configuration:
+  configuration:
     # 打印SQL日志
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

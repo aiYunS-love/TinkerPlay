@@ -2,6 +2,7 @@ package com.baiyx.wfwbitest.util;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baiyx.wfwbitest.entity.TokenAccess;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.jwt.JwtHelper;
@@ -30,7 +31,7 @@ public class ResolveTokenUtil {
     private static String  keyFilePassword = "123456";
 
     //解析token
-    public static Map<String,Object> resolveToken(String idToken){
+    public static TokenAccess resolveToken(String idToken){
         if(StringUtils.isEmpty(idToken) || !idToken.startsWith("Bearer")){
             return null;
         }
@@ -44,14 +45,19 @@ public class ResolveTokenUtil {
         SignatureVerifier verifier = new RsaVerifier(publicKey);
         Jwt jwt = JwtHelper.decodeAndVerify(token, verifier);
         String content = jwt.getClaims();
-        Map<String,Object> tokenMap = new HashMap();
+        // Map<String,Object> tokenMap = new HashMap();
+        TokenAccess tokenAccess = new TokenAccess();
         JSONObject jsonObject =  JSON.parseObject(content);
         String user_id = jsonObject.getString("user_id");
         String username = jsonObject.getString("user_name");
         String staff_name = jsonObject.getString("user_nickname");
-        tokenMap.put("user_id",user_id);
-        tokenMap.put("username",username);
-        tokenMap.put("staff_name",staff_name);
-        return tokenMap;
+        tokenAccess.setUser_id(user_id);
+        tokenAccess.setUsername(username);
+        tokenAccess.setStaff_name(staff_name);
+//        tokenMap.put("user_id",user_id);
+//        tokenMap.put("username",username);
+//        tokenMap.put("staff_name",staff_name);
+//        return tokenMap;
+        return tokenAccess;
     }
 }
