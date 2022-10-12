@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 import com.alibaba.fastjson.JSON;
 import com.baiyx.wfwbitest.dao.ISysJobRepository;
-import com.baiyx.wfwbitest.timedTask.SchedulingRunnable;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;

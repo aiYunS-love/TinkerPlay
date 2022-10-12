@@ -17,6 +17,23 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 读取Excel内容所需的包 -->
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>4.0.1</version>
+        </dependency>
+        <!-- 使用CollectionUtils工具类判断集合是否为空的包 -->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.4</version>
+        </dependency>
         <!-- 使用org.apache.log4j.Logger所需,在org.slf4j也有Logger所需,注意区分 -->
         <dependency>
             <groupId>log4j</groupId>

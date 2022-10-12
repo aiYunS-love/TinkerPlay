@@ -4,18 +4,18 @@ import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
 import com.baiyx.wfwbitest.builderModel.JDBCConfig;
 import com.baiyx.wfwbitest.builderModel.JDBCConfig.JDBCBuilder;
 import com.baiyx.wfwbitest.dao.UserDao;
+import com.baiyx.wfwbitest.entity.ExcelPOJO;
 import com.baiyx.wfwbitest.entity.User;
-import com.baiyx.wfwbitest.util.DBUtil;
-import com.baiyx.wfwbitest.util.RowConvertColUtil;
-import com.baiyx.wfwbitest.util.ReadTXTtoJsonObjUtil;
-import com.baiyx.wfwbitest.util.ResolveTokenUtil;
+import com.baiyx.wfwbitest.util.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.beans.IntrospectionException;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -189,6 +189,44 @@ public class junitTest {
         //TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File("D:\\Users\\lenovo\\Desktop"),"nginx_BI.conf");
         TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File("E:\\"),"config.js");
         System.out.println("该文件路径在: " +filePath);
+    }
+
+    @Test
+    public void test12(){
+        /** 方法一
+         * fileName:Excel文件路径
+         * StatrRow：读取的开始行数（默认填0）
+         * EndRow：读取的结束行数（填-1为全部）
+         * ExistTop:是否存在头部（如存在则读取数据时会把头部拼接到对应数据作为KEY，若无则KEY为当前列数）
+         */
+        List<List<Map<String,Object>> >result = ReadExcelUtil.ReadExcelByRC("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1,true,"-1");
+        System.out.println(result.size());
+        System.out.println(result);
+
+        /**
+         * 方法二
+         * ReadExcelByPOJO(String fileName, int StatrRow, int EndRow, Class t)
+         * fileName:Excel文件路径
+         * StatrRow：读取的开始行数（默认填0）
+         * EndRow：读取的结束行数（填-1为全部）
+         * Class<T>：传过来的实体类类型
+         */
+        List<List<Object>> result2 = null;
+        try {
+            result2 = ReadExcelUtil.ReadExcelByPOJO("D:\\Users\\lenovo\\Desktop\\每㎡大于10万.xlsx",0,-1, ExcelPOJO.class,"-1");
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (IntrospectionException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+        System.out.println(result2.size());
+        System.out.println(result2);
     }
 
       //测试springboot框架集成rabbitmq消息中间件
