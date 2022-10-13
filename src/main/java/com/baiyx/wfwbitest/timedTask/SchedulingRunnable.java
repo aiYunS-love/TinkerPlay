@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.timedTask;
 
-import com.baiyx.wfwbitest.util.SpringContextUtils;
+import com.baiyx.wfwbitest.utils.SpringContextUtils;
 import org.slf4j.Logger;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.LoggerFactory;

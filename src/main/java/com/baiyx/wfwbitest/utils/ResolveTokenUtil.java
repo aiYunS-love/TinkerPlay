@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -13,8 +13,6 @@ import org.springframework.security.rsa.crypto.KeyStoreKeyFactory;
 
 import java.security.KeyPair;
 import java.security.interfaces.RSAPublicKey;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @Author: 白宇鑫

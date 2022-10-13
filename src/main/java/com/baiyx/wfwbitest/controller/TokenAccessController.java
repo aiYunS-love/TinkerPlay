@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.customAnnotations.WebLog;
 import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.service.TokenAccessService;
-import com.baiyx.wfwbitest.util.ResolveTokenUtil;
+import com.baiyx.wfwbitest.utils.ResolveTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

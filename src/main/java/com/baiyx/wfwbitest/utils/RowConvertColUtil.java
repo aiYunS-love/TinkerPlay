@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

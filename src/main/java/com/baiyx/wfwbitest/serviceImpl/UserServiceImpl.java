@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.service.UserService;
-import com.baiyx.wfwbitest.util.*;
+import com.baiyx.wfwbitest.utils.*;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

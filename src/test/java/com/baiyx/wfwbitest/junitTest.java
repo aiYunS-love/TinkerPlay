@@ -7,22 +7,23 @@ import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.ExcelPOJO;
 import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.entity.User;
-import com.baiyx.wfwbitest.util.*;
+import com.baiyx.wfwbitest.utils.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.beans.IntrospectionException;
 import java.io.File;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static com.baiyx.wfwbitest.utils.TokenCreateUtil.checkToken;
+import static com.baiyx.wfwbitest.utils.TokenCreateUtil.isJwtExpired;
 
 /**
  * @Author: 白宇鑫
@@ -229,6 +230,15 @@ public class junitTest {
             result2 = ReadExcelUtil.ReadExcelByPOJO("D:\\Users\\lenovo\\Desktop\\每㎡大于10万-副本.xlsx",0,-1, ExcelPOJO.class,"-1");
         System.out.println(result2.size());
         System.out.println(result2);
+    }
+
+    // 测试token生成工具类
+    @Test
+    public void test13() throws Exception{
+        String token = new TokenCreateUtil().token("admin","admin!@#$1234");
+        System.out.println(token);
+        checkToken(token);
+        System.out.println(isJwtExpired(token));
     }
 
       //测试springboot框架集成rabbitmq消息中间件

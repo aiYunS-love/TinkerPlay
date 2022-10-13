@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import com.alibaba.excel.EasyExcel;
 import com.baiyx.wfwbitest.entity.User;

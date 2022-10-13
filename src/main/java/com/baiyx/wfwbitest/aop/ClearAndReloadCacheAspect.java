@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.aop;
 import com.baiyx.wfwbitest.customAnnotations.ClearAndReloadCache;
 import com.baiyx.wfwbitest.entity.QueryRequestVo;
 import com.baiyx.wfwbitest.entity.User;
-import com.baiyx.wfwbitest.util.redisKeyUtil;
+import com.baiyx.wfwbitest.utils.redisKeyUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
@@ -15,7 +15,6 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
-import java.util.HashSet;
 import java.util.Set;
 
 /**

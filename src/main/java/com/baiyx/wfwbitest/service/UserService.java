@@ -1,8 +1,7 @@
 package com.baiyx.wfwbitest.service;
 
 import com.baiyx.wfwbitest.entity.*;
-import com.baiyx.wfwbitest.util.RowConvertColUtil;
-import org.springframework.stereotype.Service;
+import com.baiyx.wfwbitest.utils.RowConvertColUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
