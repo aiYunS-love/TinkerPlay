@@ -18,11 +18,11 @@ spring:
           url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
           username: root
           password: 19930218
-#        slave_1:
-#          driver-class-name: com.mysql.cj.jdbc.Driver
-#          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-#          username: sgtt
-#          password: Sgtt1215
+        slave_1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          username: sgtt
+          password: Sgtt1215
   # 文件上传功能开启
   servlet:
     multipart:
@@ -104,6 +104,6 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
   type-aliases-package: com/baiyx/wfwbitest/entity
-  # configuration:
+  configuration:
     # 打印SQL日志
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
