@@ -2,7 +2,7 @@ package com.baiyx.wfwbitest.decryptANDencry;
 
 import com.baiyx.wfwbitest.customAnnotations.Decrypt;
 import com.baiyx.wfwbitest.properties.EncryptProperties;
-import com.baiyx.wfwbitest.util.AESUtil;
+import com.baiyx.wfwbitest.utils.AESUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

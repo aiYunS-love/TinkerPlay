@@ -30,7 +30,7 @@
         select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
     </select>
 
-    <select id="RowConvertCol" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.util.RowConvertColUtil">
+    <select id="RowConvertCol" parameterType="com.baiyx.wfwbitest.entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.utils.RowConvertColUtil">
         select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
     </select>
 

@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

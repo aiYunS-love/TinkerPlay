@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;

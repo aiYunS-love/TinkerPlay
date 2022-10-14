@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;

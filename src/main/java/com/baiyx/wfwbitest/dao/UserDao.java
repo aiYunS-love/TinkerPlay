@@ -2,12 +2,11 @@ package com.baiyx.wfwbitest.dao;
 
 import com.baiyx.wfwbitest.entity.Projbase;
 import com.baiyx.wfwbitest.entity.User;
-import com.baiyx.wfwbitest.util.RowConvertColUtil;
+import com.baiyx.wfwbitest.utils.RowConvertColUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;

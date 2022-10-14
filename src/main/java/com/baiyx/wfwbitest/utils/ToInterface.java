@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.util;
+package com.baiyx.wfwbitest.utils;
 
 import com.baiyx.wfwbitest.controller.UserController;
 import org.apache.log4j.Logger;

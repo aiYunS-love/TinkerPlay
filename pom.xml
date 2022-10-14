@@ -17,6 +17,12 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- jwt工具 auth0 生成token -->
+        <dependency>
+            <groupId>com.auth0</groupId>
+            <artifactId>java-jwt</artifactId>
+            <version>3.10.0</version>
+        </dependency>
         <!-- 读取Excel内容所需的包 -->
         <dependency>
             <groupId>org.apache.poi</groupId>
