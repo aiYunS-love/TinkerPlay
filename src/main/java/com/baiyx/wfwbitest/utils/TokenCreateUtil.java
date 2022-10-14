@@ -32,7 +32,8 @@ public class TokenCreateUtil {
             //设置过期时间12个小时
             Calendar calendar = Calendar.getInstance();
             // Date now = calendar.getTime();
-            calendar.add(Calendar.MINUTE, 12*60);
+            // calendar.add(Calendar.MINUTE, 12*60);
+            calendar.add(Calendar.MINUTE, 1);
             Date expireDate = calendar.getTime();
             //秘钥以及加密算法
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
