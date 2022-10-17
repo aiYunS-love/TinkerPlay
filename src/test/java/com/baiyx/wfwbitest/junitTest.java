@@ -8,6 +8,7 @@ import com.baiyx.wfwbitest.entity.ExcelPOJO;
 import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.utils.*;
+import com.google.zxing.WriterException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -239,6 +241,24 @@ public class junitTest {
         System.out.println(token);
         checkToken(token);
         System.out.println(isJwtExpired(token));
+    }
+
+    // 测试二维码生成工具
+    @Test
+    public void test14() {
+        try {
+            QRCodeGenerator.generateQRCodeImage("maomiaomiao and ergougou ", 350, 350, "D:\\Users\\lenovo\\Desktop\\QRTest.png");
+        } catch (WriterException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 测试识别二维码图片工具类
+    @Test
+    public void test15() {
+        System.out.println(QRCodeUtils.deEncodeByPath("D:\\Users\\lenovo\\Desktop\\a.jpg"));
     }
 
       //测试springboot框架集成rabbitmq消息中间件

@@ -17,6 +17,12 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 生成二维码所需 -->
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>javase</artifactId>
+            <version>3.5.0</version>
+        </dependency>
         <!-- jwt工具 auth0 生成token -->
         <dependency>
             <groupId>com.auth0</groupId>
