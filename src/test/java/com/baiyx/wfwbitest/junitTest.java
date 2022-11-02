@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest;
 
+import com.baiyx.wfwbitest.dataStructure.Stack;
 import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
 import com.baiyx.wfwbitest.builderModel.JDBCConfig;
 import com.baiyx.wfwbitest.builderModel.JDBCConfig.JDBCBuilder;
@@ -259,6 +260,36 @@ public class junitTest {
     @Test
     public void test15() {
         System.out.println(QRCodeUtils.deEncodeByPath("D:\\Users\\lenovo\\Desktop\\a.jpg"));
+    }
+
+    // 测试栈的数据结构
+    @Test
+    public void test16() {
+
+        User u1 = new User("u1");
+        User u2 = new User("u2");
+        User u3 = new User("u3");
+        User u4 = new User("u4");
+        User u5 = new User("u5");
+        User u6 = new User("u6");
+
+        Stack s = new Stack();
+
+        // 元素压栈
+        s.push(u1);
+        s.push(u2);
+        s.push(u3);
+        s.push(u4);
+        s.push(u5);
+        s.push(u6);
+
+        //元素弹栈
+        s.pop();
+        s.pop();
+        s.pop();
+        s.pop();
+        s.pop();
+        s.pop();
     }
 
       //测试springboot框架集成rabbitmq消息中间件
