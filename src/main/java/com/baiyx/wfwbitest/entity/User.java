@@ -35,6 +35,11 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
+    // 测试用
+    public User(String username){
+        this.username = username;
+    }
+
     public int getId() {
         return id;
     }

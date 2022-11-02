@@ -157,7 +157,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @DS("slave_1")
+    // @DS("slave_1")
     public ResultMsg removeESC() {
         JSONObject[] jsonObjects = ReadTXTtoJsonObjUtil.readTXTtoObj("");
         List<Projbase> projbaseList = null;
