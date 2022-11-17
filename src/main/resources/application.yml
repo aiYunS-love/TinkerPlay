@@ -23,7 +23,7 @@ spring:
 #          url: jdbc:mysql://59.202.45.172:3306/bdcycsl?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
 #          username: sgtt
 #          password: Sgtt1215
-  # 自动升级数据库脚本
+  # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
   flyway:
     # 是否启用flyway
     enabled: true
