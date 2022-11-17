@@ -17,6 +17,12 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 服务启动时自动升级内置的SQL脚本 -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>8.0.5</version>
+        </dependency>
         <!-- 生成二维码所需 -->
         <dependency>
             <groupId>com.google.zxing</groupId>
@@ -217,6 +223,18 @@
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>7.7.3</version>
+                <configuration>
+                    <url>jdbc:mysql://localhost:3306/heima?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+                    </url>
+                    <user>root</user>
+                    <password>19930218</password>
+                    <driver>com.mysql.cj.jdbc.Driver</driver>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

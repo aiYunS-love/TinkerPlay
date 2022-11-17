@@ -4,6 +4,7 @@ import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
@@ -13,18 +14,18 @@ import org.springframework.context.annotation.Bean;
 
 //@EnableRabbit
 @EnableCaching
-@SpringBootApplication
+@SpringBootApplication(exclude = {FlywayAutoConfiguration.class})
 public class WfwBiTestApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(WfwBiTestApplication.class, args);
         // 启动打开默认浏览器访问
-        try {
-            Runtime.getRuntime().exec("cmd /c start http://localhost:9090/api/upload.html");
-            // Runtime.getRuntime().exec("cmd /c start http://192.168.119.129:9090/api/upload.html");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            Runtime.getRuntime().exec("cmd /c start http://localhost:9090/api/upload.html");
+//            // Runtime.getRuntime().exec("cmd /c start http://192.168.119.129:9090/api/upload.html");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     /*解决文件名中含有":\\"等特殊字符时，接口400的问题
