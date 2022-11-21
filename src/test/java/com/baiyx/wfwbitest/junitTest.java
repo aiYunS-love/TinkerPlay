@@ -199,6 +199,7 @@ public class junitTest {
         System.out.println(ReadTXTtoJsonObjUtil.readTXTtoObj(""));
     }
 
+    // 测试RecursiveAlgorithm工具类 递归搜索本机文件
     @Test
     public void test11(){
         //TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File("D:\\Users\\lenovo\\Desktop"),"nginx_BI.conf");
@@ -206,6 +207,7 @@ public class junitTest {
         System.out.println("该文件路径在: " +filePath);
     }
 
+    // 测试ReadExcelUtil工具类 读取excel 写入数据库
     @Test
     public void test12() throws Exception{
         /** 方法一
@@ -290,6 +292,16 @@ public class junitTest {
         s.pop();
         s.pop();
         s.pop();
+    }
+
+    // 测试HttpUtil和MacUtil工具类
+    @Test
+    public void test17() {
+        String addr = MacUtil.getAddress("2.0.1.57");
+        System.out.println(addr);
+        String addr1 = HttpUtil.doGet("https://www.1905.com/vod/?_t_t_t=0.6018394569400698");
+        System.out.println(addr1);
+
     }
 
       //测试springboot框架集成rabbitmq消息中间件
