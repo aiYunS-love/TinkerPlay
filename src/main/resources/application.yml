@@ -88,6 +88,9 @@ spring:
       max-active: 6000
       # 连接池最大阻塞等待时间（使用负值表示没有限制）
       max-wait: -1
+  # swagger新增
+  profiles:
+    active: dev
 #  rabbitmq:
 #    # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
 #    addresses: 192.168.119.129:5672
@@ -133,3 +136,11 @@ mybatis:
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# swagger 暂时注释 测试SwaggerConfig配置类
+#swagger:
+#  enable: true #是否开启swagger
+#  application-name: baiyx #项目应用名
+#  application-version: 3.0.0 #项目版本信息
+#  application-description: 小白Test #项目描述信息
+#  try-host: http://localhost:${server.port}/${context-path}/swagger-ui/index.html#/ #接口调试地址

@@ -9,6 +9,7 @@ import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.utils.ExcelUtil;
 import com.baiyx.wfwbitest.utils.RowConvertColUtil;
+import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -103,14 +104,15 @@ public class UserController {
 
     /*
     * @Author: 白宇鑫
-    * @Description: 测试HttpUtil和MacUtil工具类
+    * @Description: 测试HttpUtil和MacUtil工具类,Swagger测试
     * @Date: 2022-9-15 上午 10:32
     * @Param: QueryRequestVo
     * @return: User
     */
 
+    @ApiOperation("根据名字查询")
     @WebLog(description = "根据名字查询")
-    @RequestMapping(value = "findByName",method = RequestMethod.GET)
+    @RequestMapping(value = "findByName",method = RequestMethod.POST)
     public User findByName(@RequestBody QueryRequestVo queryRequestVo) {
         return UserService.findByName(queryRequestVo);
     }
@@ -199,6 +201,7 @@ public class UserController {
     public ResultMsg removeESC() {
         return UserService.removeESC();
     }
+
 
     @WebLog(description = "递归_文件搜索")
     @RequestMapping(value = "recursion", method = RequestMethod.GET)

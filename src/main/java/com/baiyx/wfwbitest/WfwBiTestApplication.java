@@ -11,8 +11,11 @@ import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import springfox.documentation.oas.annotations.EnableOpenApi;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 //@EnableRabbit
+@EnableOpenApi
 @EnableCaching
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class})
 public class WfwBiTestApplication {
