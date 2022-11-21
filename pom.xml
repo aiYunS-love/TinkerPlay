@@ -17,6 +17,28 @@
         <java.version>1.8</java.version>
     </properties>
     <dependencies>
+        <!-- 分页插件 -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.3.2</version>
+        </dependency>
+        <!-- swagger调试接口 -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <!-- 服务启动时自动升级内置的SQL脚本 -->
         <dependency>
             <groupId>org.flywaydb</groupId>
@@ -215,6 +237,7 @@
             <resource>
                 <directory>src/main/resources/mapper</directory>
                 <includes>
+                    <include>**/*.yml</include>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
@@ -249,4 +272,16 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <!-- 为swagger新增 -->
+        <profile>
+            <id>dev</id>
+            <properties>
+                <spring.profiles.active>dev</spring.profiles.active>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+        </profile>
+    </profiles>
 </project>

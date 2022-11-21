@@ -60,7 +60,7 @@ public class HttpUtil {
     /**
      * post方式提交表单（模拟用户登录请求）
      */
-    public String postForm(String url,Map<String,String> params) {
+    public static String postForm(String url,Map<String,String> params) {
         // 创建默认的httpClient实例.
         CloseableHttpClient httpclient = HttpClients.createDefault();
         HttpPost httppost = new HttpPost(url);

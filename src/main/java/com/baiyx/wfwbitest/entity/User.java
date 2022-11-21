@@ -2,6 +2,7 @@ package com.baiyx.wfwbitest.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,6 +16,7 @@ import java.util.Date;
  * @Description: user实体类
  */
 
+@ApiModel("用户实体类")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
