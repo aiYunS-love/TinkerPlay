@@ -29,11 +29,14 @@ import java.util.regex.Pattern;
  */
 public class HttpUtil {
     public static String doGet(String url){
+
         CloseableHttpClient httpclient = HttpClients.createDefault();
         CloseableHttpResponse response = null;
         HttpGet request = new HttpGet(url);
+
         // 爬虫伪装成浏览,设置成浏览器的请求头信息
         request.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36");
+//
 //        //判断入参url是地址还是ip
 //        boolean isIP = isCorrectIp(url);
 //        if(!isIP){
@@ -41,6 +44,7 @@ public class HttpUtil {
 //            RequestConfig config = RequestConfig.custom().setProxy(proxy).build();
 //            request.setConfig(config);
 //        }
+
         try {
             // HttpGet httpget = new HttpGet(url);
             // System.out.println("executing request " + httpget.getURI());
