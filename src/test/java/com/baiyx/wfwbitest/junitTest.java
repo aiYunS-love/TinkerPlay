@@ -10,17 +10,16 @@ import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.entity.User;
 import com.baiyx.wfwbitest.utils.*;
 import com.google.zxing.WriterException;
+import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 
 import javax.net.ssl.SSLContext;
@@ -31,6 +30,7 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.*;
 import java.io.*;
+import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.cert.X509Certificate;
@@ -431,6 +431,26 @@ public class junitTest {
                 ("Added certificate to keystore 'jssecacerts' using alias '"
                         + alias + "'");
 
+    }
+
+    // 测试Sm2工具类,测试Sm2加解密
+    @Test
+    public void test18()throws Exception{
+        KeyPair keyPair = Sm2Utils.generateSm2KeyPair();
+        String privateKey = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
+        String publicKey  = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
+        String data = "{\"daId\":\"123456\"}";
+        String encryptedJsonStr =  Hex.encodeHexString(Sm2Utils.encrypt(data, publicKey)) + "";//16进制字符串
+        String decryptedJsonStr = Sm2Utils.decrypt(Hex.decodeHex(encryptedJsonStr), privateKey);
+        String sign = Hex.encodeHexString(Base64.getDecoder().decode(Sm2Utils.sign(data, privateKey)));
+        boolean flag = Sm2Utils.verify(Hex.encodeHexString(data.getBytes()), sign, publicKey);
+        System.out.println("base64后privateKey:" + privateKey);
+        System.out.println("base64后publicKey:" + publicKey);
+        System.out.println("加密前数据:" + data);
+        System.out.println("公钥加密后16进制字符串:" + encryptedJsonStr);
+        System.out.println("私钥解密后数据：" + decryptedJsonStr);
+        System.out.println("私钥加签后数据(16进制)：" + sign);
+        System.out.println("公钥验签结果：" + flag);
     }
 
       //测试springboot框架集成rabbitmq消息中间件

@@ -31,9 +31,9 @@ public class UserServiceImpl implements UserService {
     // @DS("slave_1")
     public List<User> findAll() {
         List<User> users = UserDao.findAll();
-        System.out.println("=============测试定时任务查询信息并且输出开始==============");
-        System.out.println("users" + users);
-        System.out.println("=============测试定时任务查询信息并且输出结束==============");
+//        System.out.println("=============测试定时任务查询信息并且输出开始==============");
+//        System.out.println("users" + users);
+//        System.out.println("=============测试定时任务查询信息并且输出结束==============");
         return users;
     }
 
