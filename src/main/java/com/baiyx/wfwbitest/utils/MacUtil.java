@@ -107,7 +107,7 @@ public class MacUtil {
         byte[] mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
         // 以下代码仅用于测试,因为省厅内网环境,做了映射,无法获取getHardwareAddress,报错控制针,临时测试加上,写死了本机的物理IP
         if(mac == null){
-            InetAddress address = InetAddress.getByName("2.0.1.64");
+            InetAddress address = InetAddress.getByName("2.0.1.57");
             //InetAddress address = InetAddress.getByName("192.168.119.129");
             mac = NetworkInterface.getByInetAddress(address).getHardwareAddress();
         }

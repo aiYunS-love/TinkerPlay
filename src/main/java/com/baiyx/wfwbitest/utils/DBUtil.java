@@ -7,10 +7,7 @@ package com.baiyx.wfwbitest.utils;
  */
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -37,7 +34,7 @@ public class DBUtil {
 
             // 利用properties将jdbc.properties配置文件转换成字节输入流再加载到properties中
             // 利用当前线程获取类加载器,利用类加载器将配置文件加载到properties中
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("db.properties");
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("db2.properties");
 
             // 将配置文件加载到properties
             p.load(in);
@@ -139,6 +136,49 @@ public class DBUtil {
                 } catch (SQLException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    public static void release(Connection conn, Statement statement, PreparedStatement preparedStatement, ResultSet rs) {
+
+        // 5.释放资源 顺序 先释放小的再释放大的
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } finally {
+                try {
+                    if (statement!= null) {
+                        statement.close();
+                    }
+
+                } catch (SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        if(conn != null){
+                            conn.close();
+                        }
+
+                    } catch (SQLException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }
             }
         }
