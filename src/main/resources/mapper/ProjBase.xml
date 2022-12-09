@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.baiyx.wfwbitest.dao.ProjBaseDao">
+
+    <select id="CountProjbase" resultType="long">
+        select count(*) from projbase
+    </select>
+
+    <select id="readProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.entity.Projbase">
+        select jsonObj,gmtApply,cjsj from projbase limit #{start} , #{end}
+    </select>
+
+    <insert id="writeProjbaseException" parameterType="list" useGeneratedKeys="false">
+        insert into projbase_exception(projId,cjsj,projectName,applyName,applyCardNo,qxdm,recvUserName,recvUserId,recvDeptCode,faceValidationResult) values
+        <foreach collection="list" item="ProjbaseException" separator=",">
+            (#{ProjbaseException.projId},#{ProjbaseException.cjsj},#{ProjbaseException.projectName},#{ProjbaseException.applyName},#{ProjbaseException.applyCardNo},#{ProjbaseException.qxdm},#{ProjbaseException.recvUserName},#{ProjbaseException.recvUserId},#{ProjbaseException.recvDeptCode},#{ProjbaseException.faceValidationResult})
+        </foreach>
+    </insert>
+
+</mapper>
