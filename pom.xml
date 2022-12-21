@@ -58,11 +58,18 @@
             <version>3.0.0</version>
         </dependency>
         <!-- 服务启动时自动升级内置的SQL脚本 -->
+        <!-- 支持低数据库5.7版本 -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>8.0.5</version>
+            <version>7.7.3</version>
         </dependency>
+        <!-- 支持高数据库8版本 -->
+<!--        <dependency>-->
+<!--            <groupId>org.flywaydb</groupId>-->
+<!--            <artifactId>flyway-core</artifactId>-->
+<!--            <version>8.0.5</version>-->
+<!--        </dependency>-->
         <!-- 生成二维码所需 -->
         <dependency>
             <groupId>com.google.zxing</groupId>
