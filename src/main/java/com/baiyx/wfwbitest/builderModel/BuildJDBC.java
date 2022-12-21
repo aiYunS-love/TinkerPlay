@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
  * @Description: JDBC配置类: host、port、user、password、database是必选参数，其他都非必须，有默认值
  *               为了避免构造函数参数爆炸，所以使用构建者模式
  */
-public class JDBCConfig {
+public class BuildJDBC {
 
     private String host;//IP
     private int port;//端口
@@ -24,7 +24,7 @@ public class JDBCConfig {
     private int connectTimeout;//连接超时时长
     private int socketTimeout;//客户端从服务器读取数据的超时时长
 
-    public JDBCConfig(JDBCBuilder jdbcBuilder) {
+    public BuildJDBC(JDBCBuilder jdbcBuilder) {
         this.host = jdbcBuilder.host;
         this.port = jdbcBuilder.port;
         this.user = jdbcBuilder.user;
@@ -42,7 +42,7 @@ public class JDBCConfig {
 
     @Override
     public String toString() {
-        return "JDBCConfig{" +
+        return "BuildJDBC{" +
                 "host='" + host + '\'' +
                 ", port=" + port +
                 ", user='" + user + '\'' +
@@ -80,7 +80,7 @@ public class JDBCConfig {
         private int connectTimeout = 1800;
         private int socketTimeout = 1800;
 
-        public JDBCConfig JDBCBuild(){
+        public BuildJDBC JDBCBuild(){
             if (StringUtils.isBlank(host)) {
                 throw new IllegalArgumentException("host不能为空!");
             }
@@ -96,7 +96,7 @@ public class JDBCConfig {
             if (StringUtils.isBlank(database)) {
                 throw new IllegalArgumentException("database不能为空!");
             }
-            return new JDBCConfig(this);
+            return new BuildJDBC(this);
         }
 
         public JDBCBuilder setHost(String host) {

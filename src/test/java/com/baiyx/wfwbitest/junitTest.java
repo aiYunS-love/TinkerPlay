@@ -2,19 +2,22 @@ package com.baiyx.wfwbitest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baiyx.wfwbitest.builderModel.BuildJDBC;
 import com.baiyx.wfwbitest.dao.ProjBaseDao;
 import com.baiyx.wfwbitest.dataStructure.Stack;
 import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
-import com.baiyx.wfwbitest.builderModel.JDBCConfig;
-import com.baiyx.wfwbitest.builderModel.JDBCConfig.JDBCBuilder;
+import com.baiyx.wfwbitest.builderModel.BuildJDBC;
+import com.baiyx.wfwbitest.builderModel.BuildJDBC.JDBCBuilder;
 import com.baiyx.wfwbitest.dao.UserDao;
 import com.baiyx.wfwbitest.entity.ExcelPOJO;
 import com.baiyx.wfwbitest.entity.ProjbaseException;
 import com.baiyx.wfwbitest.entity.TokenAccess;
 import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.thread.AddAndCount;
 import com.baiyx.wfwbitest.utils.*;
 import com.google.zxing.WriterException;
 import lombok.Cleanup;
+import lombok.var;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -114,7 +117,7 @@ public class junitTest {
     //构建者模式构建复杂对象之JDBC配置类对象
     @Test
     public void test4(){
-        JDBCConfig jdbcConfig = new JDBCBuilder().setHost("192.168.119.129")
+        BuildJDBC BuildJDBC = new JDBCBuilder().setHost("127.0.0.1")
                 .setPort(3306)
                 .setUser("root")
                 .setPassword("19930218")
@@ -122,7 +125,7 @@ public class junitTest {
                 .setCharacterEncoding("utf8")
                 .setInitialTimeout(6000)
                 .JDBCBuild();
-        System.out.println("jdbcConfig = " + jdbcConfig);
+        System.out.println("jdbcConfig = " + BuildJDBC);
     }
 
     //测试JDBC工具类JDBCUtils
