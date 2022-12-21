@@ -1,7 +1,6 @@
 package com.baiyx.wfwbitest.config;
 
 import org.flywaydb.core.Flyway;
-import org.flywaydb.core.FlywayExecutor;
 import org.flywaydb.core.api.FlywayException;
 import org.flywaydb.core.api.configuration.ClassicConfiguration;
 import org.slf4j.Logger;

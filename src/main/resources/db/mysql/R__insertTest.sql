@@ -1,0 +1,1 @@
+INSERT INTO user_role(UID) VALUES(unix_timestamp(current_timestamp(3)));
