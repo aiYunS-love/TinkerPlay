@@ -62,7 +62,7 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
-            <version>7.7.3</version>
+            <version>7.15.0</version>
         </dependency>
         <!-- 支持高数据库8版本 -->
 <!--        <dependency>-->

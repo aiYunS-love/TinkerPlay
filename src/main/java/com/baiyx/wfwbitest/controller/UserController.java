@@ -12,6 +12,7 @@ import com.baiyx.wfwbitest.utils.RowConvertColUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.stereotype.Component;
@@ -44,12 +45,13 @@ public class UserController {
      *              测试@WebLog自定义日志打印的注解
      *              测试自定义定时任务功能
      *              测试Springboot框架自带的定时任务注解 @EnableScheduling @EnableAsync @Async @Scheduled
+     *              测试@Async多线程异步调用
     * @Date: 2021/6/30 上午 11:43
     * @Param:  
     * @return: java.util.List<com.baiyx.wfwbitest.entity.user> 
     */
-    // @Async
     // @Scheduled(fixedDelay = 30000)  //间隔1秒
+    // @Async
     @WebLog(description = "查询所有")
     @RequestMapping(value = "findAll")
     public List<User> findAll(){
