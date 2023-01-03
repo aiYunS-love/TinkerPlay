@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.redis;
+package com.baiyx.wfwbitest.config;
 
 import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
