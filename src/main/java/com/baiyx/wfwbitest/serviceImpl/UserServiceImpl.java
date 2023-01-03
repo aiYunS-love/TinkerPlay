@@ -7,7 +7,9 @@ import com.baiyx.wfwbitest.entity.*;
 import com.baiyx.wfwbitest.service.UserService;
 import com.baiyx.wfwbitest.utils.*;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import java.util.*;
  * @Date: 2021/6/30 上午 11:32
  * @Description:
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -29,6 +32,7 @@ public class UserServiceImpl implements UserService {
     //测试多数据源配置注解@DS
     @Override
     // @DS("slave_1")
+    @Async("asyncServiceExecutor")
     public List<User> findAll() {
         List<User> users = UserDao.findAll();
 //        System.out.println("=============测试定时任务查询信息并且输出开始==============");

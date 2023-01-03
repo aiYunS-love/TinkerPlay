@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.rabbitmq;
+package com.baiyx.wfwbitest.config;
 
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
