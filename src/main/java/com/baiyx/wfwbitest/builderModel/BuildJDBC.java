@@ -66,6 +66,7 @@ public class BuildJDBC {
       静态内部类的对象可以直接生成： 而不需要通过生成外部 类对象 来生成。
      */
     public static class JDBCBuilder {
+
         private String host;
         private int port;
         private String user;

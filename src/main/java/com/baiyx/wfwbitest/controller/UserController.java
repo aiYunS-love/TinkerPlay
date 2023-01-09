@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -51,11 +52,13 @@ public class UserController {
     * @return: java.util.List<com.baiyx.wfwbitest.entity.user> 
     */
     // @Scheduled(fixedDelay = 30000)  //间隔1秒
-    // @Async
+    @Async
     @WebLog(description = "查询所有")
     @RequestMapping(value = "findAll")
     public List<User> findAll(){
-        return UserService.findAll();
+        System.out.println("测试定时任务返回: " + UserService.findAll());
+        List<User> users = UserService.findAll();
+        return users;
     }
 
     /***

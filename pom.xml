@@ -19,8 +19,38 @@
         <docker.image.prefix>baiyx</docker.image.prefix>
         <!--docker仓库地址-->
         <docker.repostory>192.168.119.129:2375</docker.repostory>
+        <!--自定义yml变量符号-->
+        <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+<!--        &lt;!&ndash; 注册中心 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
+<!--            <version>3.1.4</version>-->
+<!--            &lt;!&ndash; 排除servlet和tomcat相关的包 &ndash;&gt;-->
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>javax.servlet</groupId>-->
+<!--                    <artifactId>servlet-api</artifactId>-->
+<!--                </exclusion>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.apache.tomcat.embed</groupId>-->
+<!--                    <artifactId>tomcat-embed-core</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-context</artifactId>-->
+<!--            <version>3.1.5</version>-->
+<!--        </dependency>-->
+        <!--阿波罗-->
+        <dependency>
+            <groupId>com.ctrip.framework.apollo</groupId>
+            <artifactId>apollo-client</artifactId>
+            <version>2.0.1</version>
+        </dependency>
         <!-- byte[]和16进制字符串之间的转换 -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -172,6 +202,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.25</version>
         </dependency>
         <!-- 常用工具类jar包 -->
         <dependency>
@@ -262,16 +293,31 @@
     </dependencies>
 
     <build>
+        <!--指定打包后的finalName-->
+        <finalName>${project.artifactId}</finalName>
         <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
             <resource>
                 <directory>src/main/resources/mapper</directory>
                 <includes>
-                    <include>**/*.yml</include>
                     <include>**/*.xml</include>
                 </includes>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <targetPath>/ROOT</targetPath>
+                <!--用于指定需要复制的跟目录 此处配置的${project.build.directory}是 即对应 target 目录-->
+                <directory>${project.build.directory}</directory>
+<!--                &lt;!&ndash; 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　&ndash;&gt;-->
+<!--                <include>${project.build.finalName}.jar</include>-->
             </resource>
         </resources>
         <plugins>
@@ -291,19 +337,24 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <!--Spring Boot 2.3.0以后版本制作Docker镜像需添加此配置-->
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
-            <!--镜像启动插件-->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+<!--            &lt;!&ndash;镜像启动插件&ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
             <!--配置部署到远程docker中-->
             <!--一键部署-->
             <plugin>
@@ -330,15 +381,6 @@
                     <entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
                     <!--指定远程 docker api地址-->
                     <dockerHost>http://192.168.119.129:2375</dockerHost>
-                    <resources>
-                        <resource>
-                            <targetPath>/ROOT</targetPath>
-                            <!--用于指定需要复制的跟目录 此处配置的${project.build.directory}是 即对应 target 目录-->
-                            <directory>${project.build.directory}</directory>
-                            <!-- 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　-->
-                            <include>${project.build.finalName}.jar</include>
-                        </resource>
-                    </resources>
                 </configuration>
             </plugin>
         </plugins>
@@ -346,12 +388,13 @@
     <profiles>
         <!-- 为swagger新增 -->
         <profile>
+            <!-- windows环境 -->
             <id>dev</id>
             <properties>
                 <spring.profiles.active>dev</spring.profiles.active>
             </properties>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
         </profile>
     </profiles>
