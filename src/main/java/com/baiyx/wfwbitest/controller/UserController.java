@@ -12,9 +12,11 @@ import com.baiyx.wfwbitest.utils.RowConvertColUtil;
 import io.swagger.annotations.ApiOperation;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +24,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 /**
  * @Author: 白宇鑫
@@ -44,18 +48,41 @@ public class UserController {
      *              测试RedisCacheConfig缓存管理器
      *              测试@WebLog自定义日志打印的注解
      *              测试自定义定时任务功能
-     *              测试Springboot框架自带的定时任务注解 @EnableScheduling @EnableAsync @Async @Scheduled
+     *              测试Springboot框架自带的定时任务注解 @EnableScheduling @Scheduled
      *              测试@Async多线程异步调用
     * @Date: 2021/6/30 上午 11:43
     * @Param:  
     * @return: java.util.List<com.baiyx.wfwbitest.entity.user> 
     */
     // @Scheduled(fixedDelay = 30000)  //间隔1秒
-    // @Async
+    // @Async //开启异步这里会导致controller层返回为null;
     @WebLog(description = "查询所有")
     @RequestMapping(value = "findAll")
     public List<User> findAll(){
-        return UserService.findAll();
+        List<User> users = UserService.findAll();
+        return users;
+    }
+    /***
+     * @Author: 白宇鑫
+     * @Description: 测试多线程异步及其注解@Async @EnableAsync
+     *               UserServiceImpl层开启异步,结果封装到Future类返回
+     * @Date: 2023-1-11 10:13
+     * @Param:
+     * @return: java.util.List<com.baiyx.wfwbitest.entity.User>
+     */
+    @WebLog(description = "查询所有_测试多线程返回结果")
+    @RequestMapping(value = "findAll2")
+    public List<User> findAll2(){
+        Future<List<User>> users = UserService.findAll2();
+        try {
+            System.out.println("测试定时任务返回: " + users.get());
+            return users.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /***

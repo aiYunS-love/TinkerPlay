@@ -6,6 +6,10 @@
         select * from user;
     </select>
 
+    <select id="findAll2" resultType="com.baiyx.wfwbitest.entity.User">
+        select * from user;
+    </select>
+
     <insert id="insertOne" parameterType="com.baiyx.wfwbitest.entity.User">
         insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
     </insert>

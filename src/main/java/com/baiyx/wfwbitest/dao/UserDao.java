@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.Cacheable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
 
 /**
  * @Author: 白宇鑫
@@ -22,8 +23,11 @@ public interface UserDao {
 
     // 查
     // @Cacheable(cacheNames = "findAll",cacheManager = "cacheManager")
-    @Cacheable(cacheManager = "cacheManager")
+    @Cacheable
     List<User> findAll();
+
+    @Cacheable
+    List<User> findAll2();
 
     // 增
     void insertOne(User user);

@@ -24,7 +24,7 @@ public interface ProjBaseDao {
     Long CountProjbase();
 
     // 循环查询,每次查询固定的条数
-    @DS("slave_1")
+     @DS("slave_1")
     List<Projbase> readProjbase(Map map);
 
     // 写入数据

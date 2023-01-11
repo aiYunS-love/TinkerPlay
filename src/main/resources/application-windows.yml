@@ -1,9 +1,15 @@
+# windows环境配置文件
 server:
-  port: 9090
+  port: 9092
   servlet:
     context-path: /api
+#    tomcat:
+#      basedir: E:\baiyx\Temp
 
 spring:
+  application:
+    name: wfwbitest
+    version: 1.0.0
   datasource:
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
@@ -13,36 +19,40 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          # 如果docker镜像部署的话,需要写实际的IP
-          url: jdbc:mysql://192.168.119.129:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
           username: root
           password: 19930218
-  # flyway:
+        slave_1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          username: root
+          password: 19930218
+  # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
+  flyway:
     # 是否启用flyway
-    # enabled: true
+    enabled: true
     # flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉。这个默认值是 false 理论上作为默认配置是不科学的。
-    # clean-disabled: true
+    clean-disabled: true
     # 编码格式，默认UTF-8
-    # encoding: UTF-8
+    encoding: UTF-8
     # 迁移sql脚本文件存放路径，默认db/mysql
-    # locations: classpath:db/mysql
+    locations: classpath:db/mysql
     # 迁移sql脚本文件名称的前缀，默认V
-    # sql-migration-prefix: R
+    sql-migration-prefix: V
     # 迁移sql脚本文件名称的分隔符，默认2个下划线__
-    # sql-migration-separator: __
+    sql-migration-separator: __
     # 迁移sql脚本文件名称的后缀
-    # sql-migration-suffixes: .sql
+    sql-migration-suffixes: .sql
     # 迁移时是否进行校验，默认true
-    # validate-on-migrate: true
+    validate-on-migrate: true
     # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表
-    # baseline-on-migrate: true
+    baseline-on-migrate: true
     # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略
-    # baseline-version: 1
+    baseline-version: 1
     # 是否允许不按顺序迁移 开发建议 true  生产建议 false
-    # out-of-order: false
+    out-of-order: false
     # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
-    # schemas: heima
-
+    schemas: heima
   # 文件上传功能开启
   servlet:
     multipart:
@@ -51,8 +61,8 @@ spring:
       # 文件写入磁盘的阈值，默认为0
       file-size-threshold: 0
       # 上传文件的临时保存位置
-      location: /Test/Temp
-      # location: E:\baiyx\Temp
+      # location: /Test/Temp
+      location: E:\baiyx\Temp
       # 上传的单个文件的最大大小，默认为1MB
       max-file-size: 5MB
       # 多文件上传时文件的总大小，默认为10MB
@@ -65,12 +75,11 @@ spring:
     #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
     # 非集群使用
     port: 6379
-    # 如果docker镜像部署的话,需要写实际的IP
-    host: 192.168.119.129
+    host: 127.0.0.1
     # host: 192.168.119.129
     # 密码
     # password: b0650fa
-    password: b0650fa
+    password:
     timeout: 60000 #连接超时时间（毫秒）
     # 缓存配置
     cache:
@@ -83,6 +92,11 @@ spring:
       max-active: 6000
       # 连接池最大阻塞等待时间（使用负值表示没有限制）
       max-wait: -1
+  # swagger新增,激活某个固定后缀的yml配置文件
+  profiles:
+#    active: dev
+    default:
+      active:
 #  rabbitmq:
 #    # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
 #    addresses: 192.168.119.129:5672
@@ -115,16 +129,36 @@ spring:
 body:
   encrypt:
     key: iamwalkerencrypt
-    
+
 # 文件上传位置
-file-save-path: /Test/uploadFile/
-# file-save-path: E:\baiyx\uploadFile\
+# file-save-path: /Test/uploadFile/
+file-save-path: E:\baiyx\uploadFile\
 
 mybatis:
   #映射的xml的sql文件路径
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
   type-aliases-package: com/baiyx/wfwbitest/entity
-  # configuration:
+  configuration:
     # 打印SQL日志
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 注册中心
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://admin:246d494b-3cca-11e8-8ef7-2c4d54f01ba4@127.0.0.1:9000/eureka/
+
+# swagger 暂时注释 测试SwaggerConfig配置类
+#swagger:
+#  enable: true #是否开启swagger
+#  application-name: baiyx #项目应用名
+#  application-version: 3.0.0 #项目版本信息
+#  application-description: 小白Test #项目描述信息
+#  try-host: http://localhost:${server.port}/${context-path}/swagger-ui/index.html#/ #接口调试地址

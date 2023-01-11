@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Future;
 
 /**
  * @Author: 白宇鑫
@@ -23,6 +24,8 @@ public interface UserService {
     * @return: java.util.List<com.baiyx.wfwbitest.entity.user>
     */
     List<User> findAll();
+
+    Future<List<User>> findAll2();
 
     // 增
     R insertOne(User user);

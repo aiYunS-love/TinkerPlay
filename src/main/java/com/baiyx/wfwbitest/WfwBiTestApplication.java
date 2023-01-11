@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest;
 
+import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,10 +12,16 @@ import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-//@EnableRabbit
+// @EnableRabbit
+// @EnableApolloConfig //Apollo配置项
+// @EnableDiscoveryClient //注册中心
+// @EnableScheduling
+@EnableAsync
 @EnableOpenApi
 @EnableCaching
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class})
