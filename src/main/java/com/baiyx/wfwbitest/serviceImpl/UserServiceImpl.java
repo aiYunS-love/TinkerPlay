@@ -10,12 +10,14 @@ import com.baomidou.dynamic.datasource.annotation.DS;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.Future;
 
 /**
  * @Author: 白宇鑫
@@ -32,13 +34,25 @@ public class UserServiceImpl implements UserService {
     //测试多数据源配置注解@DS
     @Override
     // @DS("slave_1")
-    @Async("asyncServiceExecutor")
+    // @Async("asyncServiceExecutor") //开启这里会导致controller层返回为null;
     public List<User> findAll() {
         List<User> users = UserDao.findAll();
 //        System.out.println("=============测试定时任务查询信息并且输出开始==============");
 //        System.out.println("users" + users);
 //        System.out.println("=============测试定时任务查询信息并且输出结束==============");
         return users;
+    }
+
+    @Override
+    // @DS("slave_1")
+    @Async("asyncServiceExecutor") //开启异步,需要把返回结果封装到AsyncResult类中;
+    public Future<List<User>> findAll2() {
+        List<User> users = UserDao.findAll2();
+//        System.out.println("=============测试定时任务查询信息并且输出开始==============");
+//        System.out.println("users" + users);
+//        System.out.println("=============测试定时任务查询信息并且输出结束==============");
+        System.out.println("线程: " + Thread.currentThread().getName());
+        return new AsyncResult<>(users);
     }
 
     @Override
