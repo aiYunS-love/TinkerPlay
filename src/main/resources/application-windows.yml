@@ -22,11 +22,11 @@ spring:
           url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
           username: root
           password: 19930218
-#        slave_1:
-#          driver-class-name: com.mysql.cj.jdbc.Driver
-#          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-#          username: root
-#          password: 19930218
+        slave_1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          username: root
+          password: 19930218
   # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
   flyway:
     # 是否启用flyway

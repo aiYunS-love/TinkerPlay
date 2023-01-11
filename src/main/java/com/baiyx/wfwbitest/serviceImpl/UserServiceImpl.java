@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    // @DS("slave_1")
     @Async("asyncServiceExecutor") //开启异步,需要把返回结果封装到AsyncResult类中;
     public Future<List<User>> findAll2() {
         List<User> users = UserDao.findAll2();
