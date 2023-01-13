@@ -2,22 +2,19 @@ package com.baiyx.wfwbitest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baiyx.wfwbitest.builderModel.BuildJDBC;
-import com.baiyx.wfwbitest.dao.ProjBaseDao;
-import com.baiyx.wfwbitest.dataStructure.Stack;
-import com.baiyx.wfwbitest.algorithm.RecursiveAlgorithm;
-import com.baiyx.wfwbitest.builderModel.BuildJDBC;
-import com.baiyx.wfwbitest.builderModel.BuildJDBC.JDBCBuilder;
-import com.baiyx.wfwbitest.dao.UserDao;
-import com.baiyx.wfwbitest.entity.ExcelPOJO;
-import com.baiyx.wfwbitest.entity.ProjbaseException;
-import com.baiyx.wfwbitest.entity.TokenAccess;
-import com.baiyx.wfwbitest.entity.User;
-import com.baiyx.wfwbitest.thread.AddAndCount;
-import com.baiyx.wfwbitest.utils.*;
+import com.baiyx.wfwbitest.BuilderModel.BuildJDBC;
+import com.baiyx.wfwbitest.Dao.ProjBaseDao;
+import com.baiyx.wfwbitest.DataStructure.Stack;
+import com.baiyx.wfwbitest.Algorithm.RecursiveAlgorithm;
+import com.baiyx.wfwbitest.BuilderModel.BuildJDBC.JDBCBuilder;
+import com.baiyx.wfwbitest.Dao.UserDao;
+import com.baiyx.wfwbitest.Entity.ExcelPOJO;
+import com.baiyx.wfwbitest.Entity.ProjbaseException;
+import com.baiyx.wfwbitest.Entity.TokenAccess;
+import com.baiyx.wfwbitest.Entity.User;
+import com.baiyx.wfwbitest.Utils.*;
 import com.google.zxing.WriterException;
 import lombok.Cleanup;
-import lombok.var;
 import org.apache.commons.codec.binary.Hex;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,8 +47,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static com.baiyx.wfwbitest.utils.TokenCreateUtil.checkToken;
-import static com.baiyx.wfwbitest.utils.TokenCreateUtil.isJwtExpired;
+import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.checkToken;
+import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
 
 /**
  * @Author: 白宇鑫

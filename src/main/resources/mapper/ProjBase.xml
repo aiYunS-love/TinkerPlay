@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.wfwbitest.dao.ProjBaseDao">
+<mapper namespace="com.baiyx.wfwbitest.Dao.ProjBaseDao">
 
     <select id="CountProjbase" resultType="long">
         select count(*) from projbase
     </select>
 
-    <select id="readProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.entity.Projbase">
+    <select id="readProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
         select jsonObj,gmtApply,cjsj from projbase limit #{start} , #{end}
     </select>
 
