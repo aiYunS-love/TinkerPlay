@@ -13,6 +13,9 @@ springboot 2.5.2 + mybatis 3.4.6 + redis
 2.  redis配置
 3.  rabbitmq配置(暂时关闭,需连接自己部署好的rabbitmq消息中间件)
 4.  mybatis配置
+5.  swagger配置
+6.  Flyway
+7.  .....
 
 #### 学习及测试内容
 
