@@ -18,7 +18,7 @@ public enum PrivacyTypeEnum {
     NAME,
 
     /** 身份证号 */
-    IDCARD,
+    ID_CARD,
 
     /** 手机号 */
     PHONE,
