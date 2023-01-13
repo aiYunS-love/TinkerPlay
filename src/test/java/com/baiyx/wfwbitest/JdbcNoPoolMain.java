@@ -1,8 +1,8 @@
 package com.baiyx.wfwbitest;
 
-import com.baiyx.wfwbitest.jdbcConnectionPool.JdbcPool;
-import com.baiyx.wfwbitest.jdbcConnectionPool.PoolManager;
-import com.baiyx.wfwbitest.entity.User;
+import com.baiyx.wfwbitest.JdbcConnectionPool.JdbcPool;
+import com.baiyx.wfwbitest.JdbcConnectionPool.PoolManager;
+import com.baiyx.wfwbitest.Entity.User;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
