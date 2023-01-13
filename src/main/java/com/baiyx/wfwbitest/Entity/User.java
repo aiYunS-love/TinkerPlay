@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.baiyx.wfwbitest.CustomAnnotations.PrivacyEncrypt;
 import com.baiyx.wfwbitest.Enum.PrivacyTypeEnum;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -39,15 +40,15 @@ public class User implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
-    @ExcelProperty("IDCARD")
-    @PrivacyEncrypt(type = PrivacyTypeEnum.IDCARD)
-    private String idcard;
+    @ExcelProperty("ID_CARD")
+    @PrivacyEncrypt(type = PrivacyTypeEnum.ID_CARD)
+    private String ID_CARD;
     @ExcelProperty("PHONE")
     @PrivacyEncrypt(type = PrivacyTypeEnum.PHONE)
-    private String phone;
+    private String PHONE;
     @ExcelProperty("EMAIL")
     @PrivacyEncrypt(type = PrivacyTypeEnum.EMAIL)
-    private String email;
+    private String EMAIL;
 
     // 测试用
     public User(String username){
@@ -102,28 +103,31 @@ public class User implements Serializable {
         this.birthday = birthday;
     }
 
-    public String getIDCARD() {
-        return idcard;
+    @JsonProperty("ID_CARD")
+    public String getID_CARD() {
+        return ID_CARD;
     }
 
-    public void setIDCARD(String IDCARD) {
-        this.idcard = IDCARD;
+    public void setID_CARD(String ID_CARD) {
+        this.ID_CARD = ID_CARD;
     }
 
+    @JsonProperty("PHONE")
     public String getPHONE() {
-        return phone;
+        return PHONE;
     }
 
     public void setPHONE(String PHONE) {
-        this.phone = PHONE;
+        this.PHONE = PHONE;
     }
 
+    @JsonProperty("EMAIL")
     public String getEMAIL() {
-        return email;
+        return EMAIL;
     }
 
     public void setEMAIL(String EMAIL) {
-        this.email = EMAIL;
+        this.EMAIL = EMAIL;
     }
 
     @Override
@@ -133,9 +137,9 @@ public class User implements Serializable {
                 ", username='" + username + '\'' +
                 ", address='" + address + '\'' +
                 ", sex='" + sex + '\'' +
-                ", IDCARD='" + idcard + '\'' +
-                ", PHONE='" + phone + '\'' +
-                ", EMAIL='" + email + '\'' +
+                ", IDCARD='" + ID_CARD + '\'' +
+                ", PHONE='" + PHONE + '\'' +
+                ", EMAIL='" + EMAIL + '\'' +
                 ", birthday=" + birthday +
                 '}';
     }

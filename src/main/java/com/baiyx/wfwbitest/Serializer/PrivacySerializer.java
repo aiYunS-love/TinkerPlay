@@ -45,7 +45,7 @@ public class PrivacySerializer extends JsonSerializer<String> implements Context
                 case NAME:
                     gen.writeString(PrivacyUtil.hideChineseName(value));
                     break;
-                case IDCARD:
+                case ID_CARD:
                     gen.writeString(PrivacyUtil.hideIDCard(value));
                     break;
                 case PHONE:
