@@ -16,10 +16,12 @@ import com.baiyx.wfwbitest.Utils.*;
 import com.google.zxing.WriterException;
 import lombok.Cleanup;
 import org.apache.commons.codec.binary.Hex;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import java.io.File;
 import java.io.FileInputStream;
@@ -567,6 +569,22 @@ public class junitTest {
         // 释放资源
         DBUtil.release(connection,statement,preparedStatement,rs);
         System.out.println("  🚀🚀🚀 25万数据量查询耗时 :: {} " + (System.currentTimeMillis() - start)/1000 + " 秒");
+    }
+
+    @Test
+    public void test21(){
+        Map<String,String> map = new HashMap<>();
+        Map<String,Object> userMap = new HashMap<>();
+        map.put("id","5");
+        map.put("username","pdf对象");
+        map.put("address","E盘");
+        map.put("sex","男");
+        map.put("birthday","2023-1-14");
+        map.put("ID_CARD","123456789987654321");
+        map.put("PHONE","18047300222");
+        map.put("EMAIL","123456789@qq.com");
+        userMap.put("user",map);
+        PdfUtil.pdfOut(userMap);
     }
 
       //测试springboot框架集成rabbitmq消息中间件
