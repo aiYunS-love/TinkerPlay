@@ -36,6 +36,7 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.*;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.security.KeyPair;
 import java.security.KeyStore;
@@ -573,8 +574,12 @@ public class junitTest {
 
     @Test
     public void test21(){
+
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Map<String,String> map = new HashMap<>();
-        Map<String,Object> userMap = new HashMap<>();
+        Map<String,String> map2 = new HashMap<>();
+        Map<String,Object> userMap = new IdentityHashMap<>();
+
         map.put("id","5");
         map.put("username","pdf对象");
         map.put("address","E盘");
@@ -583,7 +588,26 @@ public class junitTest {
         map.put("ID_CARD","123456789987654321");
         map.put("PHONE","18047300222");
         map.put("EMAIL","123456789@qq.com");
+        map.put("nowdate",formatter.format(new Date()));
+        /////////////////////////////////////////////
+//        map.put("id","7");
+//        map.put("username","pdf对象7");
+//        map.put("address","E盘7");
+//        map.put("sex","男7");
+//        map.put("birthday","2023-1-17");
+//        map.put("ID_CARD","123456789987654327");
+//        map.put("PHONE","18047300227");
+//        map.put("EMAIL","123456787@qq.com");
         userMap.put("user",map);
+//        map2.put("id","6");
+//        map2.put("username","pdf对象3");
+//        map2.put("address","E盘3");
+//        map2.put("sex","男3");
+//        map2.put("birthday","2023-1-14");
+//        map2.put("ID_CARD","123456789987654323");
+//        map2.put("PHONE","18047300223");
+//        map2.put("EMAIL","123456783@qq.com");
+//        userMap.put("user",map2);
         PdfUtil.pdfOut(userMap);
     }
 

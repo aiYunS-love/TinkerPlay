@@ -15,13 +15,14 @@ import java.util.Map;
  *
  */
 public class PdfUtil {
+
+    // pdf配置类对象
+    static PdfConfig pdfConfig = new PdfConfig();
+
     /**
      * 利用模板生成pdf保存到某路径下
      */
     public static void pdfOut(Map<String, Object> inputMap) {
-
-        // 初始化pdf配置
-        PdfConfig pdfConfig = new PdfConfig();
 
         // 生成的新文件路径
         String path0 = pdfConfig.getOutput();
@@ -57,7 +58,7 @@ public class PdfUtil {
         try {
             BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             // 输出流
-            out = new FileOutputStream(newPdfPath + "pdf.pdf");
+            out = new FileOutputStream(newPdfPath + System.currentTimeMillis() +".pdf");
             // 读取pdf模板
             reader = new PdfReader(templatePath);
             bos = new ByteArrayOutputStream();
@@ -90,14 +91,14 @@ public class PdfUtil {
     public static void pdfExport(Map<String, Object> inputMap, HttpServletResponse response) {
 
         // 生成的新文件路径
-        String path0 = "D:/ProhibitDelete";
+        String path0 = pdfConfig.getOutput();
         File f = new File(path0);
 
         if (!f.exists()) {
             f.mkdirs();
         }
         // 模板路径
-        String templatePath = "D:/ProhibitDelete/template12.pdf";
+        String templatePath = pdfConfig.getTemplatePath();
 
         File file = new File(templatePath);
         if (!file.exists()) {
@@ -113,7 +114,7 @@ public class PdfUtil {
         OutputStream out = null;
         try {
             Map<String, String> datemap = (Map<String, String>) inputMap.get("dateMap");
-            BaseFont bf = BaseFont.createFont("C:/Windows/Fonts/simfang.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             // 输出流
             response.setContentType("application/pdf");
             response.setHeader("Content-Disposition",
