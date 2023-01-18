@@ -1,0 +1,304 @@
+常用快捷键：
+Ctrl + Delete		复制选中的内容
+Shift + Delete		粘贴
+Ctrl + Z                撤销当前命令的执行（需在命令执行时使用）
+U			撤销上一步编辑（需在编辑文件时使用）
+
+Linux常用命令：
+cd /			进入Linux根目录
+cd ../			进入上一级目录
+ls			查看目录下有哪些文件
+ll			查看目录下有哪些文件，附带文件的读写限制信息
+vim test			进入编辑test文件，进入文件后按 i 进入编辑状态，移动光标编辑文件，
+			编辑完按Esc退出编辑状态，再输入":wq"保存并退出，
+			若是只读文件，在root用户下输入":!wq"强制保存退出
+mkdir  test		创建文件夹test
+su - test	        切换到test用户
+pwd			查看当前所在目录
+ps -ef | grep test		      查看test服务是否启动
+kill -9 进程号                        杀死进程
+rm -rf 文件                           删除
+chmod -R 777 文件名                        赋权限
+./startup.sh                          启动tomcat
+
+cp -r dir1 dir2       dir1目录复制到dir2中
+
+开放端口号:
+iptables -I INPUT -p tcp --dport 端口号 -j ACCEPT
+
+查看开放的端口
+iptables -nL
+
+tail -10000f ../logs/catalina.out     查看日志   ctrl+c 是退出
+
+cat /etc/issue		查看系统版本信息
+
+find / -name httpd.conf	在根目录下查找httpd.conf文件
+
+
+date 			显示系统当期时间和日期
+cal			显示日历
+cal -y			显示一年的日历
+
+free   分析和统计内存信息
+ free -mh   以MB为单位
+-b 以字节为单位显示
+-k 以KB为单位显示
+-m 以MB为单位显示
+-g 以GB为单位显示
+--tera 以TB为单位显示
+
+
+
+cmake安装
+将下载的安装包放到 /usr路径下，并且解压；
+   tar zxvf cmake-2.8.9-Linux-i386.tar.gz
+为cmake创建连接
+     ln -s /usr/cmake-2.8.9-Linux-i386/bin/* /usr/bin/ 
+到这里，cmake就安装完成；
+验证cmake的安装是否成功；
+cmake -version；
+
+1、找到相应的软件包，比如soft.tar.gz，下载到本机某个目录
+
+
+2、打开一个终端，使用命令：su ：–转换成root用户；
+
+
+3、cd soft.tar.gz所在的目录；
+
+
+4、tar -xzvf soft.tar.gz //一般会生成一个soft目录
+
+
+5、cd soft
+
+
+6、./configure --prefix=/usr/local/soft(指定安装目录)
+
+
+7、make
+
+
+8、make install
+
+
+
+注意：要进入到~目录 也就是家目录下才能查看防火墙
+
+进入家目录：
+cd ~
+
+
+
+
+关闭虚拟机防火墙：
+
+关闭命令：? service iptables stop
+
+
+永久关闭防火墙：chkconfig iptables off
+
+
+两个命令同时运行，运行完成后查看防火墙关闭状态
+service iptables status
+
+ 
+关闭防火墙-----service iptables stop
+2 启动防火墙-----service iptables start
+3 重启防火墙-----service iptables restart
+4 查看防火墙状态--service iptables status
+5 永久关闭防火墙--chkconfig iptables off
+6 永久关闭后启用--chkconfig iptables on
+
+
+
+q!不保存退出
+
+
+windows 查看ip   ipconfig
+
+Linux  查看IP    ifconfig
+
+
+
+JAVA_HOME=/xm/jdk1.8.0_161
+PATH=$JAVA_HOME/bin:$PATH
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+export JAVA_HOME
+export PATH
+export CLASSPATH
+
+
+
+daemonize yes
+logfile "/var/log/redis.log"
+dir /data/redis_data
+appendonly yes
+
+安装firewall插件：yum install firewalld firewalld-config
+
+配置文件：/etc/firewalld/
+
+查看版本：firewall-cmd --version
+查看帮助：firewall-cmd --help
+查看区域信息：firewall-cmd --get-active-zones
+查看指定接口所属区域信息：firewall-cmd --get-zone-of-interface=eth0
+拒绝所有包：firewall-cmd --panic-on
+取消拒绝状态：firewall-cmd --panic-off
+查看是否拒绝：firewall-cmd --query-panic
+
+查看防火墙状态：firewall-cmd --state
+开启防火墙：systemctl start firewalld
+关闭防火墙：systemctl stop firewalld
+设置开机启动：systemctl enable firewalld
+停止并禁用开机启动：sytemctl disable firewalld
+重启防火墙：firewall-cmd --reload
+
+查看指定区域所有开启的端口号
+firewall-cmd --zone=public --list-ports
+
+在指定区域开启端口(如80端口号，命令方式)
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+重新启动防火墙
+firewall-cmd --reload
+
+
+
+查看SELinux状态：
+
+1、/usr/sbin/sestatus -v      ##如果SELinux status参数为enabled即为开启状态
+
+SELinux status:                 enabled
+
+2、getenforce                 ##也可以用这个命令检查
+
+关闭SELinux：
+
+1、临时关闭（不用重启机器）：
+
+setenforce 0                  ##设置SELinux 成为permissive模式
+
+                              ##setenforce 1 设置SELinux 成为enforcing模式
+
+2、修改配置文件需要重启机器：
+
+修改/etc/selinux/config 文件
+
+将SELINUX=enforcing改为SELINUX=disabled
+
+重启机器即可
+
+ linux下tomcat启动正常,但是外部浏览器无法访问
+
+这种情况一般是由于系统防火墙设置问题导致的,这次遇到的系统是centos 7.2,防火墙由iptables改成了firewall,因此停止防火墙的命令应该是:
+
+systemctl disable firewalld.service
+
+禁止防火墙启动的命令应该是:
+
+systemctl stop firewalld.service
+
+启动/关闭Redis
+cd /etc/init.d
+[root@baiyx init.d]# service redis start
+[root@baiyx init.d]# service redis stop
+
+Tomcat启动关闭
+sh /usr/tomcat/apache-tomcat-8.5.59.M1-80/bin/startup.sh
+sh /usr/tomcat/apache-tomcat-8.5.59.M1-8082/bin/startup.sh
+
+启动Nginx
+cd /usr/local/nginx/sbin
+[root@baiyx sbin]# /usr/local/nginx/sbin/nginx -s reload
+检查nginx配置文件:/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf
+重启nginx:
+/usr/local/nginx/sbin/nginx -s reload
+
+Linux环境下，怎么确定Nginx是以那个config文件启动的?
+输入命令行： ps  -ef | grep nginx
+找到安装目录：
+find /|grep nginx.conf
+nginx的配置文件nginx.conf路径为:/usr/local/nginx/conf/nginx.conf
+
+启动容器
+sudo systemctl start docker
+进入容器
+docker exec -it c_mysql /bin/bash
+如果报错:docker start 1b94d1d2c790018
+
+连接mysql数据库
+mysql -u root -p
+
+uicon 是容器名
+进入的目录就是镜像的主目录
+docker exec -it uicon /bin/bash
+    1、/var/lib/docker/devicemapper/devicemapper/data #用来存储相关的存储池数据
+    2、/var/lib/docker/devicemapper/devicemapper/metadata #用来存储相关的元数据。
+    3、/var/lib/docker/devicemapper/metadata/ #用来存储 device_id、大小、以及传输_id、初始化信息
+    4、/var/lib/docker/devicemapper/mnt #用来存储挂载信息
+    5、/var/lib/docker/container/ #用来存储容器信息
+    6、/var/lib/docker/graph/ #用来存储镜像中间件及本身详细信息和大小 、以及依赖信息
+    7、/var/lib/docker/repositores-devicemapper #用来存储镜像基本信息
+    8、/var/lib/docker/tmp #docker临时目录
+    9、/var/lib/docker/trust #docker信任目录
+    10、/var/lib/docker/volumes #docker卷目录
+
+redis安装后的配置文件路径:/etc/redis.conf
+redis安装后的redis-server路径:/usr/local/bin/redis-server
+redis安装后的相关文件路径:/usr/local/bin/
+
+Linux路径:/etc/services(保存所有服务对应的端口信息)
+grep 端口号 /etc/services
+
+查询端口号:netstat -anp |grep 服务名/端口号
+查询服务:ps aux | grep 服务名称
+
+查询进程: ps aux
+
+重启:reboot
+关机:init 0
+
+清理redis缓存: flushall
+
+进入docker镜像: docker-enter 镜像名
+
+Linux本地文件拷贝到docker镜像: docker cp Linux本地文件路劲  镜像名称:镜像文件路径
+
+查看docker镜像启动日志: docker logs -f --tail 500 镜像名
+docker logs  容器名  > log.txt
+
+搜索docker镜像:docker search tomcat
+
+指定端口对某个ip访问
+iptables -A INPUT -s 172.23.31.84 -p tcp --sport 9201 -j ACCEPT
+iptables -A INPUT -s 172.23.31.84 -p tcp --dport 9201 -j ACCEPT
+
+重启iptables
+systemctl restart firewalld.service
+
+docker镜像改名
+docker tag  bdcycpt/elasticsearch:7.16.1 release.gisquest.com/bdcycpt/elasticsearch:7.16.1
+
+根据Dockerfile文件打包镜像: docker build -t 镜像名 .
+
+删除镜像文件: docker rmi 镜像ID
+强制删除镜像文件: docker rmi -f 镜像ID
+
+手动上传镜像：docker load -i xxx.tar
+手动推送镜像：docker push release.gisquest.com/xxx/xxx:xxx
+
+tail 命令可用于查看文件的内容，有一个常用的参数 -f 常用于查阅正在改变的日志文件
+tail [参数] [文件]
+
+firewall-cmd --zone=public --list-ports
+
+清理文件nonup.out内容不删除文件: echo '' >nonup.out
+
+curl -d '{"QXDM":"3306","startTime" : "2018-01-01","endTime" : "2022-12-31"}' -H 'X-Gisq-Token:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY2OTAwNTIyMSwianRpIjoiZDlmNGI1MmMtNTIyYS00M2ViLTlmMWItMThhZjE1NWRlMWJmIn0.mt9Bs_cvxpUeE1-CN7UPSJKd7C82bdscY-UQbPP-9xhQSvUAp7qrmSElXRscheXJXp0IkuW_-8N2FynVWS1B8OYni4QVctobs3phhdKnaMQMZ5sX62mtyO0L3cE3xXj_fMXxYADbnXWcBwkSP3-JQUvNPVN1uwNVN_hzOt-uiA1DSzRSBQa-gQkVlVDYVZiz_962vtNw8hJ2xpoEfLR5mwmzhiQI6DwZYDWJaLQ6yJOLsLlgL7LqU3dHI_Is9dtFcPmok0TdZAOVdjLX3oK8kR1Wq-VMa7ewALju3mGCIFOaQ3AgpqCoZRHUy1x00AHk_pWvmzV19IkpcU5rOYtasQ'  -H "Content-Type: application/json" -X POST "https://bdcjg.zrzyt.zj.gov.cn:38088/api/queryck3/home/getQueries"
+
+
+curl -d '{"xzqbm":"3306","startTime" : "2018-01-01","endTime" : "2022-12-31","token" : "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY2OTAwNTIyMSwianRpIjoiZDlmNGI1MmMtNTIyYS00M2ViLTlmMWItMThhZjE1NWRlMWJmIn0.mt9Bs_cvxpUeE1-CN7UPSJKd7C82bdscY-UQbPP-9xhQSvUAp7qrmSElXRscheXJXp0IkuW_-8N2FynVWS1B8OYni4QVctobs3phhdKnaMQMZ5sX62mtyO0L3cE3xXj_fMXxYADbnXWcBwkSP3-JQUvNPVN1uwNVN_hzOt-uiA1DSzRSBQa-gQkVlVDYVZiz_962vtNw8hJ2xpoEfLR5mwmzhiQI6DwZYDWJaLQ6yJOLsLlgL7LqU3dHI_Is9dtFcPmok0TdZAOVdjLX3oK8kR1Wq-VMa7ewALju3mGCIFOaQ3AgpqCoZRHUy1x00AHk_pWvmzV19IkpcU5rOYtasQ"}' -H 'X-Gisq-Token:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY2OTAwNTIyMSwianRpIjoiZDlmNGI1MmMtNTIyYS00M2ViLTlmMWItMThhZjE1NWRlMWJmIn0.mt9Bs_cvxpUeE1-CN7UPSJKd7C82bdscY-UQbPP-9xhQSvUAp7qrmSElXRscheXJXp0IkuW_-8N2FynVWS1B8OYni4QVctobs3phhdKnaMQMZ5sX62mtyO0L3cE3xXj_fMXxYADbnXWcBwkSP3-JQUvNPVN1uwNVN_hzOt-uiA1DSzRSBQa-gQkVlVDYVZiz_962vtNw8hJ2xpoEfLR5mwmzhiQI6DwZYDWJaLQ6yJOLsLlgL7LqU3dHI_Is9dtFcPmok0TdZAOVdjLX3oK8kR1Wq-VMa7ewALju3mGCIFOaQ3AgpqCoZRHUy1x00AHk_pWvmzV19IkpcU5rOYtasQ'  -H "Content-Type: application/json" -X POST "https://bdcjg.zrzyt.zj.gov.cn:38088/api/queryck3/home/getQueryVolume"
+
+
+curl -d '{"qxdm":"33","kssj" : "2018-01-01","jssj" : "2022-12-31","datetype" : "month"}' -H 'X-Gisq-Token:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoiZGYyMDcwMzg1OTg2NiIsInRva2VuX3B3ZF9zdHJvbmdfZmxhZyI6IjEiLCJhdXRob3JpdGllcyI6WyJERUxFVEUjLyoqIiwiUE9TVCMvKioiLCJHRVQjLyoqIiwiUFVUIy8qKiJdLCJ1c2VyX2lkX251bWJlciI6IiIsImNsaWVudF9pZCI6Imdpc3EtNjJjNjRjZGUtNjZmZS0xMWU5LTkzN2EtMmM0ZDU0ZjAxYmE0IiwidXNlcl9raW5kIjoxLCJ0ZW5hbnRfdWlkIjoiZWQ0YzU4MjAtY2QxYS0xMWVjLTllNzgtMDI0MjEwZDhhOWYzIiwidXNlcl9pZCI6ImRkMDQxZDQ4LTBlZTQtMTFlZC1iZGQ0LTAyNDIxMGQ4YTlmMyIsInNjb3BlIjpbImFsbCJdLCJ1c2VyX25pY2tuYW1lIjoi6L-H5LiA5YekIiwidG9rZW5fcHdkX292ZXJkdWVfZmxhZyI6IjEiLCJleHAiOjE2NjkwMjgxOTAsImp0aSI6IjgxNzFiMjQ1LTlmZmItNDc4MS1iNjkxLTg3YWYxNjY4OTEzNyJ9.w_bCNvQLiuiRdq1eAILb7ZjSLm9fr0uEsWS4Waz8ea9_-QMZtk5_eBtJ3kPHhx_UENtim0TI2OpOznm7zqE5ux-UyiL6-IlSATMz1D6gFHF4Wk1Zt9HSe7GLGCbPlIvCmLZU4g6nNChVqeNhnhx3ncJp0eP5f0IrUPqNW7lGWuFb8NQtWbRr6ZPmecuiuOC_8HjXus9vUXf6cD1AdwlfhYBM2omaM2b5pHy8C8hS7sbEBiIlVAZXe2yQKzq7_bMM_LoveZ98fnFLaYmVCfcmovcqbP3oHlRRcnpoxRFT2K7hSpkb7_TeEAzV1a8LCrzBiEx2telXWCLZQNk8ymsfQQ'  -H "Content-Type: application/json" -X POST "http://10.249.0.6:38091/api/queryck3/EffctiveScreen/getBusinessEffective"
