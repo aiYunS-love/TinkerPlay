@@ -23,6 +23,12 @@
         <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+        <!-- Ouath2 -->
+        <dependency>
+            <groupId>org.springframework.security.oauth</groupId>
+            <artifactId>spring-security-oauth2</artifactId>
+            <version>2.3.8.RELEASE</version>
+        </dependency>
         <!-- PDF工具类 -->
         <dependency>
             <groupId>com.itextpdf</groupId>
