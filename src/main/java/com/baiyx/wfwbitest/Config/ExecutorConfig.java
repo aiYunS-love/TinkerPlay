@@ -1,6 +1,7 @@
 package com.baiyx.wfwbitest.Config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -21,15 +22,18 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ExecutorConfig {
 
     /** 核心线程数(默认线程数) */
-    private int corePoolSize = 10;
+    @Value("${spring.datasource.druid.initial-size}")
+    private int corePoolSize;
     /** 最大线程数 */
-    private int maxPoolSize = 20;
+    @Value("${spring.datasource.druid.max-active}")
+    private int maxPoolSize;
     /** 允许线程空闲时间（单位：默认为秒） */
+    @Value("${spring.datasource.druid.}")
     private static final int keepAliveTime = 60;
     /** 缓冲队列大小 */
     private int queueCapacity = 10;
 
-    @Bean
+    @Bean(name = "asyncServiceExecutor")
     public Executor asyncServiceExecutor(){
         log.info("start asyncServiceExecutor");
         ThreadPoolTaskExecutor executor=new ThreadPoolTaskExecutor();

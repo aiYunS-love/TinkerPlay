@@ -23,6 +23,12 @@
         <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+        <!-- ChatGPT -->
+        <dependency>
+            <groupId>com.github.plexpt</groupId>
+            <artifactId>chatgpt</artifactId>
+            <version>1.1.2</version>
+        </dependency>
         <!-- Ouath2 -->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
@@ -97,6 +103,12 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
             <version>5.3.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- swagger调试接口 -->
         <dependency>
@@ -198,11 +210,11 @@
             <version>3.5.1</version>
         </dependency>
         <!-- 德鲁伊数据连接池 -->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba</groupId>-->
-<!--            <artifactId>druid</artifactId>-->
-<!--            <version>1.1.5</version>-->
-<!--        </dependency>-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.2.15</version>
+        </dependency>
         <!-- JSON-Web-Token -->
         <dependency>
             <groupId>org.springframework.security</groupId>
