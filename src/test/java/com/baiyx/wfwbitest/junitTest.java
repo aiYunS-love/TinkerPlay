@@ -721,7 +721,6 @@ public class junitTest implements Runnable{
 
         // java8 Stream
 
-
         // 总数据量
         int count = projBaseDao.CountProjbase();
         // 每片的数据量
@@ -731,14 +730,15 @@ public class junitTest implements Runnable{
         // 结果集分片
         long start2 = System.currentTimeMillis();
         for(int i=1; i <= num; i++){
+            junitTest junitTest = new junitTest();
+            list = new ArrayList();
             while(rs.next()){
                 if(list.size() != 0 && list != null && list.size() % piece == 0){
                     // 启用多线程,且分批插入
-                    junitTest junitTest = new junitTest();
                     junitTest.setList(list);
                     Thread t = new Thread(junitTest);
                     t.start();
-                    // list.clear();
+                    list.clear();
                     break;
                 }
                 list.add(rs.getString("jsonObj"));
@@ -749,12 +749,9 @@ public class junitTest implements Runnable{
 
     @Override
     public void run() {
-        ArrayList arrayList = list;
         int pc = 1;
         ArrayList<ProjbaseException> projbaseExceptionList = null;
-        System.out.println("list = " + list);
-        System.out.println("arrayList = " + arrayList);
-        for(Object jsonObj : arrayList) {
+        for(Object jsonObj : list) {
             projbaseExceptionList = new ArrayList<>();
             ProjbaseException projbaseException = new ProjbaseException();
             JSONObject obj = JSON.parseObject(jsonObj.toString());
