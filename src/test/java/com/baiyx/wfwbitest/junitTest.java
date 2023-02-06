@@ -13,6 +13,7 @@ import com.baiyx.wfwbitest.Entity.ProjbaseException;
 import com.baiyx.wfwbitest.Entity.TokenAccess;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Utils.*;
+import com.beust.ah.A;
 import com.google.zxing.WriterException;
 import lombok.Cleanup;
 import org.apache.commons.codec.binary.Hex;
@@ -42,13 +43,12 @@ import java.security.KeyPair;
 import java.security.KeyStore;
 import java.security.MessageDigest;
 import java.security.cert.X509Certificate;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
+import java.util.stream.Stream;
 
 import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.checkToken;
 import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
@@ -60,7 +60,7 @@ import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class junitTest {
+public class junitTest implements Runnable{
     @Autowired
     private UserDao userRepository;
     // private UserDaoTwo userRepository2;
@@ -68,6 +68,12 @@ public class junitTest {
     ProjBaseDao projBaseDao;
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+    // 多线程传递参数
+    ArrayList list = null;
+    public void setList(ArrayList list) {
+        this.list = list;
+    }
 
     @Test
     public void test1() throws Exception {
@@ -482,6 +488,7 @@ public class junitTest {
             @Cleanup ResultSet rs = statement.executeQuery("SELECT * FROM projbase");
             System.out.println("  🚀🚀🚀 400万数据量查询耗时 :: {} " + (System.currentTimeMillis() - start)/1000 + " 秒");
             while(rs.next()){
+                System.out.println("  程序走到循环处理数据耗时: " + (System.currentTimeMillis() - start)/1000 + " 秒");
                 ProjbaseException projbaseException = new ProjbaseException();
                 JSONObject obj = JSON.parseObject(rs.getString("jsonObj"));
                 // 获取登录人名称
@@ -523,9 +530,93 @@ public class junitTest {
             // offset += size;
         // }
         if(projbaseExceptionList != null && projbaseExceptionList.size() > 0){
+            System.out.println(" 开始插入: " + projbaseExceptionList.size() + "条数据...");
+            long start1 = System.currentTimeMillis();
             projBaseDao.writeProjbaseException(projbaseExceptionList);
+            System.out.println(" 批量插入数据耗时: " + (System.currentTimeMillis() - start1)/1000 + " 秒");
+            System.out.println(" 开始插入: " + projbaseExceptionList.size() + "条数据...");
         }
-        System.out.println("  🚀🚀🚀 流式查询耗时 :: {} " + (System.currentTimeMillis() - start)/1000 + " 秒");
+    }
+
+    /* 测试纯JDBC流式查询一次性读取400w数据量: 优化数据处理和分批插入,每次插入5w条数据
+        分批插入:
+            2500 --> 2938
+            1000 --> 3306
+            2000 --> 3443
+        插入功能开启多线程后:
+            5000 --> 3848
+            50000 --> 3449
+            20000 --> 3360
+     */
+    @Test
+    public void test23()throws Exception{
+        Connection connection = DBUtil.getConnection();
+        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY,ResultSet.CONCUR_READ_ONLY);
+        statement.setFetchSize(Integer.MIN_VALUE);
+        List<ProjbaseException> projbaseExceptionList = new ArrayList<>();
+        long start = System.currentTimeMillis();
+        // long offset = 0;
+        // int size = 100;
+        // long count = 0;
+        // while (true) {
+        // String sql = String.format("SELECT * FROM projbase LIMIT %s, %s", offset, size);
+        // @Cleanup ResultSet rs = statement.executeQuery(sql);
+        // 批次
+        int pc = 0;
+        ResultSet rs = statement.executeQuery("SELECT * FROM projbase");
+        System.out.println("  🚀🚀🚀 400万数据量查询耗时 :: {} " + (System.currentTimeMillis() - start)/1000 + " 秒");
+        while(rs.next()){
+            ProjbaseException projbaseException = new ProjbaseException();
+            JSONObject obj = JSON.parseObject(rs.getString("jsonObj"));
+            // 获取登录人名称
+            String recvUserName = "";
+            if(obj.getString("recvUserName") != null){
+                recvUserName = obj.getString("recvUserName");
+            }
+            // 获取查询人姓名
+            JSONObject affFormInfo = JSON.parseObject(obj.getString("affFormInfo"));
+            String sqrname = "";
+            if(affFormInfo.getString("sqrname") != null){
+                sqrname = affFormInfo.getString("sqrname");
+            }
+            // 判断不一致信息
+            if(!recvUserName.equals(sqrname) && sqrname.length() < 7){
+                projbaseException.setProjId(obj.getString("projId"));
+                if(rs.getString("gmtApply") != null && !"".equals(rs.getString("gmtApply"))){
+                    projbaseException.setCjsj(rs.getString("gmtApply"));
+                }else{
+                    if(rs.getString("cjsj") != null && !"".equals(rs.getString("cjsj"))){
+                        projbaseException.setCjsj(rs.getString("cjsj"));
+                    }else{
+                        projbaseException.setCjsj(null);
+                    }
+                }
+                projbaseException.setProjectName(obj.getString("projectName"));
+                projbaseException.setApplyName(affFormInfo.getString("sqrname"));
+                projbaseException.setApplyCardNo(affFormInfo.getString("zjh"));
+                projbaseException.setQxdm(affFormInfo.getString("xzqbm"));
+                projbaseException.setRecvUserName(obj.getString("recvUserName"));
+                projbaseException.setRecvDeptCode(obj.getString("recvDeptName"));
+                projbaseException.setRecvUserId(obj.getString("recvUserId"));
+                projbaseException.setFaceValidationResult(obj.getString("faceValidationResult"));
+                projbaseExceptionList.add(projbaseException);
+
+                if(projbaseExceptionList != null && projbaseExceptionList.size() > 0){
+                    if(projbaseExceptionList.size() == 2500){
+                        System.out.println("第" + ++pc + "批次,开始插入: " + projbaseExceptionList.size() + "条数据...");
+                        long start1 = System.currentTimeMillis();
+                        projBaseDao.writeProjbaseException(projbaseExceptionList);
+                        System.out.println(" 批量插入数据耗时: " + (System.currentTimeMillis() - start1)/1000 + " 秒");
+                        //插入5w条数据后,清空list
+                        projbaseExceptionList.clear();
+                    }
+                }
+            }
+        }
+        // 最后剩余的数据,但是不满5w条,进行最后一次插入
+        projBaseDao.writeProjbaseException(projbaseExceptionList);
+        System.out.println(" 总耗时: " + (System.currentTimeMillis() - start)/1000 + " 秒");
+        DBUtil.release(connection,statement,null,rs);
     }
 
     // 测试纯JDBC流式查询一次性读取25w数据量,并进行数据分析.结论: 都是0秒查询完毕
@@ -573,6 +664,7 @@ public class junitTest {
     }
 
     @Test
+
     public void test21(){
 
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
@@ -610,8 +702,108 @@ public class junitTest {
 //        userMap.put("user",map2);
         PdfUtil.pdfOut(userMap);
     }
+    /***
+     * @Author: 白宇鑫
+     * @Description: 测试纯JDBC流式查询一次性读取400w数据量: 优化数据处理和分批插入
+     * 耗时主要在分析400万数据量,采取分片多线程处理,分批插入.
+     * @Date: 2023年2月2日, 0002 下午 3:08:34
+     * @return: void
+     */
+    @Test
+    public void test22()throws Exception {
+        Connection connection = DBUtil.getConnection();
+        Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+        statement.setFetchSize(Integer.MIN_VALUE);
+        List<ProjbaseException> projbaseExceptionList = new ArrayList<>();
+        long start = System.currentTimeMillis();
+        ResultSet rs = statement.executeQuery("SELECT jsonObj FROM projbase");
+        System.out.println("  🚀🚀🚀 400万数据量查询耗时 :: {} " + (System.currentTimeMillis() - start) / 1000 + " 秒");
 
-      //测试springboot框架集成rabbitmq消息中间件
+        // java8 Stream
+
+        // 总数据量
+        int count = projBaseDao.CountProjbase();
+        // 每片的数据量
+        int piece = 200000;
+        // 循环次数
+        int num = count%piece==0?count/piece:count/piece+1;
+        // 结果集分片
+        long start2 = System.currentTimeMillis();
+        for(int i=1; i <= num; i++){
+            junitTest junitTest = new junitTest();
+            list = new ArrayList();
+            while(rs.next()){
+                if(list.size() != 0 && list != null && list.size() % piece == 0){
+                    // 启用多线程,且分批插入
+                    junitTest.setList(list);
+                    Thread t = new Thread(junitTest);
+                    t.start();
+                    list.clear();
+                    break;
+                }
+                list.add(rs.getString("jsonObj"));
+            }
+        }
+        System.out.println("  🚀🚀🚀 400万数据量分片耗时 :: {} " + (System.currentTimeMillis() - start2) / 1000 + " 秒");
+    }
+
+    @Override
+    public void run() {
+        int pc = 1;
+        ArrayList<ProjbaseException> projbaseExceptionList = null;
+        for(Object jsonObj : list) {
+            projbaseExceptionList = new ArrayList<>();
+            ProjbaseException projbaseException = new ProjbaseException();
+            JSONObject obj = JSON.parseObject(jsonObj.toString());
+            // 获取登录人名称
+            String recvUserName = "";
+            if (obj.getString("recvUserName") != null) {
+                recvUserName = obj.getString("recvUserName");
+            }
+            // 获取查询人姓名
+            JSONObject affFormInfo = JSON.parseObject(obj.getString("affFormInfo"));
+            String sqrname = "";
+            if (affFormInfo.getString("sqrname") != null) {
+                sqrname = affFormInfo.getString("sqrname");
+            }
+            // 判断不一致信息
+            if (!recvUserName.equals(sqrname) && sqrname.length() < 7) {
+                projbaseException.setProjId(obj.getString("projId"));
+                if (obj.getString("gmtApply") != null && !"".equals(obj.getString("gmtApply"))) {
+                    projbaseException.setCjsj(obj.getString("gmtApply"));
+                } else {
+                    if (obj.getString("cjsj") != null && !"".equals(obj.getString("cjsj"))) {
+                        projbaseException.setCjsj(obj.getString("cjsj"));
+                    } else {
+                        projbaseException.setCjsj(null);
+                    }
+                }
+                projbaseException.setProjectName(obj.getString("projectName"));
+                projbaseException.setApplyName(affFormInfo.getString("sqrname"));
+                projbaseException.setApplyCardNo(affFormInfo.getString("zjh"));
+                projbaseException.setQxdm(affFormInfo.getString("xzqbm"));
+                projbaseException.setRecvUserName(obj.getString("recvUserName"));
+                projbaseException.setRecvDeptCode(obj.getString("recvDeptName"));
+                projbaseException.setRecvUserId(obj.getString("recvUserId"));
+                projbaseException.setFaceValidationResult(obj.getString("faceValidationResult"));
+                projbaseExceptionList.add(projbaseException);
+
+                if (projbaseExceptionList != null && projbaseExceptionList.size() > 0) {
+                    if (projbaseExceptionList.size() == 2500) {
+                        System.out.println("第" + pc + "批次,开始插入: " + projbaseExceptionList.size() + "条数据...");
+                        long start1 = System.currentTimeMillis();
+                        projBaseDao.writeProjbaseException(projbaseExceptionList);
+                        System.out.println(" 批量插入数据耗时: " + (System.currentTimeMillis() - start1) / 1000 + " 秒");
+                        //插入5w条数据后,清空list
+                        projbaseExceptionList.clear();
+                        projbaseExceptionList = null;
+                        ++pc;
+                    }
+                }
+            }
+        }
+    }
+    // 测试springboot框架集成rabbitmq消息中间件
 //    @Autowired
 //    DirectProvider directProvider;
 //    @Test
@@ -621,10 +813,32 @@ public class junitTest {
 //        }
 //    }
 
-      //测试多数据源配置
+      // 测试多数据源配置
 //    @Test
 //    public void test9() {
 //        List<User> users = userRepository2.findAllTwo();
 //        System.out.println(users);
 //    }
+
+    // 测试ResultSetToList工具类
+    @Test
+    public void test24(){
+        Connection conn = null;
+        Statement sta = null;
+        ResultSet rs = null;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC", "root", "19930218");
+            sta = conn.createStatement();
+            rs = sta.executeQuery("select * from user");
+            List list = ResultSetToList.resultSetTolist(rs);
+            System.out.println(list);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            DBUtil.release(conn,sta,null,rs);
+        }
+    }
 }

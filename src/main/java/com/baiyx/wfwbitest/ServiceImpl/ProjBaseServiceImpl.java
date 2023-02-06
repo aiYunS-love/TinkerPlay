@@ -6,6 +6,7 @@ import com.baiyx.wfwbitest.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,7 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     }
 
     @Override
-    public Long CountProjbase() {
+    public int CountProjbase() {
         return projBaseDao.CountProjbase();
     }
 
@@ -128,6 +129,7 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     }
 
     @Override
+    @Async("asyncServiceExecutor")
     public void writeProjbaseException(List list) {
         projBaseDao.writeProjbaseException(list);
     }

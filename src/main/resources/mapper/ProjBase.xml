@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baiyx.wfwbitest.Dao.ProjBaseDao">
 
-    <select id="CountProjbase" resultType="long">
+    <select id="CountProjbase" resultType="int">
         select count(*) from projbase
     </select>
 
@@ -16,5 +16,4 @@
             (#{ProjbaseException.projId},#{ProjbaseException.cjsj},#{ProjbaseException.projectName},#{ProjbaseException.applyName},#{ProjbaseException.applyCardNo},#{ProjbaseException.qxdm},#{ProjbaseException.recvUserName},#{ProjbaseException.recvUserId},#{ProjbaseException.recvDeptCode},#{ProjbaseException.faceValidationResult})
         </foreach>
     </insert>
-
 </mapper>

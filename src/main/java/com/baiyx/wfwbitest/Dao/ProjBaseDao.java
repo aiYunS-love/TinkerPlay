@@ -18,7 +18,7 @@ public interface ProjBaseDao {
 
     // 查询projbase表总记录条数
     @DS("slave_1")
-    Long CountProjbase();
+    int CountProjbase();
 
     // 循环查询,每次查询固定的条数
      @DS("slave_1")
