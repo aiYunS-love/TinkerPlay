@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
+import com.github.pagehelper.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 
@@ -132,5 +133,10 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     @Async("asyncServiceExecutor")
     public void writeProjbaseException(List list) {
         projBaseDao.writeProjbaseException(list);
+    }
+
+    @Override
+    public Page<Projbase> selectProjbase(Map param) {
+        return projBaseDao.selectProjbase(param);
     }
 }

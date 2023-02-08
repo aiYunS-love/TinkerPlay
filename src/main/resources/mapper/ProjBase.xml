@@ -6,6 +6,13 @@
         select count(*) from projbase
     </select>
 
+    <select id="selectProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
+        select * from projbase2 where 1=1
+        <if test="xzqbm != null">
+            and areaCode = #{xzqbm}
+        </if>
+    </select>
+
     <select id="readProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
         select jsonObj,gmtApply,cjsj from projbase limit #{start} , #{end}
     </select>

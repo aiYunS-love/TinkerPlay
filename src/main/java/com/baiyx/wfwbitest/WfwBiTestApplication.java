@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
@@ -24,7 +25,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAsync
 @EnableOpenApi
 @EnableCaching
-@SpringBootApplication(exclude = {FlywayAutoConfiguration.class})
+// 排除SecurityAutoConfiguration类,否则会启用认证
+@SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {
 
     public static void main(String[] args) {
