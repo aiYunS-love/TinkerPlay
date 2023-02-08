@@ -2,6 +2,7 @@ package com.baiyx.wfwbitest.Dao;
 
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baomidou.dynamic.datasource.annotation.DS;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheConfig;
 
@@ -27,5 +28,8 @@ public interface ProjBaseDao {
     // 写入数据
     @DS("slave_1")
     void writeProjbaseException(List list);
+
+    @DS("slave_1")
+    Page<Projbase> selectProjbase(Map param);
 
 }

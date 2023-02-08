@@ -49,7 +49,7 @@ public class SwaggerConfig {
             System.out.println(temp);
         }
         Boolean enableSwagger = false;
-        if (profiles.length > 0 && profiles[0].equals("dev")) {
+        if (profiles.length > 0 && profiles[0].equals("windows")) {
             enableSwagger = true;
         }
         System.out.println("swagger是否开启：" + enableSwagger);

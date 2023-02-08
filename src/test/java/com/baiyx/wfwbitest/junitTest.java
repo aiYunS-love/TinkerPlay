@@ -738,7 +738,6 @@ public class junitTest implements Runnable{
                     junitTest.setList(list);
                     Thread t = new Thread(junitTest);
                     t.start();
-                    list.clear();
                     break;
                 }
                 list.add(rs.getString("jsonObj"));

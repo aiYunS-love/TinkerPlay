@@ -34,7 +34,7 @@ public class DBUtil {
 
             // 利用properties将jdbc.properties配置文件转换成字节输入流再加载到properties中
             // 利用当前线程获取类加载器,利用类加载器将配置文件加载到properties中
-            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("db2.properties");
+            InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream("db3.properties");
 
             // 将配置文件加载到properties
             p.load(in);
