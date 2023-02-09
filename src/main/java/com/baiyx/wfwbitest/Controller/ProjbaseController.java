@@ -41,12 +41,22 @@ public class ProjbaseController {
         new ProjBaseServiceImpl(projBaseDao).readProjbase(map);
     }
 
-    @ApiOperation(value = "分页查询")
-    @GetMapping("findBypaging")
-    public PageInfo<Projbase> findByPaging(Integer pageNum, Integer pageSize){
+    @ApiOperation(value = "分页查询_数据量大")
+    @GetMapping("findBypaging1")
+    public PageInfo<Projbase> findByPaging1(Integer pageNum, Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);
-        List<Projbase> list = projBaseDao.selectProjbase(null);
+        List<Projbase> list = projBaseDao.selectProjbase1();
+        PageInfo<Projbase> pageInfo = new PageInfo<>(list);
+        return pageInfo;
+    }
+
+    @ApiOperation(value = "分页查询_数据量小")
+    @GetMapping("findBypaging2")
+    public PageInfo<Projbase> findByPaging2(Integer pageNum, Integer pageSize){
+
+        PageHelper.startPage(pageNum,pageSize);
+        List<Projbase> list = projBaseDao.selectProjbase2();
         PageInfo<Projbase> pageInfo = new PageInfo<>(list);
         System.out.println("当前页：" + pageInfo.getPageNum());
         System.out.println("每页显示的数量：" + pageInfo.getPageSize());

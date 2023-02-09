@@ -34,9 +34,14 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     }
 
     @Override
+    public Long selectCarArchivesList_COUNT() {
+        return projBaseDao.selectCarArchivesList_COUNT();
+    }
+
+    @Override
     public List<Projbase> readProjbase(Map map) {
         // 获取总记录条数
-        long count = CountProjbase();
+        long count = selectCarArchivesList_COUNT();
         // 设置默认参数,保证程序不报错
         if(map != null && map.size() > 0){
             if(map.get("start") == null || "".equals(map.get("start"))){
@@ -136,7 +141,12 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     }
 
     @Override
-    public Page<Projbase> selectProjbase(Map param) {
-        return projBaseDao.selectProjbase(param);
+    public Page<Projbase> selectProjbase1() {
+        return projBaseDao.selectProjbase1();
+    }
+
+    @Override
+    public Page<Projbase> selectProjbase2() {
+        return projBaseDao.selectProjbase2();
     }
 }

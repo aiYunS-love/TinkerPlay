@@ -6,11 +6,16 @@
         select count(*) from projbase
     </select>
 
-    <select id="selectProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
-        select * from projbase2 where 1=1
-        <if test="xzqbm != null">
-            and areaCode = #{xzqbm}
-        </if>
+    <select id="selectCarArchivesList_COUNT" resultType="java.lang.Long">
+        select count(1) from audit_vehicle_archives
+    </select>
+
+    <select id="selectProjbase1" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
+        select * from projbase
+    </select>
+
+    <select id="selectProjbase2" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
+        select * from projbase2
     </select>
 
     <select id="readProjbase" parameterType="map" resultType="com.baiyx.wfwbitest.Entity.Projbase">
