@@ -21,6 +21,8 @@ public interface ProjBaseDao {
     @DS("slave_1")
     int CountProjbase();
 
+    Long selectCarArchivesList_COUNT();
+
     // 循环查询,每次查询固定的条数
      @DS("slave_1")
     List<Projbase> readProjbase(Map map);
@@ -30,6 +32,9 @@ public interface ProjBaseDao {
     void writeProjbaseException(List list);
 
     @DS("slave_1")
-    Page<Projbase> selectProjbase(Map param);
+    Page<Projbase> selectProjbase1();
+
+    @DS("slave_1")
+    Page<Projbase> selectProjbase2();
 
 }

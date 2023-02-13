@@ -722,11 +722,11 @@ public class junitTest implements Runnable{
         // java8 Stream
 
         // 总数据量
-        int count = projBaseDao.CountProjbase();
+        long count = projBaseDao.selectCarArchivesList_COUNT();
         // 每片的数据量
-        int piece = 200000;
+        long piece = 200000;
         // 循环次数
-        int num = count%piece==0?count/piece:count/piece+1;
+        long num = count%piece==0?count/piece:count/piece+1;
         // 结果集分片
         long start2 = System.currentTimeMillis();
         for(int i=1; i <= num; i++){
