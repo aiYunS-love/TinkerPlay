@@ -1,11 +1,5 @@
 package com.baiyx.wfwbitest.Utils;
 
-/**
- * @Author: 白宇鑫
- * @Date: 2022-7-22 下午 04:48
- * @Description:
- */
-
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;

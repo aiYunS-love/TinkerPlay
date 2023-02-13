@@ -13,7 +13,7 @@ import java.net.URL;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-23 下午 08:57
- * @Description: 请求其他接口
+ * @Description: 请求其他接口工具类
  */
 public class ToInterface {
     /**

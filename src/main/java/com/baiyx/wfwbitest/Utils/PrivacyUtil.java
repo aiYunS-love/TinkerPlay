@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Utils;/**
  * @Author: 白宇鑫
  * @Date: 2023-1-12 10:36
- * @Description: 说明
+ * @Description: 脱敏工具类
  */
 
     public class PrivacyUtil {

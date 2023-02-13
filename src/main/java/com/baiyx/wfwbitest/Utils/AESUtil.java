@@ -7,7 +7,7 @@ import java.util.Base64;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-13 上午 10:26
- * @Description: 加解密工具类
+ * @Description: AES加解密工具类
  */
 public class AESUtil {
 

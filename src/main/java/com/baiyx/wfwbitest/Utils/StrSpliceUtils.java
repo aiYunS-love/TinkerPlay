@@ -5,7 +5,7 @@ import java.util.ArrayList;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-22 下午 04:18
- * @Description:
+ * @Description: 字符串拼接工具类
  */
 public class StrSpliceUtils {
 
