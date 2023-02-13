@@ -11,6 +11,7 @@ spring:
     name: wfwbitest
     version: 1.0.0
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
       primary: master
@@ -19,15 +20,34 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
           username: root
           password: 19930218
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
           username: root
           password: 19930218
-  # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
+    # 初始连接数
+    initialSize: 20
+    # 最小连接数
+    minIdle: 10
+    # 最大连接数
+    maxActive: 50
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat
+
+# 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
   flyway:
     # 是否启用flyway
     enabled: true
@@ -155,10 +175,31 @@ eureka:
     service-url:
       defaultZone: http://admin:246d494b-3cca-11e8-8ef7-2c4d54f01ba4@127.0.0.1:9000/eureka/
 
-# swagger 暂时注释 测试SwaggerConfig配置类
-#swagger:
-#  enable: true #是否开启swagger
-#  application-name: baiyx #项目应用名
-#  application-version: 3.0.0 #项目版本信息
-#  application-description: 小白Test #项目描述信息
-#  try-host: http://localhost:${server.port}/${context-path}/swagger-ui/index.html#/ #接口调试地址
+pdf:
+  config:
+    # pdf模板相对路径
+    templatePath: src/main/resources/templates/test输出pdf模板.pdf
+    # pdf输出位置
+    output: E:\baiyx\uploadFile\pdf
+      # 字体相对路径
+    fontPath: src/main/resources/static/fonts/simsun.ttf
+
+## swagger 暂时注释 测试SwaggerConfig配置类
+swagger:
+  enable: true #是否开启swagger
+  application-name: baiyx #项目应用名
+  application-version: 3.0.0 #项目版本信息
+  application-description: 小白Test #项目描述信息
+  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
+
+mybatis-plus:
+  configuration:
+    # mybatis plus下划线转驼峰
+    map-underscore-to-camel-case: true
+
+#pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

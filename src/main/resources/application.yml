@@ -5,18 +5,48 @@ server:
 
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
       primary: master
       # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       strict: false
       datasource:
+#        master:
+#          driver-class-name: com.mysql.cj.jdbc.Driver
+#          # 如果docker镜像部署的话,需要写实际的IP
+#          url: jdbc:mysql://192.168.119.129:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#          username: root
+#          password: 19930218
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          # 如果docker镜像部署的话,需要写实际的IP
-          url: jdbc:mysql://192.168.119.129:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
           username: root
           password: 19930218
+        slave_1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
+          username: root
+          password: 19930218
+        # 初始连接数
+    initialSize: 20
+    # 最小连接数
+    minIdle: 10
+    # 最大连接数
+    maxActive: 50
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat
+
   # flyway:
     # 是否启用flyway
     # enabled: true
@@ -120,6 +150,15 @@ body:
 file-save-path: /Test/uploadFile/
 # file-save-path: E:\baiyx\uploadFile\
 
+pdf:
+  config:
+    # pdf模板相对路径
+    templatePath: src/main/resources/templates/test输出pdf模板.pdf
+    # pdf输出位置
+    output: E:\baiyx\uploadFile\pdf\
+    # 字体相对路径
+    fontPath: src/main/resources/static/fonts/simsun.ttf
+
 mybatis:
   #映射的xml的sql文件路径
   mapper-locations: classpath:mapper/*.xml
@@ -128,3 +167,36 @@ mybatis:
   # configuration:
     # 打印SQL日志
     # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# 注册中心
+eureka:
+  instance:
+    appname: ${spring.application.name}
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
+  client:
+    healthcheck:
+      enabled: true
+    service-url:
+      defaultZone: http://admin:246d494b-3cca-11e8-8ef7-2c4d54f01ba4@127.0.0.1:9000/eureka/
+
+## swagger 暂时注释 测试SwaggerConfig配置类
+swagger:
+  enable: true #是否开启swagger
+  application-name: baiyx #项目应用名
+  application-version: 3.0.0 #项目版本信息
+  application-description: 小白Test #项目描述信息
+  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
+
+mybatis-plus:
+  configuration:
+    # mybatis plus下划线转驼峰
+    map-underscore-to-camel-case: true
+
+#pagehelper分页插件配置
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
