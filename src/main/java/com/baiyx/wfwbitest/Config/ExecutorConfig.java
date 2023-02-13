@@ -30,7 +30,7 @@ public class ExecutorConfig {
     private int maxPoolSize;
     /** 允许线程空闲时间（单位：默认为秒） */
     @Value("${spring.datasource.}")
-    private static final int keepAliveTime = 600;
+    private static final int keepAliveTime = 60;
     /** 缓冲队列大小 */
     private int queueCapacity = 10;
 
