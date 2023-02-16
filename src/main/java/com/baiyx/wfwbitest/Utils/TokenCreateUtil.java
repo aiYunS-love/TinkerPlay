@@ -84,7 +84,6 @@ public class TokenCreateUtil {
 
     /**
      * @desc 判断token是否过期
-     * @author lj
      */
     public static boolean isJwtExpired(String token){
 

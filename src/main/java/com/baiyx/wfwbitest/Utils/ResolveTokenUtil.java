@@ -17,7 +17,7 @@ import java.security.interfaces.RSAPublicKey;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-8-1 上午 11:01
- * @Description: 解析Token工具类
+ * @Description: 公司解析Token工具类
  */
 public class ResolveTokenUtil {
 
