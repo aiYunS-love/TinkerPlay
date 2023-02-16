@@ -23,6 +23,18 @@
         <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+        <!-- 上传OSS -->
+        <dependency>
+            <groupId>com.aliyun.oss</groupId>
+            <artifactId>aliyun-sdk-oss</artifactId>
+            <version>3.10.2</version>
+        </dependency>
+        <!-- 文件上传 储存桶 -->
+        <dependency>
+            <groupId>io.minio</groupId>
+            <artifactId>minio</artifactId>
+            <version>8.4.5</version>
+        </dependency>
         <!-- Elasticsearch相关依赖 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

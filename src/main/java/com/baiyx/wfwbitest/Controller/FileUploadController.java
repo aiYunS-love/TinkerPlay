@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.UUID;
 
 /**
@@ -24,7 +25,7 @@ public class FileUploadController {
 
     @Value("${file-save-path}")
     private String fileSavePath;
-    ArrayList<String> mylist=new ArrayList();
+    HashSet<String> resultset = new HashSet();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 
     /**
@@ -35,7 +36,7 @@ public class FileUploadController {
      * @return
      */
     @PostMapping("/upload")
-    public ArrayList upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
+    public HashSet upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
         String filePath = "";
         for(MultipartFile uploadFile:uploadFiles){
             String format = sdf.format(new Date());
@@ -44,19 +45,22 @@ public class FileUploadController {
                 folder.mkdirs();
             }
             String oldName = uploadFile.getOriginalFilename();
-            String newName = UUID.randomUUID().toString() +
-                    oldName.substring(oldName.lastIndexOf("."), oldName.length());
-            try {
-                uploadFile.transferTo(new File(folder, newName));
-                filePath = req.getScheme() + "://" + req.getServerName() + ":" +
-                        req.getServerPort() + "/uploadFile/" + format + newName;
-            } catch (IOException e) {
-                e.printStackTrace();
+            if(oldName == null || "".equals(oldName.replace(" ","")) || "".equals(oldName.substring(0,oldName.lastIndexOf(".")).replace(" ",""))){
+                resultset.add("未选择任何文件或有文件名为空!!!");
+            }else{
+                String newName = UUID.randomUUID().toString() +
+                                 oldName.substring(oldName.lastIndexOf("."), oldName.length());
+                try {
+                    uploadFile.transferTo(new File(folder, newName));
+                    filePath = req.getScheme() + "://" + req.getServerName() + ":" +
+                            req.getServerPort() + "/uploadFile/" + format + newName;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                resultset.add(filePath);
             }
-
-            mylist.add(filePath);
         }
-        return mylist;
+        return resultset;
     }
 
 }
