@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.common;
+package com.baiyx.wfwbitest.Common;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

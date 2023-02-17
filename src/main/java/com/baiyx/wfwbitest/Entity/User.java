@@ -1,8 +1,10 @@
 package com.baiyx.wfwbitest.Entity;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baiyx.wfwbitest.CustomAnnotations.PrivacyEncrypt;
 import com.baiyx.wfwbitest.Enum.PrivacyTypeEnum;
+import com.baiyx.wfwbitest.Properties.DateConverterProperties;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
@@ -27,26 +29,34 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 4359709211352400087L;
 
-    @ExcelProperty("id")
+    @ExcelProperty("编号")
     private Integer id;
-    @ExcelProperty("username")
+
+    @ExcelProperty("姓名")
     @PrivacyEncrypt(type = PrivacyTypeEnum.CUSTOMER, prefixNoMaskLen = 1, suffixNoMaskLen = 1, symbol = "$")
     private String username;
-    @ExcelProperty("address")
+
+    @ExcelProperty("地址")
     private String address;
-    @ExcelProperty("sex")
+
+    @ExcelProperty("性别")
     private String sex;
+
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    //@ExcelIgnore  //解决Date转换出现的NoSuchMethodError异常 过略该类型的属性不导出
+    @ExcelProperty(value = "出生年月日", converter = DateConverterProperties.class)
     private Date birthday;
 
-    @ExcelProperty("ID_CARD")
+    @ExcelProperty("身份证")
     @PrivacyEncrypt(type = PrivacyTypeEnum.ID_CARD)
     private String ID_CARD;
-    @ExcelProperty("PHONE")
+
+    @ExcelProperty("电话")
     @PrivacyEncrypt(type = PrivacyTypeEnum.PHONE)
     private String PHONE;
-    @ExcelProperty("EMAIL")
+
+    @ExcelProperty("邮箱")
     @PrivacyEncrypt(type = PrivacyTypeEnum.EMAIL)
     private String EMAIL;
 

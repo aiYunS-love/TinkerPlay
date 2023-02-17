@@ -41,6 +41,20 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     filters: stat
+  rabbitmq:
+    # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
+    # addresses: 192.168.119.129:5672
+    addresses: localhost
+    port: 5672
+    virtual-host: /mall
+    username: baiyx
+    password: 19930218
+    #开启消息确认模式，新版本已经弃用
+    # publisher-confirms: true
+    #开启消息送达提示
+    publisher-returns: true
+    # springboot.rabbitmq.publisher-confirm 新版本已被弃用，现在使用 spring.rabbitmq.publisher-confirm-type = correlated 实现相同效果
+    publisher-confirm-type: correlated
   # flyway:
     # 是否启用flyway
     # enabled: true

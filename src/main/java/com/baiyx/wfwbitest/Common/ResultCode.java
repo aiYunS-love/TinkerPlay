@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.common;
+package com.baiyx.wfwbitest.Common;
 
 /**
  * API返回码封装类

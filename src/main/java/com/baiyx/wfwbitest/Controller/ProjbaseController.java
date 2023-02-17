@@ -9,7 +9,9 @@ import com.baiyx.wfwbitest.ServiceImpl.ProjBaseServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,23 +29,23 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value ="ProjbaseController",produces = "application/json;charset=UTF-8")
+@Api(tags = "ProjbaseController", description = "分页模块")
 public class ProjbaseController {
 
     // 此处控制器层直接注入dao层,没有注入业务层
     @Autowired
     ProjBaseDao projBaseDao;
 
-
-    // 不做任何处理,常规方式读取数据,处理数据,写入数据
-    // @WebLog(description = "分析异常数据")
-    @RequestMapping(value = "AnalyzingAbnormalData",method= RequestMethod.POST,produces = "application/json")
-    public void AnalyzingAbnormalData(@RequestBody Map map) {
-        new ProjBaseServiceImpl(projBaseDao).readProjbase(map);
-    }
+//    // 不做任何处理,常规方式读取数据,处理数据,写入数据
+//    // @WebLog(description = "分析异常数据")
+//    @RequestMapping(value = "AnalyzingAbnormalData",method= RequestMethod.POST,produces = "application/json")
+//    public void AnalyzingAbnormalData(@RequestBody Map map) {
+//        new ProjBaseServiceImpl(projBaseDao).readProjbase(map);
+//    }
 
     @ApiOperation(value = "分页查询_数据量大")
     @GetMapping("findBypaging1")
-    public PageInfo<Projbase> findByPaging1(Integer pageNum, Integer pageSize){
+    public PageInfo<Projbase> findByPaging1(@ApiParam("页码") Integer pageNum, @ApiParam("每页数量") Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);
         List<Projbase> list = projBaseDao.selectProjbase1();
@@ -53,7 +55,7 @@ public class ProjbaseController {
 
     @ApiOperation(value = "分页查询_数据量小")
     @GetMapping("findBypaging2")
-    public PageInfo<Projbase> findByPaging2(Integer pageNum, Integer pageSize){
+    public PageInfo<Projbase> findByPaging2(@ApiParam("页码") Integer pageNum, @ApiParam("每页数量") Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);
         List<Projbase> list = projBaseDao.selectProjbase2();

@@ -9,7 +9,9 @@ import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Service.UserService;
 import com.baiyx.wfwbitest.Utils.ExcelUtil;
 import com.baiyx.wfwbitest.Utils.RowConvertColUtil;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -34,6 +36,7 @@ import java.util.concurrent.Future;
 @RequestMapping(value ="userController",produces = "application/json;charset=UTF-8")
 @EnableScheduling // 1.开启定时任务
 @EnableAsync // 2.开启多线程
+@Api(tags = "UserController", description = "常规功能模块")
 public class UserController {
 
     @Autowired
@@ -53,8 +56,9 @@ public class UserController {
     */
     // @Scheduled(fixedDelay = 30000)  //间隔1秒
     // @Async //开启异步这里会导致controller层返回为null;
+    @ApiOperation(value = "查询所有")
     @WebLog(description = "查询所有")
-    @RequestMapping(value = "findAll")
+    @RequestMapping(value = "findAll", method= RequestMethod.GET)
     public List<User> findAll(){
         List<User> users = UserService.findAll();
         return users;
@@ -67,8 +71,9 @@ public class UserController {
      * @Param:
      * @return: java.util.List<com.baiyx.wfwbitest.entity.User>
      */
+    @ApiOperation(value = "查询所有_测试多线程返回结果")
     @WebLog(description = "查询所有_测试多线程返回结果")
-    @RequestMapping(value = "findAll2")
+    @RequestMapping(value = "findAll2", method= RequestMethod.GET)
     public List<User> findAll2(){
         Future<List<User>> users = UserService.findAll2();
         try {
@@ -91,24 +96,27 @@ public class UserController {
      * @param user
      * @return: com.baiyx.wfwbitest.entity.R
      */
+    @ApiOperation(value = "插入一条")
     @WebLog(description = "插入一条")
     @RequestMapping(value = "insertOne",method= RequestMethod.POST,produces = "application/json")
     @Decrypt(description = "findByName")
     @ClearAndReloadCache(name = "findByName")
-    public R insertOne(@RequestBody User user){
+    public R insertOne(@ApiParam("User") @RequestBody User user){
         return R.ok("ok",UserService.insertOne(user));
     }
 
+    @ApiOperation(value = "根据名字删除")
     @WebLog(description = "根据名字删除")
     @RequestMapping(value = "deleteByName",method = RequestMethod.GET)
-    public void deleteByName(@RequestBody QueryRequestVo queryRequestVo){
+    public void deleteByName(@ApiParam("QueryRequestVo") @RequestBody QueryRequestVo queryRequestVo){
         UserService.deleteByName(queryRequestVo);
     }
 
+    @ApiOperation(value = "更新一条数据")
     @WebLog(description = "更新一条数据")
     @RequestMapping(value = "updateOne",method = RequestMethod.POST)
     @ClearAndReloadCache(name = "findById") //依旧测试延时双删
-    public void updateOne(@RequestBody QueryRequestVo queryRequestVo){
+    public void updateOne(@ApiParam("QueryRequestVo") @RequestBody QueryRequestVo queryRequestVo){
         UserService.updateOne(queryRequestVo);
     }
 
@@ -120,11 +128,11 @@ public class UserController {
      * @param null
     * @return: User
     */
-
+    @ApiOperation(value = "根据ID查询")
     @WebLog(description = "根据ID查询")
     @RequestMapping(value = "findById",method = RequestMethod.GET)
     @Encrypt(description = "根据ID查询加密查询结果")
-    public R findById(@RequestBody @NullDisable QueryRequestVo queryRequestVo){
+    public R findById(@ApiParam("QueryRequestVo") @RequestBody @NullDisable QueryRequestVo queryRequestVo){
         return R.ok("ok",UserService.findById(queryRequestVo));
     }
 
@@ -135,11 +143,10 @@ public class UserController {
     * @Param: QueryRequestVo
     * @return: User
     */
-
     @ApiOperation("根据名字查询")
     @WebLog(description = "根据名字查询")
     @RequestMapping(value = "findByName",method = RequestMethod.POST)
-    public User findByName(@RequestBody QueryRequestVo queryRequestVo) {
+    public User findByName(@ApiParam("QueryRequestVo") @RequestBody QueryRequestVo queryRequestVo) {
         return UserService.findByName(queryRequestVo);
     }
 
@@ -151,11 +158,11 @@ public class UserController {
     * @Param: QueryRequestVo
     * @return: List<User>
     */
-
+    @ApiOperation("根据时间段查询")
     @WebLog(description = "根据时间段查询")
     @RequestMapping(value = "findByTime",method = RequestMethod.POST)
     @CrossOrigin(value = "http://localhost:10104") // 该注解解决跨域问题
-    public List<User> findByTime(@RequestBody QueryRequestVo queryRequestVo) {
+    public List<User> findByTime(@ApiParam("QueryRequestVo") @RequestBody QueryRequestVo queryRequestVo) {
             List<User> users = UserService.findByTime(queryRequestVo);
             return users;
     }
@@ -167,10 +174,10 @@ public class UserController {
     * @Param: QueryRequestVo
     * @return: RowConvertColUtil.ConvertData
     */
-
+    @ApiOperation("行转列Test")
     @WebLog(description = "行转列Test")
     @RequestMapping(value = "RowConvertCol",method = RequestMethod.POST)
-    public RowConvertColUtil.ConvertData RowConvertCol(@RequestBody QueryRequestVo queryRequestVo) {
+    public RowConvertColUtil.ConvertData RowConvertCol(@ApiParam("QueryRequestVo") @RequestBody QueryRequestVo queryRequestVo) {
         RowConvertColUtil.ConvertData users = UserService.RowConvertCol(queryRequestVo);;
         return users;
     }
@@ -184,10 +191,10 @@ public class UserController {
     * @Param: List<User>
     * @return: void
     */
-    
+    @ApiOperation("批量插入")
     @WebLog(description = "批量插入")
     @RequestMapping(value = "insertAll",method = RequestMethod.POST)
-    public void insertAll(@Param("User") @RequestBody List<User> userList) {
+    public void insertAll(@ApiParam("List<User>") @Param("User") @RequestBody List<User> userList) {
         UserService.insertAll(userList);
     }
 
@@ -200,10 +207,10 @@ public class UserController {
     * @Param: HttpServletResponse
     * @return: String
     */
-
-    //导出为Excel
+    @ApiOperation("导出为Excel")
     @WebLog(description = "导出为Excel")
-    @RequestMapping("/downloadexcel")
+    @RequestMapping(value = "downloadexcel", method = RequestMethod.GET)
+    @ResponseBody
     public String getExcel(HttpServletResponse response) throws IllegalAccessException, IOException,
             InstantiationException {
         List<User> list = UserService.findAll();
@@ -211,8 +218,9 @@ public class UserController {
         return null;
     }
 
+    @ApiOperation("获取IP或MAC地址")
     @WebLog(description = "获取IP或MAC地址")
-    @RequestMapping(value = "getIPorMACaddress")
+    @RequestMapping(value = "getIPorMACaddress", method= RequestMethod.POST)
     public Map getIPorMACaddress(HttpServletRequest request) {
         try {
             return UserService.getIPorMACaddress(request);
@@ -222,16 +230,17 @@ public class UserController {
         return null;
     }
 
+    @ApiOperation("消除转义")
     @WebLog(description = "消除转义")
     @RequestMapping(value = "removeESC", method = RequestMethod.POST)
     public ResultMsg removeESC() {
         return UserService.removeESC();
     }
 
-
+    @ApiOperation("递归_文件搜索")
     @WebLog(description = "递归_文件搜索")
     @RequestMapping(value = "recursion", method = RequestMethod.GET)
-    public TreeSet recursion(String path, String searchContent) {
+    public TreeSet recursion(@ApiParam("路径") String path, @ApiParam("文件名") String searchContent) {
         //先行判断上一次查询的内容与本次查询的是否一致
         RecursiveAlgorithm.clean(searchContent);
         TreeSet<String> filePath = RecursiveAlgorithm.fileSearch(new File(path),searchContent);

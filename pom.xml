@@ -132,7 +132,7 @@
             <artifactId>pagehelper-spring-boot-starter</artifactId>
             <version>1.4.6</version>
         </dependency>
-        <!-- swagger调试接口 -->
+        <!-- swagger调试接口 API文档生产工具-->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
@@ -220,7 +220,7 @@
             <artifactId>easyexcel</artifactId>
             <version>3.1.1</version>
         </dependency>
-        <!--AMQP依赖，包含RabbitMQ-->
+        <!--消息队列AMQP依赖，包含RabbitMQ-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
