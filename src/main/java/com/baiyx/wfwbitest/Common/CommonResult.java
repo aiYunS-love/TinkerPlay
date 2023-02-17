@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.common;
+package com.baiyx.wfwbitest.Common;
 
 /**
  * 通用返回结果封装类

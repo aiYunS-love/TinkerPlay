@@ -3,9 +3,10 @@ package com.baiyx.wfwbitest.Controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
-import com.baiyx.wfwbitest.common.CommonResult;
-import com.baiyx.wfwbitest.common.MinioUploadDto;
+import com.baiyx.wfwbitest.Common.CommonResult;
+import com.baiyx.wfwbitest.Common.MinioUploadDto;
 import io.minio.*;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +26,7 @@ import java.util.*;
  * @Description: 多文件上传
  */
 @RestController
+@Api(tags = "FileUploadController", description = "文件上传模块")
 public class FileUploadController {
 
     @Value("${file-save-path}")
@@ -49,6 +51,7 @@ public class FileUploadController {
      * @param req
      * @return
      */
+    @ApiOperation("普通文件上传功能")
     @PostMapping("/upload")
     public HashSet upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
         String filePath = "";
@@ -84,7 +87,7 @@ public class FileUploadController {
      * @param files
      * @return: com.baiyx.wfwbitest.common.CommonResult
      */
-    @ApiOperation("文件上传")
+    @ApiOperation("文件上传Minio")
     @RequestMapping(value = "/upload2", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult upload2(@RequestPart("uploadFile2") MultipartFile[] files) {
@@ -151,7 +154,7 @@ public class FileUploadController {
                 .build();
     }
 
-    @ApiOperation("文件删除")
+    @ApiOperation("Minio文件删除")
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult delete(@RequestParam("objectName") String objectName) {
