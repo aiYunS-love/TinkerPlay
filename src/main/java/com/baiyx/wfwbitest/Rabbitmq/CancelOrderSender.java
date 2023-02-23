@@ -23,16 +23,17 @@ public class CancelOrderSender {
     @Autowired
     private AmqpTemplate amqpTemplate;
 
-    public void sendMessage(QueryRequestVo username, final long delayTimes){
+    public void sendMessage(String username, final long delayTimes){
         //给延迟队列发送消息
         amqpTemplate.convertAndSend(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange(), QueueEnum.QUEUE_TTL_ORDER_CANCEL.getRouteKey(), username, new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
                 //给消息设置延迟毫秒值
                 message.getMessageProperties().setExpiration(String.valueOf(delayTimes));
+                System.out.println("已发送延迟删除的信息");
                 return message;
             }
         });
-        LOGGER.info("send delay message orderId:{}",username);
+        LOGGER.info("send delete message username:{}",username);
     }
 }

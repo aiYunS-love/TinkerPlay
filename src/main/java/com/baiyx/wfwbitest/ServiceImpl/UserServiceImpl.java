@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.Dao.UserDao;
 import com.baiyx.wfwbitest.Entity.*;
+import com.baiyx.wfwbitest.Rabbitmq.CancelOrderSender;
 import com.baiyx.wfwbitest.Service.UserService;
 import com.baiyx.wfwbitest.Utils.*;
 import lombok.extern.slf4j.Slf4j;
@@ -29,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     UserDao UserDao;
+
+    @Autowired
+    private CancelOrderSender cancelOrderSender;
 
     //测试多数据源配置注解@DS
     @Override
@@ -67,8 +71,39 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // 测试RabbitMQ延迟删除数据,先新增后删除
+    @Override
+    public R insertOne2(User user) {
+        User u = new User();
+        // 因为此处使用的findByName方法先查询数据是否存在,
+        // 所以UserController的insertOne入口处为@Decrypt(description = "findByName")
+        u = UserDao.findByName(user.getUsername());
+        if (u == null) {
+            UserDao.insertOne(user);
+            // 新起线程,发送延迟删除的信息给RabbitMQ
+            new Thread(() -> {
+                cancelOrderSender.sendMessage(user.getUsername(),60 * 1000);
+                System.out.println("给RabbitMQ发送延迟删除的信息");
+            }).start();
+            return R.ok("ok",user);
+        } else {
+            return R.error("已存在编号为" + u.toString() + "的数据,请重新插入...");
+        }
+    }
+
     @Override
     public void deleteByName(QueryRequestVo queryRequestVo) {
+        User u = new User();
+        u = UserDao.findByName(queryRequestVo.getUser().getUsername());
+        if (u != null) {
+            UserDao.deleteByName(queryRequestVo.getUser().getUsername());
+        } else {
+            throw new RuntimeException("删除的数据不存在,请重新输入...");
+        }
+    }
+
+    @Override
+    public void deleteByName2(QueryRequestVo queryRequestVo) {
         User u = new User();
         u = UserDao.findByName(queryRequestVo.getUser().getUsername());
         if (u != null) {
