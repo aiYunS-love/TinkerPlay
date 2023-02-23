@@ -105,6 +105,24 @@ public class UserController {
         return R.ok("ok",UserService.insertOne(user));
     }
 
+    /***
+     * @Author: 白宇鑫
+     * @Description: 使用insertOne方法册测试延时双删;因为UserServiceImpl使用findByName方法先查询数据是否存在,
+     *               所以UserController的insertOne入口处为@Decrypt(description = "findByName")
+     *               会模糊寻找redis缓存key为findByName的缓存
+     * @Date: 2022-9-27 下午 05:01
+     * @param user
+     * @return: com.baiyx.wfwbitest.entity.R
+     */
+    @ApiOperation(value = "插入一条_测试MQ延迟删除")
+    @WebLog(description = "插入一条_测试MQ延迟删除")
+    @RequestMapping(value = "insertOne2",method= RequestMethod.POST,produces = "application/json")
+    @Decrypt(description = "findByName")
+    @ClearAndReloadCache(name = "findByName")
+    public R insertOne2(@ApiParam("User") @RequestBody User user){
+        return R.ok("ok",UserService.insertOne2(user));
+    }
+
     @ApiOperation(value = "根据名字删除")
     @WebLog(description = "根据名字删除")
     @RequestMapping(value = "deleteByName",method = RequestMethod.GET)

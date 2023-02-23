@@ -1,6 +1,7 @@
 package com.baiyx.wfwbitest.Rabbitmq;
 
 import com.baiyx.wfwbitest.Entity.QueryRequestVo;
+import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Service.UserService;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -23,8 +24,14 @@ public class CancelOrderReceiver {
     @Autowired
     private UserService userService;
     @RabbitHandler
-    public void handle(QueryRequestVo username){
+    public void handle(String username){
         LOGGER.info("receive delay message username:{}",username);
-        userService.deleteByName(username);
+        // 复制了userService.deleteByName的方法 用来deleteByNam2测试延迟执行
+        QueryRequestVo queryRequestVo = new QueryRequestVo();
+        User user = new User();
+        user.setUsername(username);
+        queryRequestVo.setUser(user);
+        userService.deleteByName2(queryRequestVo);
+        System.out.println("开始执行延迟删除");
     }
 }

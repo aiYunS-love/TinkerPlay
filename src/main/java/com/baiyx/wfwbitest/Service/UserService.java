@@ -30,8 +30,14 @@ public interface UserService {
     // 增
     R insertOne(User user);
 
+    // 增: 测试RabbitMQ延迟删除数据,先新增后,延迟删除
+    R insertOne2(User user);
+
     // 删
     void deleteByName(QueryRequestVo queryRequestVo);
+
+    // 删: 测试RabbitMQ延迟删除数据
+    void deleteByName2(QueryRequestVo queryRequestVo);
 
     // 改
     void updateOne(QueryRequestVo queryRequestVo);
