@@ -19,7 +19,8 @@ public class RabbitMqConfig {
     @Bean
     DirectExchange orderDirect() {
         return (DirectExchange) ExchangeBuilder
-                .directExchange(QueueEnum.QUEUE_ORDER_CANCEL.getExchange())
+                .directExchange(QueueEnum.EXCHANGE_QUEUE_Aa.getExchange())
+                // 持久化配置
                 .durable(true)
                 .build();
     }
@@ -30,7 +31,7 @@ public class RabbitMqConfig {
     @Bean
     DirectExchange orderTtlDirect() {
         return (DirectExchange) ExchangeBuilder
-                .directExchange(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange())
+                .directExchange(QueueEnum.EXCHANGE_QUEUE_Bb.getExchange())
                 .durable(true)
                 .build();
     }
@@ -40,7 +41,7 @@ public class RabbitMqConfig {
      */
     @Bean
     public Queue orderQueue() {
-        return new Queue(QueueEnum.QUEUE_ORDER_CANCEL.getName());
+        return new Queue(QueueEnum.EXCHANGE_QUEUE_Aa.getName());
     }
 
     /**
@@ -49,9 +50,9 @@ public class RabbitMqConfig {
     @Bean
     public Queue orderTtlQueue() {
         return QueueBuilder
-                .durable(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getName())
-                .withArgument("x-dead-letter-exchange", QueueEnum.QUEUE_ORDER_CANCEL.getExchange())//到期后转发的交换机
-                .withArgument("x-dead-letter-routing-key", QueueEnum.QUEUE_ORDER_CANCEL.getRouteKey())//到期后转发的路由键
+                .durable(QueueEnum.EXCHANGE_QUEUE_Bb.getName())
+                .withArgument("x-dead-letter-exchange", QueueEnum.EXCHANGE_QUEUE_Aa.getExchange())//到期后转发的交换机
+                .withArgument("x-dead-letter-routing-key", QueueEnum.EXCHANGE_QUEUE_Aa.getRouteKey())//到期后转发的路由键
                 .build();
     }
 
@@ -63,7 +64,7 @@ public class RabbitMqConfig {
         return BindingBuilder
                 .bind(orderQueue)
                 .to(orderDirect)
-                .with(QueueEnum.QUEUE_ORDER_CANCEL.getRouteKey());
+                .with(QueueEnum.EXCHANGE_QUEUE_Aa.getRouteKey());
     }
 
     /**
@@ -74,6 +75,6 @@ public class RabbitMqConfig {
         return BindingBuilder
                 .bind(orderTtlQueue)
                 .to(orderTtlDirect)
-                .with(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getRouteKey());
+                .with(QueueEnum.EXCHANGE_QUEUE_Bb.getRouteKey());
     }
 }

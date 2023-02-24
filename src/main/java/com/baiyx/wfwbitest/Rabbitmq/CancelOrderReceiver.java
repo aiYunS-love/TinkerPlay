@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.Rabbitmq;
 
+import com.alibaba.fastjson.JSON;
 import com.baiyx.wfwbitest.Entity.QueryRequestVo;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Service.UserService;
@@ -17,21 +18,19 @@ import org.slf4j.LoggerFactory;
  *               取消订单消息的处理者
  */
 @Component
-@RabbitListener(queues = "mall.order.cancel")
+@RabbitListener(queues = "queue.baiyx.a") //监听key为queue.baiyx.a的队列
 public class CancelOrderReceiver {
 
     private static Logger LOGGER =LoggerFactory.getLogger(CancelOrderReceiver.class);
     @Autowired
     private UserService userService;
     @RabbitHandler
-    public void handle(String username){
-        LOGGER.info("receive delay message username:{}",username);
+    public void handle(String queryRequestVo){
+        LOGGER.info("receive delay message username:{}",queryRequestVo);
         // 复制了userService.deleteByName的方法 用来deleteByNam2测试延迟执行
-        QueryRequestVo queryRequestVo = new QueryRequestVo();
-        User user = new User();
-        user.setUsername(username);
-        queryRequestVo.setUser(user);
-        userService.deleteByName2(queryRequestVo);
-        System.out.println("开始执行延迟删除");
+        System.out.println("开始执行延迟删除数据");
+        userService.deleteByName2(JSON.parseObject(queryRequestVo).getObject("QueryRequestVo",QueryRequestVo.class));
+        System.out.println("执行延迟删除数据完成");
+
     }
 }

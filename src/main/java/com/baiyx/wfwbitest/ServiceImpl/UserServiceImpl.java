@@ -74,16 +74,19 @@ public class UserServiceImpl implements UserService {
     // 测试RabbitMQ延迟删除数据,先新增后删除
     @Override
     public R insertOne2(User user) {
-        User u = new User();
-        // 因为此处使用的findByName方法先查询数据是否存在,
-        // 所以UserController的insertOne入口处为@Decrypt(description = "findByName")
-        u = UserDao.findByName(user.getUsername());
+        User u = UserDao.findByName(user.getUsername());
         if (u == null) {
+            Map<String, Object> map = new HashMap<>();
+            QueryRequestVo queryRequestVo = new QueryRequestVo();
+            queryRequestVo.setUser(user);
+            map.put("QueryRequestVo",queryRequestVo);
+            JSONObject jsonObject = new JSONObject(map);
             UserDao.insertOne(user);
             // 新起线程,发送延迟删除的信息给RabbitMQ
             new Thread(() -> {
-                cancelOrderSender.sendMessage(user.getUsername(),60 * 1000);
-                System.out.println("给RabbitMQ发送延迟删除的信息");
+                System.out.println("线程启动,开始执行发送延迟删除的信息给RabbitMQ!");
+                cancelOrderSender.sendMessage(JSON.toJSONString(jsonObject),60 * 1000);
+                System.out.println("给RabbitMQ发送延迟删除的信息完成");
             }).start();
             return R.ok("ok",user);
         } else {
