@@ -25,7 +25,7 @@ public class CancelOrderSender {
 
     public void sendMessage(String queryRequestVo, final long delayTimes){
         //给延迟队列发送消息
-        amqpTemplate.convertAndSend(QueueEnum.QUEUE_TTL_ORDER_CANCEL.getExchange(), QueueEnum.QUEUE_TTL_ORDER_CANCEL.getRouteKey(), queryRequestVo.toString(), new MessagePostProcessor() {
+        amqpTemplate.convertAndSend(QueueEnum.EXCHANGE_QUEUE_Bb.getExchange(), QueueEnum.EXCHANGE_QUEUE_Bb.getRouteKey(), queryRequestVo.toString(), new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws AmqpException {
                 //给消息设置延迟毫秒值

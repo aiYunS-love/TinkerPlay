@@ -18,7 +18,7 @@ import org.slf4j.LoggerFactory;
  *               取消订单消息的处理者
  */
 @Component
-@RabbitListener(queues = "mall.order.cancel") //监听key为mall.order.cancel的队列
+@RabbitListener(queues = "queue.baiyx.a") //监听key为queue.baiyx.a的队列
 public class CancelOrderReceiver {
 
     private static Logger LOGGER =LoggerFactory.getLogger(CancelOrderReceiver.class);
