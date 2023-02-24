@@ -468,6 +468,16 @@
                     <dockerHost>http://192.168.119.129:2375</dockerHost>
                 </configuration>
             </plugin>
+            <!-- 处理: Failed to execute goal org.apache.maven.plugins:maven-resources-plugin:3.2.0:
+            resources (default-resources) on project wfwbitest: Input length = 1 -> [Help 1] 问题-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
     <profiles>
