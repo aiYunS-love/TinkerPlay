@@ -1,10 +1,12 @@
 package com.baiyx.wfwbitest.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.CustomAnnotations.WebLog;
 import com.baiyx.wfwbitest.Entity.TokenAccess;
 import com.baiyx.wfwbitest.Service.TokenAccessService;
 import com.baiyx.wfwbitest.Utils.ResolveTokenUtil;
+import com.baiyx.wfwbitest.Utils.TokenCreateUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,4 +40,17 @@ public class TokenAccessController {
         data.put("status",status);
         return data;
     }
+
+    @ApiOperation(value = "获取登录Token")
+    @WebLog(description = "获取登录Token")
+    @RequestMapping(value = "/jwt/sign",method= RequestMethod.POST)
+    @CrossOrigin
+    public String sign(@RequestBody String request){
+        JSONObject jsonObject = JSON.parseObject(request);
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        return TokenCreateUtil.token(username,password);
+    }
+
+
 }

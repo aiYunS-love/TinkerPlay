@@ -23,6 +23,17 @@
         <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+        <!-- 两种yml配置文件敏感信息加密: 密码加密解密 -->
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot-starter</artifactId>
+            <version>3.0.5</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ulisesbocchio</groupId>
+            <artifactId>jasypt-spring-boot</artifactId>
+            <version>3.0.5</version>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.flink/ -->
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -237,7 +248,7 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!-- 数据库表导出成 Excel 所需jar -->
+        <!-- 导出导入成 Excel 所需jar -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>

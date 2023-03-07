@@ -1,6 +1,7 @@
 package com.baiyx.wfwbitest;
 
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -22,9 +23,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 // @EnableApolloConfig //Apollo配置项
 // @EnableDiscoveryClient //注册中心
 // @EnableScheduling
-@EnableAsync
-@EnableOpenApi
-@EnableCaching
+@EnableEncryptableProperties //开启yml敏感数据加密
+@EnableAsync //开启多线程,异步
+@EnableOpenApi //开启swagger2
+@EnableCaching // 开启redis缓存
 // 排除SecurityAutoConfiguration类,否则会启用认证
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {
