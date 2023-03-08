@@ -25,7 +25,7 @@ spring:
           password: 19930218
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
+          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
           username: root
           password: 19930218
     # 初始连接数
@@ -116,7 +116,7 @@ spring:
   profiles:
 #    active: dev
     default:
-      active:
+      active: windows
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
     # addresses: 192.168.119.129:5672
@@ -203,3 +203,13 @@ minio:
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
+
+# 加密密钥
+jasypt:
+  encryptor:
+    password: b@I0218.!
+    algorithm: PBEWithMD5AndDES
+
+# jwt加密TOKEN_SECRET
+  token:
+    TOKEN_SECRET: my-secret-key1

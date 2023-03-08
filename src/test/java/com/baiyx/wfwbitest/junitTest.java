@@ -48,9 +48,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
-import java.util.stream.Stream;
 
-import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.checkToken;
 import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
 
 /**
@@ -275,7 +273,7 @@ public class junitTest implements Runnable{
     public void test13() throws Exception{
         String token = new TokenCreateUtil().token("admin","admin!@#$1234");
         System.out.println(token);
-        checkToken(token);
+        TokenCreateUtil.checkToken(token);
         System.out.println(isJwtExpired(token));
     }
 

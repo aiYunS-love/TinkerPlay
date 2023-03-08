@@ -6,6 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 /**
@@ -13,12 +16,12 @@ import java.util.*;
  * @Date: 2022-10-13 下午 05:36
  * @Description: 生成token工具类
  */
-
+@Component
 public class TokenCreateUtil {
 
     Logger logger =  LoggerFactory.getLogger(TokenCreateUtil.class);
-    //token秘钥
-    public static final String TOKEN_SECRET="f26e587c28064d0e855e72c0a6a0e618";
+    // token秘钥 与 网关配置的密钥要一致
+    private static String TOKEN_SECRET="f26e587c28064d0e855e72c0a6a0e618";
 
     /**
      * 生成token值
@@ -26,7 +29,7 @@ public class TokenCreateUtil {
      * @param password
      * @return
      */
-    public String token(String username,String password){
+    public static String token(String username,String password){
         String token = "";
         try{
             //设置过期时间12个小时
@@ -43,12 +46,14 @@ public class TokenCreateUtil {
             header.put("alg","HS256");
             token =JWT.create()
                     .withHeader(header)
+                    // 测试添加
+                    .withClaim("key","user-key")
                     .withClaim("userName",username)
                     .withClaim("passWord",password)
                     .withExpiresAt(expireDate)
                     .sign(algorithm);
         }catch (Exception e){
-            logger.error("生成token值失败: ",e);
+            System.out.println("生成token值失败: " + e);
             return null;
         }
 
@@ -94,5 +99,10 @@ public class TokenCreateUtil {
             e.printStackTrace();
             return true;
         }
+    }
+
+    @Value("${token.TOKEN_SECRET}")
+    public void setTokenSecret(String tokenSecret) {
+        TOKEN_SECRET = tokenSecret;
     }
 }

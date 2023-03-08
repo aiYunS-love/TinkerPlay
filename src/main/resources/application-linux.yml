@@ -219,3 +219,12 @@ minio:
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
+
+# 加密密钥
+jasypt:
+  encryptor:
+    password: b@I0218.!
+
+# jwt加密TOKEN_SECRET
+token:
+  TOKEN_SECRET: my-secret-key
