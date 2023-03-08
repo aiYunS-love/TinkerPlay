@@ -116,7 +116,7 @@ spring:
   profiles:
 #    active: dev
     default:
-      active:
+      active: windows
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
     # addresses: 192.168.119.129:5672
@@ -212,4 +212,4 @@ jasypt:
 
 # jwt加密TOKEN_SECRET
   token:
-    TOKEN_SECRET: my-secret-key
+    TOKEN_SECRET: my-secret-key1
