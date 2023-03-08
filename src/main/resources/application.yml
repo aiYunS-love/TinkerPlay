@@ -25,12 +25,12 @@ spring:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
           username: root
-          password: 19930218
+          password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
           username: root
-          password: 19930218
+          password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
         # 初始连接数
     initialSize: 20
     # 最小连接数
@@ -123,7 +123,7 @@ spring:
     port: 5672
     virtual-host: /mall
     username: baiyx
-    password: 19930218
+    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     #开启消息确认模式，新版本已经弃用
     # publisher-confirms: true
     #开启消息送达提示
@@ -203,10 +203,14 @@ minio:
   accessKey: minioadmin #访问的key
   secretKey: minioadmin #访问的秘钥
 
-# 加密密钥
+#高于jasypt3.0.0版本如下
 jasypt:
   encryptor:
-    password: b@I0218.!
+    # 盐加密
+    password: baiyx
+    # 指定加密方式
+    algorithm: PBEWithMD5AndDES
+    iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 # jwt加密TOKEN_SECRET
 token:
