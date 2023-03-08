@@ -6,6 +6,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.util.*;
 
 /**
@@ -13,13 +16,12 @@ import java.util.*;
  * @Date: 2022-10-13 下午 05:36
  * @Description: 生成token工具类
  */
-
+@Component
 public class TokenCreateUtil {
 
     Logger logger =  LoggerFactory.getLogger(TokenCreateUtil.class);
     // token秘钥 与 网关配置的密钥要一致
-    public static final String TOKEN_SECRET="f26e587c28064d0e855e72c0a6a0e618";
-    // public static final String TOKEN_SECRET="my-secret-key";
+    private static String TOKEN_SECRET="f26e587c28064d0e855e72c0a6a0e618";
 
     /**
      * 生成token值
@@ -97,5 +99,10 @@ public class TokenCreateUtil {
             e.printStackTrace();
             return true;
         }
+    }
+
+    @Value("${token.TOKEN_SECRET}")
+    public void setTokenSecret(String tokenSecret) {
+        TOKEN_SECRET = tokenSecret;
     }
 }
