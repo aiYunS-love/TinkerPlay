@@ -107,7 +107,7 @@ spring:
     # host: 192.168.119.129
     # 密码
     # password: b0650fa
-    password: b0650fa
+    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     timeout: 60000 #连接超时时间（毫秒）
     # 缓存配置
     cache:
@@ -218,7 +218,7 @@ minio:
   endpoint: http://localhost:9095 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的key
-  secretKey: minioadmin #访问的秘钥
+  secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的秘钥
 
 #高于jasypt3.0.0版本如下
 jasypt:

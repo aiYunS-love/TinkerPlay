@@ -99,11 +99,9 @@ spring:
     # 非集群使用
     port: 6379
     # 如果docker镜像部署的话,需要写实际的IP
-    host: 192.168.119.129
-    # host: 192.168.119.129
-    # 密码
-    # password: b0650fa
-    password: b0650fa
+#    host: 192.168.119.129
+    host: 127.0.0.1
+    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     timeout: 60000 #连接超时时间（毫秒）
     # 缓存配置
     cache:
@@ -200,8 +198,8 @@ data:
 minio:
   endpoint: http://localhost:9095 #MinIO服务所在地址
   bucketName: mall #存储桶名称
-  accessKey: minioadmin #访问的key
-  secretKey: minioadmin #访问的秘钥
+  accessKey: minioadmin #访问的账号
+  secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
 
 #高于jasypt3.0.0版本如下
 jasypt:
