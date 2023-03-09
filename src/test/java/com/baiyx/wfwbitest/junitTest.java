@@ -3,6 +3,8 @@ package com.baiyx.wfwbitest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.BuilderModel.BuildJDBC;
+import com.baiyx.wfwbitest.Common.RedisService;
+import com.baiyx.wfwbitest.Common.RedisServiceImpl;
 import com.baiyx.wfwbitest.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.DataStructure.Stack;
 import com.baiyx.wfwbitest.Algorithm.RecursiveAlgorithm;
@@ -66,6 +68,8 @@ public class junitTest implements Runnable{
     // private UserDaoTwo userRepository2;
     @Autowired
     ProjBaseDao projBaseDao;
+    @Autowired
+    RedisService redisService;
 
     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -841,6 +845,18 @@ public class junitTest implements Runnable{
         }
     }
 
+    // 测试redis service
+    @Test
+    public void test25(){
+        redisService.set("A","a");
+        redisService.set("B","b",30);
+        redisService.set("C","c");
+        System.out.println(redisService.get("A"));
+        redisService.expire("C",30);
+        System.out.println(redisService.getExpire("C"));
+        redisService.del("A");
+    }
+
     // yml配置文件敏感信息加密
     @Test
     public void testEncrypt() throws Exception {
@@ -850,7 +866,7 @@ public class junitTest implements Runnable{
         config.setAlgorithm("PBEWithMD5AndDES");          // 加密的算法，这个算法是默认的
         config.setPassword("baiyx");                        // 加密的密钥，随便自己填写，很重要千万不要告诉别人
         standardPBEStringEncryptor.setConfig(config);
-        String plainText = "19930218";         //自己的密码
+        String plainText = "minioadmin";         //自己的密码
         String encryptedText = standardPBEStringEncryptor.encrypt(plainText);
         System.out.println("密码：" + encryptedText);
     }
