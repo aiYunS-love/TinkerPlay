@@ -23,6 +23,12 @@
         <resource.delimiter>#</resource.delimiter>
     </properties>
     <dependencies>
+        <!-- logstash -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>5.3</version>
+        </dependency>
         <!-- 两种yml配置文件敏感信息加密: 密码加密解密 -->
         <dependency>
             <groupId>com.github.ulisesbocchio</groupId>
