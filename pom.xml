@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.baiyx</groupId>
     <artifactId>wfwbitest</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <name>wfw_bi_test</name>
     <description>Demo project for Spring Boot</description>
     <properties>
@@ -18,7 +18,7 @@
         <!--打包后镜像的前缀-->
         <docker.image.prefix>baiyx</docker.image.prefix>
         <!--docker仓库地址-->
-        <docker.repostory>192.168.119.129:2375</docker.repostory>
+        <docker.repostory>192.168.119.128:2375</docker.repostory>
         <!--自定义yml变量符号-->
         <resource.delimiter>#</resource.delimiter>
     </properties>
@@ -302,9 +302,10 @@
         </dependency>
         <!-- mysql驱动 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.25</version>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.32</version>
+            <scope>runtime</scope>
         </dependency>
         <!-- 常用工具类jar包 -->
         <dependency>
@@ -414,13 +415,6 @@
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-            <resource>
-                <targetPath>/ROOT</targetPath>
-                <!--用于指定需要复制的跟目录 此处配置的${project.build.directory}是 即对应 target 目录-->
-                <directory>${project.build.directory}</directory>
-<!--                &lt;!&ndash; 需要包含的 jar包 ，这里对应的是 Dockerfile中添加的文件名　&ndash;&gt;-->
-<!--                <include>${project.build.finalName}.jar</include>-->
-            </resource>
         </resources>
         <plugins>
             <plugin>
@@ -452,37 +446,79 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            &lt;!&ndash;镜像启动插件&ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.springframework.boot</groupId>-->
-<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-<!--            </plugin>-->
-            <!--配置部署到远程docker中-->
-            <!--一键部署-->
             <plugin>
-                <!--启动插件-->
-                <groupId>com.spotify</groupId>
+                <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>1.0.0</version>
+                <version>0.40.2</version>
+                <executions>
+                    <!--如果想在项目打包时构建镜像添加-->
+                    <execution>
+                        <id>build-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>build</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <!--指定生成的镜像名-->
-                    <imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-                    <!--指定标签-->
-                    <imageTags>
-                        <imageTag>latest</imageTag>
-                    </imageTags>
-                    <!--基础镜像-->
-                    <!-- <baseImage>java:8</baseImage> -->
-                    <baseImage>openjdk:8-jdk-alpine</baseImage>
-                    <!--作者信息-->
-                    <maintainer>baiyx</maintainer>
-                    <!--切换到/ROOT目录-->
-                    <workdir>/ROOT</workdir>
-
-                    <cmd>["java","-version"]</cmd>
-                    <entryPoint>["java","-jar","${project.build.finalName}.jar"]</entryPoint>
-                    <!--指定远程 docker api地址-->
-                    <dockerHost>http://192.168.119.129:2375</dockerHost>
+                    <!-- Docker 远程管理地址-->
+                    <dockerHost>http://192.168.119.128:2375</dockerHost>
+                    <!-- Docker 推送镜像仓库地址-->
+                    <pushRegistry>http://192.168.119.128:50</pushRegistry>
+                    <!-- 认证信息-->
+                    <authConfig>
+                        <push>
+                            <username>admin</username>
+                            <password>Baiyx19930218</password>
+                        </push>
+                    </authConfig>
+                    <images>
+                        <image>
+                            <!--由于推送到私有镜像仓库，镜像名需要添加仓库地址-->
+                            <name>192.168.119.128:50/baiyx/${project.name}:${project.version}</name>
+                            <!--定义镜像构建行为-->
+                            <build>
+                                <!--定义基础镜像-->
+                                <from>java:8</from>
+                                <args>
+                                    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                                </args>
+                                <!--定义哪些文件拷贝到容器中-->
+                                <assembly>
+                                    <!--定义拷贝到容器的目录-->
+                                    <targetDir>/</targetDir>
+                                    <!--只拷贝生成的jar包-->
+                                    <descriptorRef>artifact</descriptorRef>
+                                </assembly>
+                                <!--定义容器启动命令-->
+                                <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
+                                <!--定义维护者-->
+                                <maintainer>baiyx</maintainer>
+                                <!--使用Dockerfile构建时打开-->
+                                <!--<dockerFileDir>${project.basedir}</dockerFileDir>-->
+                            </build>
+                            <!--定义容器启动行为-->
+                            <run>
+                                <!--设置容器名，可采用通配符-->
+                                <containerNamePattern>${project.artifactId}</containerNamePattern>
+                                <!--设置端口映射-->
+                                <ports>
+                                    <port>9090:9090</port>
+                                </ports>
+                                <!--设置容器间连接-->
+                                <links>
+                                    <link>mysql:db</link>
+                                </links>
+                                <!--设置容器和宿主机目录挂载-->
+                                <volumes>
+                                    <bind>
+                                        <volume>/etc/localtime:/etc/localtime</volume>
+                                        <volume>/mydata/${project.artifactId}/logs:/var/logs</volume>
+                                    </bind>
+                                </volumes>
+                            </run>
+                        </image>
+                    </images>
                 </configuration>
             </plugin>
             <!-- 处理: Failed to execute goal org.apache.maven.plugins:maven-resources-plugin:3.2.0:
@@ -498,7 +534,7 @@
         </plugins>
     </build>
     <profiles>
-        <!-- 为swagger新增 -->
+        <!-- swagger新增 -->
         <profile>
             <!-- windows环境 -->
             <id>windows</id>
