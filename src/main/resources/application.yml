@@ -18,17 +18,17 @@ spring:
 #        master:
 #          driver-class-name: com.mysql.cj.jdbc.Driver
 #          # 如果docker镜像部署的话,需要写实际的IP
-#          url: jdbc:mysql://192.168.119.129:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
+#          url: jdbc:mysql://192.168.119.128:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
 #          username: root
 #          password: 19930218
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
+          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC&autoReconnect=true
+          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
         # 初始连接数
@@ -99,8 +99,8 @@ spring:
     # 非集群使用
     port: 6379
     # 如果docker镜像部署的话,需要写实际的IP
-#    host: 192.168.119.129
-    host: 127.0.0.1
+    host: 192.168.119.128
+    # host: 127.0.0.1
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     timeout: 60000 #连接超时时间（毫秒）
     # 缓存配置
@@ -116,8 +116,8 @@ spring:
       max-wait: -1
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
-    # addresses: 192.168.119.129:5672
-    addresses: localhost
+    # addresses: 192.168.119.128:5672
+    addresses: 192.168.119.128
     port: 5672
     virtual-host: /mall
     username: baiyx
@@ -172,7 +172,7 @@ eureka:
 swagger:
   enable: true #是否开启swagger
   application-name: baiyx #项目应用名
-  application-version: 3.0.0 #项目版本信息
+  application-version: 1.0.1 #项目版本信息
   application-description: 小白Test #项目描述信息
   try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
 
@@ -192,11 +192,11 @@ data:
   elasticsearch:
     repositories:
       enabled: true
-    cluster-nodes: 127.0.0.1:9300 # es的连接地址及端口号
+    cluster-nodes: 192.168.119.128:9300 # es的连接地址及端口号
     cluster-name: elasticsearch # es集群的名称
 
 minio:
-  endpoint: http://localhost:9095 #MinIO服务所在地址
+  endpoint: http://192.168.119.128:9080 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的账号
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
