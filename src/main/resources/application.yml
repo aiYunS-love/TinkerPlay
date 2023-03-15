@@ -196,7 +196,7 @@ data:
     cluster-name: elasticsearch # es集群的名称
 
 minio:
-  endpoint: http://192.168.119.128:9001 #MinIO服务所在地址
+  endpoint: http://192.168.119.128:9080 #MinIO服务所在地址
   bucketName: mall #存储桶名称
   accessKey: minioadmin #访问的账号
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
