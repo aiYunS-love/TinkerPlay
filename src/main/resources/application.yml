@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 1001
   servlet:
     context-path: /api
 
@@ -75,7 +75,6 @@ spring:
     # out-of-order: false
     # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
     # schemas: heima
-
   # 文件上传功能开启
   servlet:
     multipart:
@@ -119,7 +118,7 @@ spring:
     # addresses: 192.168.119.128:5672
     addresses: 192.168.119.128
     port: 5672
-    virtual-host: /mall
+    virtual-host: /baiyx
     username: baiyx
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     #开启消息确认模式，新版本已经弃用
@@ -128,6 +127,9 @@ spring:
     publisher-returns: true
     # springboot.rabbitmq.publisher-confirm 新版本已被弃用，现在使用 spring.rabbitmq.publisher-confirm-type = correlated 实现相同效果
     publisher-confirm-type: correlated
+  elasticsearch:
+    rest:
+      uris: http://192.168.119.128:9200
 
 # RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
 body:
@@ -196,8 +198,8 @@ data:
     cluster-name: elasticsearch # es集群的名称
 
 minio:
-  endpoint: http://192.168.119.128:9080 #MinIO服务所在地址
-  bucketName: mall #存储桶名称
+  endpoint: http://192.168.0.107:9095 #MinIO服务所在地址
+  bucketName: baiyx #存储桶名称
   accessKey: minioadmin #访问的账号
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
 

@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.Dao;
 
+import com.baiyx.wfwbitest.Entity.EsUser;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Utils.RowConvertColUtil;
@@ -27,6 +28,8 @@ public interface UserDao {
 
     List<User> findAll2();
 
+    List<EsUser> findAll3();
+
     // 增
     void insertOne(User user);
 
@@ -39,6 +42,9 @@ public interface UserDao {
     // 根据id查
     @Cacheable
     User findById(int id);
+
+    // 根据id查
+    List<EsUser> findById2(Long id);
 
     // 根据name查
     @Cacheable

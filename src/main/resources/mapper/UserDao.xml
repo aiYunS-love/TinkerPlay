@@ -10,6 +10,10 @@
         select * from user;
     </select>
 
+    <select id="findAll3" resultType="com.baiyx.wfwbitest.Entity.EsUser">
+        select * from user;
+    </select>
+
     <insert id="insertOne" parameterType="com.baiyx.wfwbitest.Entity.User">
         insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
     </insert>
@@ -23,6 +27,10 @@
     </update>
 
     <select id="findById" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.User">
+        select * from user where id=#{id};
+    </select>
+
+    <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.EsUser">
         select * from user where id=#{id};
     </select>
 

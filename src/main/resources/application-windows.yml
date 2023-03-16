@@ -46,8 +46,7 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     filters: stat
-
-# 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
+  # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
   flyway:
     # 是否启用flyway
     enabled: true
@@ -95,8 +94,8 @@ spring:
     #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
     # 非集群使用
     port: 6379
-    host: 127.0.0.1
-    # host: 192.168.119.128
+    # host: 127.0.0.1
+    host: 192.168.119.128
     # 密码
     # password: b0650fa
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
@@ -120,9 +119,9 @@ spring:
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
     # addresses: 192.168.119.128:5672
-    addresses: localhost
+    addresses: 192.168.119.128
     port: 5672
-    virtual-host: /mall
+    virtual-host: /baiyx
     username: baiyx
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
     #开启消息确认模式，新版本已经弃用
@@ -131,6 +130,9 @@ spring:
     publisher-returns: true
     # springboot.rabbitmq.publisher-confirm 新版本已被弃用，现在使用 spring.rabbitmq.publisher-confirm-type = correlated 实现相同效果
     publisher-confirm-type: correlated
+  elasticsearch:
+    rest:
+      uris: http://192.168.119.128:9200
 
 # RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
 body:
@@ -195,12 +197,12 @@ data:
   elasticsearch:
     repositories:
       enabled: true
-    cluster-nodes: 127.0.0.1:9300 # es的连接地址及端口号
+    cluster-nodes: 192.168.119.128:9300 # es的连接地址及端口号
     cluster-name: elasticsearch # es集群的名称
 
 minio:
   endpoint: http://localhost:9095 #MinIO服务所在地址
-  bucketName: mall #存储桶名称
+  bucketName: baiyx #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的秘钥
 
