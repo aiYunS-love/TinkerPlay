@@ -22,7 +22,7 @@ public class EsUser implements Serializable {
     private Long id;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String username;
+    private String name;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String address;
@@ -44,6 +44,9 @@ public class EsUser implements Serializable {
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String EMAIL;
 
+    @Field(analyzer = "ik_max_word",type = FieldType.Text)
+    private String keywords;
+
     public Long getId() {
         return id;
     }
@@ -53,11 +56,11 @@ public class EsUser implements Serializable {
     }
 
     public String getUsername() {
-        return username;
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -108,17 +111,26 @@ public class EsUser implements Serializable {
         this.EMAIL = EMAIL;
     }
 
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
     @Override
     public String toString() {
         return "EsUser{" +
                 "id=" + id +
-                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +
                 ", ID_CARD='" + ID_CARD + '\'' +
                 ", PHONE='" + PHONE + '\'' +
                 ", EMAIL='" + EMAIL + '\'' +
+                ", keywords='" + keywords + '\'' +
                 '}';
     }
 }

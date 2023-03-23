@@ -17,4 +17,16 @@ public interface EsUserRepository extends ElasticsearchRepository<EsUser, Long> 
      * 搜索查询
      */
     Page<EsUser> findBySex( String sex, Pageable page);
+
+    /**
+     * 搜索查询
+     * @param name     姓名
+     * @param sex          性别
+     * @param address      地址
+     * @param EMAIL        邮箱
+     * @param ID_CARD      证件号
+     * @param PHONE        电话
+     * @param keywords     关键字
+     */
+    Page<EsUser> findByNameOrKeywords(String name, String sex, String address, String EMAIL, String ID_CARD, String PHONE, String keywords, Pageable page);
 }
