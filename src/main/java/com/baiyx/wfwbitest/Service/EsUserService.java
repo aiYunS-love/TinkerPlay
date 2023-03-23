@@ -33,7 +33,12 @@ public interface EsUserService {
     void delete(List<Long> ids);
 
     /**
-     * 根据关键字搜索名称或者副标题
+     * 根据性别搜索
      */
     Page<EsUser> search(String sex, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据关键字搜索
+     */
+    Page<EsUser> searchKeyword(String keyword, Integer pageNum, Integer pageSize);
 }

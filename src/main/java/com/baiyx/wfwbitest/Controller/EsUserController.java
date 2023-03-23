@@ -62,13 +62,23 @@ public class EsUserController {
         }
     }
 
-    @ApiOperation(value = "简单搜索")
+    @ApiOperation(value = "根据性别简单搜索")
     @RequestMapping(value = "/search/simple", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<CommonPage<EsUser>> search(@RequestParam(required = false) String sex,
                                                       @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                                                       @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
         Page<EsUser> esProductPage = esUserService.search(sex, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(esProductPage));
+    }
+
+    @ApiOperation(value = "关键字搜索")
+    @RequestMapping(value = "/search/searchKeyword", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<EsUser>> searchKeyword(@RequestParam(required = false) String keyword,
+                                                   @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        Page<EsUser> esProductPage = esUserService.searchKeyword(keyword, pageNum, pageSize);
         return CommonResult.success(CommonPage.restPage(esProductPage));
     }
 

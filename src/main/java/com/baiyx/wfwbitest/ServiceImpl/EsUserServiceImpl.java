@@ -76,4 +76,10 @@ public class EsUserServiceImpl implements EsUserService {
         Pageable pageable = PageRequest.of(pageNum, pageSize);
         return esUserRepository.findBySex(sex, pageable);
     }
+
+    @Override
+    public Page<EsUser> searchKeyword(String keyword, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return esUserRepository.findByNameOrKeywords(keyword, keyword, keyword, keyword, keyword, keyword, keyword, pageable);
+    }
 }
