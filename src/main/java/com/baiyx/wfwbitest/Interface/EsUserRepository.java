@@ -14,19 +14,29 @@ import org.springframework.stereotype.Component;
 public interface EsUserRepository extends ElasticsearchRepository<EsUser, Long> {
 
     /**
-     * 搜索查询
+     * 根据性别 搜索查询
      */
     Page<EsUser> findBySex( String sex, Pageable page);
 
     /**
      * 搜索查询
-     * @param name     姓名
-     * @param sex          性别
-     * @param address      地址
-     * @param EMAIL        邮箱
-     * @param ID_CARD      证件号
-     * @param PHONE        电话
-     * @param keywords     关键字
+     * @param name             姓名
+     * @param sex              性别
+     * @param address          地址
+     * @param EMAIL            邮箱
+     * @param CARD             证件号
+     * @param PHONE            电话
+     * @param keywords         关键字
      */
-    Page<EsUser> findByNameOrKeywords(String name, String sex, String address, String EMAIL, String ID_CARD, String PHONE, String keywords, Pageable page);
+    Page<EsUser> findByKeywords(String name, String sex, String address, String EMAIL, String CARD, String PHONE, String keywords, Pageable page);
+
+    /**
+     * 根据姓名或关键字 搜索查询
+     */
+    Page<EsUser> findByNameOrKeywords(String name, String keywords, Pageable page);
+
+    /**
+     * 根据姓名或证件号或关键字 搜索查询
+     */
+    Page<EsUser> findByNameOrCARDOrKeywords(String name, String CARD, String keywords, Pageable page);
 }

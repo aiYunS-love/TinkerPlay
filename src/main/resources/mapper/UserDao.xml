@@ -11,7 +11,7 @@
     </select>
 
     <select id="findAll3" resultType="com.baiyx.wfwbitest.Entity.EsUser">
-        select * from user;
+        select * from esuser;
     </select>
 
     <insert id="insertOne" parameterType="com.baiyx.wfwbitest.Entity.User">
@@ -31,7 +31,7 @@
     </select>
 
     <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.EsUser">
-        select * from user where id=#{id};
+        select * from esuser where id=#{id};
     </select>
 
     <select id="findByName" parameterType="string" resultType="com.baiyx.wfwbitest.Entity.User">

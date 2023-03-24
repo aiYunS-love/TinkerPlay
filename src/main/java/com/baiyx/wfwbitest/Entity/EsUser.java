@@ -13,7 +13,7 @@ import java.util.Date;
 /**
  * @Author: 白宇鑫
  * @Date: 2023年3月16日, 0016 下午 12:52:12
- * @Description: 搜索中的商品信息
+ * @Description: 搜索中的人员信息
  */
 @Document(indexName = "user", shards = 1,replicas= 0)
 public class EsUser implements Serializable {
@@ -36,7 +36,7 @@ public class EsUser implements Serializable {
     private Date birthday;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
-    private String ID_CARD;
+    private String CARD;
 
     @Field(analyzer = "ik_max_word", type = FieldType.Text)
     private String PHONE;
@@ -55,11 +55,11 @@ public class EsUser implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
+    public String getName() {
         return name;
     }
 
-    public void setUsername(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -87,12 +87,12 @@ public class EsUser implements Serializable {
         this.birthday = birthday;
     }
 
-    public String getID_CARD() {
-        return ID_CARD;
+    public String getCARD() {
+        return CARD;
     }
 
-    public void setID_CARD(String ID_CARD) {
-        this.ID_CARD = ID_CARD;
+    public void setCARD(String CARD) {
+        this.CARD = CARD;
     }
 
     public String getPHONE() {
@@ -127,7 +127,7 @@ public class EsUser implements Serializable {
                 ", address='" + address + '\'' +
                 ", sex='" + sex + '\'' +
                 ", birthday=" + birthday +
-                ", ID_CARD='" + ID_CARD + '\'' +
+                ", CARD='" + CARD + '\'' +
                 ", PHONE='" + PHONE + '\'' +
                 ", EMAIL='" + EMAIL + '\'' +
                 ", keywords='" + keywords + '\'' +

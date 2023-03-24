@@ -35,10 +35,20 @@ public interface EsUserService {
     /**
      * 根据性别搜索
      */
-    Page<EsUser> search(String sex, Integer pageNum, Integer pageSize);
+    Page<EsUser> searchBySex(String sex, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据姓名或关键字搜索
+     */
+    Page<EsUser> searchByNameOrKeywords(String keyword, Integer pageNum, Integer pageSize);
+
+    /**
+     * 根据姓名或证件号或关键字搜索
+     */
+    Page<EsUser> searchByNameOrCARDOrKeywords(String keyword, Integer pageNum, Integer pageSize);
 
     /**
      * 根据关键字搜索
      */
-    Page<EsUser> searchKeyword(String keyword, Integer pageNum, Integer pageSize);
+    Page<EsUser> searchByKeyword(String keywords, Integer pageNum, Integer pageSize);
 }
