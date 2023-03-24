@@ -68,8 +68,28 @@ public class EsUserController {
     public CommonResult<CommonPage<EsUser>> search(@RequestParam(required = false) String sex,
                                                       @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                                                       @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
-        Page<EsUser> esProductPage = esUserService.search(sex, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(esProductPage));
+        Page<EsUser> esUserPage = esUserService.searchBySex(sex, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(esUserPage));
+    }
+
+    @ApiOperation(value = "根据姓名或关键字简单搜索")
+    @RequestMapping(value = "/search/searchNameOrKeyword", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<EsUser>> searchNameOrKeyword(@RequestParam(required = false) String keyword,
+                                                   @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                   @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        Page<EsUser> esUserPage = esUserService.searchByNameOrKeywords(keyword, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(esUserPage));
+    }
+
+    @ApiOperation(value = "根据姓名或证件号或关键字简单搜索")
+    @RequestMapping(value = "/search/searchByNameOrIDCARDOrKeywords", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult<CommonPage<EsUser>> searchByNameOrCARDOrKeywords(@RequestParam(required = false) String keyword,
+                                                                @RequestParam(required = false, defaultValue = "0") Integer pageNum,
+                                                                @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
+        Page<EsUser> esUserPage = esUserService.searchByNameOrCARDOrKeywords(keyword, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(esUserPage));
     }
 
     @ApiOperation(value = "关键字搜索")
@@ -78,8 +98,8 @@ public class EsUserController {
     public CommonResult<CommonPage<EsUser>> searchKeyword(@RequestParam(required = false) String keyword,
                                                    @RequestParam(required = false, defaultValue = "0") Integer pageNum,
                                                    @RequestParam(required = false, defaultValue = "5") Integer pageSize) {
-        Page<EsUser> esProductPage = esUserService.searchKeyword(keyword, pageNum, pageSize);
-        return CommonResult.success(CommonPage.restPage(esProductPage));
+        Page<EsUser> esUserPage = esUserService.searchByKeyword(keyword, pageNum, pageSize);
+        return CommonResult.success(CommonPage.restPage(esUserPage));
     }
 
 }
