@@ -3,8 +3,8 @@
 #### 介绍
 学习、温习、常规性需求、集成各种中间件、各种处理策略、算法基础、设计模式基础、测试等的代码库.
 
-#### 软件架构
-springboot 2.5.2 + mybatis 3.4.6 + redis
+#### 架构
+springboot 2.5.2 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
 
 
 #### 配置文件application.yml说明
