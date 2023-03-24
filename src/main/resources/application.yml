@@ -215,4 +215,3 @@ jasypt:
 # jwt加密TOKEN_SECRET
 token:
   TOKEN_SECRET: my-secret-key
-
