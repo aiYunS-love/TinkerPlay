@@ -4,9 +4,12 @@ server:
     context-path: /api
 
 spring:
+  application:
+    name: wfwbitest
+    version: 1.0.1
+  # swagger新增,激活某个固定后缀的yml配置文件
   profiles:
-    default:
-      active: windows
+    active: windows
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
@@ -49,7 +52,6 @@ spring:
     testOnReturn: false
     poolPreparedStatements: true
     filters: stat
-
   # flyway:
     # 是否启用flyway
     # enabled: true
@@ -130,6 +132,20 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.119.128:9200
+  # 解决springboot升级2.7.5导致的ApplicationContextException
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.119.128:8848 #配置Nacos地址
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 # RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
 body:
@@ -140,6 +156,15 @@ body:
 file-save-path: /Test/uploadFile/
 # file-save-path: E:\baiyx\uploadFile\
 
+mybatis:
+  #映射的xml的sql文件路径
+  mapper-locations: classpath:mapper/*.xml
+  #实体类路径
+  type-aliases-package: com/baiyx/wfwbitest/entity
+    # configuration:
+    # 打印SQL日志
+  # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 pdf:
   config:
     # pdf模板相对路径
@@ -148,27 +173,6 @@ pdf:
     output: E:\baiyx\uploadFile\pdf\
     # 字体相对路径
     fontPath: src/main/resources/static/fonts/simsun.ttf
-
-mybatis:
-  #映射的xml的sql文件路径
-  mapper-locations: classpath:mapper/*.xml
-  #实体类路径
-  type-aliases-package: com/baiyx/wfwbitest/entity
-  # configuration:
-    # 打印SQL日志
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# 注册中心
-eureka:
-  instance:
-    appname: ${spring.application.name}
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-  client:
-    healthcheck:
-      enabled: true
-    service-url:
-      defaultZone: http://admin:246d494b-3cca-11e8-8ef7-2c4d54f01ba4@127.0.0.1:9000/eureka/
 
 ## swagger 暂时注释 测试SwaggerConfig配置类
 swagger:

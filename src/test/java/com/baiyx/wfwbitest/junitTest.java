@@ -48,7 +48,6 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.*;
-import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.Proxy;
 import java.security.KeyPair;
