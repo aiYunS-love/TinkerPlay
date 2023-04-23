@@ -4,7 +4,7 @@
 学习、温习、常规性需求、集成各种中间件、各种处理策略、算法基础、设计模式基础、测试等的代码库.
 
 #### 架构
-springboot 2.5.2 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
+springboot 2.7.5 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
 
 
 #### 配置文件application.yml说明
@@ -57,8 +57,9 @@ springboot 2.5.2 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
 32. yml配置文件敏感信息加密 
 33. 梳理一健打包项目为镜像到Linux自建镜像仓库
 34. 集成整合ELK,实现基本使用    
-35. 尝试玩一下ChatGPT    
-36. .................................
+35. 尝试玩一下ChatGPT
+36. 集成Nacos,初步使用    
+37. .................................
 
 #### 说明
 仅供小白学习使用! 盗用必究!

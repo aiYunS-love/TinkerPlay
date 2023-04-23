@@ -1,15 +1,13 @@
-# windows环境配置文件
 server:
   port: 9092
   servlet:
     context-path: /api
-#    tomcat:
-#      basedir: E:\baiyx\Temp
 
 spring:
   application:
     name: wfwbitest
-    version: 1.0.0
+    version: 1.0.1
+  # swagger新增,激活某个固定后缀的yml配置文件
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
@@ -111,11 +109,6 @@ spring:
       max-active: 6000
       # 连接池最大阻塞等待时间（使用负值表示没有限制）
       max-wait: -1
-  # swagger新增,激活某个固定后缀的yml配置文件
-  profiles:
-#    active: dev
-    default:
-      active: windows
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
     # addresses: 192.168.119.128:5672
@@ -133,6 +126,20 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.119.128:9200
+  # 解决springboot升级2.7.5导致的ApplicationContextException
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.119.128:8848
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 # RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
 body:
@@ -151,18 +158,6 @@ mybatis:
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# 注册中心
-eureka:
-  instance:
-    appname: ${spring.application.name}
-    prefer-ip-address: true
-    instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${spring.application.instance_id:${server.port}}
-  client:
-    healthcheck:
-      enabled: true
-    service-url:
-      defaultZone: http://admin:246d494b-3cca-11e8-8ef7-2c4d54f01ba4@127.0.0.1:9000/eureka/
 
 pdf:
   config:
@@ -217,4 +212,16 @@ jasypt:
 
 # jwt加密TOKEN_SECRET
   token:
-    TOKEN_SECRET: my-secret-key1
+    TOKEN_SECRET: my-secret-key
+
+nacos:
+  # Nacos 配置中心的配置项，对应 NacosConfigProperties 配置类
+  config:
+    server-addr: 192.168.119.128:8848 # Nacos 服务器地址
+    bootstrap:
+      enable: true # 是否开启 Nacos 配置预加载功能。默认为 false。
+      # log-enable: true # 是否开启 Nacos 支持日志级别的加载时机。默认为 false。
+    data-id: wfwbitest-windows.yml # 使用的 Nacos 配置集的 dataId。
+    type: yaml # 使用的 Nacos 配置集的配置格式。默认为 PROPERTIES。
+    group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP。
+    namespace: d5995b58-0e86-496b-8546-3dc112d8f9b7 # 使用的 Nacos 的命名空间，默认为 null。

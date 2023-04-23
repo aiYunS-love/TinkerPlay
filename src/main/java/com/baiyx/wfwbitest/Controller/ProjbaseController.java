@@ -36,13 +36,6 @@ public class ProjbaseController {
     @Autowired
     ProjBaseDao projBaseDao;
 
-//    // 不做任何处理,常规方式读取数据,处理数据,写入数据
-//    // @WebLog(description = "分析异常数据")
-//    @RequestMapping(value = "AnalyzingAbnormalData",method= RequestMethod.POST,produces = "application/json")
-//    public void AnalyzingAbnormalData(@RequestBody Map map) {
-//        new ProjBaseServiceImpl(projBaseDao).readProjbase(map);
-//    }
-
     @ApiOperation(value = "分页查询_数据量大")
     @GetMapping("findBypaging1")
     public PageInfo<Projbase> findByPaging1(@ApiParam("页码") Integer pageNum, @ApiParam("每页数量") Integer pageSize){

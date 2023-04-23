@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest;
 
+import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
@@ -27,6 +28,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAsync //开启多线程,异步
 @EnableOpenApi //开启swagger2
 @EnableCaching // 开启redis缓存
+//@NacosPropertySource(dataId = "wfwbitest-windows.yml", autoRefreshed = true)
 // 排除SecurityAutoConfiguration类,否则会启用认证
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {

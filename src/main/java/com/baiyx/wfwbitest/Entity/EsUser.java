@@ -15,7 +15,7 @@ import java.util.Date;
  * @Date: 2023年3月16日, 0016 下午 12:52:12
  * @Description: 搜索中的人员信息
  */
-@Document(indexName = "user", shards = 1,replicas= 0)
+@Document(indexName = "user")
 public class EsUser implements Serializable {
 
     @Id

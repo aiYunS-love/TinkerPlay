@@ -1,0 +1,15 @@
+server:
+  port: 9101
+spring:
+  application:
+    name: wfwbitest
+  profiles:
+    active: windows
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.119.128:8848 #Nacos地址
+      config:
+        server-addr: 192.168.119.128:8848 #Nacos地址
+        file-extension: yaml #这里我们获取的yaml格式的配置
+        # namespace: d5995b58-0e86-496b-8546-3dc112d8f9b7
