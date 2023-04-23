@@ -28,12 +28,19 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableAsync //开启多线程,异步
 @EnableOpenApi //开启swagger2
 @EnableCaching // 开启redis缓存
-//@NacosPropertySource(dataId = "wfwbitest-windows.yml", autoRefreshed = true)
 // 排除SecurityAutoConfiguration类,否则会启用认证
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {
 
     public static void main(String[] args) {
+
+        /* 启动类的main方法中设置系统参数,为了解决yml配置文件配置nacos的日志加载log-enable: true的报错问题
+           错误原因在于nacos引入的nacsos-client.jar内含有默认的nacos-logback.xml/nacos-log4j2.xml，其中nacos-logback.xml中contextName属性为nacos
+           该属性与自定义的logback.xml不一致导致冲突
+           该设置与yml配置文件注释log-enable: false 作用一致
+         */
+        // System.setProperty("nacos.logging.default.config.enabled","false");
+
         SpringApplication.run(WfwBiTestApplication.class, args);
         // 启动打开默认浏览器访问
 //        try {
