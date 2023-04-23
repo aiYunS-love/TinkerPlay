@@ -7,9 +7,8 @@ spring:
   application:
     name: wfwbitest
     version: 1.0.1
-  # swagger新增,激活某个固定后缀的yml配置文件
-  profiles:
-    active: windows
+#  profiles:
+#    active: windows
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
