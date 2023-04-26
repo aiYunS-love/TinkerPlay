@@ -43,6 +43,8 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- flink -->
+
         <!-- nacos -->
         <dependency>
             <groupId>com.alibaba.boot</groupId>
@@ -561,6 +563,8 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <!-- flink 该插件用于将 Scala 代码编译成 class 文件 -->
+
         </plugins>
     </build>
     <profiles>
