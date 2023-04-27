@@ -7,11 +7,8 @@ import com.ververica.cdc.connectors.mysql.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.api.common.JobID;
-import org.apache.flink.client.deployment.application.ApplicationRunner;
-import org.apache.flink.client.program.PackagedProgram;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.runtime.dispatcher.DispatcherGateway;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.apache.flink.streaming.api.datastream.DataStream;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.springframework.beans.factory.annotation.Value;
@@ -51,7 +48,7 @@ public class MysqlEventListener implements ApplicationRunner{
     }
 
     @Override
-    public List<JobID> run(DispatcherGateway dispatcherGateway, PackagedProgram program, Configuration configuration) {
+    public void run(ApplicationArguments args) throws Exception{
         log.info("开始启动Flink CDC获取ERP变更数据......");
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
@@ -60,12 +57,7 @@ public class MysqlEventListener implements ApplicationRunner{
                 .addSource(dataChangeInfoMySqlSource, "mysql-source")
                 .setParallelism(1);
         streamSource.addSink(dataChangeSink);
-        try {
-            env.execute("mysql-stream-cdc");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        env.execute("mysql-stream-cdc");
     }
 
     /**
