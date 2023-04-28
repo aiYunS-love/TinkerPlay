@@ -7,6 +7,8 @@ import com.ververica.cdc.connectors.mysql.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
+import org.apache.flink.api.java.ExecutionEnvironment;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -50,7 +52,10 @@ public class MysqlEventListener implements ApplicationRunner{
     @Override
     public void run(ApplicationArguments args) throws Exception{
         log.info("开始启动Flink CDC获取ERP变更数据......");
+        // 流式数据处理环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+        // 批处理环境
+        // ExecutionEnvironment env2 = ExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(1);
         DebeziumSourceFunction<DataChangeInfo> dataChangeInfoMySqlSource = buildDataChangeSource();
         DataStream<DataChangeInfo> streamSource = env
