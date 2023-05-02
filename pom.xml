@@ -174,16 +174,6 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
         <!-- ChatGPT -->
-<!--        <dependency>-->
-<!--            <groupId>io.github.kezhenxu94</groupId>-->
-<!--            <artifactId>chatgpt-java-sdk</artifactId>-->
-<!--            <version>0.10.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.unfbx</groupId>-->
-<!--            <artifactId>chatgpt-java</artifactId>-->
-<!--            <version>1.0.7</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.github.plexpt</groupId>
             <artifactId>chatgpt</artifactId>

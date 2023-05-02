@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.net.Proxy;
@@ -32,7 +33,8 @@ public class AiController {
     @ApiOperation(value = "ChatGPT")
     @GetMapping("/sse")
     @CrossOrigin
-    public void sseEmitter(String prompt) {
+    @ResponseBody
+    public String sseEmitter(String prompt) {
         //国内需要代理 国外不需要
         // Proxy proxy = Proxys.http("116.117.134.135", 9999);
         ChatGPT chatGPT = ChatGPT.builder()
@@ -54,5 +56,6 @@ public class AiController {
         ChatCompletionResponse response = chatGPT.chatCompletion(chatCompletion);
         Message res = response.getChoices().get(0).getMessage();
         System.out.println(res);
+        return res.getContent();
     }
 }
