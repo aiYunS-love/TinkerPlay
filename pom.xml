@@ -43,6 +43,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!--导入html依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.0.6</version>
+        </dependency>
         <!-- flink -->
         <dependency>
             <groupId>org.apache.flink</groupId>
