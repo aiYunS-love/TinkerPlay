@@ -43,6 +43,47 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!--导入html依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+            <version>3.0.6</version>
+        </dependency>
+        <!-- flink -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-java</artifactId>
+            <version>1.17.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java</artifactId>
+            <version>1.17.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-clients</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-connector-mysql-cdc</artifactId>
+            <version>2.3.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka</artifactId>
+            <version>1.17.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-planner-blink_2.12</artifactId>
+            <version>1.13.6</version>
+            <scope>test</scope>
+        </dependency>
         <!-- nacos -->
         <dependency>
             <groupId>com.alibaba.boot</groupId>
@@ -133,16 +174,6 @@
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
         </dependency>
         <!-- ChatGPT -->
-<!--        <dependency>-->
-<!--            <groupId>io.github.kezhenxu94</groupId>-->
-<!--            <artifactId>chatgpt-java-sdk</artifactId>-->
-<!--            <version>0.10.0</version>-->
-<!--        </dependency>-->
-<!--        <dependency>-->
-<!--            <groupId>com.unfbx</groupId>-->
-<!--            <artifactId>chatgpt-java</artifactId>-->
-<!--            <version>1.0.7</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>com.github.plexpt</groupId>
             <artifactId>chatgpt</artifactId>
@@ -561,6 +592,8 @@
                     <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
+            <!-- flink 该插件用于将 Scala 代码编译成 class 文件 -->
+
         </plugins>
     </build>
     <profiles>

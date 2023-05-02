@@ -204,10 +204,6 @@ cd /etc/init.d
 [root@baiyx init.d]# service redis start
 [root@baiyx init.d]# service redis stop
 
-Tomcat启动关闭
-sh /usr/tomcat/apache-tomcat-8.5.59.M1-80/bin/startup.sh
-sh /usr/tomcat/apache-tomcat-8.5.59.M1-8082/bin/startup.sh
-
 启动Nginx
 cd /usr/local/nginx/sbin
 [root@baiyx sbin]# /usr/local/nginx/sbin/nginx -s reload
@@ -225,7 +221,6 @@ nginx的配置文件nginx.conf路径为:/usr/local/nginx/conf/nginx.conf
 sudo systemctl start docker
 进入容器
 docker exec -it c_mysql /bin/bash
-如果报错:docker start 1b94d1d2c790018
 
 连接mysql数据库
 mysql -u root -p
@@ -280,6 +275,8 @@ systemctl restart firewalld.service
 docker镜像改名
 docker tag  bdcycpt/elasticsearch:7.16.1 release.gisquest.com/bdcycpt/elasticsearch:7.16.1
 
+清理标签为<none>的docker镜像: docker image prune -f
+
 根据Dockerfile文件打包镜像: docker build -t 镜像名 .
 
 删除镜像文件: docker rmi 镜像ID
@@ -295,6 +292,26 @@ firewall-cmd --zone=public --list-ports
 
 清理文件nonup.out内容不删除文件: echo '' >nonup.out
 
+重启所有容器: docker restart $(docker ps -a -q)
+
+修改容器为开机自启: docker update --restart=always XXX
+--restart参数=
+	no
+		默认策略，在容器退出时不重启容器
+	on-failure
+		在容器非正常退出时（退出状态非0），才会重启容器
+	on-failure:3
+		在容器非正常退出时重启容器，最多重启3次
+	always
+		在容器退出时总是重启容器
+#开机自启
+	unless-stopped
+		在容器退出时总是重启容器，但是不考虑在Docker守护进程启动时就已经停止了的容器
+# 一般推荐使用always参数
+	--restart=always
+	
+启动flink: ./bin/start-cluster.sh
+
 curl -d '{"QXDM":"3306","startTime" : "2018-01-01","endTime" : "2022-12-31"}' -H 'X-Gisq-Token:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoicXQtaHkxIiwidG9rZW5fcHdkX3N0cm9uZ19mbGFnIjoiMSIsImF1dGhvcml0aWVzIjpbIkRFTEVURSMvKioiLCJQT1NUIy8qKiIsIkdFVCMvKioiLCJQVVQjLyoqIl0sInVzZXJfaWRfbnVtYmVyIjoiIiwiY2xpZW50X2lkIjoiZ2lzcS02MmM2NGNkZS02NmZlLTExZTktOTM3YS0yYzRkNTRmMDFiYTQiLCJ1c2VyX2tpbmQiOjEsInRlbmFudF91aWQiOiI3MzNlNTI2ZS1jZDI5LTExZWMtOWU3OC0wMjQyMTBkOGE5ZjMiLCJ1c2VyX2lkIjoiOTkwY2QxMTItMDc3YS00ZjBiLThkYTktNjZlMjQ5Mzk1OTViIiwic2NvcGUiOlsiYWxsIl0sInVzZXJfbmlja25hbWUiOiLkvZXotZ8iLCJ0b2tlbl9wd2Rfb3ZlcmR1ZV9mbGFnIjoiMSIsImV4cCI6MTY2OTAwNTIyMSwianRpIjoiZDlmNGI1MmMtNTIyYS00M2ViLTlmMWItMThhZjE1NWRlMWJmIn0.mt9Bs_cvxpUeE1-CN7UPSJKd7C82bdscY-UQbPP-9xhQSvUAp7qrmSElXRscheXJXp0IkuW_-8N2FynVWS1B8OYni4QVctobs3phhdKnaMQMZ5sX62mtyO0L3cE3xXj_fMXxYADbnXWcBwkSP3-JQUvNPVN1uwNVN_hzOt-uiA1DSzRSBQa-gQkVlVDYVZiz_962vtNw8hJ2xpoEfLR5mwmzhiQI6DwZYDWJaLQ6yJOLsLlgL7LqU3dHI_Is9dtFcPmok0TdZAOVdjLX3oK8kR1Wq-VMa7ewALju3mGCIFOaQ3AgpqCoZRHUy1x00AHk_pWvmzV19IkpcU5rOYtasQ'  -H "Content-Type: application/json" -X POST "https://bdcjg.zrzyt.zj.gov.cn:38088/api/queryck3/home/getQueries"
 
 
@@ -302,3 +319,25 @@ curl -d '{"xzqbm":"3306","startTime" : "2018-01-01","endTime" : "2022-12-31","to
 
 
 curl -d '{"qxdm":"33","kssj" : "2018-01-01","jssj" : "2022-12-31","datetype" : "month"}' -H 'X-Gisq-Token:eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5hbnRfaWQiOiIzMyIsInVzZXJfdGVsIjoiIiwidXNlcl9uYW1lIjoiZGYyMDcwMzg1OTg2NiIsInRva2VuX3B3ZF9zdHJvbmdfZmxhZyI6IjEiLCJhdXRob3JpdGllcyI6WyJERUxFVEUjLyoqIiwiUE9TVCMvKioiLCJHRVQjLyoqIiwiUFVUIy8qKiJdLCJ1c2VyX2lkX251bWJlciI6IiIsImNsaWVudF9pZCI6Imdpc3EtNjJjNjRjZGUtNjZmZS0xMWU5LTkzN2EtMmM0ZDU0ZjAxYmE0IiwidXNlcl9raW5kIjoxLCJ0ZW5hbnRfdWlkIjoiZWQ0YzU4MjAtY2QxYS0xMWVjLTllNzgtMDI0MjEwZDhhOWYzIiwidXNlcl9pZCI6ImRkMDQxZDQ4LTBlZTQtMTFlZC1iZGQ0LTAyNDIxMGQ4YTlmMyIsInNjb3BlIjpbImFsbCJdLCJ1c2VyX25pY2tuYW1lIjoi6L-H5LiA5YekIiwidG9rZW5fcHdkX292ZXJkdWVfZmxhZyI6IjEiLCJleHAiOjE2NjkwMjgxOTAsImp0aSI6IjgxNzFiMjQ1LTlmZmItNDc4MS1iNjkxLTg3YWYxNjY4OTEzNyJ9.w_bCNvQLiuiRdq1eAILb7ZjSLm9fr0uEsWS4Waz8ea9_-QMZtk5_eBtJ3kPHhx_UENtim0TI2OpOznm7zqE5ux-UyiL6-IlSATMz1D6gFHF4Wk1Zt9HSe7GLGCbPlIvCmLZU4g6nNChVqeNhnhx3ncJp0eP5f0IrUPqNW7lGWuFb8NQtWbRr6ZPmecuiuOC_8HjXus9vUXf6cD1AdwlfhYBM2omaM2b5pHy8C8hS7sbEBiIlVAZXe2yQKzq7_bMM_LoveZ98fnFLaYmVCfcmovcqbP3oHlRRcnpoxRFT2K7hSpkb7_TeEAzV1a8LCrzBiEx2telXWCLZQNk8ymsfQQ'  -H "Content-Type: application/json" -X POST "http://10.249.0.6:38091/api/queryck3/EffctiveScreen/getBusinessEffective"
+
+docker部署redis并设置密码: docker run --restart=always --name redis -p 6379:6379 -v /mydata/redis/data/redis.conf:/etc/redis/redis.conf -v /mydata/redis/data:/data -d redis:latest redis-server --appendonly yes --requirepass 19930218
+
+docker run -p 1001:1001 --name wfwbitest --restart=always -d 192.168.119.128:50/baiyx/wfw_bi_test:1.0.1-SNAPSHOT -v /mydata/Test/Temp:/Test/Temp -v /mydata/Test/uploadFile:/Test/uploadFile
+
+-- 创建nacos容器: 
+docker run -d -p 8848:8848 -p 9848:9848  \
+-e MODE=standalone \
+-e PREFER_HOST_MODE=hostname \
+-e SPRING_DATASOURCE_PLATFORM=mysql \
+-e MYSQL_SERVICE_HOST=192.168.119.128 \
+-e MYSQL_SERVICE_PORT=3306 \
+-e MYSQL_SERVICE_DB_NAME=nacos_config \
+-e MYSQL_SERVICE_USER=root \
+-e MYSQL_SERVICE_PASSWORD=19930218 \
+-e MYSQL_DATABASE_NUM=1 \
+-e NACOS_AUTH_TOKEN=0d294a189e77e3a67c55d26cd57bfc170d294a189e77e3a67c55d26cd57bfc17 \
+-e NACOS_AUTH_IDENTITY_KEY=bai \
+-e NACOS_AUTH_IDENTITY_VALUE=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjpbeyJiYWkiOiJ5eCJ9XSwiaWF0IjoxNjc5NzE4NDg3LCJleHAiOjE5MjQ4NzY3OTksImF1ZCI6IiIsImlzcyI6IiIsInN1YiI6IiJ9.xCyu-kPZs0YrFNLea4uPRFlqOUWNf_5WSxa2UHQAxOg \
+-v /root/nacos/init.d/custom.properties:/home/nacos/init.d/custom.properties \
+-v /root/nacos/logs:/home/nacos/logs \
+--restart always --name nacos nacos/nacos-server:v2.1.0
