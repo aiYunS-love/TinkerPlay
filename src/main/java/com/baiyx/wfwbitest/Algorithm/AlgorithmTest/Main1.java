@@ -34,26 +34,25 @@ public class Main1 {
         int n;
         while(sc.hasNext())
         {
-            n=sc.nextInt();
+            n = sc.nextInt();
             System.out.println(Drink(n));
         }
 
     }
 
     public static int Drink(int n) {
-        if(n<=0) {
+        // 只有一个空瓶子
+        if(n<=1) {
             return 0;
-        } else if(n==3) {
+        // 有两个或者三个空瓶子
+        } else if(n==2 || n==3) {
             return 1;
-        } else if(n==2) {
-            return 1;
-        } else//此时表明对应为3的倍数，递归
-        {
-            int h=0;
-            h=n/3;
-            return h+Drink(n-3*h+h);
+        // 有三个以上的空瓶子
+        } else {
+            int h = 0;
+            h = n / 3;
+            // 喝完空出来的空瓶子数 + 原本剩下的空瓶子数,接着递归循环
+            return h + Drink(n - 3 * h + h);
         }
-
-
     }
 }
