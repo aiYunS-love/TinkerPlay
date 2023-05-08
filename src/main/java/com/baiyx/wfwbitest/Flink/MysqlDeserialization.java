@@ -32,18 +32,18 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
 
     // 反序列化数据,转为变更JSON对象
     @Override
-    public void deserialize(SourceRecord record, Collector<DataChangeInfo> out) throws Exception {
-        String topic = record.topic();
+    public void deserialize(com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.source.SourceRecord sourceRecord, Collector<DataChangeInfo> collector) throws Exception {
+        String topic = sourceRecord.topic();
         String[] fields = topic.split("\\.");
         String database = fields[1];
         String tableName = fields[2];
-        Struct struct = (Struct) record.value();
+        Struct struct = (Struct) sourceRecord.value();
         final Struct source = struct.getStruct(SOURCE);
         DataChangeInfo dataChangeInfo = new DataChangeInfo();
         dataChangeInfo.setBeforeData( getJsonObject(struct, BEFORE).toJSONString());
         dataChangeInfo.setAfterData(getJsonObject(struct, AFTER).toJSONString());
         //5.获取操作类型  CREATE UPDATE DELETE
-        Envelope.Operation operation = Envelope.operationFor(record);
+        Envelope.Operation operation = Envelope.operationFor(sourceRecord);
         String type = operation.toString().toUpperCase();
         int eventType = type.equals(CREATE) ? 1 : UPDATE.equals(type) ? 2 : 3;
         dataChangeInfo.setEventType(eventType);
@@ -53,7 +53,7 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         dataChangeInfo.setTableName(tableName);
         dataChangeInfo.setChangeTime(Optional.ofNullable(struct.get(TS_MS)).map(x -> Long.parseLong(x.toString())).orElseGet(System::currentTimeMillis));
         //7.输出数据
-        out.collect(dataChangeInfo);
+        collector.collect(dataChangeInfo);
     }
 
     @Override

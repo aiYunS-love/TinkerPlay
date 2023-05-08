@@ -228,7 +228,7 @@ nacos:
 # 实时同步SQL Server数据库配置
 CDC:
   DataSource:
-    host: localhost
+    host: 192.168.119.128
     port: 3306
     database: heima
     tableList: user
