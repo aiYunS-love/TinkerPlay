@@ -4,18 +4,18 @@
 学习、温习、常规性需求、集成各种中间件、各种处理策略、算法基础、设计模式基础、测试等的代码库.
 
 #### 架构
-springboot 2.7.5 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
+springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等
 
 
 #### 配置文件application.yml说明
 
 1.  多数据源配置
 2.  redis配置
-3.  rabbitmq配置(暂时关闭,需连接自己部署好的rabbitmq消息中间件)
+3.  rabbitmq配置
 4.  mybatis配置
 5.  swagger配置
 6.  Flyway
-7.  .....
+7.  .....等
 
 #### 学习及测试内容
 
@@ -63,7 +63,7 @@ springboot 2.7.5 + mybatis 3.4.6 + redis + rabbitmq + ELK 等
 38. .................................
 
 #### 说明
-仅供小白学习使用! 盗用必究!
+供小白学习使用!
 
 #### 总结
 不成体系的信息输出，叫经验，叫语录，叫微博，而难以叫知识：因为不成体系的信息即使被验证是正确的，
