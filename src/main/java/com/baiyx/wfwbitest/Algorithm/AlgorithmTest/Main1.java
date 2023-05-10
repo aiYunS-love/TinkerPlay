@@ -30,7 +30,7 @@ import java.util.Scanner;
 public class Main1 {
 
     public static void main(String[] args){
-        Scanner sc=new Scanner(System.in);
+        Scanner sc = new Scanner(System.in);
         int n;
         while(sc.hasNext())
         {
@@ -41,7 +41,7 @@ public class Main1 {
     }
 
     public static int Drink(int n) {
-        // 只有一个空瓶子
+        // 只有一个空瓶子或者没有空瓶子
         if(n<=1) {
             return 0;
         // 有两个或者三个空瓶子
