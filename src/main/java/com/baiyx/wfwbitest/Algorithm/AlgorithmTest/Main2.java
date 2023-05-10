@@ -21,7 +21,7 @@ public class Main2 {
 
     public static void main(String[] args){
         Main2 main2 = new Main2();
-        int n = 9;
+        int n = 4;
         List<List<String>> solutions = main2.solveNQueens(n);
         System.out.println("Number of solutions for " + n + "-queens problem: " + solutions.size());
         for (List<String> solution : solutions) {
