@@ -35,10 +35,10 @@ public class Main4 {
     }
 
     public static void main(String[] args) {
-        Main4 kthLargest = new Main4();
+        Main4 main4 = new Main4();
         int[] nums = {3,2,3,1,2,4,5,5,6};
         int k = 4;
-        int kthLargestNum = kthLargest.findKthLargest(nums, k);
+        int kthLargestNum = main4.findKthLargest(nums, k);
         System.out.println("The " + k + "th largest number in the array is: " + kthLargestNum);
     }
 }

@@ -48,7 +48,7 @@ public class Main3 {
 
     public static void main(String[] args) {
         Main3 candyDistribution = new Main3();
-        int[] ratings = {1,2,2};
+        int[] ratings = {1,4,2,3};
         int minCandies = candyDistribution.candy(ratings);
         System.out.println("Minimum number of candies required: " + minCandies);
     }
