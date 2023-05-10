@@ -57,10 +57,23 @@ springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 �
 32. yml配置文件敏感信息加密 
 33. 梳理一健打包项目为镜像到Linux自建镜像仓库
 34. 集成整合ELK,实现基本使用    
-35. 尝试玩一下ChatGPT
+35. 集成第三方开源的ChatGPT包,封装一下
 36. 集成Nacos,初步使用   
 37. 玩一下Flink    
 38. .................................
+
+#### 部署内容
+Linux:
+    docker部署:
+        1. nacos_v2.1.0配置中心
+        2. redis_v7.0.9缓存数据库
+        3. harbor_v1.10.10私有镜像仓库
+        4. nginx_v1.23.3转发代理
+        5. apisix_v3.0.0-alpine网关
+        6. elasticsearch_v7.17.3搜索和分析引擎,logstash_v7.17.3服务器端数据处理管道,kibana_v7.17.3数据可视化
+        7. rabbitmq_v3.11.10消息队列
+    普通部署:
+        8 Flink_v1.17.0分布式处理框架
 
 #### 说明
 供小白学习使用!
