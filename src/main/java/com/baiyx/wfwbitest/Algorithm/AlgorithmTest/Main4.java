@@ -24,8 +24,11 @@ public class Main4 {
 
         // 对于剩下的元素，如果大于小根堆堆顶，则删除堆顶并将该元素添加到小根堆中
         for (int i = k; i < nums.length; i++) {
+            // peek()：获取队列中权值最小的元素，但是不删除该元素
             if (nums[i] > minHeap.peek()) {
+                // poll()：获取并删除队列中权值最小的元素
                 minHeap.poll();
+                // add(E e) 或 offer(E e)：将元素添加到队列中
                 minHeap.offer(nums[i]);
             }
         }
