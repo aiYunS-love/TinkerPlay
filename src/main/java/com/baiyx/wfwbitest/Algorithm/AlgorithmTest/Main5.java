@@ -15,6 +15,7 @@ public class Main5 {
 
         for (int i = 1; i <= m; i++) {
             for (int j = 1; j <= n; j++) {
+                // 返回指定索引位置处的字符
                 if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
                     dp[i][j] = dp[i - 1][j - 1] + 1;
                 } else {
@@ -22,7 +23,12 @@ public class Main5 {
                 }
             }
         }
-
+        for (int i = 0; i < dp.length; i++) {
+            for (int j = 0; j < dp[i].length; j++) {
+                System.out.print(dp[i][j] + " ");
+            }
+            System.out.println();
+        }
         return dp[m][n];
     }
 

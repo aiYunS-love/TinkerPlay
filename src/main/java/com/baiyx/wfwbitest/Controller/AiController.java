@@ -36,11 +36,11 @@ public class AiController {
     @ResponseBody
     public String sseEmitter(String prompt) {
         //国内需要代理 国外不需要
-        // Proxy proxy = Proxys.http("116.117.134.135", 9999);
+        Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
                 .apiKey("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")
-                // .proxy(proxy)
+                .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
                 .init();
