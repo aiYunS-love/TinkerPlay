@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-10-10 上午 11:27
- * @Description: 说明
+ * @Description: CommandLineRunner用于在应用程序启动后执行特定的操作,程序启动后扫描数据库定时任务表,加载可执行的定时任务
  */
 @Service
 public class SysJobRunner implements CommandLineRunner {
