@@ -15,7 +15,7 @@ import org.springframework.amqp.core.MessagePostProcessor;
  * @Author: 白宇鑫
  * @Date: 2022-9-1 下午 03:35
  * @Description: 延迟消息的发送者CancelOrderSender
- *               取消订单消息的发出者
+ *               消息的发出者
  */
 @Component
 public class CancelOrderSender {

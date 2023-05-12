@@ -14,8 +14,8 @@ import org.slf4j.LoggerFactory;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-1 下午 03:31
- * @Description: 取消订单消息的接收者CancelOrderReceiver
- *               取消订单消息的处理者
+ * @Description: 消息的接收者CancelOrderReceiver
+ *               消息的处理者
  */
 @Component
 @RabbitListener(queues = "queue.baiyx.a") //监听key为queue.baiyx.a的队列
