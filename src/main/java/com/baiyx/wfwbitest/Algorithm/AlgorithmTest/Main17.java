@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @Author: 白宇鑫
  * @Date: 2023年5月12日, 0012 上午 10:02:47
- * @Description: 字符串字符重更新排序
+ * @Description: 字符串字符重新排序
  */
 
 public class Main17 {
