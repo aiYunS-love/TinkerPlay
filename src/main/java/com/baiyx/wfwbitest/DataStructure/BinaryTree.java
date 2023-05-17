@@ -4,6 +4,11 @@ package com.baiyx.wfwbitest.DataStructure;
  * @Author: 白宇鑫
  * @Date: 2023年5月16日, 0016 下午 3:51:52
  * @Description: Java模拟二叉树数据结构
+ *              5
+ *            /   \
+ *           3     8
+ *          / \   / \
+ *         2   4  7  9
  */
 
 public class BinaryTree {
