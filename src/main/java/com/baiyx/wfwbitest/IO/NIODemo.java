@@ -15,10 +15,10 @@ import java.nio.file.StandardOpenOption;
 public class NIODemo {
 
     public static void main(String[] args){
-        System.out.println(NIOread("src/main/resources/db.properties"));
+        NIOread("src/main/resources/db.properties");
     }
 
-    public static int NIOread(String path){
+    public static void NIOread(String path){
         FileChannel fileChannel = null;
         try {
             // 打开文件通道
@@ -44,10 +44,7 @@ public class NIODemo {
 
                 // 继续从文件通道读取数据到缓冲区
                 bytesRead = fileChannel.read(buffer);
-                return bytesRead;
             }
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
@@ -60,6 +57,5 @@ public class NIODemo {
                 }
             }
         }
-        return 0;
     }
 }
