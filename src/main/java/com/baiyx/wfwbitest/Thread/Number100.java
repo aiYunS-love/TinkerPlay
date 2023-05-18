@@ -1,7 +1,5 @@
 package com.baiyx.wfwbitest.Thread;
 
-import lombok.var;
-
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
