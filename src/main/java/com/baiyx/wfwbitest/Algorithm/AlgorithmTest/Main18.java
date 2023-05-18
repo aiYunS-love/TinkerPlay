@@ -105,8 +105,11 @@ class BinaryTree2 {
 
 // 二叉树节点
 class TreeNode {
+    // 节点值
     int val;
+    // 左子节点
     TreeNode left;
+    // 右子节点
     TreeNode right;
 
     public TreeNode(int val) {
