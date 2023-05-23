@@ -21,6 +21,8 @@
         <docker.repostory>192.168.119.128:2375</docker.repostory>
         <!--自定义yml变量符号-->
         <resource.delimiter>#</resource.delimiter>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -87,7 +89,6 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-table-planner-blink_2.12</artifactId>
             <version>1.13.6</version>
-            <scope>test</scope>
         </dependency>
         <!-- nacos -->
         <dependency>
@@ -515,7 +516,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.40.2</version>
+                <version>0.42.1</version>
                 <executions>
                     <!--如果想在项目打包时构建镜像添加-->
                     <execution>
@@ -601,8 +602,12 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <!-- 跳过安全检查 -->
+<!--                <skip>true</skip> -->
+                    <!-- 排除单元测试的类不进行编译打包 -->
+                    <excludes>
+                        <exclude>**/*Test.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <!-- flink 该插件用于将 Scala 代码编译成 class 文件 -->

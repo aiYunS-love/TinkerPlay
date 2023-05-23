@@ -3,7 +3,8 @@ package com.baiyx.wfwbitest.IO;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.nio.file.Path;
+
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 
 /**
@@ -22,7 +23,7 @@ public class NIODemo {
         FileChannel fileChannel = null;
         try {
             // 打开文件通道
-            fileChannel = FileChannel.open(Path.of(path), StandardOpenOption.READ);
+            fileChannel = FileChannel.open(Paths.get(path), StandardOpenOption.READ);
 
             // 创建缓冲区
             ByteBuffer buffer = ByteBuffer.allocate(1024);
