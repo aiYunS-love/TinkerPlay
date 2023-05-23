@@ -88,7 +88,7 @@ public class ClearAndReloadCacheAspect {
                 Thread.sleep(5000);
                 Set<String> keys1 = stringRedisTemplate.keys("*" + name2 + "*");//模糊删除
                 stringRedisTemplate.delete(keys1); // 延时双删第二删
-                System.out.println("-----------1秒钟后，在线程中延迟删除完毕 -----------");
+                System.out.println("-----------1秒钟后，在线程中延迟删除完毕(延时双删) -----------");
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
