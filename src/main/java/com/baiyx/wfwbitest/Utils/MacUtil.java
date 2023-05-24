@@ -86,31 +86,25 @@ public class MacUtil {
         return UNKNOWN;
     }
 
-//    public static void main(String[] args) throws Exception {
-//        InetAddress ia = null;
-//        try {
-//            ia = InetAddress.getLocalHost();
-//            String localname = ia.getHostName();
-//            String localip = ia.getHostAddress();
-//            System.out.println("本机名称是：" + localname);
-//            System.out.println("本机的ip是 ：" + localip);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        InetAddress ia1 = InetAddress.getLocalHost();// 获取本地IP对象
-//        System.out.println("本机的MAC是 ：" + getMACAddress(ia1));
-//    }
+    public static void main(String[] args) throws Exception {
+        InetAddress ia = null;
+        try {
+            ia = InetAddress.getLocalHost();
+            String localname = ia.getHostName();
+            String localip = ia.getHostAddress();
+            System.out.println("本机名称是：" + localname);
+            System.out.println("本机的ip是 ：" + localip);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        InetAddress ia1 = InetAddress.getLocalHost();// 获取本地IP对象
+        System.out.println("本机的MAC是 ：" + getMACAddress(ia1));
+    }
 
     // 获取MAC地址的方法
     public static String getMACAddress(InetAddress ia) throws Exception {
         // 获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
         byte[] mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
-        // 以下代码仅用于测试,因为省厅内网环境,做了映射,无法获取getHardwareAddress,报错控制针,临时测试加上,写死了本机的物理IP
-        if(mac == null){
-            InetAddress address = InetAddress.getByName("2.0.1.57");
-            //InetAddress address = InetAddress.getByName("192.168.119.128");
-            mac = NetworkInterface.getByInetAddress(address).getHardwareAddress();
-        }
         // 下面代码是把mac地址拼装成String
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < mac.length; i++) {
