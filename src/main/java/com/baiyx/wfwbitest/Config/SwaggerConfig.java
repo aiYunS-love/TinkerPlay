@@ -24,20 +24,20 @@ import java.util.ArrayList;
 @EnableSwagger2
 public class SwaggerConfig {
 
-    @Bean
-    public Docket docket() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .apiInfo(apiInfo())
-                .select()
-                // 为当前包下controller生成API文档
-                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
-                // 为有@Api注解的Controller生成API文档
-//                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-                // 为有@ApiOperation注解的方法生成API文档
-//                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .paths(PathSelectors.any())
-                .build();
-    }
+//    @Bean
+//    public Docket docket() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .apiInfo(apiInfo())
+//                .select()
+//                // 为当前包下controller生成API文档
+//                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
+//                // 为有@Api注解的Controller生成API文档
+////                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
+//                // 为有@ApiOperation注解的方法生成API文档
+////                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+//                .paths(PathSelectors.any())
+//                .build();
+//    }
 
     private ApiInfo apiInfo() {
         // 作者信息
@@ -46,7 +46,7 @@ public class SwaggerConfig {
                 .title("小白学习")
                 .description("baiyx-study")
                 .contact(contact)
-                .version("1.0")
+                .version("1.0.1")
                 .build();
 //        return new ApiInfo(
 //                "小白学习",
@@ -68,12 +68,14 @@ public class SwaggerConfig {
             System.out.println(temp);
         }
         Boolean enableSwagger = false;
-        if (profiles.length > 0 && profiles[0].equals("windows")) {
+        // if (profiles.length > 0 && profiles[0].equals("windows")) {
+        if (profiles.length > 0) {
             enableSwagger = true;
         }
         System.out.println("swagger是否开启：" + enableSwagger);
 
-        return new Docket(DocumentationType.OAS_30)
+        return new Docket(DocumentationType.SWAGGER_2)
+                .groupName("Test")
                 .apiInfo(apiInfo())
                 // 是否启用swagger, false: 不能在浏览器访问
                 .enable(enableSwagger)
@@ -84,7 +86,7 @@ public class SwaggerConfig {
                 // none(): 不扫描
                 // withClassAnnotation: 扫描类上的注解, 参数是一个注解的反射对象 withClassAnnotation(RestController.class)
                 // withMethodAnnotation: 扫描方法上的注解
-                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
                 // paths 过滤什么路径 不显示到swagger文档中
                 // .paths(PathSelectors.ant("/loong/**"))
                 .build();
@@ -114,24 +116,24 @@ public class SwaggerConfig {
 //    }
 
     // 配置多个分组
-    @Bean
-    public Docket docket1() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("loong-A");
-    }
+//    @Bean
+//    public Docket docket1() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .groupName("loong-A");
+//    }
 
     // 配置多个分组
-    @Bean
-    public Docket docket2() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("loong-B");
-    }
+//    @Bean
+//    public Docket docket2() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .groupName("loong-B");
+//    }
 
     // 配置多个分组
-    @Bean
-    public Docket docket3() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("loong-C");
-    }
+//    @Bean
+//    public Docket docket3() {
+//        return new Docket(DocumentationType.SWAGGER_2)
+//                .groupName("loong-C");
+//    }
 
 }

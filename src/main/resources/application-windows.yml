@@ -168,12 +168,12 @@ pdf:
     fontPath: src/main/resources/static/fonts/simsun.ttf
 
 ## swagger 暂时注释 测试SwaggerConfig配置类
-swagger:
-  enable: true #是否开启swagger
-  application-name: bai_yx #项目应用名
-  application-version: 1.0.1 #项目版本信息
-  application-description: baiyx_study #项目描述信息
-  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
+#swagger:
+#  enable: true #是否开启swagger
+#  application-name: bai_yx #项目应用名
+#  application-version: 1.0.1 #项目版本信息
+#  application-description: baiyx_study #项目描述信息
+#  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
 
 mybatis-plus:
   configuration:

@@ -239,7 +239,7 @@ public class UserController {
 
     @ApiOperation("获取IP或MAC地址")
     @WebLog(description = "获取IP或MAC地址")
-    @RequestMapping(value = "getIPorMACaddress", method= RequestMethod.POST)
+    @RequestMapping(value = "getIPorMACaddress", method= {RequestMethod.POST,RequestMethod.GET,RequestMethod.PUT,RequestMethod.OPTIONS})
     public Map getIPorMACaddress(HttpServletRequest request) {
         try {
             return UserService.getIPorMACaddress(request);
