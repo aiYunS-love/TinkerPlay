@@ -86,20 +86,20 @@ public class MacUtil {
         return UNKNOWN;
     }
 
-    public static void main(String[] args) throws Exception {
-        InetAddress ia = null;
-        try {
-            ia = InetAddress.getLocalHost();
-            String localname = ia.getHostName();
-            String localip = ia.getHostAddress();
-            System.out.println("本机名称是：" + localname);
-            System.out.println("本机的ip是 ：" + localip);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        InetAddress ia1 = InetAddress.getLocalHost();// 获取本地IP对象
-        System.out.println("本机的MAC是 ：" + getMACAddress(ia1));
-    }
+//    public static void main(String[] args) throws Exception {
+//        InetAddress ia = null;
+//        try {
+//            ia = InetAddress.getLocalHost();
+//            String localname = ia.getHostName();
+//            String localip = ia.getHostAddress();
+//            System.out.println("本机名称是：" + localname);
+//            System.out.println("本机的ip是 ：" + localip);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        InetAddress ia1 = InetAddress.getLocalHost();// 获取本地IP对象
+//        System.out.println("本机的MAC是 ：" + getMACAddress(ia1));
+//    }
 
     // 获取MAC地址的方法
     public static String getMACAddress(InetAddress ia) throws Exception {
