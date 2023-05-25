@@ -33,6 +33,9 @@ public interface UserDao {
     // 增
     void insertOne(User user);
 
+    // @Options(useGeneratedKeys=true, keyProperty="id") // 注解的方式获取插入信息后的自增ID
+    void insertOne3(User user);
+
     // 删
     void deleteByName(String username);
 

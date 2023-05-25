@@ -124,6 +124,14 @@ public class UserController {
         return R.ok("ok",UserService.insertOne2(user));
     }
 
+    @ApiOperation(value = "插入一条_测试新增获取ID")
+    @WebLog(description = "插入一条_测试新增获取ID")
+    @RequestMapping(value = "insertOne3",method= RequestMethod.POST,produces = "application/json")
+    @ClearAndReloadCache(name = "findByName")
+    public R insertOne3(@ApiParam("User") @RequestBody User user){
+        return R.ok("ok",UserService.insertOne3(user));
+    }
+
     @ApiOperation(value = "根据名字删除")
     @WebLog(description = "根据名字删除")
     @RequestMapping(value = "deleteByName",method = RequestMethod.GET)
