@@ -94,6 +94,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    // 测试新增获取ID
+    @Override
+    public R insertOne3(User user) {
+        User u = UserDao.findByName(user.getUsername());
+        if (u == null) {
+            // 插入
+            UserDao.insertOne3(user);
+            int id = user.getId();
+            System.out.println("新增数据的自增ID为: " + id);
+            return R.ok("ok",user);
+        } else {
+            return R.error("已存在编号为" + u.toString() + "的数据,请重新插入...");
+        }
+    }
+
     @Override
     public void deleteByName(QueryRequestVo queryRequestVo) {
         User u = new User();

@@ -18,6 +18,10 @@
         insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
     </insert>
 
+    <insert id="insertOne3" useGeneratedKeys="true" keyProperty="id" parameterType="com.baiyx.wfwbitest.Entity.User">
+        insert into user(username,birthday,sex,address,ID_CARD,PHONE,EMAIL) values(#{username},#{birthday},#{sex},#{address},#{ID_CARD},#{PHONE},#{EMAIL});
+    </insert>
+
     <delete id="deleteByName" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo">
         delete from user where username=#{username};
     </delete>
