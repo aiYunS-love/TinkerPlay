@@ -21,6 +21,7 @@ public class DataChangeSink implements SinkFunction<DataChangeInfo> {
     public void invoke(DataChangeInfo dataChangeInfo, Context context) {
         log.info("收到变更原始数据：{}", dataChangeInfo);
         // TODO 开始处理你的数据吧
+        System.out.println("开始处理你的数据");
     }
 
 }
