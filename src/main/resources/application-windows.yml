@@ -100,7 +100,7 @@ spring:
     # 缓存配置
     cache:
       type: redis
-    client-name: BiTest
+    client-name: cacheTest
     pool:
       # 连接池中的最大空闲连接
       max-idle: 3000
@@ -225,7 +225,6 @@ nacos:
     group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP。
     namespace: d5995b58-0e86-496b-8546-3dc112d8f9b7 # 使用的 Nacos 的命名空间，默认为 null。
 
-# 实时同步SQL Server数据库配置
 CDC:
   DataSource:
     host: 192.168.119.128
