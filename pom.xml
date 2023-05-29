@@ -601,17 +601,15 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <!-- 跳过安全检查 -->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; 跳过安全检查 &ndash;&gt;-->
 <!--                <skip>true</skip> -->
-                    <!-- 排除单元测试的类不进行编译打包 -->
-                    <excludes>
-                        <exclude>**/*Test.java</exclude>
-                    </excludes>
-                </configuration>
+<!--                    &lt;!&ndash; 排除单元测试的类不进行编译打包 &ndash;&gt;-->
+<!--                    <excludes>-->
+<!--                        <exclude>src/test/java/com/baiyx/wfwbitest/*</exclude>-->
+<!--                    </excludes>-->
+<!--                </configuration>-->
             </plugin>
-            <!-- flink 该插件用于将 Scala 代码编译成 class 文件 -->
-
         </plugins>
     </build>
     <profiles>

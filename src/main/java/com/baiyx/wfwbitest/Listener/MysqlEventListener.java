@@ -1,14 +1,23 @@
 package com.baiyx.wfwbitest.Listener;
 
+import com.baiyx.wfwbitest.Dao.ISysJobRepository;
+import com.baiyx.wfwbitest.Entity.SysJobPO;
 import com.baiyx.wfwbitest.Flink.DataChangeInfo;
 import com.baiyx.wfwbitest.Flink.DataChangeSink;
 import com.baiyx.wfwbitest.Flink.MysqlDeserialization;
+import com.baiyx.wfwbitest.TimedTask.CronTaskRegistrar;
+import com.baiyx.wfwbitest.TimedTask.SchedulingRunnable;
+import com.baiyx.wfwbitest.TimedTask.SysJobRunner;
 import com.ververica.cdc.connectors.mysql.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.flink.api.java.ExecutionEnvironment;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -22,10 +31,20 @@ import java.util.List;
  * @Author: 白宇鑫
  * @Date: 2023年4月27日, 0027 下午 6:37:10
  * @Description: MySQL CDC变更监听器
+ * 由于项目中添加了mysql的监听类MysqlEventListener,导致程序启动只执行实现ApplicationRunner接口的run方法,不执行实现CommandLineRunner接口的run方法
+ * 所以把程序启动要扫描的定时任务方法与监听mysql的方法都放到实现ApplicationRunner接口的run方法里面.
  */
 @Component
 @Slf4j
 public class MysqlEventListener implements ApplicationRunner{
+
+    private static final Logger logger = LoggerFactory.getLogger(MysqlEventListener.class);
+
+    @Autowired
+    private ISysJobRepository sysJobRepository;
+
+    @Autowired
+    private CronTaskRegistrar cronTaskRegistrar;
 
     /**
      * CDC数据源配置
@@ -51,6 +70,8 @@ public class MysqlEventListener implements ApplicationRunner{
 
     @Override
     public void run(ApplicationArguments args) throws Exception{
+        // 程序启动先执行扫描定时任务的方法
+        this.scanTimedTask();
         log.info("开始启动Flink CDC获取ERP变更数据......");
         // 流式数据处理环境
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -85,6 +106,22 @@ public class MysqlEventListener implements ApplicationRunner{
                 .deserializer(new MysqlDeserialization())
                 .serverTimeZone("GMT+8")
                 .build();
+    }
+
+    // 扫描定时任务方法
+    public void scanTimedTask() {
+        // 初始加载数据库里状态为正常的定时任务
+        // List<SysJobPO> jobList = sysJobRepository.getSysJobListByStatus(SysJobStatus.NORMAL.ordinal());
+        List<SysJobPO> jobList = sysJobRepository.getSysJobListByStatus(1);
+        // 程序启动时,一次性加载数据库里面状态为1的正常的定时任务
+        if (CollectionUtils.isNotEmpty(jobList)) {
+            for (SysJobPO job : jobList) {
+                SchedulingRunnable task = new SchedulingRunnable(job.getBeanName(), job.getMethodName(), job.getMethodParams());
+                cronTaskRegistrar.addCronTask(task, job.getCronExpression());
+            }
+
+            logger.info("定时任务已加载完毕...");
+        }
     }
 
 }
