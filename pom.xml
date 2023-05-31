@@ -41,7 +41,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -52,6 +51,16 @@
             <version>3.0.6</version>
         </dependency>
         <!-- flink -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch-base</artifactId>
+            <version>3.0.1-1.17</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ververica</groupId>
+            <artifactId>flink-sql-connector-mysql-cdc</artifactId>
+            <version>2.3.0</version>
+        </dependency>
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-sql-connector-mysql-cdc</artifactId>
