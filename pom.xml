@@ -44,6 +44,23 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.13</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <!-- 发送短信的三方包 -->
+        <dependency>
+            <groupId>com.github.qcloudsms</groupId>
+            <artifactId>qcloudsms</artifactId>
+            <version>1.0.6</version>
+        </dependency>
         <!--导入html依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
