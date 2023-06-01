@@ -1,21 +1,18 @@
 package com.baiyx.wfwbitest.Controller;
 
+import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.RedisService;
 import com.baiyx.wfwbitest.CustomAnnotations.WebLog;
-import com.baiyx.wfwbitest.Entity.User;
-import com.baiyx.wfwbitest.Service.UserService;
+import com.baiyx.wfwbitest.Entity.Sms;
+import com.baiyx.wfwbitest.Utils.SendSmsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
-import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Random;
 
 /**
  * @Author: 白宇鑫
@@ -43,5 +40,31 @@ public class RedisController {
         redisService.expire("C",30);
         System.out.println(redisService.getExpire("C"));
         redisService.del("A");
+    }
+
+    @ApiOperation("测试获取验证码并发送到手机")
+    @WebLog(description = "测试获取验证码并发送到手机")
+    @RequestMapping(value = "/getAuthCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public CommonResult getAuthCode(@RequestBody Sms sms) {
+        if(!redisService.hasKey(sms.getPhoneNumbers()[0])){
+            // 生成验证码
+            StringBuilder sb = new StringBuilder();
+            Random random = new Random();
+            for(int i=0;i<6;i++){
+                sb.append(random.nextInt(10));
+            }
+            // 新起线程存到redis缓存,默认60s超时
+            new Thread(() -> {
+                redisService.set(sms.getPhoneNumbers()[0],sb,60);
+            }).start();
+            String authCode = sb.toString();
+            // 发送验证码
+            String[] params = new String[1];
+            params[0] = authCode;
+            SendSmsUtil.sendSms(sms.getPhoneNumbers(),sms.getTemplateId(),sms.getSmsSign(),params);
+            return CommonResult.success(authCode,"获取验证码成功");
+        }
+        return CommonResult.success(null,"请一分钟后重新获取验证码!");
     }
 }
