@@ -956,4 +956,32 @@ public class junitTest implements Runnable{
         //env.execute();//'execute()', 'count()', 'collect()', or 'print()'.
     }
 
+    // 测试ThreadLocal
+    @Test
+    public void test26(){
+        // 创建一个ThreadLocal对象
+        ThreadLocal<Integer> threadLocal = new ThreadLocal<>();
+        // 创建两个线程，并启动
+        Thread thread1 = new Thread(() -> {
+            // 在线程1中设置ThreadLocal的值为1
+            threadLocal.set(1);
+            System.out.println("Thread 1: " + threadLocal.get()); // 输出：Thread 1: 1
+        });
+
+        Thread thread2 = new Thread(() -> {
+            // 在线程2中设置ThreadLocal的值为2
+            threadLocal.set(2);
+            System.out.println("Thread 2: " + threadLocal.get()); // 输出：Thread 2: 2
+        });
+
+        thread1.start();
+        thread2.start();
+
+        // 在主线程中获取ThreadLocal的值（主线程不受影响）
+        System.out.println("Main Thread: " + threadLocal.get()); // 输出：Main Thread: null
+
+        // 清除ThreadLocal的值
+        threadLocal.remove();
+    }
+
 }

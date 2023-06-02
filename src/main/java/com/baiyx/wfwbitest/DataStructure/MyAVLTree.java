@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.Algorithm;
+package com.baiyx.wfwbitest.DataStructure;
 
 import java.util.LinkedList;
 import java.util.Queue;
