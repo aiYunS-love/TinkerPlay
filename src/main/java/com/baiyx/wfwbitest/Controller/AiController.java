@@ -47,12 +47,12 @@ public class AiController {
                 .apiHost("https://api.openai.com/")
                 .build()
                 .init();
-        Message system = Message.ofSystem(prompt);
+        // Message system = Message.ofSystem(prompt);
         Message message = Message.of(prompt);
 
         ChatCompletion chatCompletion = ChatCompletion.builder()
                 .model(ChatCompletion.Model.GPT_3_5_TURBO.getName())
-                .messages(Arrays.asList(system, message))
+                .messages(Arrays.asList(message))
                 .maxTokens(3000)
                 .temperature(0.9)
                 .build();
