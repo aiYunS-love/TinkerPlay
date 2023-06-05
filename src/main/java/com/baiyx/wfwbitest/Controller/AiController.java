@@ -9,6 +9,7 @@ import com.plexpt.chatgpt.listener.SseStreamListener;
 import com.plexpt.chatgpt.util.Proxys;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.net.Proxy;
 import java.util.Arrays;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @Author: 白宇鑫
@@ -34,7 +36,8 @@ public class AiController {
     @GetMapping("/sse")
     @CrossOrigin
     @ResponseBody
-    public String sseEmitter(String prompt) {
+    @Async
+    public CompletableFuture<String> sseEmitter(String prompt) {
         //国内需要代理 国外不需要
         Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
@@ -55,7 +58,6 @@ public class AiController {
                 .build();
         ChatCompletionResponse response = chatGPT.chatCompletion(chatCompletion);
         Message res = response.getChoices().get(0).getMessage();
-        System.out.println(res);
-        return res.getContent();
+        return CompletableFuture.completedFuture(res.getContent());
     }
 }
