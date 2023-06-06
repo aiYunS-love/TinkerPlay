@@ -238,11 +238,10 @@ public class UserController {
     @WebLog(description = "导出为Excel")
     @RequestMapping(value = "downloadexcel", method = RequestMethod.GET)
     @ResponseBody
-    public String getExcel(HttpServletResponse response) throws IllegalAccessException, IOException,
+    public void getExcel(HttpServletResponse response) throws IllegalAccessException, IOException,
             InstantiationException {
         List<User> list = UserService.findAll();
-        ExcelUtil.download(response,User.class,list);
-        return null;
+        ExcelUtil.download(response,User.class,list,"Test", "xlsx");
     }
 
     @ApiOperation("获取IP或MAC地址")
