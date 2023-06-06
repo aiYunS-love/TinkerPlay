@@ -31,7 +31,6 @@ public class FileUploadController {
 
     @Value("${file-save-path}")
     private String fileSavePath;
-    HashSet<String> resultset = new HashSet();
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
@@ -54,6 +53,7 @@ public class FileUploadController {
     @ApiOperation("普通文件上传功能")
     @PostMapping("/upload")
     public HashSet upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
+        HashSet<String> resultset = new HashSet();
         String filePath = "";
         for(MultipartFile uploadFile:uploadFiles){
             String format = sdf.format(new Date());
