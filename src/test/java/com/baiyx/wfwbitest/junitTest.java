@@ -73,7 +73,7 @@ import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
 /**
  * @Author: 白宇鑫
  * @Date: 2022-7-7 下午 04:57
- * @Description:
+ * @Description: 单元测试
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest
