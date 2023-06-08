@@ -64,6 +64,10 @@ public class User implements Serializable {
     public User(String username){
         this.username = username;
     }
+    // 测试用
+    public User(Integer id){
+        this.id = id;
+    }
 
     public User(Integer id, String username, String address, String sex, Date birthday) {
         this.id = id;

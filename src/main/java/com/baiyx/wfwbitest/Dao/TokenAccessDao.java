@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @Date: 2022-10-12 下午 04:39
  * @Description: 查询权限DAO层
  */
-
 @Mapper
 public interface TokenAccessDao {
 
