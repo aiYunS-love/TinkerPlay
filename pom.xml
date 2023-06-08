@@ -638,17 +638,4 @@
             </plugin>
         </plugins>
     </build>
-    <profiles>
-        <!-- swagger新增 -->
-        <profile>
-            <!-- windows环境 -->
-            <id>windows</id>
-            <properties>
-                <spring.profiles.active>windows</spring.profiles.active>
-            </properties>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-        </profile>
-    </profiles>
 </project>
