@@ -199,6 +199,12 @@ minio:
   bucketName: baiyx #存储桶名称
   accessKey: minioadmin #访问的key
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的秘钥
+  # secretKey: minioadmin
+# Minio桶给其他方开放下载权限的地址及密钥等
+#s3:
+#  url: http://127.0.0.1:9095
+#  accessKey: PFAuSKutzVo3tR1W
+#  secretKey: I0bPkDJF3tkgfRjLqrBYOnNNznLFbnBX
 
 #高于jasypt3.0.0版本如下
 jasypt:

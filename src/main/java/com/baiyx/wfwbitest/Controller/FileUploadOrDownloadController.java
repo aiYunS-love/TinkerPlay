@@ -5,35 +5,59 @@ import cn.hutool.json.JSONUtil;
 import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.MinioUploadDto;
+import com.baiyx.wfwbitest.Config.MinioClientConfig;
+import com.baiyx.wfwbitest.Entity.User;
+import com.baiyx.wfwbitest.Entity.UserFile;
+import com.baiyx.wfwbitest.InterviewQuestion.A;
+import com.baiyx.wfwbitest.Service.UserFileService;
+import com.baiyx.wfwbitest.Utils.MinioUtil;
 import io.minio.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import java.awt.Desktop;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.List;
 
 /**
  * @Author: 白宇鑫
  * @Date: 2022-9-30 下午 04:23
- * @Description: 多文件上传
+ * @Description: 文件上传下载
  */
 @RestController
-@Api(tags = "FileUploadController", description = "文件上传模块")
-public class FileUploadController {
+@Api(tags = "FileUploadOrDownloadController", description = "文件上传下载模块")
+public class FileUploadOrDownloadController {
+
+    @Autowired
+    private UserFileService userFileService;
 
     @Value("${file-save-path}")
     private String fileSavePath;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileUploadOrDownloadController.class);
     @Value("${minio.endpoint}")
     private String ENDPOINT;
     @Value("${minio.bucketName}")
@@ -53,7 +77,10 @@ public class FileUploadController {
     @ApiOperation("普通文件上传功能")
     @PostMapping("/upload")
     public HashSet upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
+        // 结果集
         HashSet<String> resultset = new HashSet();
+        List<UserFile> userFiles = new ArrayList<>();
+
         String filePath = "";
         for(MultipartFile uploadFile:uploadFiles){
             String format = sdf.format(new Date());
@@ -75,7 +102,20 @@ public class FileUploadController {
                     e.printStackTrace();
                 }
                 resultset.add(filePath);
+                UserFile userFile = new UserFile();
+                userFile.setFileName(newName)
+                        .setExt(oldName.substring(oldName.lastIndexOf("."), oldName.length()))
+                        .setPath(folder + "\\" + newName)
+                        .setSize(uploadFile.getSize())
+                        .setType(uploadFile.getContentType())
+                        // 用于测试,给ID为1的用户添加资料
+                        .setUserId(1);
+                userFiles.add(userFile);
             }
+        }
+        // 将文件信息存入数据库
+        if(userFiles != null && userFiles.size() > 0){
+            userFileService.save(userFiles);
         }
         return resultset;
     }
@@ -92,6 +132,7 @@ public class FileUploadController {
     @ResponseBody
     public CommonResult upload2(@RequestPart("uploadFile2") MultipartFile[] files) {
         try {
+            List<UserFile> userFiles = new ArrayList<>();
             //创建一个MinIO的Java客户端
             MinioClient minioClient =MinioClient.builder()
                     .endpoint(ENDPOINT)
@@ -128,6 +169,19 @@ public class FileUploadController {
                 LOGGER.info("文件上传成功!");
                 names.add(filename);
                 urls.add(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName);
+                UserFile userFile = new UserFile();
+                userFile.setFileName(objectName)
+                        .setExt('.'+ FilenameUtils.getExtension(filename))
+                        .setPath(ENDPOINT + "/" + BUCKET_NAME + "/" + objectName)
+                        .setSize(file.getSize())
+                        .setType(file.getContentType())
+                        // 用于测试,给ID为1的用户添加资料
+                        .setUserId(1);
+                userFiles.add(userFile);
+            }
+            // 将文件信息存入数据库
+            if(userFiles != null && userFiles.size() > 0){
+                userFileService.save(userFiles);
             }
             minioUploadDto.setNames(names);
             minioUploadDto.setUrls(urls);
@@ -164,6 +218,7 @@ public class FileUploadController {
                     .credentials(ACCESS_KEY,SECRET_KEY)
                     .build();
             minioClient.removeObject(RemoveObjectArgs.builder().bucket(BUCKET_NAME).object(objectName).build());
+            userFileService.deleteFile(objectName);
             return CommonResult.success(null);
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,4 +226,101 @@ public class FileUploadController {
         return CommonResult.failed();
     }
 
+    // 获取文件列表
+    @ApiOperation("获取文件列表")
+    @PostMapping("queryAllFile")
+    @ResponseBody
+    public Map<String, Object> queryAllFile(HttpSession session, HttpServletRequest request){
+        int page = Integer.parseInt(request.getParameter("page") == null? "1":request.getParameter("page"));
+        int limit = Integer.parseInt(request.getParameter("limit") == null? "100":request.getParameter("limit"));
+        User user = (User) (session.getAttribute("user") == null? new User(1):session.getAttribute("user"));
+        List<UserFile> files = userFileService.queryByUserId(user.getId(), page, limit);
+
+        Map<String, Object> res = new HashMap<>();
+        res.put("code", 0);
+        res.put("count", userFileService.queryFileCounts(user.getId()));
+        res.put("data", files);
+        return res;
+    }
+
+    /***
+     * @Author: 白宇鑫
+     * @Description: 文件下载
+     * @Date: 2023年6月7日, 0007 上午 11:07:25
+     * @Param:
+     * @param id
+     * @param response
+     * @return: void
+     */
+    @ApiOperation("文件下载")
+    @GetMapping("download/{id}")
+    public void download(@PathVariable("id") Integer id, HttpServletResponse response){
+        String openStyle = "attachment";
+        try{
+            getFile(openStyle, id, response);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /***
+     * @Author: 白宇鑫
+     * @Description: 更新文件下载次数
+     * @Date: 2023年6月7日, 0007 上午 11:07:40
+     * @Param:
+     * @param openStyle
+     * @param id
+     * @param response
+     * @return: void
+     */
+    public String getFile(String openStyle, Integer id, HttpServletResponse response) throws Exception {
+        UserFile userFile = userFileService.queryByUserFileId(id);
+        // String realPath = ResourceUtils.getURL("classpath").getPath() + userFile.getPath();
+        String realPath = userFile.getPath();
+        if(!realPath.startsWith("http")){
+            // 普通上传
+            FileInputStream is = new FileInputStream(new File(realPath));
+            // 附件下载
+            response.setHeader("content-disposition", openStyle + ";filename=" + URLEncoder.encode(userFile.getFileName(), "UTF-8"));
+            // 获取响应response输出流
+            ServletOutputStream os = response.getOutputStream();
+            // 文件拷贝
+            IOUtils.copy(is, os);
+            IOUtils.closeQuietly(is);
+            IOUtils.closeQuietly(os);
+            if (openStyle.equals("attachment")) {
+                userFile.setDownloadCounts(userFile.getDownloadCounts() + 1);
+                userFileService.update(userFile);
+            }
+            return "下载成功";
+        }else{
+            // 上传到Minio桶
+            MinioClient minioClient = MinioClientConfig.getMinioClient();
+            if (minioClient == null) {
+                return "连接MinIO服务器失败";
+            }
+            String s = MinioUtil.downloadFile(BUCKET_NAME,userFile.getFileName(),openStyle,response) != null ? "下载成功" : "下载失败";
+            if (openStyle.equals("attachment") && "下载成功".equals(s)) {
+                userFile.setDownloadCounts(userFile.getDownloadCounts() + 1);
+                userFileService.update(userFile);
+            }
+            return s;
+        }
+    }
+
+    /***
+     * @Author: 白宇鑫
+     * @Description: 文件预览
+     * @Date: 2023年6月7日, 0007 上午 11:10:00
+     * @Param:
+     * @param id
+     * @param response
+     * @return: void
+     */
+    @ApiOperation("文件预览")
+    @GetMapping("preview/{id}")
+    public void preview(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
+        String openStyle = "inline";
+        getFile(openStyle,id,response);
+    }
 }

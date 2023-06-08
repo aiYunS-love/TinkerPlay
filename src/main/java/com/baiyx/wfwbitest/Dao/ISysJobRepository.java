@@ -10,7 +10,6 @@ import java.util.List;
  * @Date: 2022-10-10 下午 02:36
  * @Description: 定时任务DAO层
  */
-
 @Mapper
 public interface ISysJobRepository {
 

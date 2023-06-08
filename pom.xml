@@ -61,7 +61,7 @@
             <artifactId>qcloudsms</artifactId>
             <version>1.0.6</version>
         </dependency>
-        <!--导入html依赖-->
+        <!--导入html模板引擎依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
