@@ -35,9 +35,6 @@ public class WebLogAspect {
     private Object result = null;
     private long startTime = 0;
 
-    @Autowired
-    private ISysJobRepository sysJobRepository;
-
     /*
     * @Author: 白宇鑫
     * @Date: 2022-7-27 下午 02:43
