@@ -209,9 +209,9 @@ public class FileUploadOrDownloadController {
     }
 
     @ApiOperation("Minio文件删除")
-    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    @RequestMapping(value = "/deleteMinioFile", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult delete(@RequestParam("objectName") String objectName) {
+    public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
         try {
             MinioClient minioClient = MinioClient.builder()
                     .endpoint(ENDPOINT)
