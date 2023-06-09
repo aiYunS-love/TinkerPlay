@@ -492,6 +492,7 @@
         <!--指定打包后的finalName-->
         <finalName>${project.artifactId}</finalName>
         <resources>
+            <!-- 把src/main/resources目录中的yml文件包含到输出结果中。输出到classes目录中 -->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>

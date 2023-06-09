@@ -38,7 +38,7 @@
     </select>
 
     <!-- 更新文件下载次数-->
-    <update id="update" parameterType="UserFile">
+    <update id="update" parameterType="com.baiyx.wfwbitest.Entity.UserFile">
         update files set download_counts = #{downloadCounts} where id = #{id};
     </update>
 
