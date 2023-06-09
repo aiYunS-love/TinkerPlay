@@ -105,7 +105,7 @@ public class FileUploadOrDownloadController {
                 UserFile userFile = new UserFile();
                 userFile.setFileName(newName)
                         .setExt(oldName.substring(oldName.lastIndexOf("."), oldName.length()))
-                        .setPath(folder + "\\" + newName)
+                        .setPath(fileSavePath.contains(":")? folder + "\\" + newName : folder + "/" + newName)
                         .setSize(uploadFile.getSize())
                         .setType(uploadFile.getContentType())
                         // 用于测试,给ID为1的用户添加资料
