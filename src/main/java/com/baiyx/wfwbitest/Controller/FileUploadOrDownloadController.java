@@ -9,6 +9,7 @@ import com.baiyx.wfwbitest.Config.MinioClientConfig;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Entity.UserFile;
 import com.baiyx.wfwbitest.InterviewQuestion.A;
+import org.springframework.util.FileSystemUtils;
 import com.baiyx.wfwbitest.Service.UserFileService;
 import com.baiyx.wfwbitest.Utils.MinioUtil;
 import io.minio.*;
@@ -20,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +32,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.*;
+import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -212,18 +215,25 @@ public class FileUploadOrDownloadController {
     @RequestMapping(value = "/deleteMinioFile", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
-        try {
-            MinioClient minioClient = MinioClient.builder()
-                    .endpoint(ENDPOINT)
-                    .credentials(ACCESS_KEY,SECRET_KEY)
-                    .build();
-            minioClient.removeObject(RemoveObjectArgs.builder().bucket(BUCKET_NAME).object(objectName).build());
+        String filePath = userFileService.queryByFileName(objectName).getPath();
+        if(objectName.contains("/") && filePath.contains("://")){
+            try {
+                MinioClient minioClient = MinioClient.builder()
+                        .endpoint(ENDPOINT)
+                        .credentials(ACCESS_KEY,SECRET_KEY)
+                        .build();
+                minioClient.removeObject(RemoveObjectArgs.builder().bucket(BUCKET_NAME).object(objectName).build());
+                userFileService.deleteFile(objectName);
+                return CommonResult.success(null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return CommonResult.failed();
+        }else{
+            FileSystemUtils.deleteRecursively(new File(filePath));
             userFileService.deleteFile(objectName);
             return CommonResult.success(null);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return CommonResult.failed();
     }
 
     // 获取文件列表
