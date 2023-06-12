@@ -29,7 +29,10 @@ public interface UserFileService {
     @Async
     void update(UserFile userFile);
 
-    // 删除Minio桶里的文件
+    // 删除文件
     @Async
     void deleteFile(String objectName);
+
+    // 根据文件名查询
+    UserFile queryByFileName(String objectName);
 }

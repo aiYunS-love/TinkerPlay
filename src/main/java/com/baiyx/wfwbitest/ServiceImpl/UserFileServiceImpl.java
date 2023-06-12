@@ -66,9 +66,15 @@ public class UserFileServiceImpl implements UserFileService{
         userFileDao.update(userFile);
     }
 
-    // 更新文件下载次数
+    // 删除文件
     @Override
     public void deleteFile(String objectName) {
         userFileDao.deleteFile(objectName);
+    }
+
+    // 根据文件名查询
+    @Override
+    public UserFile queryByFileName(String objectName){
+        return userFileDao.queryByFileName(objectName);
     }
 }

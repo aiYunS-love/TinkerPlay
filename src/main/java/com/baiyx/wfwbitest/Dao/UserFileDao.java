@@ -75,4 +75,14 @@ public interface UserFileDao {
       * @return: void
       */
      void deleteFile(String objectName);
+
+    /***
+     * @Author: 白宇鑫
+     * @Description: 根据文件名查询
+     * @Date: 2023年6月12日, 0012 上午 9:43:36
+     * @Param:
+     * @param objectName
+     * @return: com.baiyx.wfwbitest.Entity.UserFile
+     */
+    UserFile queryByFileName(String objectName);
 }

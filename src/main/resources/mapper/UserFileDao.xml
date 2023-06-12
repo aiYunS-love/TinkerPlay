@@ -47,4 +47,10 @@
         delete from files where file_name=#{objectName};
     </delete>
 
+    <!-- 根据用户id查询文件列表-->
+    <select id="queryByFileName" parameterType="string" resultMap="UserFileMap">
+        select * from files
+        where file_name = #{objectName};
+    </select>
+
 </mapper>
