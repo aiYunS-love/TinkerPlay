@@ -211,8 +211,8 @@ public class FileUploadOrDownloadController {
                 .build();
     }
 
-    @ApiOperation("Minio文件删除")
-    @RequestMapping(value = "/deleteMinioFile", method = RequestMethod.POST)
+    @ApiOperation("文件删除")
+    @RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
         String filePath = userFileService.queryByFileName(objectName).getPath();
