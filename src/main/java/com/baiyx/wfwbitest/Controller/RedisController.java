@@ -54,15 +54,15 @@ public class RedisController {
             for(int i=0;i<6;i++){
                 sb.append(random.nextInt(10));
             }
-            // 新起线程存到redis缓存,默认60s超时
-            new Thread(() -> {
-                redisService.set(sms.getPhoneNumbers()[0],sb,60);
-            }).start();
             String authCode = sb.toString();
             // 发送验证码
             String[] params = new String[1];
             params[0] = authCode;
             SendSmsUtil.sendSms(sms.getPhoneNumbers(),sms.getTemplateId(),sms.getSmsSign(),params);
+            // 新起线程存到redis缓存,默认60s超时
+            new Thread(() -> {
+                redisService.set(sms.getPhoneNumbers()[0],sb,60);
+            }).start();
             return CommonResult.success(authCode,"获取验证码成功");
         }
         return CommonResult.success(null,"请一分钟后重新获取验证码!");

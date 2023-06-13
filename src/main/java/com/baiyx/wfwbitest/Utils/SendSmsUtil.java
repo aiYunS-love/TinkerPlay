@@ -1,9 +1,10 @@
 package com.baiyx.wfwbitest.Utils;
 
-import com.alibaba.fastjson.JSONException;
+import com.baiyx.wfwbitest.Other.MySmsSingleSender;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
 import com.github.qcloudsms.httpclient.HTTPException;
+import org.json.JSONException;
 
 import java.io.IOException;
 
@@ -43,10 +44,10 @@ public class SendSmsUtil {
                 throw new RuntimeException("短信参数不能为空!");
             }
             // 签名参数未提供或者为空时，会使用默认签名发送短信
-            SmsSingleSender ssender = new SmsSingleSender(1400826667, "1666486b3e054c09db4fd7e6a7b94a51");
+            MySmsSingleSender ssender = new MySmsSingleSender(1400826667, "1666486b3e054c09db4fd7e6a7b94a51");
             SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumbers[0], templateId, params, smsSign, "", "");
-            System.out.println(result) ;}
-        catch (HTTPException e) {
+            System.out.println(result) ;
+        } catch (HTTPException e) {
             // HTTP响应码错误
             e.printStackTrace();
         } catch (JSONException e) {
@@ -54,6 +55,7 @@ public class SendSmsUtil {
             e.printStackTrace();
         } catch (IOException e) {
             // 网络IO错误
-            e.printStackTrace();}
+            e.printStackTrace();
+        }
     }
 }
