@@ -13,6 +13,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -24,6 +25,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 // @EnableApolloConfig //Apollo配置项
 // @EnableDiscoveryClient //注册中心
 // @EnableScheduling
+@ServletComponentScan
 @EnableEncryptableProperties //开启yml敏感数据加密
 @EnableAsync //开启多线程,异步
 @EnableOpenApi //开启swagger2
