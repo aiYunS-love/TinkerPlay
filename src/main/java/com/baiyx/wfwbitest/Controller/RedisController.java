@@ -4,15 +4,18 @@ import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.RedisService;
 import com.baiyx.wfwbitest.CustomAnnotations.WebLog;
 import com.baiyx.wfwbitest.Entity.Sms;
+import com.baiyx.wfwbitest.Rabbitmq.BroadcastMessageSender;
 import com.baiyx.wfwbitest.Utils.SendSmsUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Random;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @Author: 白宇鑫
@@ -28,6 +31,8 @@ public class RedisController {
 
     @Autowired
     RedisService redisService;
+    @Autowired
+    BroadcastMessageSender broadcastMessageSender;
 
     @ApiOperation(value = "测试Redis_Service")
     @WebLog(description = "测试Redis_Service")
@@ -42,6 +47,14 @@ public class RedisController {
         redisService.del("A");
     }
 
+    /***
+     * @Author: 白宇鑫
+     * @Description: 测试缓存,手机发送验证码,异步广播消息
+     * @Date: 2023年6月15日, 0015 上午 11:00:32
+     * @Param:
+     * @param sms
+     * @return: com.baiyx.wfwbitest.Common.CommonResult
+     */
     @ApiOperation("测试获取验证码并发送到手机")
     @WebLog(description = "测试获取验证码并发送到手机")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
@@ -63,6 +76,9 @@ public class RedisController {
             new Thread(() -> {
                 redisService.set(sms.getPhoneNumbers()[0],sb,60);
             }).start();
+            // 异步广播
+            System.out.println("开始发送异步广播消息");
+            CompletableFuture.runAsync(() -> broadcastMessageSender.sendBroadcastMessage("我是广播消息! 验证码为: " + authCode, 60 * 1000));
             return CommonResult.success(authCode,"获取验证码成功");
         }
         return CommonResult.success(null,"请一分钟后重新获取验证码!");
