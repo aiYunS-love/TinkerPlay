@@ -77,4 +77,22 @@ public class RabbitMqConfig {
                 .to(orderTtlDirect)
                 .with(QueueEnum.EXCHANGE_QUEUE_Bb.getRouteKey());
     }
+
+    // 广播交换机
+    @Bean
+    public FanoutExchange fanoutExchange() {
+        return new FanoutExchange("exchange_broadcast");
+    }
+
+    // 广播队列
+    @Bean
+    public Queue queue() {
+        return new Queue("queue_broadcast");
+    }
+
+    // 广播:交换机绑定队列
+    @Bean
+    public Binding binding(Queue queue, FanoutExchange exchange) {
+        return BindingBuilder.bind(queue).to(exchange);
+    }
 }
