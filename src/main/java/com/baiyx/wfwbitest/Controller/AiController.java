@@ -5,6 +5,7 @@ import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
+import com.plexpt.chatgpt.listener.ConsoleStreamListener;
 import com.plexpt.chatgpt.listener.SseStreamListener;
 import com.plexpt.chatgpt.util.Proxys;
 import io.swagger.annotations.Api;
@@ -42,7 +43,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -72,7 +73,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -91,5 +92,30 @@ public class AiController {
         Message res = response.getChoices().get(0).getMessage();
         System.out.println(res.getContent());
         return res.getContent();
+    }
+
+    @ApiOperation(value = "ChatGPT(流式使用)")
+    @GetMapping("/sse3")
+    @CrossOrigin
+    public SseEmitter sseEmitter3(String prompt) {
+        // 国内需要代理 国外不需要
+        // Proxy proxy = Proxys.http("192.168.245.1", 15732);
+        ChatGPTStream chatGPTStream = ChatGPTStream.builder()
+                .timeout(600)
+                .apiKey("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")
+                // .proxy(proxy)
+                .apiHost("https://api.openai.com/")
+                .build()
+                .init();
+        SseEmitter sseEmitter = new SseEmitter(-1L);
+
+        SseStreamListener listener = new SseStreamListener(sseEmitter);
+        Message message = Message.of(prompt);
+
+        listener.setOnComplate(msg -> {
+            //回答完成，可以做一些事情
+        });
+        chatGPTStream.streamChatCompletion(Arrays.asList(message), listener);
+        return sseEmitter;
     }
 }
