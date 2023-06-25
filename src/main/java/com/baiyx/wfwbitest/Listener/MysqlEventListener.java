@@ -83,7 +83,7 @@ public class MysqlEventListener implements ApplicationRunner{
                 .addSource(dataChangeInfoMySqlSource, "mysql-source")
                 .setParallelism(1);
         streamSource.addSink(dataChangeSink);
-        env.execute("mysql-stream-cdc");
+        env.execute("mysql-cdc");
     }
 
     /**
