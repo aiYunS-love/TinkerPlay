@@ -56,6 +56,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
+import java.util.zip.ZipOutputStream;
 
 import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
 
@@ -971,6 +972,30 @@ public class junitTest implements Runnable{
 
         // 清除ThreadLocal的值
         threadLocal.remove();
+    }
+
+    // 测试文件压缩工具类
+    @Test
+    public void test27(){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        String sourceFolderPath = "E:\\baiyx\\DatabaseBackup\\20230626";
+        String zipFilePath = sourceFolderPath + "\\" + sdf.format(new Date()) + ".zip";
+
+        try {
+            FileOutputStream fos = new FileOutputStream(zipFilePath);
+            ZipOutputStream zos = new ZipOutputStream(fos);
+
+            File sourceFolder = new File(sourceFolderPath);
+            FileCompressionUtil.compressFolder(sourceFolder, sourceFolder.getName(), zos);
+
+            zos.close();
+            fos.close();
+
+            System.out.println("文件压缩成功！");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
