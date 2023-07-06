@@ -514,6 +514,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.yml</include>
+                    <include>**/banner.txt</include>
                 </includes>
             </resource>
             <resource>
