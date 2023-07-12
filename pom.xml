@@ -44,6 +44,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- 操作SVN -->
+        <dependency>
+            <groupId>org.tmatesoft.svnkit</groupId>
+            <artifactId>svnkit</artifactId>
+            <version>1.10.11</version>
+        </dependency>
         <!-- 支付宝支付依赖 -->
         <dependency>
             <groupId>com.alipay.sdk</groupId>
