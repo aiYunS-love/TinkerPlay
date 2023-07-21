@@ -128,7 +128,8 @@ public class HateSql {
         BufferedReader bufferedReader = null;
         try {
             for (File file : files){
-                bufferedReader = new BufferedReader(new FileReader(file));
+                bufferedReader = new BufferedReader(new InputStreamReader(
+                        new FileInputStream(file), "UTF-8"));
                 String line;
                 boolean isAdd = false;
                 StringBuilder sql = new StringBuilder();
