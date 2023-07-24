@@ -44,6 +44,13 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- 判断编码格式 -->
+        <dependency>
+            <groupId>com.googlecode.juniversalchardet</groupId>
+            <artifactId>juniversalchardet</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+
         <!-- 操作SVN -->
         <dependency>
             <groupId>org.tmatesoft.svnkit</groupId>
