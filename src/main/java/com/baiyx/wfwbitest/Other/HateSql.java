@@ -1,9 +1,11 @@
 package com.baiyx.wfwbitest.Other;
 
+import org.apache.commons.io.IOUtils;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.*;
+import org.mozilla.universalchardet.UniversalDetector;
 
 import java.io.*;
 import java.sql.Connection;
@@ -23,7 +25,6 @@ import java.util.stream.Collectors;
  *               分别执行sql语句到不同的数据库环境的小工具.
  *               所以我讨厌sql.
  */
-
 public class HateSql {
 
     static Map<String,String> paths;
@@ -128,7 +129,8 @@ public class HateSql {
         BufferedReader bufferedReader = null;
         try {
             for (File file : files){
-                bufferedReader = new BufferedReader(new FileReader(file));
+                InputStream inputStream = new FileInputStream(file);
+                bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
                 String line;
                 boolean isAdd = false;
                 StringBuilder sql = new StringBuilder();
@@ -173,6 +175,29 @@ public class HateSql {
             }
         }
         return sqlMap;
+    }
+
+    public static String fileEncodingDetector(InputStream inputStream){
+        try {
+            byte[] buffer = new byte[4096];
+            UniversalDetector detector = new UniversalDetector(null);
+
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) > 0 && !detector.isDone()) {
+                detector.handleData(buffer, 0, bytesRead);
+            }
+            detector.dataEnd();
+            String charsetName = detector.getDetectedCharset();
+            detector.reset();
+            if (charsetName != null) {
+                return charsetName;
+            } else {
+                return null;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public static boolean isComment(String line){
