@@ -50,7 +50,6 @@
             <artifactId>juniversalchardet</artifactId>
             <version>1.0.3</version>
         </dependency>
-
         <!-- 操作SVN -->
         <dependency>
             <groupId>org.tmatesoft.svnkit</groupId>
