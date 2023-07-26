@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 5:51:24
  * @Description: 正则表达式&排序&动态规划
  * 给你一个字符串s和一个字符规律p,请你来实现一个支持'.'和'*'的正则表达式

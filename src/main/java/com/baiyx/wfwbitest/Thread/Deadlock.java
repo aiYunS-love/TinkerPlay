@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Thread;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-20 16:09
  * @Description: 程序模拟死锁
  */

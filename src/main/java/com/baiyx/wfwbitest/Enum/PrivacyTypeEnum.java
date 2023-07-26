@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Enum;
 import lombok.Getter;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023-1-12 10:18
  * @Description: 隐私数据类型枚举
  */

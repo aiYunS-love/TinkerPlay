@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Exception;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-8-29 下午 02:34
  * @Description: 自定义参数异常类
  */

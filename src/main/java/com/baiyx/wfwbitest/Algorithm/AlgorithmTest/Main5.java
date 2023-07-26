@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月7日, 0007 上午 8:49:54
  * @Description: 字符串动态规划来解决最长公共子序列问题
  * 最长公共子序列（Longest Common Subsequence，LCS）是指在两个字符串中找到最长的子序列（可以不连续），使得它在两个原始字符串中都出现

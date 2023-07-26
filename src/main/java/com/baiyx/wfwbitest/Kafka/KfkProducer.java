@@ -7,7 +7,7 @@ import java.util.Properties;
 import java.util.Random;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月1日, 0001 下午 6:10:50
  * @Description: kafka生产者
  */

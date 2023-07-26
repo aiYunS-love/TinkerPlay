@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.ThreadSafety;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月2日, 0002 上午 8:56:51
  * @Description: ThreadLocal使用示例
  */

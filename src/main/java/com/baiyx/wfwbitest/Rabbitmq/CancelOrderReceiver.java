@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-1 下午 03:31
  * @Description: 消息的接收者CancelOrderReceiver
  *               消息的处理者

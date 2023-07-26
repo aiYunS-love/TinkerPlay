@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * @Author: Baiyx
+ * @Author: baiyx
  * @Date: 2023年7月18日, 0018 下午 2:12:35
  * @Description: 这是一个从本地多个路径下去读取.sql文件,
  *               分别执行sql语句到不同的数据库环境的小工具.

@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年3月24日, 0024 下午 12:03:04
  * @Description: ChatGPT
  */
@@ -43,7 +43,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -73,7 +73,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -102,7 +102,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPTStream chatGPTStream = ChatGPTStream.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()

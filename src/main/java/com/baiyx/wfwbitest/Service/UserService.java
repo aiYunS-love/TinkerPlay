@@ -9,14 +9,14 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2021/6/30 上午 11:30
  * @Description: Service层
  */
 public interface UserService {
 
     /**
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 查
     * @Date: 2021/6/30 上午 11:31
     * @Param:

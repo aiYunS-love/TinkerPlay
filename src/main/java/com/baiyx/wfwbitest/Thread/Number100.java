@@ -8,7 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-21 9:14
  * @Description: 用五个线程实现，求123456789 之间放+-和100的表达式，如果一个线程求出结果，立即告诉其它停止
  */

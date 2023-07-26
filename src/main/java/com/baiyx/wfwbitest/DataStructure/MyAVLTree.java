@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月31日, 0031 下午 6:11:44
  * @Description: 平衡二叉树
  *           4

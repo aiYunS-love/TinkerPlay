@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年3月16日, 0016 下午 12:52:12
  * @Description: 搜索中的人员信息
  */

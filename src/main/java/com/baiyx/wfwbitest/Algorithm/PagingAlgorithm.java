@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.io.Serializable;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-11-17 16:09
  * @Description: 分页算法
  */

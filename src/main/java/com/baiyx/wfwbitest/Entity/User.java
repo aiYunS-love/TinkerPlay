@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2021/6/30 上午 10:23
  * @Description: user实体类
  */

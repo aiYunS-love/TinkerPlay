@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-15 下午 05:22
  * @Description: 读取txt文件内容,转为JSONObject工具类
  */

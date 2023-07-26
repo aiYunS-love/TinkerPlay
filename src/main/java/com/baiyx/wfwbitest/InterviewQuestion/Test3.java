@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.InterviewQuestion;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月9日, 0009 下午 3:43:05
  * @Description: 父和子静态代码块-->父非静态代码块、父构造方法-->子非静态代码块、子构造方法-->父公有方法
  */

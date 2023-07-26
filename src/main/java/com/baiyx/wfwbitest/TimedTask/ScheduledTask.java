@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.TimedTask;
 import java.util.concurrent.ScheduledFuture;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-10 上午 11:01
  * @Description: ScheduledFuture的包装类。ScheduledFuture是ScheduledExecutorService定时任务线程池的执行结果
  *    被final修饰的类，不能被继承

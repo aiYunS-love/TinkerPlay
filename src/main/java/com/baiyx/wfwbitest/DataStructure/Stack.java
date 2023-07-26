@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.DataStructure;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-18 下午 02:24
  * @Description: 栈的数据结构
  */

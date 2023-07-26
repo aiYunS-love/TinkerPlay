@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Entity;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-24 下午 09:28
  * @Description: 返回结果信息实体类
  */

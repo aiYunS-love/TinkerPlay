@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.util.Arrays;
 
 /***
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Description: 克鲁斯卡尔算法
  *  * 案例：公交车问题
  *  * 1. 某城市新增7个站点，A,B,C,D,E,F,G,现在需要修路7个站点连通

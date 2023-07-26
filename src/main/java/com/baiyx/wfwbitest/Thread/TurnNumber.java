@@ -4,7 +4,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-20 17:04
  * @Description: 公平锁实现三个线程，运行输出 A1 B2 C3 A4 B5 C6 ...
  */

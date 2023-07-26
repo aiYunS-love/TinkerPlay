@@ -28,7 +28,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2021/6/30 上午 11:35
  * @Description: 控制器-入口
  */
@@ -44,7 +44,7 @@ public class UserController {
     UserService UserService;
     
     /**
-    * @Author: 白宇鑫 
+    * @Author: baiyx
     * @Description: 测试Aop层面统一打印自定义日志格式
      *              测试RedisCacheConfig缓存管理器
      *              测试@WebLog自定义日志打印的注解
@@ -65,7 +65,7 @@ public class UserController {
         return users;
     }
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 测试多线程异步及其注解@Async @EnableAsync
      *               UserServiceImpl层开启异步,结果封装到Future类返回
      * @Date: 2023-1-11 10:13
@@ -89,7 +89,7 @@ public class UserController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 使用insertOne方法册测试延时双删;因为UserServiceImpl使用findByName方法先查询数据是否存在,
      *               所以UserController的insertOne入口处为@Decrypt(description = "findByName")
      *               会模糊寻找redis缓存key为findByName的缓存
@@ -107,7 +107,7 @@ public class UserController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 使用insertOne方法册测试延时双删;因为UserServiceImpl使用findByName方法先查询数据是否存在,
      *               所以UserController的insertOne入口处为@Decrypt(description = "findByName")
      *               会模糊寻找redis缓存key为findByName的缓存
@@ -148,7 +148,7 @@ public class UserController {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: @Nullable 注解可以标注在方法、字段、参数之上，表示对应的值可以为空
     * @Date: 2022-9-15 上午 10:38
     * @Param:
@@ -164,7 +164,7 @@ public class UserController {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 测试HttpUtil和MacUtil工具类,Swagger测试
     * @Date: 2022-9-15 上午 10:32
     * @Param: QueryRequestVo
@@ -178,7 +178,7 @@ public class UserController {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 测试BI组件与后端交互
     *               @CrossOrigin注解用于解决跨域问题
     * @Date: 2022-9-15 上午 10:39
@@ -195,7 +195,7 @@ public class UserController {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 测试行转列RowConvertColUtil工具类
     * @Date: 2022-9-15 上午 10:40
     * @Param: QueryRequestVo
@@ -210,7 +210,7 @@ public class UserController {
     }
     
     /*
-    * @Author: 白宇鑫 
+    * @Author: baiyx
     * @Description: 测试批量插入功能和单表插入的效率
     *               @Param的作用就是给参数命名，比如在mapper里面某方法A（int id），当添加注解后A（@Param("userId") int id），
     *               也就是说外部想要取出传入的id值，只需要取它的参数名userId就可以了。将参数值传如SQL语句中，通过#{userId}进行取值给SQL的参数赋值。
@@ -226,7 +226,7 @@ public class UserController {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 测试ExcelUtil工具类
     *               测试导出查询数据为Excel功能
     *               测试阿里开源工具包easyExcle

@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.ThreadSafety;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月20日, 0020 上午 8:49:52
  * @Description: InheritableThreadLocal是Java中的一个特殊类型的ThreadLocal变量，它允许子线程继承父线程的线程局部变量的值。
  */

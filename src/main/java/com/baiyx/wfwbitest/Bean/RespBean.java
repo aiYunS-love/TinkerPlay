@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Bean;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-13 上午 10:56
  * @Description: 备用的响应类
  */

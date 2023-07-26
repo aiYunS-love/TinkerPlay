@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 5:39:31
  * @Description: 枚举
  * 如果一个正整数自身是回文数，而且它也是一个回文数的平方，那么我们称这个数为超级回文数。

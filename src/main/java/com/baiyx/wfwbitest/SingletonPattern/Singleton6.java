@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.SingletonPattern;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-22 11:30
  * @Description: 枚举
  */

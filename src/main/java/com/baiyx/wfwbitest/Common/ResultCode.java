@@ -2,7 +2,6 @@ package com.baiyx.wfwbitest.Common;
 
 /**
  * API返回码封装类
- * Created by macro on 2019/4/19.
  */
 public enum ResultCode implements IErrorCode {
     SUCCESS(200, "操作成功"),

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年2月3日, 0003 下午 3:32:27
  * @Description: JDBC结果集转换List集合
  */

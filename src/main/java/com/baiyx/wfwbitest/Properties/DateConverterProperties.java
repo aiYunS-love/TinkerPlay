@@ -10,7 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年2月17日, 0017 下午 4:26:28
  * @Description: 解决导出Excel的Date格式转换出现的NoSuchMethodError异常
  */

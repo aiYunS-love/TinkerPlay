@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.ThreadSafety;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月2日, 0002 上午 9:05:36
  * @Description: 原子类AtomicInteger使用示例
  */

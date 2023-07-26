@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Thread;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-20 17:29
  * @Description: 创建五个线程并进入等待状态，等两秒后主线程开始并释放全部线程，最后主线程结束,用的是wait() 与notifyAll()组合形式
  */

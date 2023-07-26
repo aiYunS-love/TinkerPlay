@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Enum;
 import lombok.Getter;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年2月17日, 0017 上午 10:49:07
  * @Description: 消息队列枚举配置
  */

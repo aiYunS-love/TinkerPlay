@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Entity;
 import com.baiyx.wfwbitest.CustomAnnotations.excelRescoure;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-12 上午 09:56
  * @Description: ExcelPOJO实体类
  *  * 实体类所有成员变量都需要有GET,SET方法

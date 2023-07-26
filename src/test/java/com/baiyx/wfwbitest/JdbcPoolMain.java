@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-8-11 下午 05:43
  * @Description: 测试有连接池的效率
  */

@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.ThreadSafety;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月2日, 0002 上午 9:11:33
  * @Description: synchronized 同步静态方法
  */

@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.util.Arrays;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-11 下午 02:43
  * @Description: 弗洛伊德算法
  */

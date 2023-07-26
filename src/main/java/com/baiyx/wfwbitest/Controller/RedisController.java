@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年3月9日, 0009 下午 4:48:18
  * @Description: 测试操作redis Service
  */
@@ -48,7 +48,7 @@ public class RedisController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 测试缓存,手机发送验证码,异步广播消息
      * @Date: 2023年6月15日, 0015 上午 11:00:32
      * @Param:

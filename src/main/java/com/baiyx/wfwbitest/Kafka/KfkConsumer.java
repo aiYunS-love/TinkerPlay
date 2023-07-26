@@ -11,7 +11,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月1日, 0001 下午 6:17:06
  * @Description: kafka消费者
  */

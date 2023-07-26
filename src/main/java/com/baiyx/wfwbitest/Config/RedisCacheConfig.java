@@ -93,7 +93,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
     }
 
     /*
-    * @Author: 白宇鑫 
+    * @Author: baiyx
     * @Description: 自定义redis缓存的key
     * @Date: 2022-7-13 下午 03:37
     * @Param: 

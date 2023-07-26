@@ -45,7 +45,7 @@ import java.util.*;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-30 下午 04:23
  * @Description: 文件上传下载
  */
@@ -124,7 +124,7 @@ public class FileUploadOrDownloadController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: @RequestPart用于将multipart/form-data类型数据映射到控制器处理方法的参数中
      * @Date: 2023年2月16日, 0016 下午 2:49:25
      * @param files
@@ -254,7 +254,7 @@ public class FileUploadOrDownloadController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 文件下载
      * @Date: 2023年6月7日, 0007 上午 11:07:25
      * @Param:
@@ -274,7 +274,7 @@ public class FileUploadOrDownloadController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 更新文件下载次数
      * @Date: 2023年6月7日, 0007 上午 11:07:40
      * @Param:
@@ -319,7 +319,7 @@ public class FileUploadOrDownloadController {
     }
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 文件预览
      * @Date: 2023年6月7日, 0007 上午 11:10:00
      * @Param:

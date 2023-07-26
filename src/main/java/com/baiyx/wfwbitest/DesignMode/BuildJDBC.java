@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.DesignMode;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-7-15 上午 10:35
  * @Description: JDBC配置类: host、port、user、password、database是必选参数，其他都非必须，有默认值
  *               为了避免构造函数参数爆炸，所以使用构建者模式

@@ -31,7 +31,7 @@ import org.bouncycastle.util.Memoable;
 import org.bouncycastle.util.Pack;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-2 10:40
  * @Description: 自定义SM2Engine类，对加密解密数据进行了ASN.1编码
  */

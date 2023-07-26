@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月7日, 0007 上午 9:13:21
  * @Description: 文件下载Dao
  */
@@ -14,7 +14,7 @@ import java.util.List;
 public interface UserFileDao {
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 根据用户ID查询file表文件信息
      * @Date: 2023年6月7日, 0007 上午 9:21:34
      * @Param:
@@ -26,7 +26,7 @@ public interface UserFileDao {
     List<UserFile> queryByUserId(Integer id, Integer begin, int offset);
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 查询文件总数
      * @Date: 2023年6月7日, 0007 上午 9:22:25
      * @Param:
@@ -36,7 +36,7 @@ public interface UserFileDao {
     int queryFileCount(Integer id);
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 文件上传,写入数据库
      * @Date: 2023年6月7日, 0007 上午 10:01:08
      * @Param:
@@ -46,7 +46,7 @@ public interface UserFileDao {
     void save(List<UserFile> userFiles);
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 文件下载
      * @Date: 2023年6月7日, 0007 上午 11:04:01
      * @Param:
@@ -57,7 +57,7 @@ public interface UserFileDao {
     UserFile queryByUserFileId(Integer id);
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 更新文件下载次数
      * @Date: 2023年6月7日, 0007 上午 11:04:14
      * @Param:
@@ -67,7 +67,7 @@ public interface UserFileDao {
      void update(UserFile userFile);
 
      /***
-      * @Author: 白宇鑫
+      * @Author: baiyx
       * @Description: 删除文件
       * @Date: 2023年6月8日, 0008 下午 3:45:38
       * @Param:
@@ -77,7 +77,7 @@ public interface UserFileDao {
      void deleteFile(String objectName);
 
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 根据文件名查询
      * @Date: 2023年6月12日, 0012 上午 9:43:36
      * @Param:

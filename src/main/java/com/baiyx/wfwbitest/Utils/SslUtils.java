@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-11-25 10:16
  * @Description: ssl工具类,跳过SSL证书认证
  */

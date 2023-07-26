@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 import java.util.PriorityQueue;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 3:24:00
  * @Description: 优先队列: 给定整数数组 nums 和整数 k，请返回数组中第 k 个最大的元素。
  *

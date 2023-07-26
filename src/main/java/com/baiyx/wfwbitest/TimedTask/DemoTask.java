@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.TimedTask;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-10 上午 11:13
  * @Description: 定时任务示例类
  */

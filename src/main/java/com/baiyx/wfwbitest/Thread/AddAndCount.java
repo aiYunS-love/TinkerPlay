@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-20 15:35
  * @Description: 闭锁(门栓锁)
  *    实现一个容器，提供两个方法，add，count 写两个线程，

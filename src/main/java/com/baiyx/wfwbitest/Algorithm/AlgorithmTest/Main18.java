@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 import com.baiyx.wfwbitest.DataStructure.BinaryTree;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月16日, 0016 下午 3:48:58
  * @Description: Java打印二叉树数据结构
  *              F

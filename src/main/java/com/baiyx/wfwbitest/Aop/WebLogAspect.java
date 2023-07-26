@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-7-27 下午 02:39
  * @Description: 日志输出切面类
  */
@@ -36,7 +36,7 @@ public class WebLogAspect {
     private long startTime = 0;
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Date: 2022-7-27 下午 02:43
     * @Description: 以自定义 @WebLog 注解为切点
      */
@@ -45,7 +45,7 @@ public class WebLogAspect {
     public void WebLog(){};
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description:定义 @Around 环绕，用于何时执行切点
     * @Date: 2022-7-27 下午 02:43
     * @Param:
@@ -66,7 +66,7 @@ public class WebLogAspect {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 切点之前执行
     * @Date: 2022-7-27 下午 03:32
     * @Param:
@@ -130,7 +130,7 @@ public class WebLogAspect {
     }
 
     /*
-    * @Author: 白宇鑫
+    * @Author: baiyx
     * @Description: 在切点之后执行
     * @Date: 2022-7-27 下午 04:42
     * @Param:

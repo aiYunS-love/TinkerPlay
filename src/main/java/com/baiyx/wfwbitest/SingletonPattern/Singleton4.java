@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.SingletonPattern;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-22 11:29
  * @Description: 双检锁/双重校验锁
  */

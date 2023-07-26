@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Service;
 import com.baiyx.wfwbitest.Entity.TokenAccess;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-12 下午 04:46
  * @Description: 权限验证service层
  */

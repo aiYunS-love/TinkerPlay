@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-11 下午 02:47
  * @Description: 动态规划算法案例：背包问题
  *  * 思路分析：

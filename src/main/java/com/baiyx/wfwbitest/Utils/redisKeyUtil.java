@@ -4,7 +4,7 @@ import com.baiyx.wfwbitest.Entity.QueryRequestVo;
 import com.baiyx.wfwbitest.Entity.User;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-28 上午 11:23
  * @Description: 通过方法名和参数类型,动态拼接redis的key返回
  */

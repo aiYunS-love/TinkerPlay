@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Thread;
 import java.util.concurrent.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月2日, 0002 上午 11:43:06
  * @Description: 创建线程池的三种方式
  */
