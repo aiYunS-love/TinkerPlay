@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年4月27日, 0027 下午 6:37:10
  * @Description: MySQL CDC变更监听器
  * 由于项目中添加了mysql的监听类MysqlEventListener,导致程序启动只执行实现ApplicationRunner接口的run方法,不执行实现CommandLineRunner接口的run方法

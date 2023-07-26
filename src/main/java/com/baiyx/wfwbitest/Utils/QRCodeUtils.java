@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-17 下午 04:59
  * @Description: 二维码识别（图片）
  */

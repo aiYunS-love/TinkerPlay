@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.util.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月7日, 0007 上午 9:31:49
  * @Description: 使用哈希表和排序来对一个整数数组进行排序
  */

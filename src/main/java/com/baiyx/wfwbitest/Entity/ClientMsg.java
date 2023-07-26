@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Entity;
 import lombok.Data;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-15 上午 10:08
  * @Description: 客户端信息
  */

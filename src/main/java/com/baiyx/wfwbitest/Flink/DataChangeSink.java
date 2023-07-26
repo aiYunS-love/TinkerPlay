@@ -9,7 +9,7 @@ import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年4月27日, 0027 下午 6:51:13
  * @Description: 自定义sink 交由spring管理 处理变更数据
  */

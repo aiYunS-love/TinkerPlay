@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Demo;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月30日, 0030 上午 11:23:52
  * @Description: 研究继承关系的程序执行顺序: 父类
  */

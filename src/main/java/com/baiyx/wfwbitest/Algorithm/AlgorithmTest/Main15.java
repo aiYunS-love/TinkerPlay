@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月10日, 0010 下午 5:13:14
  * @Description: 最长公共前缀
  */

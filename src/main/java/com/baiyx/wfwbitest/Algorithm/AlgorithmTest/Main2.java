@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 2:58:24
  * @Description: 贪心算法: 按照国际象棋的规则，皇后可以攻击与之处在同一行或同一列或同一斜线上的棋子。
  *

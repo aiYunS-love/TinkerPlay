@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /*
-* @Author: 白宇鑫
+* @Author: baiyx
 * @Description: 用于配置交换机、队列及队列与交换机的绑定关系
 * @Date: 2022-9-1 下午 03:34
 */

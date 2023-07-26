@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Thread;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-20 17:25
  * @Description: 用join()实现三个线程，运行输出 A1 B2 C3 A4 B5 C6 ...
  */

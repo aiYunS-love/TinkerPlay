@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-12 下午 05:15
  * @Description: 实体类
  */

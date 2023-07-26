@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-10 上午 11:27
  * @Description: CommandLineRunner用于在应用程序启动后执行特定的操作,程序启动后扫描数据库定时任务表,加载可执行的定时任务
  * 为什么程序启动只执行实现ApplicationRunner接口的run方法,不执行实现CommandLineRunner接口的run方法

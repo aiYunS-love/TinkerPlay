@@ -15,7 +15,7 @@ import java.net.SocketException;
 import java.util.Enumeration;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-14 下午 04:49
  * @Description: 获取IP和Mac地址工具类
  */

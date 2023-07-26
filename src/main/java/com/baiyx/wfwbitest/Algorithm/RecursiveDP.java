@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月7日, 0007 上午 9:00:37
  * @Description: 递归来解决动态规划问题: 计算斐波那契数列的第6项
  */

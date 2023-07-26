@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.DataStructure;
 import java.awt.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月16日, 0016 下午 4:31:53
  * @Description: Java模拟红黑树数据结构
  *              13 (黑)

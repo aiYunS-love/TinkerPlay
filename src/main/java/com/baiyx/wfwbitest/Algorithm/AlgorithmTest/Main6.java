@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 4:33:58
  * @Description: 二维数组: 杨辉三角
  */

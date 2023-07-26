@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.CustomAnnotations;
 import java.lang.annotation.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-13 上午 11:29
  * @Description: 自定义注解-RSA加密
  */

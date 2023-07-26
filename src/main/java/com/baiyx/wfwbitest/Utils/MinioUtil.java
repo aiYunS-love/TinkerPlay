@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月7日, 0007 下午 4:55:10
  * @Description: minio桶工具类
  */

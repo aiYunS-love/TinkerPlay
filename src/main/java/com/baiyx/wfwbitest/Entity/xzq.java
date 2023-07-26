@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Entity;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2021/6/30 下午 02:25
  * @Description: 行政区实体类
  */

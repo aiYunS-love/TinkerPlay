@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.CustomAnnotations;
 import java.lang.annotation.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-7-27 下午 12:00
  * @Description: 自定义注解-日志格式术输出
  */
@@ -13,7 +13,7 @@ import java.lang.annotation.*;
 public @interface WebLog {
 
     /**
-    * @Author: 白宇鑫 
+    * @Author: baiyx
     * @Description: 日志输出
     * @Date: 2022-7-27 下午 12:00
     * @Param: null

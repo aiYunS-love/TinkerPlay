@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Utils;
 import java.util.ArrayList;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-22 下午 04:18
  * @Description: 字符串拼接工具类
  */

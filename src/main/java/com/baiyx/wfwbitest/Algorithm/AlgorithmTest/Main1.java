@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 import java.util.Scanner;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月7日, 0007 下午 5:47:16
  * @Description: 回溯算法: 商店规定：三个空汽水瓶可以换一瓶汽水，允许向老板借空汽水瓶（但是必须要归还）。
  * 小张手上有n个空汽水瓶，她想知道自己最多可以喝到多少瓶汽水。

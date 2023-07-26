@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 5:16:00
  * @Description: 双指针
  * 给定一个长度为 n 的整数数组height。有n条垂线，第 i 条线的两个端点是(i, 0)和(i, height[i])。

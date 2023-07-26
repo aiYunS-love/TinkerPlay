@@ -9,7 +9,7 @@ import org.json.JSONException;
 import java.io.IOException;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月1日, 0001 上午 10:14:05
  * @Description: 使用腾讯云三方包发送手机短信
  */
@@ -17,7 +17,7 @@ import java.io.IOException;
 public class SendSmsUtil {
 
     /**
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 发送短信
      * @Date: 2023年6月1日, 0001 上午 10:55:02
      * @Param:

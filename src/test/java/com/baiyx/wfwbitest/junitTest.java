@@ -61,7 +61,7 @@ import java.util.zip.ZipOutputStream;
 import static com.baiyx.wfwbitest.Utils.TokenCreateUtil.isJwtExpired;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-7-7 下午 04:57
  * @Description: 单元测试
  */
@@ -712,7 +712,7 @@ public class junitTest implements Runnable{
         PdfUtil.pdfOut(userMap);
     }
     /***
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 测试纯JDBC流式查询一次性读取400w数据量: 优化数据处理和分批插入
      * 耗时主要在分析400万数据量,采取分片多线程处理,分批插入.
      * @Date: 2023年2月2日, 0002 下午 3:08:34

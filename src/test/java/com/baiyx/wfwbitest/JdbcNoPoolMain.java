@@ -14,7 +14,7 @@ import java.sql.Statement;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-8-11 下午 04:41
  * @Description: 测试没有连接池的效率
  */

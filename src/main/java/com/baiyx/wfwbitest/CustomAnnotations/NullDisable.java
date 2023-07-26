@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.CustomAnnotations;
 import java.lang.annotation.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-8-29 下午 02:28
  * @Description: 自定义注解-参数判空
  */

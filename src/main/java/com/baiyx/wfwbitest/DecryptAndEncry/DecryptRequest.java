@@ -19,7 +19,7 @@ import java.io.InputStream;
 import java.lang.reflect.Type;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-13 上午 10:18
  * @Description: 解密请求参数类,允许获取EncryptProperties配置类
  */

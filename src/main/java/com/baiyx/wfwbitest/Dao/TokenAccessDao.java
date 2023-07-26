@@ -4,7 +4,7 @@ import com.baiyx.wfwbitest.Entity.TokenAccess;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-12 下午 04:39
  * @Description: 查询权限DAO层
  */

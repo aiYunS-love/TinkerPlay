@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.util.Arrays;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-11 下午 03:10
  * @Description: 迪杰斯特拉算法:寻找从一个顶点到其余各顶点的最短路径算法，可用来解决最短路径问题
  *  * 案例：最短路径问题

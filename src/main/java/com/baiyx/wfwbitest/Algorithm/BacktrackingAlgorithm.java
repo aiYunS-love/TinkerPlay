@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月6日, 0006 上午 11:50:28
  * @Description: 回溯算法;求解0-1背包问题
  * 有一个固定容量的背包和一些物品，每个物品有自己的重量和价值。要求在限定的总重量内，选出若干件物品放入背包中，使得物品的总价值最大。

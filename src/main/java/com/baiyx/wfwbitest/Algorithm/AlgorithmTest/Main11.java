@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 5:22:55
  * @Description: 栈&矩阵
  * 给定一个仅包含 0 和 1 、大小为 rows x cols 的二维二进制矩阵，找出只包含 1 的最大矩形，并返回其面积

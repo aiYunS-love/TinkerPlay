@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年4月27日, 0027 下午 7:07:49
  * @Description:  mysql消息读取自定义序列化
  */

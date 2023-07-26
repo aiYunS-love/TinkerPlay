@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 import java.util.Arrays;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月16日, 0016 下午 5:20:40
  * @Description:  一只兔子一次可以跳跃2,3,5,7,9,11个台阶,问n个台阶,兔子最少跳几次?
  */

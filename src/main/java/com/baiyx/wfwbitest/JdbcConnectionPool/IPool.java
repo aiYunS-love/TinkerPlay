@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.JdbcConnectionPool;
 import java.sql.Connection;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-8-11 下午 04:07
  * @Description:
  */

@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-8 上午 11:00
  * @Description: 递归算法及案例
  */
@@ -23,7 +23,7 @@ public class RecursiveAlgorithm {
     }
 
     /**
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 递归计算 n 的阶乘
      *               n! = n * (n-1)
      *               1! = 1
@@ -42,7 +42,7 @@ public class RecursiveAlgorithm {
     }
 
     /**
-     * @Author: 白宇鑫
+     * @Author: baiyx
      * @Description: 说明
      * @Date: 2022-10-8 上午 11:24
      * @Param: searchContent

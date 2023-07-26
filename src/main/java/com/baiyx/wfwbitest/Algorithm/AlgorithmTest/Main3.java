@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm.AlgorithmTest;
 import java.util.Arrays;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月8日, 0008 下午 3:14:30
  * @Description: 贪心算法: n 个孩子站成一排。给你一个整数数组 ratings 表示每个孩子的评分。
  *

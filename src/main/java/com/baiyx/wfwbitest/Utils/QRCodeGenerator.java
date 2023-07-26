@@ -11,7 +11,7 @@ import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-17 下午 04:36
  * @Description: 生成二维码工具
  */

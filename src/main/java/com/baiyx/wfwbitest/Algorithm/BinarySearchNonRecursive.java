@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-11 下午 02:43
  * @Description: 二分查找(非递归方式)
  */

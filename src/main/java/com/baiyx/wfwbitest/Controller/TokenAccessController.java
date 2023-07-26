@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-12 下午 04:09
  * @Description: 测试通过解析Token,查询数据库数据的权限状态,并返回状态
  */

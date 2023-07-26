@@ -2,7 +2,6 @@ package com.baiyx.wfwbitest.Common;
 
 /**
  * 通用返回结果封装类
- * Created by macro on 2019/4/19.
  */
 public class CommonResult<T> {
     /**

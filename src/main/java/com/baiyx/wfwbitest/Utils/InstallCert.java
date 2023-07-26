@@ -7,7 +7,7 @@ import java.security.cert.X509Certificate;
 import javax.net.ssl.X509TrustManager;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-11-25 13:45
  * @Description: 从网站获取java所需的证书，调用时传入域名
  */

@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Thread;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月20日, 0020 上午 8:55:52
  * @Description: join()是一个线程方法，它允许一个线程等待另一个线程完成执行后再继续执行。
  * 当一个线程调用另一个线程的join()方法时，它将被阻塞，直到目标线程完成执行。也就是说，调用join()方法的线程将等待目标线程的终止。

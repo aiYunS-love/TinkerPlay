@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Thread;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-21 11:18
  * @Description: 十个线程打印输出1~10000中偶数的值，计算总耗时    用闭锁(门栓)
  */

@@ -4,7 +4,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年5月11日, 0011 下午 2:37:37
  * @Description: ab   -->  ab ba                          2 - 2
  *               abc  -->  abc acb bac bca cab cba        3 - 6

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-10 上午 11:36
  * @Description: 定时任务注册类，用来增加、删除定时任务
  * DisposableBean接口，用于在Bean销毁时执行清理操作

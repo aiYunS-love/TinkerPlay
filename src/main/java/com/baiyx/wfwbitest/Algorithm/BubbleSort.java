@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Algorithm;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-11-8 上午 10:29
  * @Description: 冒泡排序
  */

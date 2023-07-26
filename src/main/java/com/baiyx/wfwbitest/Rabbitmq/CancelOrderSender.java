@@ -12,7 +12,7 @@ import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessagePostProcessor;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-9-1 下午 03:35
  * @Description: 延迟消息的发送者CancelOrderSender
  *               消息的发出者

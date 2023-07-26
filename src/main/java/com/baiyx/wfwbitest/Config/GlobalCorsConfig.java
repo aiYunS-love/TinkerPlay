@@ -7,7 +7,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年2月16日, 0016 下午 2:19:09
  * @Description: 配合VUE允许跨域配置类
  */

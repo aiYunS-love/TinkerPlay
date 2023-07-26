@@ -17,7 +17,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023-1-12 10:27
  * @Description: 自定义序列化器
  */

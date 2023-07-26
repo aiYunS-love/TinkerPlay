@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年6月12日, 0012 上午 10:21:20
  * @Description: 自定义拦截器
  */

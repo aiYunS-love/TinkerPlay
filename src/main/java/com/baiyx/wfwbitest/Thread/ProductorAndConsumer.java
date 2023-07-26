@@ -1,7 +1,7 @@
 package com.baiyx.wfwbitest.Thread;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-12-21 11:17
  * @Description: 等待唤醒机制解决生产者消费者问题
  */

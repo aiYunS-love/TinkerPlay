@@ -6,7 +6,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-7-13 下午 04:00
  * @Description: 获取spring容器中bean工具类
  */

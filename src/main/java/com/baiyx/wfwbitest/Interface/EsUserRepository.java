@@ -7,7 +7,7 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 import org.springframework.stereotype.Component;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2023年3月16日, 0016 下午 1:07:55
  * @Description: 人员ES操作类
  */

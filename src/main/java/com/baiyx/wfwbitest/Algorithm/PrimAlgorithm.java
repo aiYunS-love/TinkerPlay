@@ -3,7 +3,7 @@ package com.baiyx.wfwbitest.Algorithm;
 import java.util.Arrays;
 
 /**
- * @Author: 白宇鑫
+ * @Author: baiyx
  * @Date: 2022-10-11 下午 02:58
  * @Description: 普利姆算法
  *  * 应用案例：修路问题
