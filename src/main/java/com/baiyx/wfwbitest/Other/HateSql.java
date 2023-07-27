@@ -261,9 +261,9 @@ public class HateSql {
     数据库
     1、数据一旦提交，就不可回滚
     2、哪些数据会导致数据的自动提交
-        >DDL操作一旦执行，都会自动提交
+        >DDL(create,alter,drop,truncate)操作一旦执行，都会自动提交
         ->set autocommit =false  对DDL操作无效
-        >DML默认的情况下，就会自动提交
+        >DML(insert,update,delete)默认的情况下，就会自动提交
         ->我们可以通过set autocommit =false 的方式取消DML操作的自动提交
         >默认在关闭链接时，会自动提交数据
  */
