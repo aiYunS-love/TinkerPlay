@@ -328,6 +328,7 @@ class DB extends Thread{
                     // 执行发生错误则回滚
                     rollback();
                     throwables.printStackTrace();
+                    break;
                 }
             }
             // 一个文件里面所有的SQL执行成功,则提交一次
