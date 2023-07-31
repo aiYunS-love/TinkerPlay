@@ -25,6 +25,14 @@
         <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <dependencyManagement>
+        <!--
+        <scope> </scope>标签
+        provided: 此依赖将参与编译、测试、运行阶段，但是不会参与到打包中去
+        runtime: 在运行时可用，此依赖无需参与项目编译，但是会参与项目的测试和运行，并且最终会参与打包
+        test: 表示被依赖项目仅仅参与测试相关的工作，包括测试代码的编译，执行；比如Junit
+        system: 与provided类似，但是它不会去maven仓库寻找依赖，而是在本地找；而systemPath标签将提供本地路径
+        import: 只能在dependencyManagement中使用，相当于从其他pom文件中导入依赖设置
+         -->
         <dependencies>
             <!-- nacos -->
             <dependency>
@@ -101,7 +109,6 @@
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web</artifactId>
             <version>1.17.0</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -483,6 +490,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <!-- 通过注解指定Spring配置类， 在Spring容器中的对象均可自动装配 -->
 <!--        <dependency>-->
