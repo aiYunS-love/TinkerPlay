@@ -6,9 +6,9 @@ import com.baiyx.wfwbitest.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
 import com.github.pagehelper.Page;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class ProjBaseServiceImpl implements ProjBaseDao {
 
-    @Autowired
+    @Resource
     ProjBaseDao projBaseDao;
 
     public ProjBaseServiceImpl(ProjBaseDao projBaseDao) {

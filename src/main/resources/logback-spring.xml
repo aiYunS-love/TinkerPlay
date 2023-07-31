@@ -24,7 +24,8 @@
         <destination>192.168.119.128:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
-    <root level="INFO">
+    <root>
+        <level>INFO</level>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="LOGSTASH"/>
