@@ -43,7 +43,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -73,7 +73,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -102,7 +102,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPTStream chatGPTStream = ChatGPTStream.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
