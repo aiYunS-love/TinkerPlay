@@ -513,7 +513,14 @@
             <version>4.5.13</version>
         </dependency>
     </dependencies>
-
+    <!-- 发布包 -->
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub OWNER Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/OWNER/REPOSITORY</url>
+        </repository>
+    </distributionManagement>
     <build>
         <!--指定打包后的finalName-->
         <finalName>${project.artifactId}</finalName>
