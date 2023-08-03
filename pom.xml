@@ -513,7 +513,7 @@
             <version>4.5.13</version>
         </dependency>
     </dependencies>
-    <!-- 发布包 -->
+    <!-- 发布包到github -->
     <distributionManagement>
         <repository>
             <id>github</id>
