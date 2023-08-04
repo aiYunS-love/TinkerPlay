@@ -29,6 +29,7 @@
             <fileNamePattern>./logs/${APP_NAME}/%d/${APP_NAME}-all.%d.%i.log</fileNamePattern>
             <!-- 每产生一个日志文件，该日志文件的保存期限为7天 -->
             <maxHistory>7</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!-- maxFileSize:这是活动文件的大小，默认值是10MB,本篇设置为1M，只是为了演示 -->
                 <maxFileSize>1MB</maxFileSize>
