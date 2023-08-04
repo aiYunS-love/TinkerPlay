@@ -52,16 +52,16 @@
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
     <root>
-        <!-- 控制台输出日志级别 -->
+        <!-- 日志输出级别 -->
         <level>INFO</level>
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="LOGSTASH"/>
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
-    <!-- shop.bangke.credit为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
+    <!-- com.baiyx.wfwbitest为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="shop.bangke.credit" level="DEBUG">
+    <logger name="com.baiyx.wfwbitest" level="DEBUG">
         <appender-ref ref="FILE"/>
     </logger>
     <!--<logger level="DEBUG">-->
