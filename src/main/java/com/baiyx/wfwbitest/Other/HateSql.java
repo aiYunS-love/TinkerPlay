@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.Other;
 
+import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -253,6 +254,18 @@ public class HateSql {
             outputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static boolean SqlValidator(String sql){
+        try {
+            // 将SQL语句解析成语法树
+            net.sf.jsqlparser.statement.Statement statement = CCJSqlParserUtil.parse(sql);
+            // 如果解析成功，则认为SQL合法
+            return true;
+        } catch (Exception e) {
+            // 解析失败，SQL不合法
+            return false;
         }
     }
 }
