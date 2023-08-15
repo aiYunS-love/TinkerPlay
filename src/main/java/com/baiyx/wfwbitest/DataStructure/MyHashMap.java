@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 /**
  * @Author: baiyx
- * @Date: 2023年8月15日, 0015 下午 2:40:52
+ * @Date: 2023年8月15日, 下午 2:40:52
  * @Description: 哈希表数据结构
  */
 public class MyHashMap<K, V> {
