@@ -240,7 +240,11 @@ public class HateSql {
             for (String filePath : hashSet){
                 int rowIndex = HateSql.excel.size();
                 XSSFRow row = HateSql.sheet.createRow(rowIndex);
-                row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf(".")));
+                if (filePath.contains("(") && filePath.contains(")")){
+                    row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf("(")));
+                } else {
+                    row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf(".")));
+                }
                 row.createCell(1).setCellValue(filePath.substring(filePath.lastIndexOf("\\") + 1));
                 row.createCell(2).setCellValue(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\")));
                 row.createCell(3).setCellValue(HateSql.nowdate);
