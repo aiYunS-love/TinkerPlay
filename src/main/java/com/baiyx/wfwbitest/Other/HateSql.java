@@ -70,6 +70,7 @@ public class HateSql {
 
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
+        int threadNum = 0;
         LinkedHashMap<String, ArrayList<String>> sqlMap = null;
         for (String key : paths.keySet()){
             sqlMap = new LinkedHashMap<>();
@@ -97,13 +98,15 @@ public class HateSql {
             try {
                 if (environments.length == 1){
                     DB db = new DB(environments[0],sqlMap);
-                    db.setName(environments[0] + "环境");
+                    ++threadNum;
+                    db.setName(threadNum + "-" + environments[0] + "环境");
                     db.start();
                     db.join();
                 }else{
                     for (String environment : environments){
                         DB db = new DB(environment,sqlMap);
-                        db.setName(environment + "环境");
+                        ++threadNum;
+                        db.setName(threadNum + "-" + environment + "环境");
                         db.start();
                         db.join();
                     }
