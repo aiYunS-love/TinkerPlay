@@ -344,6 +344,7 @@ class DB extends Thread{
 
     @Override
     public void run() {
+        boolean b = true;
         for (String key : sqlMap.keySet()){
             ArrayList<String> arrsql = sqlMap.get(key);
             boolean isSuccess = true;
@@ -370,11 +371,17 @@ class DB extends Thread{
                     rollback();
                     throwables.printStackTrace();
                 }
+            } else {
+              b = isSuccess;
             }
         }
         // 关闭连接
         this.close();
-        System.out.println(this.getName() + " --> 子线程执行完成!");
+        if (b){
+            System.out.println(this.getName() + " --> 子线程执行成功!");
+        } else {
+            System.out.println(this.getName() + " --> 子线程执行失败!");
+        }
     }
 
     private void rollback(){
