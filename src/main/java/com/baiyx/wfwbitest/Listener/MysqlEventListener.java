@@ -7,22 +7,19 @@ import com.baiyx.wfwbitest.Flink.DataChangeSink;
 import com.baiyx.wfwbitest.Flink.MysqlDeserialization;
 import com.baiyx.wfwbitest.TimedTask.CronTaskRegistrar;
 import com.baiyx.wfwbitest.TimedTask.SchedulingRunnable;
-import com.baiyx.wfwbitest.TimedTask.SysJobRunner;
 import com.ververica.cdc.connectors.mysql.MySqlSource;
 import com.ververica.cdc.connectors.mysql.table.StartupOptions;
 import com.ververica.cdc.debezium.DebeziumSourceFunction;
 import lombok.extern.slf4j.Slf4j;
-import lombok.val;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.flink.api.java.ExecutionEnvironment;
+import org.apache.flink.streaming.api.datastream.DataStream;
+import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -61,7 +58,8 @@ public class MysqlEventListener implements ApplicationRunner{
     private String username;
     @Value("${CDC.DataSource.password}")
     private String password;
-
+    @Value("${CDC.DataSource.enabled}")
+    private boolean enabled = true;
     private final DataChangeSink dataChangeSink;
 
     public MysqlEventListener(DataChangeSink dataChangeSink) {
@@ -72,18 +70,20 @@ public class MysqlEventListener implements ApplicationRunner{
     public void run(ApplicationArguments args) throws Exception{
         // 程序启动先执行扫描定时任务的方法
         this.scanTimedTask();
-        log.info("开始启动Flink CDC获取ERP变更数据......");
-        // 流式数据处理环境
-        StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
-        // 批处理环境
-        // ExecutionEnvironment env2 = ExecutionEnvironment.getExecutionEnvironment();
-        env.setParallelism(1);
-        DebeziumSourceFunction<DataChangeInfo> dataChangeInfoMySqlSource = buildDataChangeSource();
-        DataStream<DataChangeInfo> streamSource = env
-                .addSource(dataChangeInfoMySqlSource, "mysql-source")
-                .setParallelism(1);
-        streamSource.addSink(dataChangeSink);
-        env.execute("mysql-cdc");
+        if (enabled){
+            log.info("开始启动Flink CDC获取ERP变更数据......");
+            // 流式数据处理环境
+            StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
+            // 批处理环境
+            // ExecutionEnvironment env2 = ExecutionEnvironment.getExecutionEnvironment();
+            env.setParallelism(1);
+            DebeziumSourceFunction<DataChangeInfo> dataChangeInfoMySqlSource = buildDataChangeSource();
+            DataStream<DataChangeInfo> streamSource = env
+                    .addSource(dataChangeInfoMySqlSource, "mysql-source")
+                    .setParallelism(1);
+            streamSource.addSink(dataChangeSink);
+            env.execute("mysql-cdc");
+        }
     }
 
     /**
