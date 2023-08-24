@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class HateSql {
 
     static Map<String,String> paths;
-    static List<String> excel = new ArrayList<>();
+    static Map<String, List<String>> excel = new HashMap<>();
     static String nowdate;
     static String path = "E:\\sql\\脚本更新记录表.xlsx";
     static XSSFWorkbook workbook;
@@ -47,6 +47,17 @@ public class HateSql {
         paths.put("sit-uat-prd","E:\\sql\\sit-uat-prd");
         paths.put("uat","E:\\sql\\uat");
         paths.put("uat-prd","E:\\sql\\uat-prd");
+        // 初始化Map<String, List<String>> excel
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("首行");
+        excel.put("表头",arrayList);
+        excel.put("prd",new ArrayList<>());
+        excel.put("sit",new ArrayList<>());
+        excel.put("sit-prd",new ArrayList<>());
+        excel.put("sit-uat",new ArrayList<>());
+        excel.put("sit-uat-prd",new ArrayList<>());
+        excel.put("uat",new ArrayList<>());
+        excel.put("uat-prd",new ArrayList<>());
         try {
             if (file.exists()){
                 workbook = new XSSFWorkbook(new FileInputStream(file));
@@ -57,7 +68,10 @@ public class HateSql {
                         if ("".equals(row.getCell(1).getStringCellValue()) || row.getCell(1).getStringCellValue() == null){
                             continue;
                         }
-                        excel.add(row.getCell(1).getStringCellValue());
+                        if (!excel.keySet().contains(row.getCell(2).getStringCellValue())){
+                            continue;
+                        }
+                        excel.get(row.getCell(2).getStringCellValue()).add(row.getCell(1).getStringCellValue());
                     }
                 }
             }
@@ -90,7 +104,7 @@ public class HateSql {
             }
             // 去除已执行过的文件
             ArrayList<File> ff = new ArrayList<>(Arrays.asList(files));
-            ff = (ArrayList<File>) ff.stream().filter(f -> !excel.contains(f.getName())).collect(Collectors.toList());
+            ff = (ArrayList<File>) ff.stream().filter(f -> !excel.get(key).contains(f.getName())).collect(Collectors.toList());
             if (ff == null || ff.size() == 0){
                 continue;
             }
@@ -116,7 +130,9 @@ public class HateSql {
             }
         }
         // 执行过的文件写入excel记录表
-        writeExcel(DB.writeResault);
+        if (DB.writeResault != null && DB.writeResault.size() > 0){
+            writeExcel(DB.writeResault);
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("==============================程序执行耗时============================");
         System.out.println("程序执行耗时: " + (endTime - startTime)/1000 + "秒");
@@ -238,10 +254,15 @@ public class HateSql {
                 for (int i=0; i<infos.length; i++){
                     row0.createCell(i).setCellValue(infos[i]);
                 }
-                excel.add("表头");
+                ArrayList arrayList = new ArrayList<>();
+                arrayList.add("首行");
+                excel.put("表头",arrayList);
             }
             for (String filePath : hashSet){
-                int rowIndex = HateSql.excel.size();
+                int rowIndex = 0;
+                for (String key : HateSql.excel.keySet()){
+                    rowIndex += HateSql.excel.get(key).size();
+                }
                 XSSFRow row = HateSql.sheet.createRow(rowIndex);
                 if (filePath.contains("(") && filePath.contains(")")){
                     row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf("(")));
@@ -253,7 +274,7 @@ public class HateSql {
                 row.createCell(3).setCellValue(HateSql.nowdate);
                 row.createCell(4).setCellValue("baiyx");
                 row.createCell(5).setCellValue("是");
-                HateSql.excel.add(path.substring(path.lastIndexOf("\\") + 1));
+                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(path.substring(path.lastIndexOf("\\") + 1));
             }
             outputStream = new FileOutputStream(file);
             HateSql.workbook.write(outputStream);

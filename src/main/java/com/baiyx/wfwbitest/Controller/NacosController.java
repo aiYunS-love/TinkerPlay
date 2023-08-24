@@ -1,8 +1,7 @@
 package com.baiyx.wfwbitest.Controller;
 
-import com.alibaba.nacos.api.config.annotation.NacosValue;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RefreshScope // 动态刷新
-@Api(tags = "NacosController", description = "Nacos")
+@Tag(name = "NacosController", description = "Nacos")
 @RequestMapping("/nacos")
 public class NacosController {
 
     @Value("${config.info}")
     private String configInfo;
 
-    @ApiOperation(value = "Nacos配置中心Test")
+    @Operation(summary = "Nacos配置中心Test")
     @GetMapping("/getConfigInfo")
     public String getConfigInfo() {
         return configInfo;

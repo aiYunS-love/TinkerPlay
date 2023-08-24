@@ -108,11 +108,11 @@ public class QueryRequestVo {
         this.ywh = ywh;
     }
 
-    public Date getKssj() {
+    public Date getStartTime() {
         return startTime;
     }
 
-    public void setKssj(Date kssj) {
+    public void setStartTime(Date kssj) {
         if(kssj == null){
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {
@@ -125,11 +125,11 @@ public class QueryRequestVo {
         }
     }
 
-    public Date getJssj() {
+    public Date getEndTime() {
         return endTime;
     }
 
-    public void setJssj(Date jssj) {
+    public void setEndTime(Date jssj) {
         if (jssj == null){
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             try {

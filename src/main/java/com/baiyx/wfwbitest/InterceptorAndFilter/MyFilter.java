@@ -3,8 +3,6 @@ package com.baiyx.wfwbitest.InterceptorAndFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
 /**
@@ -12,25 +10,25 @@ import java.io.IOException;
  * @Date: 2023年6月12日, 0012 上午 10:49:13
  * @Description: 自定义过滤器
  */
-public class MyFilter implements Filter {
+public class MyFilter implements jakarta.servlet.Filter {
 
     Logger logger = LoggerFactory.getLogger(MyFilter.class);
 
     // 可选的初始化方法
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
+    public void init(jakarta.servlet.FilterConfig filterConfig) throws jakarta.servlet.ServletException {
         logger.info("请求处理");
         System.out.println("过滤器初始化方法执行!");
-        Filter.super.init(filterConfig);
+        jakarta.servlet.Filter.super.init(filterConfig);
     }
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(jakarta.servlet.ServletRequest servletRequest, jakarta.servlet.ServletResponse servletResponse, jakarta.servlet.FilterChain filterChain) throws IOException, jakarta.servlet.ServletException {
         // 执行过滤逻辑
         logger.info("请求处理");
-        System.out.println("Request received: " + request.getRemoteAddr());
+        System.out.println("Request received: " + servletRequest.getRemoteAddr());
         // 继续处理请求
-        chain.doFilter(request, response);
+        filterChain.doFilter(servletRequest, servletResponse);
     }
 
     // 可选的销毁方法
@@ -38,6 +36,6 @@ public class MyFilter implements Filter {
     public void destroy() {
         logger.info("销毁");
         System.out.println("过滤器销毁方法执行!");
-        Filter.super.destroy();
+        jakarta.servlet.Filter.super.destroy();
     }
 }

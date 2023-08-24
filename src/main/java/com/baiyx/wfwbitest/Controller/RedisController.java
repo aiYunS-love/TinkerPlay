@@ -6,9 +6,8 @@ import com.baiyx.wfwbitest.CustomAnnotations.WebLog;
 import com.baiyx.wfwbitest.Entity.Sms;
 import com.baiyx.wfwbitest.Rabbitmq.BroadcastMessageSender;
 import com.baiyx.wfwbitest.Utils.SendSmsUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -26,7 +25,7 @@ import java.util.concurrent.CompletableFuture;
 @RequestMapping(value ="RedisController",produces = "application/json;charset=UTF-8")
 @EnableScheduling // 1.开启定时任务
 @EnableAsync // 2.开启多线程
-@Api(tags = "RedisController", description = "Redis操作模块")
+@Tag(name = "RedisController", description = "Redis操作模块")
 public class RedisController {
 
     @Autowired
@@ -34,7 +33,7 @@ public class RedisController {
     @Autowired
     BroadcastMessageSender broadcastMessageSender;
 
-    @ApiOperation(value = "测试Redis_Service")
+    @Operation(summary = "测试Redis_Service")
     @WebLog(description = "测试Redis_Service")
     @RequestMapping(value = "/redis", method= RequestMethod.GET)
     public void redis(){
@@ -55,7 +54,7 @@ public class RedisController {
      * @param sms
      * @return: com.baiyx.wfwbitest.Common.CommonResult
      */
-    @ApiOperation("测试获取验证码并发送到手机")
+    @Operation(summary = "测试获取验证码并发送到手机")
     @WebLog(description = "测试获取验证码并发送到手机")
     @RequestMapping(value = "/getAuthCode", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody

@@ -1,25 +1,16 @@
 package com.baiyx.wfwbitest;
 
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
-import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
-import springfox.documentation.oas.annotations.EnableOpenApi;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 // @EnableRabbit
 // @EnableApolloConfig //Apollo配置项
@@ -28,9 +19,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @ServletComponentScan
 @EnableEncryptableProperties //开启yml敏感数据加密
 @EnableAsync //开启多线程,异步
-@EnableOpenApi //开启swagger2
+//@EnableSwagger2 //开启swagger2
 @EnableCaching // 开启redis缓存
 // 排除SecurityAutoConfiguration类,否则会启用认证
+//@EnableElasticsearchRepositories(basePackages = "com.baiyx.wfwbitest.repository")
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {
 

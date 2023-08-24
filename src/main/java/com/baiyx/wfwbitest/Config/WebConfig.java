@@ -3,6 +3,7 @@ package com.baiyx.wfwbitest.Config;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -31,8 +32,15 @@ public class WebConfig implements WebMvcConfigurer {
          * 就给我映射到本机的“E:/images/”这个文件夹内，去找你要的资源
          * 注意：E:/images/ 后面的 “/”一定要带上
          */
-        registry.addResourceHandler("/uploadFile/**")
-                .addResourceLocations("file:"+fileSavePath);
+        registry.addResourceHandler("/uploadFile/**","/swagger-ui/**")
+                .addResourceLocations("file:"+fileSavePath,"classpath:/META-INF/resources/webjars/springfox-swagger-ui/")
+                .resourceChain(false);
+    }
+
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/swagger-ui/")
+                .setViewName("forward:/swagger-ui/index.html");
     }
 
 //    @Bean

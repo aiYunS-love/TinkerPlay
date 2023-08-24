@@ -13,7 +13,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -163,9 +163,9 @@ public class UserServiceImpl implements UserService {
         try {
             Date startTime = simpleDateFormat.parse("1990-01-01");
             Date endTime = simpleDateFormat.parse(simpleDateFormat.format(new Date()));
-            if (queryRequestVo.getKssj() != null && queryRequestVo.getJssj() != null) {
-                startTime = queryRequestVo.getKssj();
-                endTime = queryRequestVo.getJssj();
+            if (queryRequestVo.getStartTime() != null && queryRequestVo.getEndTime() != null) {
+                startTime = queryRequestVo.getStartTime();
+                endTime = queryRequestVo.getEndTime();
                 users = UserDao.findByTime(startTime, endTime);
             } else {
                 users = UserDao.findAll();
@@ -184,9 +184,9 @@ public class UserServiceImpl implements UserService {
         try {
             Date startTime = simpleDateFormat.parse("1993-01-01");
             Date endTime = simpleDateFormat.parse("1995-12-31");
-            if (queryRequestVo.getKssj() != null && queryRequestVo.getJssj() != null) {
-                startTime = queryRequestVo.getKssj();
-                endTime = queryRequestVo.getJssj();
+            if (queryRequestVo.getStartTime() != null && queryRequestVo.getEndTime() != null) {
+                startTime = queryRequestVo.getStartTime();
+                endTime = queryRequestVo.getEndTime();
                 users = UserDao.findByTime(startTime, endTime);
             } else {
                 users = UserDao.findAll();

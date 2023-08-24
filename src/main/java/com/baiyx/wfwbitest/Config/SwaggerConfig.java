@@ -1,18 +1,11 @@
 package com.baiyx.wfwbitest.Config;
 
+import io.swagger.v3.oas.models.ExternalDocumentation;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
+import io.swagger.v3.oas.models.info.License;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.env.Environment;
-import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
-import springfox.documentation.builders.RequestHandlerSelectors;
-import springfox.documentation.service.ApiInfo;
-import springfox.documentation.service.Contact;
-import springfox.documentation.spi.DocumentationType;
-import springfox.documentation.spring.web.plugins.Docket;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.ArrayList;
 
 /**
  * @Author: baiyx
@@ -21,7 +14,6 @@ import java.util.ArrayList;
  */
 
 @Configuration
-@EnableSwagger2
 public class SwaggerConfig {
 
 //    @Bean
@@ -33,64 +25,135 @@ public class SwaggerConfig {
 //                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
 //                // 为有@Api注解的Controller生成API文档
 ////                .apis(RequestHandlerSelectors.withClassAnnotation(Api.class))
-//                // 为有@ApiOperation注解的方法生成API文档
+//                // 为有@Operation注解的方法生成API文档
 ////                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
 //                .paths(PathSelectors.any())
 //                .build();
 //    }
 
-    private ApiInfo apiInfo() {
-        // 作者信息
-        Contact contact = new Contact("baiyx","https://gitee.com/Mr_Baiyx", "784724280@qq.com");
-        return new ApiInfoBuilder()
-                .title("小白学习")
-                .description("baiyx-study")
-                .contact(contact)
-                .version("1.0.1")
-                .build();
-//        return new ApiInfo(
-//                "小白学习",
-//                "baiyx",
-//                "1.0.0",
-//                "https://gitee.com/Mr_Baiyx",
-//                contact,
-//                "Apache 2.0",
-//                "http://www.apache.org/licenses/LICENSE-2.0",
-//                new ArrayList());
-    }
-
     @Bean
-    public Docket docket(Environment environment) {
-        // 获取项目的环境 需要创建多个application-xx环境配置文件
-        String[] profiles = environment.getActiveProfiles();
-        System.out.println("当前环境");
-        for (String temp : profiles) {
-            System.out.println(temp);
-        }
-        Boolean enableSwagger = false;
-        // if (profiles.length > 0 && profiles[0].equals("windows")) {
-        if (profiles.length > 0) {
-            enableSwagger = true;
-        }
-        System.out.println("swagger是否开启：" + enableSwagger);
-
-        return new Docket(DocumentationType.SWAGGER_2)
-                .groupName("Test")
-                .apiInfo(apiInfo())
-                // 是否启用swagger, false: 不能在浏览器访问
-                .enable(enableSwagger)
-                .select()
-                // RequestHandlerSelectors, 配置要扫描接口的方式
-                // basePackage: 指定要扫描的包
-                // any(): 扫描全部
-                // none(): 不扫描
-                // withClassAnnotation: 扫描类上的注解, 参数是一个注解的反射对象 withClassAnnotation(RestController.class)
-                // withMethodAnnotation: 扫描方法上的注解
-                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
-                // paths 过滤什么路径 不显示到swagger文档中
-                // .paths(PathSelectors.ant("/loong/**"))
-                .build();
+    public OpenAPI springShopOpenAPI() {
+        return new OpenAPI()
+                .info(new Info().title("小白学习")
+                        .description("baiyx-study")
+                        .version("1.0.1")
+                        .license(new License().name("Apache 2.0").url("http://springdoc.org")))
+                .externalDocs(new ExternalDocumentation()
+                        .description("SpringDoc")
+                        .url("https://gitee.com/Mr_Baiyx"));
     }
+
+//    private ApiInfo apiInfo() {
+//        // 作者信息
+//        Contact contact = new Contact("baiyx","https://gitee.com/Mr_Baiyx", "784724280@qq.com");
+//        return new ApiInfoBuilder()
+//                .title("小白学习")
+//                .description("baiyx-study")
+//                .contact(contact)
+//                .version("1.0.1")
+//                .build();
+////        return new ApiInfo(
+////                "小白学习",
+////                "baiyx",
+////                "1.0.0",
+////                "https://gitee.com/Mr_Baiyx",
+////                contact,
+////                "Apache 2.0",
+////                "http://www.apache.org/licenses/LICENSE-2.0",
+////                new ArrayList());
+//    }
+
+//    @Bean
+//    public Docket docket(Environment environment) {
+//        // 获取项目的环境 需要创建多个application-xx环境配置文件
+//        String[] profiles = environment.getActiveProfiles();
+//        System.out.println("当前环境");
+//        for (String temp : profiles) {
+//            System.out.println(temp);
+//        }
+//        Boolean enableSwagger = false;
+//        // if (profiles.length > 0 && profiles[0].equals("windows")) {
+//        if (profiles.length > 0) {
+//            enableSwagger = true;
+//        }
+//        System.out.println("swagger是否开启：" + enableSwagger);
+//
+//        return new Docket(DocumentationType.OAS_30)
+//                .groupName("Test")
+//                .apiInfo(apiInfo())
+//                // 是否启用swagger, false: 不能在浏览器访问
+//                .enable(enableSwagger)
+//                .select()
+//                // RequestHandlerSelectors, 配置要扫描接口的方式
+//                // basePackage: 指定要扫描的包
+//                // any(): 扫描全部
+//                // none(): 不扫描
+//                // withClassAnnotation: 扫描类上的注解, 参数是一个注解的反射对象 withClassAnnotation(RestController.class)
+//                // withMethodAnnotation: 扫描方法上的注解
+//                .apis(RequestHandlerSelectors.basePackage("com.baiyx.wfwbitest.Controller"))
+//                // paths 过滤什么路径 不显示到swagger文档中
+//                // .paths(PathSelectors.ant("/loong/**"))
+//                .build();
+//    }
+//
+//    @Autowired
+//    private TypeResolver typeResolver;
+//
+//    private ApiKey apiKey() {
+//        return new ApiKey("mykey", "api_key", "header");
+//    }
+//
+//    private SecurityContext securityContext() {
+//        return SecurityContext.builder()
+//                .securityReferences(defaultAuth())
+//                .forPaths(PathSelectors.regex("/anyPath.*"))
+//                .build();
+//    }
+//
+//    List<SecurityReference> defaultAuth() {
+//        AuthorizationScope authorizationScope
+//                = new AuthorizationScope("global", "accessEverything");
+//        AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
+//        authorizationScopes[0] = authorizationScope;
+//        return singletonList(
+//                new SecurityReference("mykey", authorizationScopes));
+//    }
+//
+//    @Bean
+//    SecurityConfiguration security() {
+//        return SecurityConfigurationBuilder.builder()
+//                .clientId("test-app-client-id")
+//                .clientSecret("test-app-client-secret")
+//                .realm("test-app-realm")
+//                .appName("test-app")
+//                .scopeSeparator(",")
+//                .additionalQueryStringParams(null)
+//                .useBasicAuthenticationWithAccessCodeGrant(false)
+//                .enableCsrfSupport(false)
+//                .build();
+//    }
+//
+//    @Bean
+//    UiConfiguration uiConfig() {
+//        return UiConfigurationBuilder.builder()
+//                .deepLinking(true)
+//                .displayOperationId(false)
+//                .defaultModelsExpandDepth(1)
+//                .defaultModelExpandDepth(1)
+//                .defaultModelRendering(ModelRendering.EXAMPLE)
+//                .displayRequestDuration(false)
+//                .docExpansion(DocExpansion.NONE)
+//                .filter(false)
+//                .maxDisplayedTags(null)
+//                .operationsSorter(OperationsSorter.ALPHA)
+//                .showExtensions(false)
+//                .showCommonExtensions(false)
+//                .tagsSorter(TagsSorter.ALPHA)
+//                .supportedSubmitMethods(UiConfiguration.Constants.DEFAULT_SUBMIT_METHODS)
+//                .validatorUrl(null)
+//                .build();
+//    }
+
 
 //    @Bean
 //    public Docket docket(Environment environment) {
