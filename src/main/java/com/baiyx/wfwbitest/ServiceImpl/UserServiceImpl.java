@@ -7,13 +7,14 @@ import com.baiyx.wfwbitest.Entity.*;
 import com.baiyx.wfwbitest.Rabbitmq.CancelOrderSender;
 import com.baiyx.wfwbitest.Service.UserService;
 import com.baiyx.wfwbitest.Utils.*;
+import com.baomidou.dynamic.datasource.annotation.DS;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,7 +37,6 @@ public class UserServiceImpl implements UserService {
 
     //测试多数据源配置注解@DS
     @Override
-    // @DS("slave_1")
     // @Async("asyncServiceExecutor") //开启这里会导致controller层返回为null;
     public List<User> findAll() {
         List<User> users = UserDao.findAll();
@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @DS("slave_1")
     @Async("asyncServiceExecutor") //开启异步,需要把返回结果封装到AsyncResult类中;
     public Future<List<User>> findAll2() {
         List<User> users = UserDao.findAll2();
@@ -226,7 +227,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    // @DS("slave_1")
     public ResultMsg removeESC() {
         JSONObject[] jsonObjects = ReadTXTtoJsonObjUtil.readTXTtoObj("");
         List<Projbase> projbaseList = null;

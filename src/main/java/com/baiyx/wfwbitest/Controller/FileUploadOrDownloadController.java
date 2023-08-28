@@ -204,8 +204,14 @@ public class FileUploadOrDownloadController {
     @Operation(summary = "文件删除")
     @RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
-        String filePath = userFileService.queryByFileName(objectName).getPath();
+    public CommonResult deleteFile(String objectName) {
+        UserFile uf = userFileService.queryByFileName(objectName);
+        String filePath = "";
+        if (uf != null) {
+            filePath = uf.getPath();
+        } else {
+            CommonResult.failed();
+        }
         if(objectName.contains("/") && filePath.contains("://")){
             try {
                 MinioClient minioClient = MinioClient.builder()
@@ -276,7 +282,12 @@ public class FileUploadOrDownloadController {
     public String getFile(String openStyle, Integer id, HttpServletResponse response) throws Exception {
         UserFile userFile = userFileService.queryByUserFileId(id);
         // String realPath = ResourceUtils.getURL("classpath").getPath() + userFile.getPath();
-        String realPath = userFile.getPath();
+        String realPath;
+        if (userFile != null) {
+            realPath = userFile.getPath();
+        } else {
+            return "没有找到任何文件!";
+        }
         if(!realPath.startsWith("http")){
             // 普通上传
             FileInputStream is = new FileInputStream(new File(realPath));

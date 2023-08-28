@@ -14,7 +14,7 @@ import java.util.*;
  * @Description: ProjBase DAO层
  */
 @Mapper
-@CacheConfig(cacheNames = "UserDao")
+@CacheConfig(cacheNames = "ProjBaseDao")
 public interface ProjBaseDao {
 
     // 查询projbase表总记录条数
