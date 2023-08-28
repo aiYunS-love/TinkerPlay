@@ -4,7 +4,7 @@
 从搭架子的角度出发! 学习、温习、记录工作生活中遇到的常规性需求解决思路和案例、集成各种中间件的思路和案例、各种处理策略、算法基础、设计模式基础、测试知识点的代码库.
 
 #### 架构
-springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
+JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
 
 
 #### 配置文件application.yml说明
@@ -73,8 +73,8 @@ springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 
 43. 搞一个工具,读取.sql文件,执行里面的DDL语句,多个数据库环境,执行记录写入Excel表格
 44. 完善日志配置: 日志输出格式,日志分割规则,日志常规配置等
 45. 测试git提交
-46. 框架版全面升级:springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.8.4构建
-    到 springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
+46. 框架版全面升级:JAVA_1.8 + springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.8.4构建
+    到 JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
 47. .............................
 
 #### 部署内容
