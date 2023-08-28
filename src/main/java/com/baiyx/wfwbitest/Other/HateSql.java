@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 public class HateSql {
 
     static Map<String,String> paths;
-    static List<String> excel = new ArrayList<>();
+    static Map<String, List<String>> excel = new HashMap<>();
     static String nowdate;
     static String path = "E:\\sql\\脚本更新记录表.xlsx";
     static XSSFWorkbook workbook;
@@ -47,6 +47,17 @@ public class HateSql {
         paths.put("sit-uat-prd","E:\\sql\\sit-uat-prd");
         paths.put("uat","E:\\sql\\uat");
         paths.put("uat-prd","E:\\sql\\uat-prd");
+        // 初始化Map<String, List<String>> excel
+        ArrayList arrayList = new ArrayList();
+        arrayList.add("首行");
+        excel.put("表头",arrayList);
+        excel.put("prd",new ArrayList<>());
+        excel.put("sit",new ArrayList<>());
+        excel.put("sit-prd",new ArrayList<>());
+        excel.put("sit-uat",new ArrayList<>());
+        excel.put("sit-uat-prd",new ArrayList<>());
+        excel.put("uat",new ArrayList<>());
+        excel.put("uat-prd",new ArrayList<>());
         try {
             if (file.exists()){
                 workbook = new XSSFWorkbook(new FileInputStream(file));
@@ -57,7 +68,10 @@ public class HateSql {
                         if ("".equals(row.getCell(1).getStringCellValue()) || row.getCell(1).getStringCellValue() == null){
                             continue;
                         }
-                        excel.add(row.getCell(1).getStringCellValue());
+                        if (!excel.keySet().contains(row.getCell(2).getStringCellValue())){
+                            continue;
+                        }
+                        excel.get(row.getCell(2).getStringCellValue()).add(row.getCell(1).getStringCellValue());
                     }
                 }
             }
@@ -70,6 +84,7 @@ public class HateSql {
 
     public static void main(String[] args){
         long startTime = System.currentTimeMillis();
+        int threadNum = 0;
         LinkedHashMap<String, ArrayList<String>> sqlMap = null;
         for (String key : paths.keySet()){
             sqlMap = new LinkedHashMap<>();
@@ -89,7 +104,7 @@ public class HateSql {
             }
             // 去除已执行过的文件
             ArrayList<File> ff = new ArrayList<>(Arrays.asList(files));
-            ff = (ArrayList<File>) ff.stream().filter(f -> !excel.contains(f.getName())).collect(Collectors.toList());
+            ff = (ArrayList<File>) ff.stream().filter(f -> !excel.get(key).contains(f.getName())).collect(Collectors.toList());
             if (ff == null || ff.size() == 0){
                 continue;
             }
@@ -97,13 +112,15 @@ public class HateSql {
             try {
                 if (environments.length == 1){
                     DB db = new DB(environments[0],sqlMap);
-                    db.setName(environments[0] + "环境");
+                    ++threadNum;
+                    db.setName(threadNum + "-" + environments[0] + "环境");
                     db.start();
                     db.join();
                 }else{
                     for (String environment : environments){
                         DB db = new DB(environment,sqlMap);
-                        db.setName(environment + "环境");
+                        ++threadNum;
+                        db.setName(threadNum + "-" + environment + "环境");
                         db.start();
                         db.join();
                     }
@@ -113,7 +130,9 @@ public class HateSql {
             }
         }
         // 执行过的文件写入excel记录表
-        writeExcel(DB.writeResault);
+        if (DB.writeResault != null && DB.writeResault.size() > 0){
+            writeExcel(DB.writeResault);
+        }
         long endTime = System.currentTimeMillis();
         System.out.println("==============================程序执行耗时============================");
         System.out.println("程序执行耗时: " + (endTime - startTime)/1000 + "秒");
@@ -235,18 +254,27 @@ public class HateSql {
                 for (int i=0; i<infos.length; i++){
                     row0.createCell(i).setCellValue(infos[i]);
                 }
-                excel.add("表头");
+                ArrayList arrayList = new ArrayList<>();
+                arrayList.add("首行");
+                excel.put("表头",arrayList);
             }
             for (String filePath : hashSet){
-                int rowIndex = HateSql.excel.size();
+                int rowIndex = 0;
+                for (String key : HateSql.excel.keySet()){
+                    rowIndex += HateSql.excel.get(key).size();
+                }
                 XSSFRow row = HateSql.sheet.createRow(rowIndex);
-                row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf(".")));
+                if (filePath.contains("(") && filePath.contains(")")){
+                    row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf("(")));
+                } else {
+                    row.createCell(0).setCellValue(filePath.substring(filePath.lastIndexOf("-") + 1,filePath.lastIndexOf(".")));
+                }
                 row.createCell(1).setCellValue(filePath.substring(filePath.lastIndexOf("\\") + 1));
                 row.createCell(2).setCellValue(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\")));
                 row.createCell(3).setCellValue(HateSql.nowdate);
                 row.createCell(4).setCellValue("baiyx");
                 row.createCell(5).setCellValue("是");
-                HateSql.excel.add(path.substring(path.lastIndexOf("\\") + 1));
+                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(path.substring(path.lastIndexOf("\\") + 1));
             }
             outputStream = new FileOutputStream(file);
             HateSql.workbook.write(outputStream);
@@ -337,6 +365,7 @@ class DB extends Thread{
 
     @Override
     public void run() {
+        boolean b = true;
         for (String key : sqlMap.keySet()){
             ArrayList<String> arrsql = sqlMap.get(key);
             boolean isSuccess = true;
@@ -363,11 +392,17 @@ class DB extends Thread{
                     rollback();
                     throwables.printStackTrace();
                 }
+            } else {
+              b = isSuccess;
             }
         }
         // 关闭连接
         this.close();
-        System.out.println(this.getName() + " --> 子线程执行完成!");
+        if (b){
+            System.out.println(this.getName() + " --> 子线程执行成功!");
+        } else {
+            System.out.println(this.getName() + " --> 子线程执行失败!");
+        }
     }
 
     private void rollback(){

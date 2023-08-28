@@ -85,29 +85,30 @@ spring:
       max-request-size: 100MB
       # 文件是否延迟解析，默认为false
       resolve-lazily: false
-  redis:
-    database: 0
-    #    cluster:
-    #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
-    # 非集群使用
-    port: 6379
-    # host: 127.0.0.1
-    host: 192.168.119.128
-    # 密码
-    # password: b0650fa
-    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
-    timeout: 60000 #连接超时时间（毫秒）
-    # 缓存配置
-    cache:
-      type: redis
-    client-name: cacheTest
-    pool:
-      # 连接池中的最大空闲连接
-      max-idle: 3000
-      # 连接池最大连接数（使用负值表示没有限制）
-      max-active: 6000
-      # 连接池最大阻塞等待时间（使用负值表示没有限制）
-      max-wait: -1
+  data:
+    redis:
+      database: 0
+      #    cluster:
+      #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
+      # 非集群使用
+      port: 6379
+      # host: 127.0.0.1
+      host: 192.168.119.128
+      # 密码
+      # password: b0650fa
+      password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
+      timeout: 60000 #连接超时时间（毫秒）
+      # 缓存配置
+      cache:
+        type: redis
+      client-name: cacheTest
+      pool:
+        # 连接池中的最大空闲连接
+        max-idle: 3000
+        # 连接池最大连接数（使用负值表示没有限制）
+        max-active: 6000
+        # 连接池最大阻塞等待时间（使用负值表示没有限制）
+        max-wait: -1
   rabbitmq:
     # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
     # addresses: 192.168.119.128:5672
@@ -125,12 +126,21 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.119.128:9200
-  # 解决springboot升级2.7.5导致的ApplicationContextException
+    bboss:
+      elasticUser:
+      elasticPassword:
+      elasticsearch:
+        useHttps: true
+        rest:
+          hostNames: http://192.168.119.128:9200
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
   cloud:
     nacos:
+      config:
+        import-check:
+          enabled: false
       discovery:
         server-addr: 192.168.119.128:8848
 
@@ -174,6 +184,11 @@ pdf:
 #  application-version: 1.0.1 #项目版本信息
 #  application-description: baiyx_study #项目描述信息
 #  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
+
+# 配置swagger文档的访问路径，访问地址：http://127.0.0.1:8080/swagger-ui.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
 
 mybatis-plus:
   configuration:
@@ -233,6 +248,7 @@ nacos:
 
 CDC:
   DataSource:
+    enabled: false
     host: 192.168.119.128
     port: 3306
     database: heima

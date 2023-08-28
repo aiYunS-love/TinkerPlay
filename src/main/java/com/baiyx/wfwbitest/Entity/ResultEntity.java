@@ -1,16 +1,14 @@
 package com.baiyx.wfwbitest.Entity;
 
-import io.swagger.annotations.ApiModel;
-import lombok.AllArgsConstructor;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @Author: baiyx
  * @Date: 2023年6月7日, 0007 下午 5:06:16
  * @Description: 文件下载实体
  */
-@ApiModel("文件下载实体类")
+@Schema(name = "文件下载实体类")
 @Data
 public class ResultEntity<T> {
 

@@ -5,21 +5,17 @@ import com.plexpt.chatgpt.ChatGPTStream;
 import com.plexpt.chatgpt.entity.chat.ChatCompletion;
 import com.plexpt.chatgpt.entity.chat.ChatCompletionResponse;
 import com.plexpt.chatgpt.entity.chat.Message;
-import com.plexpt.chatgpt.listener.ConsoleStreamListener;
 import com.plexpt.chatgpt.listener.SseStreamListener;
-import com.plexpt.chatgpt.util.Proxys;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
-import java.net.Proxy;
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
 
@@ -29,11 +25,11 @@ import java.util.concurrent.CompletableFuture;
  * @Description: ChatGPT
  */
 @Controller
-@Api(tags = "AiController", description = "ChatGPT")
+@Tag(name = "AiController", description = "ChatGPT")
 @RequestMapping("/AI")
 public class AiController {
 
-    @ApiOperation(value = "ChatGPT(开启异步)")
+    @Operation(summary = "ChatGPT(开启异步)")
     @GetMapping("/sse")
     @CrossOrigin
     @ResponseBody
@@ -43,7 +39,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -64,7 +60,7 @@ public class AiController {
         return CompletableFuture.completedFuture(res.getContent());
     }
 
-    @ApiOperation(value = "ChatGPT2(关闭异步)")
+    @Operation(summary = "ChatGPT2(关闭异步)")
     @GetMapping("/sse2")
     @CrossOrigin
     @ResponseBody
@@ -73,7 +69,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPT chatGPT = ChatGPT.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()
@@ -94,7 +90,7 @@ public class AiController {
         return res.getContent();
     }
 
-    @ApiOperation(value = "ChatGPT(流式使用)")
+    @Operation(summary = "ChatGPT(流式使用)")
     @GetMapping("/sse3")
     @CrossOrigin
     public SseEmitter sseEmitter3(String prompt) {
@@ -102,7 +98,7 @@ public class AiController {
         // Proxy proxy = Proxys.http("192.168.245.1", 15732);
         ChatGPTStream chatGPTStream = ChatGPTStream.builder()
                 .timeout(600)
-                .apiKey("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")
+                .apiKey("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")
                 // .proxy(proxy)
                 .apiHost("https://api.openai.com/")
                 .build()

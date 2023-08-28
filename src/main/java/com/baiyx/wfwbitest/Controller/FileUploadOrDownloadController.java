@@ -2,19 +2,21 @@ package com.baiyx.wfwbitest.Controller;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
-import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.MinioUploadDto;
+import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Config.MinioClientConfig;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Entity.UserFile;
-import com.baiyx.wfwbitest.InterviewQuestion.A;
-import org.springframework.util.FileSystemUtils;
 import com.baiyx.wfwbitest.Service.UserFileService;
 import com.baiyx.wfwbitest.Utils.MinioUtil;
 import io.minio.*;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
@@ -22,27 +24,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.util.FileSystemUtils;
-import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.awt.Desktop;
 
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.awt.*;
-import java.awt.geom.Path2D;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.List;
 
 /**
  * @Author: baiyx
@@ -50,7 +40,7 @@ import java.util.List;
  * @Description: 文件上传下载
  */
 @RestController
-@Api(tags = "FileUploadOrDownloadController", description = "文件上传下载模块")
+@Tag(name = "FileUploadOrDownloadController", description = "文件上传下载模块")
 public class FileUploadOrDownloadController {
 
     @Autowired
@@ -77,7 +67,7 @@ public class FileUploadOrDownloadController {
      * @param req
      * @return
      */
-    @ApiOperation("普通文件上传功能")
+    @Operation(summary = "普通文件上传功能")
     @PostMapping("/upload")
     public HashSet upload(@RequestParam("uploadFile") MultipartFile[] uploadFiles, HttpServletRequest req) {
         // 结果集
@@ -130,7 +120,7 @@ public class FileUploadOrDownloadController {
      * @param files
      * @return: com.baiyx.wfwbitest.common.CommonResult
      */
-    @ApiOperation("文件上传Minio")
+    @Operation(summary = "文件上传Minio")
     @RequestMapping(value = "/upload2", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult upload2(@RequestPart("uploadFile2") MultipartFile[] files) {
@@ -211,7 +201,7 @@ public class FileUploadOrDownloadController {
                 .build();
     }
 
-    @ApiOperation("文件删除")
+    @Operation(summary = "文件删除")
     @RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
     @ResponseBody
     public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
@@ -237,7 +227,7 @@ public class FileUploadOrDownloadController {
     }
 
     // 获取文件列表
-    @ApiOperation("获取文件列表")
+    @Operation(summary = "获取文件列表")
     @PostMapping("queryAllFile")
     @ResponseBody
     public Map<String, Object> queryAllFile(HttpSession session, HttpServletRequest request){
@@ -262,7 +252,7 @@ public class FileUploadOrDownloadController {
      * @param response
      * @return: void
      */
-    @ApiOperation("文件下载")
+    @Operation(summary = "文件下载")
     @GetMapping("download/{id}")
     public void download(@PathVariable("id") Integer id, HttpServletResponse response){
         String openStyle = "attachment";
@@ -327,7 +317,7 @@ public class FileUploadOrDownloadController {
      * @param response
      * @return: void
      */
-    @ApiOperation("文件预览")
+    @Operation(summary = "文件预览")
     @GetMapping("preview/{id}")
     public void preview(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
         String openStyle = "inline";

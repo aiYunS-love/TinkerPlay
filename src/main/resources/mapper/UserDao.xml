@@ -27,7 +27,7 @@
     </delete>
 
     <update id="updateOne" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo">
-        update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address} where id=#{id};
+        update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address},PHONE=#{PHONE},EMAIL=#{EMAIL},ID_CARD=#{ID_CARD} where id=#{id};
     </update>
 
     <select id="findById" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.User">

@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.Entity;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +14,7 @@ import java.util.Date;
  * @Date: 2023年6月7日, 0007 上午 9:08:11
  * @Description: 文件下载实体类
  */
-@ApiModel("用户文件实体类")
+@Schema(name = "用户文件实体类")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -1,24 +1,19 @@
 package com.baiyx.wfwbitest.Controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
-import com.baiyx.wfwbitest.Entity.ResultMsg;
-import com.baiyx.wfwbitest.ServiceImpl.ProjBaseServiceImpl;
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -29,16 +24,16 @@ import java.util.Map;
 
 @RestController
 @RequestMapping(value ="ProjbaseController",produces = "application/json;charset=UTF-8")
-@Api(tags = "ProjbaseController", description = "分页模块")
+@Tag(name = "ProjbaseController", description = "分页模块")
 public class ProjbaseController {
 
     // 此处控制器层直接注入dao层,没有注入业务层
     @Autowired
     ProjBaseDao projBaseDao;
 
-    @ApiOperation(value = "分页查询_数据量大")
+    @Operation(summary = "分页查询_数据量大")
     @GetMapping("findBypaging1")
-    public PageInfo<Projbase> findByPaging1(@ApiParam("页码") Integer pageNum, @ApiParam("每页数量") Integer pageSize){
+    public PageInfo<Projbase> findByPaging1(@Parameter(name = "pageNum", description = "页码") Integer pageNum, @Parameter(name = "pageSize", description = "每页数量") Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);
         List<Projbase> list = projBaseDao.selectProjbase1();
@@ -46,9 +41,9 @@ public class ProjbaseController {
         return pageInfo;
     }
 
-    @ApiOperation(value = "分页查询_数据量小")
+    @Operation(summary = "分页查询_数据量小")
     @GetMapping("findBypaging2")
-    public PageInfo<Projbase> findByPaging2(@ApiParam("页码") Integer pageNum, @ApiParam("每页数量") Integer pageSize){
+    public PageInfo<Projbase> findByPaging2(@Parameter(name = "pageNum", description = "页码") Integer pageNum, @Parameter(name = "pageSize", description = "每页数量") Integer pageSize){
 
         PageHelper.startPage(pageNum,pageSize);
         List<Projbase> list = projBaseDao.selectProjbase2();

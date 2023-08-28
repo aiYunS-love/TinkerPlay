@@ -4,10 +4,10 @@ import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 /**
@@ -15,11 +15,10 @@ import javax.sql.DataSource;
  * @Date: 2022-11-16 15:09
  * @Description: flyway配置类
  */
-
 @Configuration
 public class FlywayConfig {
 
-    @Autowired
+    @Resource(name = "primaryDataSource")
     private DataSource dataSource;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -57,7 +56,6 @@ public class FlywayConfig {
 
         try {
             flyway.migrate();
-
         } catch (FlywayException e) {
 
             logger.error("Flyway配置第一次加载出错",e);

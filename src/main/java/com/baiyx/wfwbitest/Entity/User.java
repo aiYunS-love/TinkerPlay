@@ -1,17 +1,17 @@
 package com.baiyx.wfwbitest.Entity;
 
-import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.baiyx.wfwbitest.CustomAnnotations.PrivacyEncrypt;
 import com.baiyx.wfwbitest.Enum.PrivacyTypeEnum;
 import com.baiyx.wfwbitest.Properties.DateConverterProperties;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,7 +21,7 @@ import java.util.Date;
  * @Description: user实体类
  */
 
-@ApiModel("用户实体类")
+@Schema(name = "用户实体类")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

@@ -54,7 +54,7 @@
     </appender>
     <root>
         <!-- 日志输出级别 -->
-        <level>INFO</level>
+        <level value="INFO" />
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="FILE"/>
         <appender-ref ref="LOGSTASH"/>

@@ -1,7 +1,5 @@
 package com.baiyx.wfwbitest.Thread;
 
-import lombok.var;
-
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.regex.Matcher;
@@ -45,7 +43,7 @@ public class Number100 {
     }
 
     public static void main(String[] args) {
-        var n = new Number100();
+        Number100 n = new Number100();
         for (int i = 0; i < 5; i++) {
             new Thread(n::show).start();
         }

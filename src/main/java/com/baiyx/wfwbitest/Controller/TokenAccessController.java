@@ -7,12 +7,11 @@ import com.baiyx.wfwbitest.Entity.TokenAccess;
 import com.baiyx.wfwbitest.Service.TokenAccessService;
 import com.baiyx.wfwbitest.Utils.ResolveTokenUtil;
 import com.baiyx.wfwbitest.Utils.TokenCreateUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author: baiyx
@@ -22,13 +21,13 @@ import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value ="AccessControl",produces = "application/json;charset=UTF-8")
-@Api(tags = "TokenAccessController", description = "解析Token校验权限模块")
+@Tag(name = "TokenAccessController", description = "解析Token校验权限模块")
 public class TokenAccessController {
 
     @Autowired
     TokenAccessService tokenAccessService;
 
-    @ApiOperation(value = "解析Token校验权限")
+    @Operation(summary = "解析Token校验权限")
     @WebLog(description = "权限检查")
     @RequestMapping(value = "check",method= {RequestMethod.GET,RequestMethod.POST},produces = "application/json")
     @CrossOrigin
@@ -40,7 +39,7 @@ public class TokenAccessController {
         return data;
     }
 
-    @ApiOperation(value = "获取登录Token")
+    @Operation(summary = "获取登录Token")
     @WebLog(description = "获取登录Token")
     @RequestMapping(value = "/jwt/sign",method= RequestMethod.POST)
     @CrossOrigin

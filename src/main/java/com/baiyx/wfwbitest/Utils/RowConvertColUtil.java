@@ -1,10 +1,9 @@
 package com.baiyx.wfwbitest.Utils;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Author: baiyx
@@ -13,10 +12,14 @@ import java.util.Set;
  */
 public class RowConvertColUtil {
 
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.US);
+
+    private static final SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd",Locale.CHINESE);
+
     private static Set<Object> headerSet;
     private static Set<Object> fixedColumnSet;
 
-    private RowConvertColUtil() {
+    public RowConvertColUtil() {
     }
 
     public static class ConvertData {
@@ -108,7 +111,11 @@ public class RowConvertColUtil {
             List<Object> colList = new ArrayList<>();
             //名称
             for(String ColNameItem:fixedColumnItem.toString().split("\\|")) {
-                colList.add(ColNameItem);
+                if (isValid(ColNameItem)) {
+                    colList.add(sdf2.format(sdf.parse(ColNameItem)));
+                } else {
+                    colList.add(ColNameItem);
+                }
             }
             for (Object headerItem : headerSet) {
                 boolean flag = true;
@@ -163,4 +170,14 @@ public class RowConvertColUtil {
             e.printStackTrace();
         }
     }
+
+    public static boolean isValid(String dateStr) {
+        try {
+            Date parsedDate = sdf.parse(dateStr);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
+    }
+
 }
