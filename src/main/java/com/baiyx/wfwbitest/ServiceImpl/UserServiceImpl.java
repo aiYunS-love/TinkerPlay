@@ -36,6 +36,7 @@ public class UserServiceImpl implements UserService {
     private CancelOrderSender cancelOrderSender;
 
     //测试多数据源配置注解@DS
+    @DS("slave_1")
     @Override
     // @Async("asyncServiceExecutor") //开启这里会导致controller层返回为null;
     public List<User> findAll() {

@@ -371,6 +371,12 @@ class DB extends Thread{
             boolean isSuccess = true;
             for (String sql : arrsql){
                 try {
+                    if ((sql.toLowerCase().contains("drop") && !sql.toLowerCase().replace(" ","").contains("droptableifexists")) || (sql.toLowerCase().contains("delete") && !sql.toLowerCase().contains("deleted"))) {
+                        rollback();;
+                        isSuccess = false;
+                        errorInfo.put(key + " ==> " + sql, "当前sql疑似存在危险的drop或delete语句, 请谨慎确认!!!");
+                        break;
+                    }
                     statement.execute(sql);
                 } catch (SQLException throwables) {
                     isSuccess = false;
