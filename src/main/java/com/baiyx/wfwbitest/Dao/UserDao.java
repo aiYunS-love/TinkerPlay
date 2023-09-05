@@ -4,6 +4,7 @@ import com.baiyx.wfwbitest.Entity.EsUser;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Utils.RowConvertColUtil;
+import com.baomidou.dynamic.datasource.annotation.DS;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -24,6 +25,7 @@ public interface UserDao {
     // 查
     // @Cacheable(cacheNames = "findAll",cacheManager = "cacheManager")
     @Cacheable
+    @DS("slave")
     List<User> findAll();
 
     List<User> findAll2();
@@ -31,6 +33,7 @@ public interface UserDao {
     List<EsUser> findAll3();
 
     // 增
+    @DS("slave")
     void insertOne(User user);
 
     // @Options(useGeneratedKeys=true, keyProperty="id") // 注解的方式获取插入信息后的自增ID

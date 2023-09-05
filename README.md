@@ -75,7 +75,8 @@ JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + E
 45. 测试git提交
 46. 框架版全面升级:JAVA_1.8 + springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.8.4构建
     到 JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
-47. .............................
+47. 排查整体结构中存在的问题并解决
+48. ............................
 
 #### 部署内容
 Linux:

@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
     private CancelOrderSender cancelOrderSender;
 
     //测试多数据源配置注解@DS
-    @DS("slave_1")
     @Override
     // @Async("asyncServiceExecutor") //开启这里会导致controller层返回为null;
     public List<User> findAll() {
@@ -48,7 +47,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @DS("slave_1")
     @Async("asyncServiceExecutor") //开启异步,需要把返回结果封装到AsyncResult类中;
     public Future<List<User>> findAll2() {
         List<User> users = UserDao.findAll2();

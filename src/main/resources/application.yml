@@ -258,10 +258,13 @@ nacos:
 
 CDC:
   DataSource:
-    enabled: false
+    enabled: true
     host: 192.168.119.128
     port: 3306
     database: heima
     tableList: user
     username: root
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
+
+TimedTask:
+  enabled: true

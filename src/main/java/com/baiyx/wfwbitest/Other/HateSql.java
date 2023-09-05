@@ -274,7 +274,7 @@ public class HateSql {
                 row.createCell(3).setCellValue(HateSql.nowdate);
                 row.createCell(4).setCellValue("baiyx");
                 row.createCell(5).setCellValue("是");
-                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(path.substring(path.lastIndexOf("\\") + 1));
+                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(filePath.substring(filePath.lastIndexOf("\\") + 1));
             }
             outputStream = new FileOutputStream(file);
             HateSql.workbook.write(outputStream);
