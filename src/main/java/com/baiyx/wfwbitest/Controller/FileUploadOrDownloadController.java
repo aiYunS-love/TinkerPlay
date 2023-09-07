@@ -6,10 +6,14 @@ import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.MinioUploadDto;
 import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Config.MinioClientConfig;
+import com.baiyx.wfwbitest.Controller.Service.UserService;
+import com.baiyx.wfwbitest.Entity.QueryRequestVo;
+import com.baiyx.wfwbitest.Entity.R;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Entity.UserFile;
 import com.baiyx.wfwbitest.Controller.Service.UserFileService;
 import com.baiyx.wfwbitest.Utils.MinioUtil;
+import com.baiyx.wfwbitest.Utils.PdfUtil;
 import io.minio.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,9 +31,12 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -45,6 +52,8 @@ public class FileUploadOrDownloadController {
 
     @Autowired
     private UserFileService userFileService;
+    @Resource
+    private UserService userService;
 
     @Value("${file-save-path}")
     private String fileSavePath;
@@ -333,5 +342,40 @@ public class FileUploadOrDownloadController {
     public void preview(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
         String openStyle = "inline";
         getFile(openStyle,id,response);
+    }
+
+    /***
+     * @Author: baiyx
+     * @Description: 测试根据固定PDF模板导出信息
+     * @Date: 2023年9月7日, 0007 下午 4:00:19
+     * @Param: id
+     * @return: void
+     */
+    @Operation(summary = "导出PDF")
+    @GetMapping("CreatePDF/{id}")
+    public void CreatePDF(@PathVariable("id") Integer id) throws Exception {
+        QueryRequestVo queryRequestVo = new QueryRequestVo();
+        User user = new User();
+        user.setId(id);
+        queryRequestVo.setUser(user);
+        R result = userService.findById(queryRequestVo);
+        user = (User) result.getData();
+        Map<String,Object> userMap = new IdentityHashMap<>();
+        Map<String,String> map = new HashMap<>();
+        Class<?> clazz = user.getClass();
+        Field[] fields = clazz.getDeclaredFields();
+        Method[] methods = clazz.getDeclaredMethods();
+        for (Field field : fields) {
+            field.setAccessible(true);
+            for (Method method : methods) {
+                method.setAccessible(true);
+                if (method.getName().startsWith("get") && method.getName().toLowerCase().contains(field.getName().toLowerCase())) {
+                    Object o = method.invoke(user);
+                    map.put(field.getName(),o.toString());
+                }
+            }
+        }
+        userMap.put("user", map);
+        PdfUtil.pdfOut(userMap);
     }
 }

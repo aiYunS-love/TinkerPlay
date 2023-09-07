@@ -5,7 +5,11 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -14,10 +18,18 @@ import java.util.Map;
  * 根据pdf模板生成pdf文件生成到某路径下或导出
  *
  */
+@Component
 public class PdfUtil {
 
     // pdf配置类对象
-    static PdfConfig pdfConfig = new PdfConfig();
+    @Resource(name = "PdfConfig")
+    private PdfConfig config;
+    private static PdfConfig pdfConfig;
+
+    @PostConstruct
+    public void init() {
+        pdfConfig = config;
+    }
 
     /**
      * 利用模板生成pdf保存到某路径下
@@ -56,9 +68,10 @@ public class PdfUtil {
         ByteArrayOutputStream bos;
         PdfStamper stamper;
         try {
-            BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            String fontPath = pdfConfig.getFontPath();
+            BaseFont bf = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             // 输出流
-            out = new FileOutputStream(newPdfPath + System.currentTimeMillis() +".pdf");
+            out = new FileOutputStream(newPdfPath + "\\" + System.currentTimeMillis() +".pdf");
             // 读取pdf模板
             reader = new PdfReader(templatePath);
             bos = new ByteArrayOutputStream();

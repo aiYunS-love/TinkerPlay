@@ -24,23 +24,11 @@ public class QueryRequestVo {
     //对象
     private User user;
 
-    //登记类型
-    private String djlx;
-
-    //办理时长
-    private int blsc = 32;
-
-    //权利类型
-    private String qllx;
-
-    //业务号
-    private String ywh;
-
     //用户id
-    //private int id;
+    private int id;
 
     //用户名字
-    //private String name;
+    private String name;
 
     //开始时间
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
@@ -64,9 +52,6 @@ public class QueryRequestVo {
     //行政区级别
     private String xzqjib;
 
-    //
-    private List<String> jkzl;
-
     //是否查询列表
     private boolean lists;
 
@@ -75,38 +60,6 @@ public class QueryRequestVo {
 
     //每页大小
     private int size;
-
-    public String getDjlx() {
-        return djlx;
-    }
-
-    public void setDjlx(String djlx) {
-        this.djlx = djlx;
-    }
-
-    public int getBlsc() {
-        return blsc;
-    }
-
-    public void setBlsc(int blsc) {
-        this.blsc = blsc;
-    }
-
-    public String getQllx() {
-        return qllx;
-    }
-
-    public void setQllx(String qllx) {
-        this.qllx = qllx;
-    }
-
-    public String getYwh() {
-        return ywh;
-    }
-
-    public void setYwh(String ywh) {
-        this.ywh = ywh;
-    }
 
     public Date getStartTime() {
         return startTime;
@@ -172,14 +125,6 @@ public class QueryRequestVo {
 
     public void setXzqjib(String xzqjib) {
         this.xzqjib = xzqjib;
-    }
-
-    public List<String> getJkzl() {
-        return jkzl;
-    }
-
-    public void setJkzl(List<String> jkzl) {
-        this.jkzl = jkzl;
     }
 
     public boolean isLists() {
