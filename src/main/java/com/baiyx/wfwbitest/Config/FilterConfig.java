@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.Config;
 
-import com.baiyx.wfwbitest.InterceptorAndFilter.MyFilter;
+import com.baiyx.wfwbitest.Other.InterceptorAndFilter.MyFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

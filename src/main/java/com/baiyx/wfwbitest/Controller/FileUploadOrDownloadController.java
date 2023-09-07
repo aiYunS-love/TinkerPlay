@@ -8,7 +8,7 @@ import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Config.MinioClientConfig;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Entity.UserFile;
-import com.baiyx.wfwbitest.Service.UserFileService;
+import com.baiyx.wfwbitest.Controller.Service.UserFileService;
 import com.baiyx.wfwbitest.Utils.MinioUtil;
 import io.minio.*;
 import io.swagger.v3.oas.annotations.Operation;

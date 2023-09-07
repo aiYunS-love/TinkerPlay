@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.Config;
 
-import com.baiyx.wfwbitest.Properties.StorageProperty;
+import com.baiyx.wfwbitest.Config.Properties.StorageProperty;
 import io.minio.BucketExistsArgs;
 import io.minio.MinioClient;
 import io.minio.messages.Bucket;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.wfwbitest.Dao.ProjBaseDao">
+<mapper namespace="com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ProjBaseDao">
 
     <select id="CountProjbase" resultType="int">
         select count(*) from projbase

@@ -2,7 +2,7 @@ package com.baiyx.wfwbitest.DecryptAndEncry;
 
 import com.baiyx.wfwbitest.CustomAnnotations.Encrypt;
 import com.baiyx.wfwbitest.Entity.R;
-import com.baiyx.wfwbitest.Properties.EncryptProperties;
+import com.baiyx.wfwbitest.Config.Properties.EncryptProperties;
 import com.baiyx.wfwbitest.Utils.AESUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;

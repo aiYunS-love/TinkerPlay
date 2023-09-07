@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.wfwbitest.Dao.ISysJobRepository">
+<mapper namespace="com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ISysJobRepository">
 
     <insert id="addSysJob" parameterType="com.baiyx.wfwbitest.Entity.SysJobPO">
         insert into timedtask(beanName,methodName,methodParams,cronExpression,remark,jobStatus,createTime,updateTime) values

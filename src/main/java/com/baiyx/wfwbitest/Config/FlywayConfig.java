@@ -1,14 +1,19 @@
 package com.baiyx.wfwbitest.Config;
 
+import com.baomidou.dynamic.datasource.creator.DataSourceProperty;
+import com.baomidou.dynamic.datasource.spring.boot.autoconfigure.DynamicDataSourceProperties;
 import org.flywaydb.core.Flyway;
 import org.flywaydb.core.api.FlywayException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import java.util.Map;
 
 /**
  * @Author: baiyx
@@ -17,16 +22,30 @@ import javax.sql.DataSource;
  */
 @Configuration
 public class FlywayConfig {
-
-    @Resource(name = "primaryDataSource")
-    private DataSource dataSource;
-
     private Logger logger = LoggerFactory.getLogger(this.getClass());
-
+    @Resource(name = "YmlDataSourceConfig")
+    private YmlDataSourceConfig ymlDataSourceConfig;
+    @Value("${spring.flyway.dataSourceArr}")
+    private String dataSourceArr;
 
     @PostConstruct
     public void migrate() {
+        DynamicDataSourceProperties properties = ymlDataSourceConfig.getProperties();
+        Map<String, DataSourceProperty> dataSourceMap = properties.getDatasource();
+        String[] environment = dataSourceArr.split(",");
+        for (String key : dataSourceMap.keySet()) {
+            for (String env : environment) {
+                if ("master".equals(key)) {
+                    execute(getDataSource(dataSourceMap.get(key)));
+                    break;
+                }else if (key.equals(env)) {
+                    execute(getDataSource(dataSourceMap.get(key)));
+                }
+            }
+        }
+    }
 
+    private void execute(DataSource dataSource){
         //高版本的Flywayjar包的写法一
         Flyway flyway = Flyway.configure()
                 .dataSource(dataSource)
@@ -72,6 +91,15 @@ public class FlywayConfig {
             }
 
         }
-
     }
+
+    private DataSource getDataSource(DataSourceProperty dataSourceProperty) {
+        DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();
+        dataSourceBuilder.driverClassName(dataSourceProperty.getDriverClassName());
+        dataSourceBuilder.url(dataSourceProperty.getUrl());
+        dataSourceBuilder.username(dataSourceProperty.getUsername());
+        dataSourceBuilder.password(dataSourceProperty.getPassword());
+        return dataSourceBuilder.build();
+    }
+
 }

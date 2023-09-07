@@ -586,7 +586,7 @@
         <!--指定打包后的finalName-->
         <finalName>${project.artifactId}</finalName>
         <resources>
-            <!-- 把src/main/resources目录中的yml文件包含到输出结果中。输出到classes目录中 -->
+            <!-- 把需要打包的文件打包到classes目录中 -->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
@@ -598,6 +598,9 @@
                     <include>static/**/*</include>
                     <include>templates/**/*</include>
                 </includes>
+                <excludes>
+                    <exclude>src/test</exclude>
+                </excludes>
                 <filtering>true</filtering>
             </resource>
         </resources>
@@ -660,7 +663,7 @@
                     <images>
                         <image>
                             <!--由于推送到私有镜像仓库，镜像名需要添加仓库地址-->
-                            <name>192.168.119.128:50/baiyx/${project.name}:${project.version}</name>
+                            <name>baiyx/${project.name}:${project.version}</name>
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
@@ -691,18 +694,22 @@
                                     <port>1001:1001</port>
                                 </ports>
                                 <!--设置容器间连接-->
-                                <links>
-                                    <link>mysql:db</link>
-                                </links>
+<!--                                <links>-->
+<!--                                    <link>mysql:db</link>-->
+<!--                                </links>-->
                                 <!--设置容器和宿主机目录挂载-->
                                 <volumes>
                                     <bind>
                                         <volume>/etc/localtime:/etc/localtime</volume>
-                                        <!--                                        <volume>/mydata/${project.artifactId}/logs:/var/logs</volume>-->
+                                        <!-- <volume>/mydata/${project.artifactId}/logs:/var/logs</volume>-->
                                         <volume>/mydata/Test/Temp:/Test/Temp</volume>
                                         <volume>/mydata/Test/uploadFile:/Test/uploadFile</volume>
                                     </bind>
+                                    <from>
+                                        <image>baiyx/${project.name}</image>
+                                    </from>
                                 </volumes>
+                                <cmd>java --add-opens=java.base/java.util=ALL-UNNAMED -jar /${project.name}</cmd>
                             </run>
                         </image>
                     </images>

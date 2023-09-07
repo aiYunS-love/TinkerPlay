@@ -20,9 +20,15 @@ spring:
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
-        slave:
+        slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
+          username: root
+          password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
+          type: com.alibaba.druid.pool.DruidDataSource
+        slave_2:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://127.0.0.1:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
@@ -118,6 +124,8 @@ spring:
     out-of-order: false
     # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
     schemas: heima
+    # 配置多数据源后,指定数据源执行脚本
+    dataSourceArr: master,slave_1
   # 文件上传功能开启
   servlet:
     multipart:
@@ -143,7 +151,6 @@ spring:
       port: 6379
       # host: 127.0.0.1
       host: 192.168.119.128
-      # 密码
       # password: b0650fa
       password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
       timeout: 60000 #连接超时时间（毫秒）
@@ -182,6 +189,7 @@ spring:
         useHttps: true
         rest:
           hostNames: http://192.168.119.128:9200
+  # 解决springboot升级2.7.5导致的ApplicationContextException
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

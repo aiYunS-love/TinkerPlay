@@ -6,7 +6,7 @@ import com.baiyx.wfwbitest.Entity.QueryRequestVo;
 import com.baiyx.wfwbitest.Entity.R;
 import com.baiyx.wfwbitest.Entity.ResultMsg;
 import com.baiyx.wfwbitest.Entity.User;
-import com.baiyx.wfwbitest.Service.UserService;
+import com.baiyx.wfwbitest.Controller.Service.UserService;
 import com.baiyx.wfwbitest.Utils.ExcelUtil;
 import com.baiyx.wfwbitest.Utils.RowConvertColUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -44,7 +44,7 @@ public class UserController {
 
     @Autowired
     UserService UserService;
-    
+
     /**
     * @Author: baiyx
     * @Description: 测试Aop层面统一打印自定义日志格式
