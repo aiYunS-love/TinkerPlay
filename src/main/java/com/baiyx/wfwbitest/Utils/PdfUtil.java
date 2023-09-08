@@ -7,6 +7,7 @@ import com.itextpdf.text.pdf.*;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -47,14 +48,6 @@ public class PdfUtil {
         String templatePath = pdfConfig.getTemplatePath();
         // 创建文件夹
         String newPdfPath = path0;
-        File file = new File(templatePath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         File file1 = new File(newPdfPath);
         if (!file1.exists()) {
             try {
@@ -68,12 +61,13 @@ public class PdfUtil {
         ByteArrayOutputStream bos;
         PdfStamper stamper;
         try {
-            BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bf = BaseFont.createFont();
             // 输出流
             String outPath = newPdfPath + System.currentTimeMillis() +".pdf";
             out = new FileOutputStream(outPath);
             // 读取pdf模板
-            InputStream inputStream = new FileInputStream(templatePath);
+            ClassPathResource resource = new  ClassPathResource(templatePath);
+            InputStream inputStream = resource.getInputStream();
             reader = new PdfReader(inputStream);
             bos = new ByteArrayOutputStream();
             stamper = new PdfStamper(reader, bos);
