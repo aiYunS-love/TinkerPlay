@@ -224,7 +224,7 @@ pdf:
     # pdf模板相对路径
     templatePath: src/main/resources/templates/test输出pdf模板.pdf
     # pdf输出位置
-    output: E:\baiyx\uploadFile\pdf\
+    output: /Test/uploadFile/
     # 字体相对路径
     fontPath: src/main/resources/static/fonts/simsun.ttf
 

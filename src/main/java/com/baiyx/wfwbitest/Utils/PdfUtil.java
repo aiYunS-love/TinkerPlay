@@ -34,7 +34,7 @@ public class PdfUtil {
     /**
      * 利用模板生成pdf保存到某路径下
      */
-    public static void pdfOut(Map<String, Object> inputMap) {
+    public static String pdfOut(Map<String, Object> inputMap) {
 
         // 生成的新文件路径
         String path0 = pdfConfig.getOutput();
@@ -68,10 +68,10 @@ public class PdfUtil {
         ByteArrayOutputStream bos;
         PdfStamper stamper;
         try {
-            String fontPath = pdfConfig.getFontPath();
-            BaseFont bf = BaseFont.createFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             // 输出流
-            out = new FileOutputStream(newPdfPath + "\\" + System.currentTimeMillis() +".pdf");
+            String outPath = newPdfPath + "\\" + System.currentTimeMillis() +".pdf";
+            out = new FileOutputStream(outPath);
             // 读取pdf模板
             reader = new PdfReader(templatePath);
             bos = new ByteArrayOutputStream();
@@ -92,10 +92,11 @@ public class PdfUtil {
             PdfImportedPage importPage = copy.getImportedPage(new PdfReader(bos.toByteArray()), 1);
             copy.addPage(importPage);
             doc.close();
+            return outPath;
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         }
-
+        return "";
     }
 
     /**

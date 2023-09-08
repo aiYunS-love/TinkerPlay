@@ -23,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,8 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -353,29 +356,34 @@ public class FileUploadOrDownloadController {
      */
     @Operation(summary = "导出PDF")
     @GetMapping("CreatePDF/{id}")
-    public void CreatePDF(@PathVariable("id") Integer id) throws Exception {
+    @ResponseBody
+    public String CreatePDF(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
         QueryRequestVo queryRequestVo = new QueryRequestVo();
         User user = new User();
         user.setId(id);
         queryRequestVo.setUser(user);
         R result = userService.findById(queryRequestVo);
         user = (User) result.getData();
-        Map<String,Object> userMap = new IdentityHashMap<>();
-        Map<String,String> map = new HashMap<>();
-        Class<?> clazz = user.getClass();
-        Field[] fields = clazz.getDeclaredFields();
-        Method[] methods = clazz.getDeclaredMethods();
-        for (Field field : fields) {
-            field.setAccessible(true);
-            for (Method method : methods) {
-                method.setAccessible(true);
-                if (method.getName().startsWith("get") && method.getName().toLowerCase().contains(field.getName().toLowerCase())) {
-                    Object o = method.invoke(user);
-                    map.put(field.getName(),o.toString());
+        if (user != null) {
+            Map<String,Object> userMap = new IdentityHashMap<>();
+            Map<String,String> map = new HashMap<>();
+            Class<?> clazz = user.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            Method[] methods = clazz.getDeclaredMethods();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                for (Method method : methods) {
+                    method.setAccessible(true);
+                    if (method.getName().startsWith("get") && method.getName().toLowerCase().contains(field.getName().toLowerCase())) {
+                        Object o = method.invoke(user);
+                        map.put(field.getName(),o.toString());
+                    }
                 }
             }
+            userMap.put("user", map);
+            String filePath = PdfUtil.pdfOut(userMap);
+            return filePath;
         }
-        userMap.put("user", map);
-        PdfUtil.pdfOut(userMap);
+        return "没有对应的pdf文件生成!";
     }
 }
