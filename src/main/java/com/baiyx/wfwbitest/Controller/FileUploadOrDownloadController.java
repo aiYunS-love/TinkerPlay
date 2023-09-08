@@ -376,7 +376,11 @@ public class FileUploadOrDownloadController {
                     method.setAccessible(true);
                     if (method.getName().startsWith("get") && method.getName().toLowerCase().contains(field.getName().toLowerCase())) {
                         Object o = method.invoke(user);
-                        map.put(field.getName(),o.toString());
+                        if (o != null) {
+                            map.put(field.getName(),o.toString());
+                        } else {
+                            map.put(field.getName(),"");
+                        }
                     }
                 }
             }
