@@ -701,7 +701,7 @@
                                 <volumes>
                                     <bind>
                                         <volume>/etc/localtime:/etc/localtime</volume>
-                                        <!-- <volume>/mydata/${project.artifactId}/logs:/var/logs</volume>-->
+                                        <volume>/mydata/${project.artifactId}/logs/${project.artifactId}:/logs/${project.artifactId}</volume>
                                         <volume>/mydata/Test/Temp:/Test/Temp</volume>
                                         <volume>/mydata/Test/uploadFile:/Test/uploadFile</volume>
                                     </bind>
@@ -723,6 +723,9 @@
                 <version>3.1.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>

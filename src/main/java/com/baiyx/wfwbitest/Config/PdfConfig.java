@@ -1,7 +1,11 @@
 package com.baiyx.wfwbitest.Config;
 
+import com.baiyx.wfwbitest.Utils.PdfUtil;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+
+import java.io.IOException;
 
 /**
  * @Author: baiyx
@@ -25,7 +29,11 @@ public class PdfConfig {
 
     @Value("${pdf.config.templatePath}")
     public void setTemplatePath(String templatePath) {
-        PdfConfig.templatePath = templatePath;
+        try {
+            PdfConfig.templatePath = new ClassPathResource(templatePath, PdfUtil.class.getClassLoader()).getFile().getPath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getOutput() {
@@ -43,6 +51,10 @@ public class PdfConfig {
 
     @Value("${pdf.config.fontPath}")
     public void setFontPath(String fontPath) {
-        PdfConfig.fontPath = fontPath;
+        try {
+            PdfConfig.fontPath = new ClassPathResource(fontPath, PdfUtil.class.getClassLoader()).getFile().getPath();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

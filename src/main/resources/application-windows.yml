@@ -227,12 +227,12 @@ mybatis:
 
 pdf:
   config:
-    # pdf模板相对路径
-    templatePath: src/main/resources/templates/test输出pdf模板.pdf
+    # pdf模板路径
+    templatePath: /templates/test输出pdf模板.pdf
     # pdf输出位置
-    output: E:\baiyx\uploadFile\pdf
-      # 字体相对路径
-    fontPath: src/main/resources/static/fonts/simsun.ttf
+    output: E:\baiyx\uploadFile\pdf\
+    # 字体路径
+    fontPath: /templates/fonts/simsun.ttf
 
 ## swagger 暂时注释 测试SwaggerConfig配置类
 #swagger:

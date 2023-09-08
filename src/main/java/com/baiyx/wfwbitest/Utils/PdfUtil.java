@@ -70,10 +70,11 @@ public class PdfUtil {
         try {
             BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             // 输出流
-            String outPath = newPdfPath + "\\" + System.currentTimeMillis() +".pdf";
+            String outPath = newPdfPath + System.currentTimeMillis() +".pdf";
             out = new FileOutputStream(outPath);
             // 读取pdf模板
-            reader = new PdfReader(templatePath);
+            InputStream inputStream = new FileInputStream(templatePath);
+            reader = new PdfReader(inputStream);
             bos = new ByteArrayOutputStream();
             stamper = new PdfStamper(reader, bos);
             AcroFields form = stamper.getAcroFields();
