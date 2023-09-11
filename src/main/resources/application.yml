@@ -176,13 +176,6 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.119.128:9200
-    bboss:
-      elasticUser:
-      elasticPassword:
-      elasticsearch:
-        useHttps: true
-        rest:
-          hostNames: http://192.168.119.128:9200
   # 解决springboot升级2.7.5导致的ApplicationContextException
   mvc:
     pathmatch:
