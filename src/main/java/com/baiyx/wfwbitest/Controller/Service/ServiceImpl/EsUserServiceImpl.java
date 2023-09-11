@@ -1,9 +1,8 @@
-//package com.baiyx.wfwbitest.ServiceImpl;
+//package com.baiyx.wfwbitest.Controller.Service.ServiceImpl;
 //
-//import com.baiyx.wfwbitest.Dao.UserDao;
+//import com.baiyx.wfwbitest.Controller.Service.EsUserService;
+//import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao;
 //import com.baiyx.wfwbitest.Entity.EsUser;
-//import com.baiyx.wfwbitest.Repository.EsUserRepository;
-//import com.baiyx.wfwbitest.Service.EsUserService;
 //import org.apache.commons.collections4.CollectionUtils;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.data.domain.Page;
@@ -24,14 +23,14 @@
 //public class EsUserServiceImpl implements EsUserService {
 //
 //    @Autowired
-//    private UserDao UserDao;
+//    private UserDao userDao;
 //
-////    @Autowired
-////    private EsUserRepository esUserRepository;
+//    @Autowired
+//    private com.baiyx.wfwbitest.Repository.EsUserRepository esUserRepository;
 //
 //    @Override
 //    public int importAll() {
-//        List<EsUser> esProductList = UserDao.findAll3();
+//        List<EsUser> esProductList = userDao.findAll3();
 //        Iterable<EsUser> esProductIterable = esUserRepository.saveAll(esProductList);
 //        Iterator<EsUser> iterator = esProductIterable.iterator();
 //        int result = 0;
@@ -50,7 +49,7 @@
 //    @Override
 //    public EsUser create(Long id) {
 //        EsUser result = null;
-//        List<EsUser> esUserList = UserDao.findById2(id);
+//        List<EsUser> esUserList = userDao.findById2(id);
 //        if (esUserList.size() > 0) {
 //            EsUser esProduct = esUserList.get(0);
 //            result = (EsUser) esUserRepository.save(esProduct);
