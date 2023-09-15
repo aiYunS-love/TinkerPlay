@@ -1,10 +1,10 @@
 package com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao;
 
-import com.baiyx.wfwbitest.Entity.EsUser;
+import com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser;
+import com.baiyx.wfwbitest.Controller.Elasticsearch.Repository.EsUserRepository;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Utils.RowConvertColUtil;
-import com.baomidou.dynamic.datasource.annotation.DS;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,7 +20,7 @@ import java.util.List;
  */
 @Mapper
 @CacheConfig(cacheNames = "UserDao")
-public interface UserDao {
+public interface UserDao extends EsUserRepository {
 
     // 查
     // @Cacheable(cacheNames = "findAll",cacheManager = "cacheManager")

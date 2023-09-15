@@ -107,6 +107,9 @@ public class MacUtil {
     // 获取MAC地址的方法
     public static String getMACAddress(InetAddress ia) throws Exception {
         // 获得网络接口对象（即网卡），并得到mac地址，mac地址存在于一个byte数组中。
+        if (!ia.toString().startsWith("/") && ia.toString().length() > 16) {
+            return "";
+        }
         byte[] mac = NetworkInterface.getByInetAddress(ia).getHardwareAddress();
         // 下面代码是把mac地址拼装成String
         StringBuffer sb = new StringBuffer();

@@ -1,18 +1,79 @@
-package com.baiyx.wfwbitest.Controller;
+package com.baiyx.wfwbitest.Controller.Elasticsearch;
 
+import com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.annotation.Resource;
+import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @Author: baiyx
  * @Date: 2023年3月16日, 0016 下午 1:59:46
- * @Description: 搜索人员管理Controller
+ * @Description: ES的Controller
  */
 @Controller
-@Tag(name = "EsUserController", description = "搜索人员管理")
+@Tag(name = "EsUserController", description = "ES的Controller")
 @RequestMapping("/esUser")
 public class EsUserController {
+    @Resource
+    EsUserService esUserService;
+
+    @Operation(summary = "根据名字计数")
+    @GetMapping("/countByname/{name}")
+    @ResponseBody
+    public long countByname(@PathVariable("name") String name){
+        return esUserService.countByname(name);
+    }
+
+    @Operation(summary = "根据名字删除")
+    @GetMapping("/deleteByname/{name}")
+    @ResponseBody
+    public long deleteByname(@PathVariable("name") String name){
+        return esUserService.deleteByname(name);
+    }
+
+    @Operation(summary = "保存全部到ES")
+    @RequestMapping(value = "/esUserSaveAll", method = RequestMethod.POST)
+    @ResponseBody
+    String userSaveAll() {
+        int result = esUserService.saveAllUsers();
+        return "成功插入: " + result + "条数据!";
+    }
+
+    @Operation(summary = "查询ES")
+    @RequestMapping(value = "/findByname", method = RequestMethod.POST)
+    @ResponseBody
+    List findByname(String name) {
+        List<EsUser> userList = esUserService.findByName(name);
+        return userList;
+    }
+
+    @Operation(summary = "根据ID查询ES")
+    @ResponseBody
+    @GetMapping("/searchById/{id}")
+    public EsUser searchById(@PathVariable("id")  Long id) {
+        EsUser esUser = esUserService.searchById(id);
+        return esUser;
+    }
+
+    @Operation(summary = "保存到ES")
+    @ResponseBody
+    @PostMapping("/saveEsUser")
+    public Long saveEsUser(@RequestBody EsUser esUser){
+        Long id = esUserService.saveEsUser(esUser);
+        return id;
+    }
+
+    @Operation(summary = "查询所有")
+    @GetMapping("/searchAll")
+    @ResponseBody
+    public SearchHits<EsUser> searchAll(){
+        return esUserService.searchAll();
+    }
 
 //    @Autowired
 //    private EsUserService esUserService;

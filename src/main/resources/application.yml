@@ -207,7 +207,9 @@ mybatis:
   #映射的xml的sql文件路径
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
-  type-aliases-package: com/baiyx/wfwbitest/entity
+  type-aliases-package:
+    - com.baiyx.wfwbitest.entity
+    - com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

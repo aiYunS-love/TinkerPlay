@@ -10,7 +10,7 @@
         select * from user;
     </select>
 
-    <select id="findAll3" resultType="com.baiyx.wfwbitest.Entity.EsUser">
+    <select id="findAll3" resultType="com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser;
     </select>
 
@@ -34,7 +34,7 @@
         select * from user where id=#{id};
     </select>
 
-    <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.EsUser">
+    <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser where id=#{id};
     </select>
 

@@ -7,6 +7,7 @@ import com.baiyx.wfwbitest.Entity.Projbase;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
 import com.github.pagehelper.Page;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.Map;
  * @Date: 2022-12-5 14:04
  * @Description: 业务实现层 直接实现DAO层接口
  */
-
+@Service
 public class ProjBaseServiceImpl implements ProjBaseDao {
 
     @Resource

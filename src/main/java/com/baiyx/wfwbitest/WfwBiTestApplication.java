@@ -4,6 +4,7 @@ import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.boot.web.embedded.tomcat.TomcatConnectorCustomizer;
@@ -11,6 +12,8 @@ import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactor
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 import org.springframework.scheduling.annotation.EnableAsync;
 
 // @EnableRabbit
@@ -22,8 +25,9 @@ import org.springframework.scheduling.annotation.EnableAsync;
 @EnableAsync //开启多线程,异步
 //@EnableSwagger2 //开启swagger2
 @EnableCaching // 开启redis缓存
+//@EntityScan(basePackages = "{com.baiyx.wfwbitest.Entity, com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity}")
 // 排除SecurityAutoConfiguration类,否则会启用认证
-//@EnableElasticsearchRepositories(basePackages = "com.baiyx.wfwbitest.repository")
+@EnableElasticsearchRepositories(basePackages = "com.baiyx.wfwbitest.Controller.Elasticsearch.Repository")
 @SpringBootApplication(exclude = {FlywayAutoConfiguration.class, SecurityAutoConfiguration.class})
 public class WfwBiTestApplication {
 
