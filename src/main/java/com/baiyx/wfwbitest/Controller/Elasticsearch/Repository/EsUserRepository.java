@@ -1,8 +1,11 @@
 package com.baiyx.wfwbitest.Controller.Elasticsearch.Repository;
 
 import com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -13,7 +16,7 @@ import java.util.concurrent.Future;
  * @Date: 2023年9月11日, 0011 下午 4:02:04
  * @Description: 派生计数和查询
  */
-public interface EsUserRepository extends BaseRepository<EsUser, Long> {
+public interface EsUserRepository extends ElasticsearchRepository<EsUser, Long> {
 
     /***
      * @Author: baiyx
@@ -123,6 +126,31 @@ public interface EsUserRepository extends BaseRepository<EsUser, Long> {
     @Async
     ListenableFuture<EsUser> findOneByLastName(String lastName);
 
-    EsUser searchById(String id);
+    /**
+     * 根据性别 搜索查询
+     */
+    Page<EsUser> findBySex(String sex, Pageable page);
+
+    /**
+     * 搜索查询
+     * @param name             姓名
+     * @param sex              性别
+     * @param address          地址
+     * @param EMAIL            邮箱
+     * @param CARD             证件号
+     * @param PHONE            电话
+     * @param keywords         关键字
+     */
+    Page<EsUser> findByKeywords(String name, String sex, String address, String EMAIL, String CARD, String PHONE, String keywords, Pageable page);
+
+    /**
+     * 根据姓名或关键字 搜索查询
+     */
+    Page<EsUser> findByNameOrKeywords(String name, String keywords, Pageable page);
+
+    /**
+     * 根据姓名或证件号或关键字 搜索查询
+     */
+    Page<EsUser> findByNameOrCARDOrKeywords(String name, String CARD, String keywords, Pageable page);
 
 }

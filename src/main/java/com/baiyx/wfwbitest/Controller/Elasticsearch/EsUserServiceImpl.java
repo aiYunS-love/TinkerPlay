@@ -6,17 +6,20 @@ import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao;
 import jakarta.annotation.Resource;
 import org.elasticsearch.index.query.MatchAllQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.client.erhlc.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.client.erhlc.NativeSearchQuery;
 import org.springframework.data.elasticsearch.client.erhlc.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.SearchHits;
-import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import static io.lettuce.core.GeoArgs.Unit.m;
+import java.util.Optional;
 
 /**
  * @Author: baiyx
@@ -44,8 +47,14 @@ public class EsUserServiceImpl implements EsUserService{
         return esUserRepository.countByname(name);
     }
 
+    @Override
     public long deleteByname(String name){
         return esUserRepository.deleteByname(name);
+    }
+
+    @Override
+    public List<EsUser> removeByname(String name){
+        return esUserRepository.removeByname(name);
     }
 
     @Override
@@ -67,9 +76,8 @@ public class EsUserServiceImpl implements EsUserService{
     }
 
     @Override
-    public EsUser searchById(Long id) {
-        EsUser esUser = esUserRepository.searchById(id.toString());
-        return esUser;
+    public Optional<EsUser> searchById(Long id) {
+         return esUserRepository.findById(id);
     }
 
     @Override
@@ -81,5 +89,71 @@ public class EsUserServiceImpl implements EsUserService{
         MatchAllQueryBuilder matchAllQueryBuilder = new MatchAllQueryBuilder();
         NativeSearchQuery query = new NativeSearchQueryBuilder().withQuery(matchAllQueryBuilder).build();
         return elasticsearchTemplate.search(query, EsUser.class);
+    }
+
+    @Override
+    public int importAll() {
+        List<EsUser> esProductList = userDao.findAll3();
+        Iterable<EsUser> esProductIterable = esUserRepository.saveAll(esProductList);
+        Iterator<EsUser> iterator = esProductIterable.iterator();
+        int result = 0;
+        while (iterator.hasNext()) {
+            result++;
+            iterator.next();
+        }
+        return result;
+    }
+
+    @Override
+    public void delete(Long id) {
+        esUserRepository.deleteById(id);
+    }
+
+    @Override
+    public EsUser create(Long id) {
+        EsUser result = null;
+        List<EsUser> esUserList = userDao.findById2(id);
+        if (esUserList.size() > 0) {
+            EsUser esProduct = esUserList.get(0);
+            result = (EsUser) esUserRepository.save(esProduct);
+        }
+        return result;
+    }
+
+    @Override
+    public void delete(List<Long> ids) {
+        if (!CollectionUtils.isEmpty(ids)) {
+            List<EsUser> esProductList = new ArrayList<>();
+            for (Long id : ids) {
+                EsUser esProduct = new EsUser();
+                esProduct.setId(id);
+                esProductList.add(esProduct);
+            }
+            esUserRepository.deleteAll(esProductList);
+        }
+    }
+
+    @Override
+    public Page<EsUser> searchBySex(String sex, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return esUserRepository.findBySex(sex, pageable);
+    }
+
+    @Override
+    public Page<EsUser> searchByNameOrKeywords(String keyword, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return esUserRepository.findByNameOrKeywords(keyword, keyword, pageable);
+    }
+
+    @Override
+    public Page<EsUser> searchByNameOrCARDOrKeywords(String keyword, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return esUserRepository.findByNameOrCARDOrKeywords(keyword, keyword, keyword, pageable);
+    }
+
+    @Override
+    public Page<EsUser> searchByKeyword(String keyword, Integer pageNum, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNum, pageSize);
+        return esUserRepository.findByKeywords(keyword, keyword, keyword, keyword, keyword, keyword, keyword, pageable);
     }
 }

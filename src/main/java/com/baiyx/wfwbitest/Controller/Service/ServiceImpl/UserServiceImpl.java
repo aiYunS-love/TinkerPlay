@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     // @Async("asyncServiceExecutor") //开启这里会导致controller层返回为null;
     @Override
     public List<User> findAll() {
-        List<User> users = UserDao.findAll();
+        List<User> users = UserDao.findAll0();
 //        System.out.println("=============测试定时任务查询信息并且输出开始==============");
 //        System.out.println("users" + users);
 //        System.out.println("=============测试定时任务查询信息并且输出结束==============");
@@ -171,7 +171,7 @@ public class UserServiceImpl implements UserService {
                 endTime = queryRequestVo.getEndTime();
                 users = UserDao.findByTime(startTime, endTime);
             } else {
-                users = UserDao.findAll();
+                users = UserDao.findAll0();
             }
             return users;
         } catch (Exception e) {
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
                 endTime = queryRequestVo.getEndTime();
                 users = UserDao.findByTime(startTime, endTime);
             } else {
-                users = UserDao.findAll();
+                users = UserDao.findAll0();
             }
             String[] fixedColumn = {"id", "username", "address", "sex", "birthday"};
             String[] fixedColumnName = {"序号", "姓名", "地址", "性别", "生日"};

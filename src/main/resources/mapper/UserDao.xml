@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao">
 
-    <select id="findAll" resultType="com.baiyx.wfwbitest.Entity.User">
+    <select id="findAll0" resultType="com.baiyx.wfwbitest.Entity.User">
         select * from user;
     </select>
 

@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.SingletonPattern;
+package com.baiyx.wfwbitest.Other.SingletonPattern;
 
 /**
  * @Author: baiyx

@@ -25,7 +25,7 @@ public interface UserDao extends EsUserRepository {
     // 查
     // @Cacheable(cacheNames = "findAll",cacheManager = "cacheManager")
     @Cacheable
-    List<User> findAll();
+    List<User> findAll0();
 
     List<User> findAll2();
 

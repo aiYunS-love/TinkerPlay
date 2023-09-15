@@ -11,6 +11,8 @@ import org.springframework.data.elasticsearch.repository.support.ElasticsearchRe
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.core.support.RepositoryFactorySupport;
 
+import java.net.InetAddress;
+
 /**
  * @Author: baiyx
  * @Date: 2023年9月12日, 0012 下午 3:38:29

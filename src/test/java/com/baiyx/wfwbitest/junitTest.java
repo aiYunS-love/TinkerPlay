@@ -89,7 +89,7 @@ public class junitTest implements Runnable{
         // 创建1条记录
         //userRepository.insertOne(new User(100,"AAA","海南岛","男",simpleDateFormat.parse("1993-01-01")));
         long startTime1 = System.currentTimeMillis();
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll0();
         long endTime1 = System.currentTimeMillis();
         System.out.println("第一次查询耗时: " + (endTime1-startTime1)+"ms");
 
