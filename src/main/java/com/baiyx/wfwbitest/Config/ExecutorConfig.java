@@ -23,13 +23,13 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ExecutorConfig {
 
     /** 核心线程数(默认线程数) */
-    @Value("${spring.datasource.initialSize}")
+    @Value("${spring.datasource.dynamic.druid.initial-size}")
     private int corePoolSize;
     /** 最大线程数 */
-    @Value("${spring.datasource.maxActive}")
+    @Value("${spring.datasource.dynamic.druid.max-active}")
     private int maxPoolSize;
     /** 允许线程空闲时间（单位：默认为秒） */
-    @Value("${spring.datasource.}")
+    @Value("${spring.datasource.dynamic.druid.min-evictable-idle-time-millis}")
     private static final int keepAliveTime = 60;
     /** 缓冲队列大小 */
     private int queueCapacity = 10;

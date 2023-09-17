@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.wfwbitest.Dao.UserDao">
+<mapper namespace="com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao">
 
-    <select id="findAll" resultType="com.baiyx.wfwbitest.Entity.User">
+    <select id="findAll0" resultType="com.baiyx.wfwbitest.Entity.User">
         select * from user;
     </select>
 
@@ -10,7 +10,7 @@
         select * from user;
     </select>
 
-    <select id="findAll3" resultType="com.baiyx.wfwbitest.Entity.EsUser">
+    <select id="findAll3" resultType="com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser;
     </select>
 
@@ -34,7 +34,7 @@
         select * from user where id=#{id};
     </select>
 
-    <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Entity.EsUser">
+    <select id="findById2" parameterType="com.baiyx.wfwbitest.Entity.QueryRequestVo" resultType="com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser where id=#{id};
     </select>
 

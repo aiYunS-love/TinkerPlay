@@ -2,13 +2,13 @@ package com.baiyx.wfwbitest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baiyx.wfwbitest.DesignMode.BuildJDBC;
+import com.baiyx.wfwbitest.Other.DesignMode.BuildJDBC;
 import com.baiyx.wfwbitest.Common.RedisService;
-import com.baiyx.wfwbitest.Dao.ProjBaseDao;
+import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.DataStructure.Stack;
 import com.baiyx.wfwbitest.Algorithm.RecursiveAlgorithm;
-import com.baiyx.wfwbitest.DesignMode.BuildJDBC.JDBCBuilder;
-import com.baiyx.wfwbitest.Dao.UserDao;
+import com.baiyx.wfwbitest.Other.DesignMode.BuildJDBC.JDBCBuilder;
+import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao;
 import com.baiyx.wfwbitest.Entity.ExcelPOJO;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
 import com.baiyx.wfwbitest.Entity.TokenAccess;
@@ -89,7 +89,7 @@ public class junitTest implements Runnable{
         // 创建1条记录
         //userRepository.insertOne(new User(100,"AAA","海南岛","男",simpleDateFormat.parse("1993-01-01")));
         long startTime1 = System.currentTimeMillis();
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAll0();
         long endTime1 = System.currentTimeMillis();
         System.out.println("第一次查询耗时: " + (endTime1-startTime1)+"ms");
 

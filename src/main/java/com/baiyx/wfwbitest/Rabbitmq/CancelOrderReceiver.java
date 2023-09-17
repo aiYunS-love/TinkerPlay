@@ -2,8 +2,7 @@ package com.baiyx.wfwbitest.Rabbitmq;
 
 import com.alibaba.fastjson.JSON;
 import com.baiyx.wfwbitest.Entity.QueryRequestVo;
-import com.baiyx.wfwbitest.Entity.User;
-import com.baiyx.wfwbitest.Service.UserService;
+import com.baiyx.wfwbitest.Controller.Service.UserService;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;

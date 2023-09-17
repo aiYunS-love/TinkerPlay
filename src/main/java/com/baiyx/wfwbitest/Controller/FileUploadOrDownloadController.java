@@ -6,10 +6,14 @@ import com.baiyx.wfwbitest.Common.CommonResult;
 import com.baiyx.wfwbitest.Common.MinioUploadDto;
 import com.baiyx.wfwbitest.Config.BucketPolicyConfigDto;
 import com.baiyx.wfwbitest.Config.MinioClientConfig;
+import com.baiyx.wfwbitest.Controller.Service.UserService;
+import com.baiyx.wfwbitest.Entity.QueryRequestVo;
+import com.baiyx.wfwbitest.Entity.R;
 import com.baiyx.wfwbitest.Entity.User;
 import com.baiyx.wfwbitest.Entity.UserFile;
-import com.baiyx.wfwbitest.Service.UserFileService;
+import com.baiyx.wfwbitest.Controller.Service.UserFileService;
 import com.baiyx.wfwbitest.Utils.MinioUtil;
+import com.baiyx.wfwbitest.Utils.PdfUtil;
 import io.minio.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,6 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +32,15 @@ import org.springframework.util.FileSystemUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.net.URLEncoder;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -45,6 +55,8 @@ public class FileUploadOrDownloadController {
 
     @Autowired
     private UserFileService userFileService;
+    @Resource
+    private UserService userService;
 
     @Value("${file-save-path}")
     private String fileSavePath;
@@ -204,8 +216,14 @@ public class FileUploadOrDownloadController {
     @Operation(summary = "文件删除")
     @RequestMapping(value = "/deleteFile", method = RequestMethod.POST)
     @ResponseBody
-    public CommonResult deleteMinioFile(@RequestParam("objectName") String objectName) {
-        String filePath = userFileService.queryByFileName(objectName).getPath();
+    public CommonResult deleteFile(String objectName) {
+        UserFile uf = userFileService.queryByFileName(objectName);
+        String filePath = "";
+        if (uf != null) {
+            filePath = uf.getPath();
+        } else {
+            CommonResult.failed();
+        }
         if(objectName.contains("/") && filePath.contains("://")){
             try {
                 MinioClient minioClient = MinioClient.builder()
@@ -276,7 +294,12 @@ public class FileUploadOrDownloadController {
     public String getFile(String openStyle, Integer id, HttpServletResponse response) throws Exception {
         UserFile userFile = userFileService.queryByUserFileId(id);
         // String realPath = ResourceUtils.getURL("classpath").getPath() + userFile.getPath();
-        String realPath = userFile.getPath();
+        String realPath;
+        if (userFile != null) {
+            realPath = userFile.getPath();
+        } else {
+            return "没有找到任何文件!";
+        }
         if(!realPath.startsWith("http")){
             // 普通上传
             FileInputStream is = new FileInputStream(new File(realPath));
@@ -322,5 +345,49 @@ public class FileUploadOrDownloadController {
     public void preview(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
         String openStyle = "inline";
         getFile(openStyle,id,response);
+    }
+
+    /***
+     * @Author: baiyx
+     * @Description: 测试根据固定PDF模板导出信息
+     * @Date: 2023年9月7日, 0007 下午 4:00:19
+     * @Param: id
+     * @return: void
+     */
+    @Operation(summary = "导出PDF")
+    @GetMapping("CreatePDF/{id}")
+    @ResponseBody
+    public String CreatePDF(@PathVariable("id") Integer id, HttpServletResponse response) throws Exception {
+        QueryRequestVo queryRequestVo = new QueryRequestVo();
+        User user = new User();
+        user.setId(id);
+        queryRequestVo.setUser(user);
+        R result = userService.findById(queryRequestVo);
+        user = (User) result.getData();
+        if (user != null) {
+            Map<String,Object> userMap = new IdentityHashMap<>();
+            Map<String,String> map = new HashMap<>();
+            Class<?> clazz = user.getClass();
+            Field[] fields = clazz.getDeclaredFields();
+            Method[] methods = clazz.getDeclaredMethods();
+            for (Field field : fields) {
+                field.setAccessible(true);
+                for (Method method : methods) {
+                    method.setAccessible(true);
+                    if (method.getName().startsWith("get") && method.getName().toLowerCase().contains(field.getName().toLowerCase())) {
+                        Object o = method.invoke(user);
+                        if (o != null) {
+                            map.put(field.getName(),o.toString());
+                        } else {
+                            map.put(field.getName(),"");
+                        }
+                    }
+                }
+            }
+            userMap.put("user", map);
+            String filePath = PdfUtil.pdfOut(userMap);
+            return filePath;
+        }
+        return "没有对应的pdf文件生成!";
     }
 }

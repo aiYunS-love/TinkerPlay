@@ -5,7 +5,12 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 import java.io.*;
 import java.net.URLEncoder;
 import java.util.Map;
@@ -14,15 +19,23 @@ import java.util.Map;
  * 根据pdf模板生成pdf文件生成到某路径下或导出
  *
  */
+@Component
 public class PdfUtil {
 
     // pdf配置类对象
-    static PdfConfig pdfConfig = new PdfConfig();
+    @Resource(name = "PdfConfig")
+    private PdfConfig config;
+    private static PdfConfig pdfConfig;
+
+    @PostConstruct
+    public void init() {
+        pdfConfig = config;
+    }
 
     /**
      * 利用模板生成pdf保存到某路径下
      */
-    public static void pdfOut(Map<String, Object> inputMap) {
+    public static String pdfOut(Map<String, Object> inputMap) {
 
         // 生成的新文件路径
         String path0 = pdfConfig.getOutput();
@@ -35,14 +48,6 @@ public class PdfUtil {
         String templatePath = pdfConfig.getTemplatePath();
         // 创建文件夹
         String newPdfPath = path0;
-        File file = new File(templatePath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
         File file1 = new File(newPdfPath);
         if (!file1.exists()) {
             try {
@@ -56,11 +61,14 @@ public class PdfUtil {
         ByteArrayOutputStream bos;
         PdfStamper stamper;
         try {
-            BaseFont bf = BaseFont.createFont(pdfConfig.getFontPath(), BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont bf = BaseFont.createFont();
             // 输出流
-            out = new FileOutputStream(newPdfPath + System.currentTimeMillis() +".pdf");
+            String outPath = newPdfPath + System.currentTimeMillis() +".pdf";
+            out = new FileOutputStream(outPath);
             // 读取pdf模板
-            reader = new PdfReader(templatePath);
+            ClassPathResource resource = new  ClassPathResource(templatePath);
+            InputStream inputStream = resource.getInputStream();
+            reader = new PdfReader(inputStream);
             bos = new ByteArrayOutputStream();
             stamper = new PdfStamper(reader, bos);
             AcroFields form = stamper.getAcroFields();
@@ -79,10 +87,11 @@ public class PdfUtil {
             PdfImportedPage importPage = copy.getImportedPage(new PdfReader(bos.toByteArray()), 1);
             copy.addPage(importPage);
             doc.close();
+            return outPath;
         } catch (IOException | DocumentException e) {
             e.printStackTrace();
         }
-
+        return "";
     }
 
     /**

@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.1.2</version>
+        <version>3.1.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.baiyx</groupId>
@@ -23,6 +23,7 @@
         <resource.delimiter>#</resource.delimiter>
         <maven.compiler.source>20</maven.compiler.source>
         <maven.compiler.target>20</maven.compiler.target>
+<!--        <maven.compiler.release>20</maven.compiler.release>-->
     </properties>
     <dependencyManagement>
         <!--
@@ -80,6 +81,12 @@
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-pay</artifactId>
             <version>4.5.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!-- kafka -->
         <dependency>
@@ -108,39 +115,63 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web</artifactId>
-            <version>1.17.0</version>
+            <version>1.17.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-elasticsearch-base</artifactId>
             <version>3.0.1-1.17</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-high-level-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.elasticsearch</groupId>
+                    <artifactId>elasticsearch</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-sql-connector-mysql-cdc</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>javax.servlet</groupId>
+                    <artifactId>javax.servlet-api</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-java</artifactId>
-            <version>1.17.0</version>
-            <scope>provided</scope>
+            <version>1.17.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-streaming-java</artifactId>
-            <version>1.17.0</version>
+            <version>1.17.1</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients</artifactId>
-            <version>1.17.0</version>
+            <version>1.17.1</version>
         </dependency>
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-connector-mysql-cdc</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.1</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>
@@ -151,12 +182,16 @@
                     <groupId>io.swagger.core.v3</groupId>
                     <artifactId>swagger-annotations</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>org.eclipse.jetty.toolchain</groupId>
+                    <artifactId>jetty-jakarta-servlet-api</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-kafka</artifactId>
-            <version>1.17.0</version>
+            <version>3.0.0-1.17</version>
         </dependency>
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -232,28 +267,63 @@
         </dependency>
         <!-- Elasticsearch相关依赖 -->
         <dependency>
-            <groupId>com.bbossgroups.plugins</groupId>
-            <artifactId>bboss-datatran-jdbc</artifactId>
-            <version>7.0.8</version>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>transport</artifactId>
+            <version>7.17.3</version>
         </dependency>
         <dependency>
-            <groupId>com.bbossgroups.plugins</groupId>
-            <artifactId>bboss-elasticsearch-spring-boot-starter</artifactId>
-            <version>7.0.8</version>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>7.17.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>7.17.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>7.17.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-x-content</artifactId>
+            <version>7.17.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch-core</artifactId>
+            <version>7.17.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>7.17.3</version>
             <exclusions>
                 <exclusion>
-                    <groupId>ch.qos.reload4j</groupId>
-                    <artifactId>reload4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-reload4j</artifactId>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-client</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.elasticsearch.client</groupId>
+                    <artifactId>elasticsearch-rest-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>co.elastic.clients</groupId>
+                    <artifactId>elasticsearch-java</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <!-- ChatGPT -->
         <dependency>
@@ -414,7 +484,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <version>3.1.2</version>
         </dependency>
         <!-- 导出导入成 Excel 所需jar -->
         <dependency>
@@ -430,7 +499,7 @@
         <!-- 配置多数据源的包 -->
         <dependency>
             <groupId>com.baomidou</groupId>
-            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
             <version>4.1.3</version>
         </dependency>
         <!-- 德鲁伊数据连接池 -->
@@ -570,22 +639,21 @@
         <!--指定打包后的finalName-->
         <finalName>${project.artifactId}</finalName>
         <resources>
-            <!-- 把src/main/resources目录中的yml文件包含到输出结果中。输出到classes目录中 -->
+            <!-- 把需要打包的文件打包到classes目录中 -->
             <resource>
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.yml</include>
                     <include>**/banner.txt</include>
-                </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources/mapper</directory>
-                <includes>
                     <include>**/*.xml</include>
+                    <include>**/*.sql</include>
+                    <include>**/*.properties</include>
+                    <include>static/**/*</include>
+                    <include>templates/**/*</include>
                 </includes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>src/test</exclude>
+                </excludes>
                 <filtering>true</filtering>
             </resource>
         </resources>
@@ -648,11 +716,11 @@
                     <images>
                         <image>
                             <!--由于推送到私有镜像仓库，镜像名需要添加仓库地址-->
-                            <name>192.168.119.128:50/baiyx/${project.name}:${project.version}</name>
+                            <name>baiyx/${project.name}:${project.version}</name>
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
-                                <from>java:20</from>
+                                <from>openjdk:20</from>
                                 <args>
                                     <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                 </args>
@@ -664,7 +732,7 @@
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
                                 <!--定义容器启动命令-->
-                                <entryPoint>["java", "-jar","/${project.build.finalName}.jar"]</entryPoint>
+                                <entryPoint>["java", "--add-opens=java.base/java.util=ALL-UNNAMED", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                                 <!--定义维护者-->
                                 <maintainer>baiyx</maintainer>
                                 <!--使用Dockerfile构建时打开-->
@@ -676,19 +744,25 @@
                                 <containerNamePattern>${project.artifactId}</containerNamePattern>
                                 <!--设置端口映射-->
                                 <ports>
-                                    <port>9090:9090</port>
+                                    <port>1001:1001</port>
                                 </ports>
                                 <!--设置容器间连接-->
-                                <links>
-                                    <link>mysql:db</link>
-                                </links>
+<!--                                <links>-->
+<!--                                    <link>mysql:db</link>-->
+<!--                                </links>-->
                                 <!--设置容器和宿主机目录挂载-->
                                 <volumes>
                                     <bind>
                                         <volume>/etc/localtime:/etc/localtime</volume>
-                                        <volume>/mydata/${project.artifactId}/logs:/var/logs</volume>
+                                        <volume>/mydata/${project.artifactId}/logs/${project.artifactId}:/logs/${project.artifactId}</volume>
+                                        <volume>/mydata/Test/Temp:/Test/Temp</volume>
+                                        <volume>/mydata/Test/uploadFile:/Test/uploadFile</volume>
                                     </bind>
+                                    <from>
+                                        <image>baiyx/${project.name}</image>
+                                    </from>
                                 </volumes>
+                                <cmd>java --add-opens=java.base/java.util=ALL-UNNAMED -jar /${project.name}</cmd>
                             </run>
                         </image>
                     </images>
@@ -699,22 +773,25 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.1.0</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
+                    <nonFilteredFileExtensions>
+                        <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
+                    </nonFilteredFileExtensions>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-<!--                <configuration>-->
-<!--                    &lt;!&ndash; 跳过安全检查 &ndash;&gt;-->
-<!--                <skip>true</skip> -->
-<!--                    &lt;!&ndash; 排除单元测试的类不进行编译打包 &ndash;&gt;-->
-<!--                    <excludes>-->
-<!--                        <exclude>src/test/java/com/baiyx/wfwbitest/*</exclude>-->
-<!--                    </excludes>-->
-<!--                </configuration>-->
+                <configuration>
+                    <!-- 跳过安全检查 -->
+<!--                <skip>true</skip>-->
+                    <!-- 排除单元测试的类不进行编译打包 -->
+                    <excludes>
+                        <exclude>src/test/java/com/baiyx/wfwbitest/*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>

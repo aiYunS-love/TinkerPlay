@@ -1,18 +1,7 @@
 package com.baiyx.wfwbitest.TimedTask;
 
-import com.baiyx.wfwbitest.Dao.ISysJobRepository;
-import com.baiyx.wfwbitest.Entity.SysJobPO;
-import org.apache.commons.collections4.CollectionUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.ApplicationArguments;
-import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 /**
  * @Author: baiyx

@@ -43,7 +43,7 @@ public class RecursiveAlgorithm {
 
     /**
      * @Author: baiyx
-     * @Description: 说明
+     * @Description: 文件递归搜索
      * @Date: 2022-10-8 上午 11:24
      * @Param: searchContent
      * @param file

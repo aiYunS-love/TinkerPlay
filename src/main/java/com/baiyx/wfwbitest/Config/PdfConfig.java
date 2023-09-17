@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  *               通过yml动态配置一些东西,不用在代码中写死一些配置
  */
 
-@Component
+@Component("PdfConfig")
 public class PdfConfig {
 
     private static String templatePath;

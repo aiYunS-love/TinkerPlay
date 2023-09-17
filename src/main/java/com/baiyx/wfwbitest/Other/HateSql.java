@@ -274,7 +274,7 @@ public class HateSql {
                 row.createCell(3).setCellValue(HateSql.nowdate);
                 row.createCell(4).setCellValue("baiyx");
                 row.createCell(5).setCellValue("是");
-                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(path.substring(path.lastIndexOf("\\") + 1));
+                HateSql.excel.get(filePath.substring(filePath.indexOf("\\",filePath.indexOf("\\") + 1) + 1,filePath.lastIndexOf("\\"))).add(filePath.substring(filePath.lastIndexOf("\\") + 1));
             }
             outputStream = new FileOutputStream(file);
             HateSql.workbook.write(outputStream);
@@ -371,6 +371,12 @@ class DB extends Thread{
             boolean isSuccess = true;
             for (String sql : arrsql){
                 try {
+                    if ((sql.toLowerCase().contains("drop") && !sql.toLowerCase().replace(" ","").contains("droptableifexists")) || (sql.toLowerCase().contains("delete") && !sql.toLowerCase().contains("deleted"))) {
+                        rollback();;
+                        isSuccess = false;
+                        errorInfo.put(key + " ==> " + sql, "当前sql疑似存在危险的drop或delete语句, 请谨慎确认!!!");
+                        break;
+                    }
                     statement.execute(sql);
                 } catch (SQLException throwables) {
                     isSuccess = false;

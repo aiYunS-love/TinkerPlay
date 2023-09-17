@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.wfwbitest.CustomAnnotations.WebLog;
 import com.baiyx.wfwbitest.Entity.TokenAccess;
-import com.baiyx.wfwbitest.Service.TokenAccessService;
+import com.baiyx.wfwbitest.Controller.Service.TokenAccessService;
 import com.baiyx.wfwbitest.Utils.ResolveTokenUtil;
 import com.baiyx.wfwbitest.Utils.TokenCreateUtil;
 import io.swagger.v3.oas.annotations.Operation;

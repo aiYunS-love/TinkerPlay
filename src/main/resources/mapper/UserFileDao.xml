@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.wfwbitest.Dao.UserFileDao">
+<mapper namespace="com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserFileDao">
 
     <resultMap id="UserFileMap" type="com.baiyx.wfwbitest.Entity.UserFile">
         <!-- 只需要映射列名和属性名不一致的-->

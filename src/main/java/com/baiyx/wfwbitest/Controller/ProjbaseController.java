@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.Controller;
 
-import com.baiyx.wfwbitest.Dao.ProjBaseDao;
+import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;

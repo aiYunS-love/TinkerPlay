@@ -1,10 +1,6 @@
 package com.baiyx.wfwbitest.Flink;
 
-import com.baiyx.wfwbitest.Dao.UserDao;
-import com.baiyx.wfwbitest.Utils.SpringContextUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.flink.configuration.Configuration;
-import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;
 import org.apache.flink.streaming.api.functions.sink.SinkFunction;
 import org.springframework.stereotype.Component;
 

@@ -1,6 +1,6 @@
 package com.baiyx.wfwbitest.Listener;
 
-import com.baiyx.wfwbitest.Dao.ISysJobRepository;
+import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ISysJobRepository;
 import com.baiyx.wfwbitest.Entity.SysJobPO;
 import com.baiyx.wfwbitest.Flink.DataChangeInfo;
 import com.baiyx.wfwbitest.Flink.DataChangeSink;
@@ -59,7 +59,9 @@ public class MysqlEventListener implements ApplicationRunner{
     @Value("${CDC.DataSource.password}")
     private String password;
     @Value("${CDC.DataSource.enabled}")
-    private boolean enabled = true;
+    private boolean cdcenabled = true;
+    @Value("${TimedTask.enabled}")
+    private boolean timedtaskenabled = true;
     private final DataChangeSink dataChangeSink;
 
     public MysqlEventListener(DataChangeSink dataChangeSink) {
@@ -69,8 +71,10 @@ public class MysqlEventListener implements ApplicationRunner{
     @Override
     public void run(ApplicationArguments args) throws Exception{
         // 程序启动先执行扫描定时任务的方法
-        this.scanTimedTask();
-        if (enabled){
+        if (timedtaskenabled) {
+            this.scanTimedTask();
+        }
+        if (cdcenabled){
             log.info("开始启动Flink CDC获取ERP变更数据......");
             // 流式数据处理环境
             StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

@@ -7,75 +7,119 @@ spring:
   application:
     name: wfwbitest
     version: 1.0.1
-#  profiles:
-#    active: windows
   datasource:
-    type: com.alibaba.druid.pool.DruidDataSource
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
       primary: master
       # 严格匹配数据源,默认false. true未匹配到指定数据源时抛异常,false使用默认数据源
       strict: false
       datasource:
-#        master:
-#          driver-class-name: com.mysql.cj.jdbc.Driver
-#          # 如果docker镜像部署的话,需要写实际的IP
-#          url: jdbc:mysql://192.168.119.128:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC
-#          username: root
-#          password: 19930218
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
           url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
+          type: com.alibaba.druid.pool.DruidDataSource
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
+          url: jdbc:mysql://192.168.43.148:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
-        # 初始连接数
-    initialSize: 20
-    # 最小连接数
-    minIdle: 10
-    # 最大连接数
-    maxActive: 50
-    # 配置获取连接等待超时的时间
-    maxWait: 60000
-    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-    timeBetweenEvictionRunsMillis: 60000
-    # 配置一个连接在池中最小生存的时间，单位是毫秒
-    minEvictableIdleTimeMillis: 300000
-    validationQuery: SELECT 1 FROM DUAL
-    testWhileIdle: true
-    testOnBorrow: false
-    testOnReturn: false
-    poolPreparedStatements: true
-    filters: stat
-  # flyway:
+          type: com.alibaba.druid.pool.DruidDataSource
+      # druid 连接池管理
+      druid:
+        filter:
+          config:
+            #开启密钥加密
+            enabled: true
+        # 配置默认的监控统计拦截的Filter
+        # 不配置则监控页面中的SQL无法统计
+        # stat - SQL监控配置
+        # wall - SQL防火墙配置
+        # slf4j - Druid日志配置
+        filters: stat,wall,slf4j
+        # 初始化连接池大小
+        initial-size: 5
+        # 连接池最大连接数
+        max-active: 20
+        # 每个连接上PSCache的最大值
+        # 如果大于0，pool-prepared-statements自动开启
+        max-pool-prepared-statement-per-connection-size: -1
+        # 连接时最大等待时间（单位：毫秒）
+        max-wait: 60000
+        # 保持空闲连接不被关闭的最小生存时间（单位：毫秒）
+        min-evictable-idle-time-millis: 300000
+        # 连接池最小空闲数
+        min-idle: 5
+        # 是否开启PSCache，即是否缓存preparedStatement（提升写入、查询效率）
+        # 建议在支持游标的数据库开启，例如：Oracle
+        pool-prepared-statements: false
+        # 检测获取连接时的有效性
+        # 开启后会影响性能
+        test-on-borrow: false
+        # 检测归还连接时的有效性
+        # 开启后会影响性能
+        test-on-return: false
+        # 检测空闲连接
+        # 不影响性能，建议开启
+        test-while-idle: true
+        # 检测关闭空闲连接的时间间隔（单位：毫秒）
+        time-between-eviction-runs-millis: 60000
+        # 检测连接有效的SQL
+        # 为空则test-while-idle、test-on-borrow、test-on-return配置失效
+        validation-query: SELECT 1
+        # 检测连接是否有效的超时时间
+        validation-query-timeout: 1
+        stat-view-servlet:
+          # 访问白名单
+          allow: 127.0.0.1
+          # 配置统计页面
+          enabled: true
+          # 访问密码
+          login-password: 123456
+          # 访问用户名
+          login-username: root
+          # 允许重置监控数据
+          reset-enable: true
+        web-stat-filter:
+          # 配置统计页面过滤
+          enabled: true
+          # 排除路径
+          exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
+          # 开启session统计
+          session-stat-enable: true
+          # session统计的最大个数
+          session-stat-max-count: 100
+          # 过滤路径
+          url-pattern: /*
+  # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
+  flyway:
     # 是否启用flyway
-    # enabled: true
+    enabled: true
     # flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉。这个默认值是 false
-    # clean-disabled: true
+    clean-disabled: true
     # 编码格式，默认UTF-8
-    # encoding: UTF-8
+    encoding: UTF-8
     # 迁移sql脚本文件存放路径，默认db/mysql
-    # locations: classpath:db/mysql
+    locations: classpath:db/mysql
     # 迁移sql脚本文件名称的前缀，默认V
-    # sql-migration-prefix: R
+    sql-migration-prefix: V
     # 迁移sql脚本文件名称的分隔符，默认2个下划线__
-    # sql-migration-separator: __
+    sql-migration-separator: __
     # 迁移sql脚本文件名称的后缀
-    # sql-migration-suffixes: .sql
+    sql-migration-suffixes: .sql
     # 迁移时是否进行校验，默认true
-    # validate-on-migrate: true
+    validate-on-migrate: true
     # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表
-    # baseline-on-migrate: true
+    baseline-on-migrate: true
     # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略
-    # baseline-version: 1
+    baseline-version: 1
     # 是否允许不按顺序迁移 开发建议 true  生产建议 false
-    # out-of-order: false
+    out-of-order: false
     # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
-    # schemas: heima
+    schemas: heima
+    # 配置多数据源后,指定数据源执行脚本
+    dataSourceArr: master,slave_1
   # 文件上传功能开启
   servlet:
     multipart:
@@ -132,13 +176,6 @@ spring:
   elasticsearch:
     rest:
       uris: http://192.168.119.128:9200
-    bboss:
-      elasticUser:
-      elasticPassword:
-      elasticsearch:
-        useHttps: true
-        rest:
-          hostNames: http://192.168.119.128:9200
   # 解决springboot升级2.7.5导致的ApplicationContextException
   mvc:
     pathmatch:
@@ -170,19 +207,21 @@ mybatis:
   #映射的xml的sql文件路径
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
-  type-aliases-package: com/baiyx/wfwbitest/entity
-    # configuration:
+  type-aliases-package:
+    - com.baiyx.wfwbitest.entity
+    - com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity
+  configuration:
     # 打印SQL日志
-  # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 pdf:
   config:
-    # pdf模板相对路径
-    templatePath: src/main/resources/templates/test输出pdf模板.pdf
+    # pdf模板路径
+    templatePath: /templates/test输出pdf模板.pdf
     # pdf输出位置
-    output: E:\baiyx\uploadFile\pdf\
-    # 字体相对路径
-    fontPath: src/main/resources/static/fonts/simsun.ttf
+    output: /Test/uploadFile/pdf/
+    # 字体路径
+    fontPath: /templates/fonts/simsun.ttf
 
 ## swagger 暂时注释 测试SwaggerConfig配置类
 #swagger:
@@ -194,13 +233,12 @@ pdf:
 
 # 配置swagger文档的访问路径，访问地址：http://127.0.0.1:8080/swagger-ui.html
 springdoc:
+  api-docs:
+    enabled: true
   swagger-ui:
     path: /swagger-ui.html
-
-mybatis-plus:
-  configuration:
-    # mybatis plus下划线转驼峰
-    map-underscore-to-camel-case: true
+    tags-sorter: alpha
+    operations-sorter: method
 
 #pagehelper分页插件配置
 pagehelper:
@@ -221,6 +259,7 @@ minio:
   bucketName: baiyx #存储桶名称
   accessKey: minioadmin #访问的账号
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
+  # secretKey: minioadmin
 # Minio桶给其他方开放下载权限的地址及密钥等
 #s3:
 #  url: http://127.0.0.1:9095
@@ -254,10 +293,13 @@ nacos:
 
 CDC:
   DataSource:
-    enabled: false
+    enabled: true
     host: 192.168.119.128
     port: 3306
     database: heima
     tableList: user
     username: root
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
+
+TimedTask:
+  enabled: true

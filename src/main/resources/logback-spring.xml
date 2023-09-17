@@ -52,6 +52,33 @@
         <destination>192.168.119.128:4560</destination>
         <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder"/>
     </appender>
+    <appender name="ES" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/${APP_NAME}/es-all.log</file>
+        <!-- rollingPolicy:当发生滚动时，决定 RollingFileAppender 的行为，涉及文件移动和重命名。 -->
+        <!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
+            <!-- 文件名：logs/wfwbitest/wfwbitest-all.2017-12-05.0.log -->
+            <fileNamePattern>./logs/${APP_NAME}/%d/es-all.%d.%i.log</fileNamePattern>
+            <!-- 每产生一个日志文件，该日志文件的保存期限为7天 -->
+            <maxHistory>7</maxHistory>
+            <totalSizeCap>10MB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!-- maxFileSize:这是活动文件的大小，默认值是10MB,本篇设置为1M，只是为了演示 -->
+                <maxFileSize>1MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <append>true</append>
+        <!-- pattern节点，用来设置日志的输入格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <!-- 格式化输出: %d表示日期, %thread表示线程名, %-5level: 级别从左往右显示5个字符宽度, %msg: 日志消息, %n是换行符 -->
+            <pattern>
+                %date{yyyy-MM-dd HH:mm:ss:SSS}|%-5level|%thread|%method:%line|%logger|%msg%n
+            </pattern>
+            <!-- 记录日志的编码 -->
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
     <root>
         <!-- 日志输出级别 -->
         <level value="INFO" />
@@ -65,6 +92,9 @@
     <logger name="com.baiyx.wfwbitest" level="DEBUG">
         <appender-ref ref="FILE"/>
     </logger>
+    <logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace">
+        <appender-ref ref="ES"/>
+    </logger>>
     <!--<logger level="DEBUG">-->
     <!--<appender-ref ref="FILE"/>-->
     <!--</logger>-->
