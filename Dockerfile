@@ -1,5 +1,5 @@
 # 该镜像需要依赖的基础镜像
-FROM openjdk:20
+FROM openjdk:21
 # 指定维护人
 MAINTAINER baiyx
 # 将当前maven目录生成的文件复制到docker容器的/目录下

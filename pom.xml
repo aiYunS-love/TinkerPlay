@@ -14,16 +14,16 @@
     <name>wfw_bi_test</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
         <!--打包后镜像的前缀-->
         <docker.image.prefix>baiyx</docker.image.prefix>
         <!--docker仓库地址-->
         <docker.repostory>192.168.119.128:2375</docker.repostory>
         <!--自定义yml变量符号-->
         <resource.delimiter>#</resource.delimiter>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
-<!--        <maven.compiler.release>20</maven.compiler.release>-->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+<!--        <maven.compiler.release>21</maven.compiler.release>-->
     </properties>
     <dependencyManagement>
         <!--
@@ -570,11 +570,11 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.2</version>
         </dependency>
-        <!-- 自动插入到编辑器和构建工具中，增强java的性能 -->
+        <!-- 自动插入到编辑器和构建工具中，增强java -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.28</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
         <!-- Mybatis包 -->
@@ -720,7 +720,7 @@
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
-                                <from>openjdk:20</from>
+                                <from>openjdk:21</from>
                                 <args>
                                     <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                 </args>
