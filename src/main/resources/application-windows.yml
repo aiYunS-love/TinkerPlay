@@ -35,6 +35,12 @@ spring:
       # druid 连接池管理
       druid:
         filter:
+          slf4j:
+            enabled: true
+            statement-create-after-log-enabled: false
+            statement-close-after-log-enabled: false
+            result-set-open-after-log-enabled: false
+            result-set-close-after-log-enabled: false
           config:
             #开启密钥加密
             enabled: true

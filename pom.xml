@@ -354,12 +354,6 @@
             <artifactId>xmlworker</artifactId>
             <version>5.5.13.3</version>
         </dependency>
-        <!--阿波罗-->
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-client</artifactId>
-            <version>2.1.0</version>
-        </dependency>
         <!-- byte[]和16进制字符串之间的转换 -->
         <dependency>
             <groupId>commons-codec</groupId>
