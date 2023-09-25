@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
-
-
 /**
  * @Author: baiyx
  * @Date: 2022-12-5 16:30
@@ -34,10 +32,12 @@ public class ProjbaseController {
     @Operation(summary = "分页查询_数据量大")
     @GetMapping("findBypaging1")
     public PageInfo<Projbase> findByPaging1(@Parameter(name = "pageNum", description = "页码") Integer pageNum, @Parameter(name = "pageSize", description = "每页数量") Integer pageSize){
-
-        PageHelper.startPage(pageNum,pageSize);
+        // 全量数据大,导致SELECT count(0) FROM projbase查询总数超时,暂时关闭
+        PageHelper.startPage(pageNum,pageSize,false);
         List<Projbase> list = projBaseDao.selectProjbase1();
         PageInfo<Projbase> pageInfo = new PageInfo<>(list);
+        // 单独设置查询总条数
+        pageInfo.setTotal(projBaseDao.CountProjbase());
         return pageInfo;
     }
 

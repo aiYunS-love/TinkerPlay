@@ -30,7 +30,7 @@ public class ProjBaseServiceImpl implements ProjBaseDao {
     }
 
     @Override
-    public int CountProjbase() {
+    public long CountProjbase() {
         return projBaseDao.CountProjbase();
     }
 

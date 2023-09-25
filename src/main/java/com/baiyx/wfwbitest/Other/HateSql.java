@@ -1,6 +1,11 @@
 package com.baiyx.wfwbitest.Other;
 
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
+
+import org.apache.calcite.sql.SqlNode;
+import org.apache.calcite.sql.parser.SqlParseException;
+import org.apache.calcite.sql.parser.SqlParser;
+import org.apache.calcite.sql.parser.SqlParserImplFactory;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
@@ -11,7 +16,6 @@ import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -327,7 +331,7 @@ class DB extends Thread{
     private static final String password = "root";
 
     private Connection connection;
-    private Statement statement;
+    private java.sql.Statement statement;
 
     static HashSet<String> writeResault = new HashSet<>();
 
@@ -431,6 +435,18 @@ class DB extends Thread{
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
+        }
+    }
+
+    private boolean chenkSql(String sql){
+        try {
+            SqlParser.Config config = SqlParser.config();
+            SqlParserImplFactory factory = config.parserFactory();
+            SqlParser parser = SqlParser.create(sql, config.withParserFactory(factory));
+            SqlNode node = parser.parseStmt();
+            return true;
+        } catch (SqlParseException e) {
+            return false;
         }
     }
 }

@@ -16,13 +16,13 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
+          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.43.148:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC
+          url: jdbc:mysql://192.168.43.148:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
