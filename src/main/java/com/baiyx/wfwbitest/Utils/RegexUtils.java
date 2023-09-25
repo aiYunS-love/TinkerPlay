@@ -218,4 +218,31 @@ public class RegexUtils {
         return pattern.matcher(value).matches();
     }
 
+    private static final String SELECT_PATTERN = "^\\s*SELECT.*";
+    private static final String UPDATE_PATTERN = "^\\s*UPDATE.*";
+    private static final String DELETE_PATTERN = "^\\s*DELETE.*";
+    private static final String INSERT_PATTERN = "^\\s*INSERT.*";
+    /**
+     * 判断sql的正确性
+     * @param sql
+     * @return boolean
+     */
+    public static boolean validateSQL(String sql) {
+        if (Pattern.matches(SELECT_PATTERN, sql)) {
+            // 校验SELECT语句的合法性
+            return true;
+        } else if (Pattern.matches(UPDATE_PATTERN, sql)) {
+            // 校验UPDATE语句的合法性
+            return true;
+        } else if (Pattern.matches(DELETE_PATTERN, sql)) {
+            // 校验DELETE语句的合法性
+            return true;
+        } else if (Pattern.matches(INSERT_PATTERN, sql)) {
+            // 校验INSERT语句的合法性
+            return true;
+        } else {
+            // SQL语句格式不正确
+            return false;
+        }
+    }
 }

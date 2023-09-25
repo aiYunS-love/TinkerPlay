@@ -222,25 +222,29 @@ public class FileUploadOrDownloadController {
         if (uf != null) {
             filePath = uf.getPath();
         } else {
-            CommonResult.failed();
+            return CommonResult.failed("数据库查不到该条文件信息!");
         }
-        if(objectName.contains("/") && filePath.contains("://")){
-            try {
-                MinioClient minioClient = MinioClient.builder()
-                        .endpoint(ENDPOINT)
-                        .credentials(ACCESS_KEY,SECRET_KEY)
-                        .build();
-                minioClient.removeObject(RemoveObjectArgs.builder().bucket(BUCKET_NAME).object(objectName).build());
+        if (StringUtils.isNotBlank(objectName) && StringUtils.isNotBlank(filePath)) {
+            if(objectName.contains("/") && filePath.contains("://")){
+                try {
+                    MinioClient minioClient = MinioClient.builder()
+                            .endpoint(ENDPOINT)
+                            .credentials(ACCESS_KEY,SECRET_KEY)
+                            .build();
+                    minioClient.removeObject(RemoveObjectArgs.builder().bucket(BUCKET_NAME).object(objectName).build());
+                    userFileService.deleteFile(objectName);
+                    return CommonResult.success("删除存储桶内文件: " + objectName + "成功!");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return CommonResult.failed("存储桶文件删除失败! 请检查");
+            }else{
+                FileSystemUtils.deleteRecursively(new File(filePath));
                 userFileService.deleteFile(objectName);
-                return CommonResult.success(null);
-            } catch (Exception e) {
-                e.printStackTrace();
+                return CommonResult.success("删除本地文件: " + objectName + "成功!");
             }
-            return CommonResult.failed();
-        }else{
-            FileSystemUtils.deleteRecursively(new File(filePath));
-            userFileService.deleteFile(objectName);
-            return CommonResult.success(null);
+        } else {
+            return CommonResult.validateFailed("objectName = " + objectName + "; filePath = " + filePath);
         }
     }
 

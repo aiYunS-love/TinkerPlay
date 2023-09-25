@@ -77,7 +77,8 @@ JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + E
     到 JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
 47. 排查整体结构中存在的问题并解决
 48. 解决集成flyway自定义的数据源bean会覆盖baomidou的数据源bean,导致多数据源不生效的问题
-49. ............................
+49. JDK20 升级到 JDK21
+50. ............................
 
 #### 部署内容
 Linux:

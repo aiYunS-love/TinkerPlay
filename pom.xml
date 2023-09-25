@@ -14,16 +14,16 @@
     <name>wfw_bi_test</name>
     <description>Demo project for Spring Boot</description>
     <properties>
-        <java.version>20</java.version>
+        <java.version>21</java.version>
         <!--打包后镜像的前缀-->
         <docker.image.prefix>baiyx</docker.image.prefix>
         <!--docker仓库地址-->
         <docker.repostory>192.168.119.128:2375</docker.repostory>
         <!--自定义yml变量符号-->
         <resource.delimiter>#</resource.delimiter>
-        <maven.compiler.source>20</maven.compiler.source>
-        <maven.compiler.target>20</maven.compiler.target>
-<!--        <maven.compiler.release>20</maven.compiler.release>-->
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+<!--        <maven.compiler.release>21</maven.compiler.release>-->
     </properties>
     <dependencyManagement>
         <!--
@@ -53,6 +53,12 @@
         </dependencies>
     </dependencyManagement>
     <dependencies>
+        <!-- SQL语句语法校验解析 -->
+        <dependency>
+            <groupId>org.apache.calcite</groupId>
+            <artifactId>calcite-core</artifactId>
+            <version>1.35.0</version>
+        </dependency>
         <!-- 判断编码格式 -->
         <dependency>
             <groupId>com.googlecode.juniversalchardet</groupId>
@@ -64,6 +70,12 @@
             <groupId>org.tmatesoft.svnkit</groupId>
             <artifactId>svnkit</artifactId>
             <version>1.10.11</version>
+<!--            <exclusions>-->
+<!--                <exclusion>-->
+<!--                    <groupId>org.antlr</groupId>-->
+<!--                    <artifactId>antlr-runtime</artifactId>-->
+<!--                </exclusion>-->
+<!--            </exclusions>-->
         </dependency>
         <!-- 支付宝支付依赖 -->
         <dependency>
@@ -354,12 +366,6 @@
             <artifactId>xmlworker</artifactId>
             <version>5.5.13.3</version>
         </dependency>
-        <!--阿波罗-->
-        <dependency>
-            <groupId>com.ctrip.framework.apollo</groupId>
-            <artifactId>apollo-client</artifactId>
-            <version>2.1.0</version>
-        </dependency>
         <!-- byte[]和16进制字符串之间的转换 -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -506,12 +512,12 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.2.18</version>
+            <version>1.2.19</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.18</version>
+            <version>1.2.19</version>
         </dependency>
         <!-- JSON-Web-Token -->
         <dependency>
@@ -570,11 +576,11 @@
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>3.0.2</version>
         </dependency>
-        <!-- 自动插入到编辑器和构建工具中，增强java的性能 -->
+        <!-- 自动插入到编辑器和构建工具中，增强java -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.28</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
         <!-- Mybatis包 -->
@@ -720,7 +726,7 @@
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
-                                <from>openjdk:20</from>
+                                <from>openjdk:21</from>
                                 <args>
                                     <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                 </args>
