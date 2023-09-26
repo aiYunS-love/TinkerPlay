@@ -4,7 +4,7 @@
 从搭架子的角度出发! 学习、温习、记录工作生活中遇到的常规性需求解决思路和案例、集成各种中间件的思路和案例、各种处理策略、算法基础、设计模式基础、测试知识点的代码库.
 
 #### 架构
-JAVA_20 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
+JAVA_21 + springboot_3.1.3 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 + Tomcat_10.1.12等,maven_3.9.4构建
 
 
 #### 配置文件application.yml说明
