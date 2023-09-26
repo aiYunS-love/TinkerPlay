@@ -1,5 +1,6 @@
 package com.baiyx.wfwbitest.Controller;
 
+import com.alibaba.fastjson.JSON;
 import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.Entity.Projbase;
 import com.github.pagehelper.PageHelper;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.*;
+
 /**
  * @Author: baiyx
  * @Date: 2022-12-5 16:30
@@ -32,13 +35,29 @@ public class ProjbaseController {
     @Operation(summary = "分页查询_数据量大")
     @GetMapping("findBypaging1")
     public PageInfo<Projbase> findByPaging1(@Parameter(name = "pageNum", description = "页码") Integer pageNum, @Parameter(name = "pageSize", description = "每页数量") Integer pageSize){
-        // 全量数据大,导致SELECT count(0) FROM projbase查询总数超时,暂时关闭
-        PageHelper.startPage(pageNum,pageSize,false);
-        List<Projbase> list = projBaseDao.selectProjbase1();
-        PageInfo<Projbase> pageInfo = new PageInfo<>(list);
-        // 单独设置查询总条数
-        pageInfo.setTotal(projBaseDao.CountProjbase());
-        return pageInfo;
+        long startime = System.currentTimeMillis();
+        PageInfo<Projbase> pageInfo = null;
+        try {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            // 创建一个Callable任务
+            Callable<Long> callable = () -> {
+                return projBaseDao.CountProjbase();
+            };
+            // 将Callable任务包装到FutureTask中
+            Future<Long> future = executor.submit(callable);
+            // 全量数据大,导致SELECT count(0) FROM projbase查询总数超时,暂时关闭
+            PageHelper.startPage(pageNum,pageSize,false);
+            List<Projbase> list = projBaseDao.selectProjbase1();
+            pageInfo = new PageInfo<>(list);
+            // 设置查询总条数
+            pageInfo.setTotal(future.get(1, TimeUnit.MINUTES));
+            System.out.println((System.currentTimeMillis() - startime) / 1000 + " 秒程序执行完成");
+            return pageInfo;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            return pageInfo;
+        }
     }
 
     @Operation(summary = "分页查询_数据量小")
