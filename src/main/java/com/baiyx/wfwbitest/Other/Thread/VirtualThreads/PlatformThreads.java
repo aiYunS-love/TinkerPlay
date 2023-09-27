@@ -31,7 +31,7 @@ public class PlatformThreads {
                 });
                 futures.add(future);
             }
-            // 获取这1000个任务的结果
+            // 获取这每个线程任务的结果
             for (var future : futures) {
                 var i = future.get();
                 if (i % 100 == 0) {
