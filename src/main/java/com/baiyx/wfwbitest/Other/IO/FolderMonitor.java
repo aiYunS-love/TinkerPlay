@@ -10,36 +10,45 @@ import java.nio.file.*;
  */
 public class FolderMonitor {
     public static void main(String[] args) throws IOException {
-        // 指定要监测的路径
-        Path pathToMonitor = Paths.get("E:\\baiyx\\xiaobai-studies\\logs\\wfwbitest");
 
-        // 创建一个WatchService对象
-        WatchService watchService = FileSystems.getDefault().newWatchService();
-
-        // 注册要监测的文件夹
-        pathToMonitor.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
-                StandardWatchEventKinds.ENTRY_MODIFY,
-                StandardWatchEventKinds.ENTRY_DELETE);
-
-        // 启动监测线程
-        Thread watchThread = new Thread(() -> {
+        final Path path = Paths.get("E:\\baiyx\\xiaobai-studies\\logs");
+        try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
+            //给path路径加上文件观察服务
+            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,
+                    StandardWatchEventKinds.ENTRY_MODIFY,
+                    StandardWatchEventKinds.ENTRY_DELETE);
             while (true) {
-                try {
-                    WatchKey key = watchService.take(); // 等待事件
-                    for (WatchEvent<?> event : key.pollEvents()) {
-                        // 处理事件
-                        WatchEvent.Kind<?> kind = event.kind();
-                        Path eventPath = (Path) event.context();
-                        System.out.println("Event: " + kind + " - File: " + eventPath);
+                final WatchKey key = watchService.take();
+                for (WatchEvent<?> watchEvent : key.pollEvents()) {
+                    final WatchEvent.Kind<?> kind = watchEvent.kind();
+                    if (kind == StandardWatchEventKinds.OVERFLOW) {
+                        continue;
                     }
-                    key.reset(); // 重置WatchKey以便继续监测
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+                    //创建事件
+                    if (kind == StandardWatchEventKinds.ENTRY_CREATE) {
+                        System.out.println("[新建]");
+                    }
+                    //修改事件
+                    if (kind == StandardWatchEventKinds.ENTRY_MODIFY) {
+                        System.out.println("修改]");
+                    }
+                    //删除事件
+                    if (kind == StandardWatchEventKinds.ENTRY_DELETE) {
+                        System.out.println("[删除]");
+                    }
+                    // get the filename for the event
+                    final WatchEvent<Path> watchEventPath = (WatchEvent<Path>) watchEvent;
+                    final Path filename = watchEventPath.context();
+                    // print it out
+                    System.out.println(kind + " -> " + filename);
+                }
+                boolean valid = key.reset();
+                if (!valid) {
+                    break;
                 }
             }
-        });
-
-        watchThread.setDaemon(true);
-        watchThread.start();
+        } catch (IOException | InterruptedException ex) {
+            System.err.println(ex);
+        }
     }
 }
