@@ -1,4 +1,4 @@
-package com.baiyx.wfwbitest.Other.DesignMode;
+package com.baiyx.wfwbitest.Other.DesignMode.FactoryMode;
 
 /**
  * @Author: baiyx

@@ -523,12 +523,12 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
-            <version>1.2.19</version>
+            <version>1.2.20</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.19</version>
+            <version>1.2.20</version>
         </dependency>
         <!-- JSON-Web-Token -->
         <dependency>
