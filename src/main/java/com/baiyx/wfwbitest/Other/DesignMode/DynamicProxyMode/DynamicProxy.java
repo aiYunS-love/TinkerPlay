@@ -44,7 +44,7 @@ class MyInvocationHandler implements InvocationHandler {
     }
 }
 
-public class DynamicProxyExample {
+public class DynamicProxy {
     public static void main(String[] args) {
         // 创建被代理对象
         MyInterface realObject = new MyImplementation();
