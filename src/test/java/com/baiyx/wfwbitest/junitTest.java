@@ -2,12 +2,12 @@ package com.baiyx.wfwbitest;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.baiyx.wfwbitest.Other.DesignMode.BuildJDBC;
+import com.baiyx.wfwbitest.Other.DesignMode.BuilderMode.BuildJDBC;
 import com.baiyx.wfwbitest.Common.RedisService;
 import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.wfwbitest.DataStructure.Stack;
 import com.baiyx.wfwbitest.Algorithm.RecursiveAlgorithm;
-import com.baiyx.wfwbitest.Other.DesignMode.BuildJDBC.JDBCBuilder;
+import com.baiyx.wfwbitest.Other.DesignMode.BuilderMode.BuildJDBC.JDBCBuilder;
 import com.baiyx.wfwbitest.Controller.Service.ServiceImpl.Dao.UserDao;
 import com.baiyx.wfwbitest.Entity.ExcelPOJO;
 import com.baiyx.wfwbitest.Entity.ProjbaseException;
