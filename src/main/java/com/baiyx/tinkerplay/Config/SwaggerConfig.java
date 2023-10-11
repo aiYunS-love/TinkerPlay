@@ -34,13 +34,13 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI springShopOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("小白学习")
-                        .description("baiyx-study")
+                .info(new Info().title("TinkerPlay")
+                        .description("tinkerplay")
                         .version("1.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("SpringDoc")
-                        .url("https://gitee.com/Mr_Baiyx"));
+                        .url("https://github.com/bai784724280/TinkerPlay"));
     }
 
 //    private ApiInfo apiInfo() {

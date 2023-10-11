@@ -11,7 +11,7 @@ import java.nio.file.*;
 public class FolderMonitor {
     public static void main(String[] args) throws IOException {
 
-        final Path path = Paths.get("E:\\baiyx\\xiaobai-studies\\logs");
+        final Path path = Paths.get("E:\\baiyx\\TinkerPlay\\logs");
         try (WatchService watchService = FileSystems.getDefault().newWatchService()) {
             //给path路径加上文件观察服务
             path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE,

@@ -1,4 +1,4 @@
-# 小白学习
+# TinkerPlay
 
 #### 介绍
 从搭架子的角度出发! 学习、温习、记录工作生活中遇到的常规性需求解决思路和案例、集成各种中间件的思路和案例、各种处理策略、算法基础、设计模式基础、测试知识点的代码库.
@@ -17,7 +17,7 @@ JAVA_21 + springboot_3.1.4 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + E
 6.  Flyway
 7.  .....等
 
-#### 学习及测试内容
+#### TinkerPlay内容
 
 1.  常规springboot项目的搭建
 2.  AOP自定义日志格式打印
@@ -83,20 +83,20 @@ JAVA_21 + springboot_3.1.4 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + E
 #### 部署内容
 Linux:
     docker部署:
-        1. nacos_v2.1.0配置中心
-        2. redis_v7.0.9缓存数据库
-        3. harbor_v1.10.10私有镜像仓库
-        4. nginx_v1.23.3转发代理
-        5. apisix_v3.0.0-alpine网关
-        6. elasticsearch_v7.17.3搜索和分析引擎,logstash_v7.17.3服务器端数据处理管道,kibana_v7.17.3数据可视化
-        7. rabbitmq_v3.11.10消息队列
+        1. nacos_v2.1.0 配置中心
+        2. redis_v7.0.9 缓存数据库
+        3. harbor_v1.10.10 私有镜像仓库
+        4. nginx_v1.23.3 转发代理
+        5. apisix_v3.0.0-alpine 网关
+        6. elasticsearch_v7.17.3 搜索和分析引擎,logstash_v7.17.3 服务器端数据处理管道,kibana_v7.17.3 数据可视化
+        7. rabbitmq_v3.11.10 消息队列
     普通部署:
-        8. Flink_v1.17.1分布式处理框架
+        8. Flink_v1.17.1 分布式处理框架
 windows:
         10. minio对象存储桶
 
 #### 说明
-供小白学习使用!
+供小白TinkerPlay!
 
 #### 总结
 不成体系的信息输出，叫经验，叫语录，叫微博，而难以叫知识：因为不成体系的信息即使被验证是正确的，
