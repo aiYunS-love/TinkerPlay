@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.baiyx</groupId>
-    <artifactId>wfwbitest</artifactId>
+    <artifactId>TinkerPlay</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <name>wfw_bi_test</name>
-    <description>Demo project for Spring Boot</description>
+    <name>TinkerPlay</name>
+    <description>TinkerPlay for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
         <!--打包后镜像的前缀-->
@@ -786,7 +786,7 @@
                 </configuration>
             </plugin>
             <!-- 处理: Failed to execute goal org.apache.maven.plugins:maven-resources-plugin:3.2.0:
-            resources (default-resources) on project wfwbitest: Input length = 1 -> [Help 1] 问题-->
+            resources (default-resources) on project TinkerPlay: Input length = 1 -> [Help 1] 问题-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -806,7 +806,7 @@
 <!--                <skip>true</skip>-->
                     <!-- 排除单元测试的类不进行编译打包 -->
                     <excludes>
-                        <exclude>src/test/java/com/baiyx/wfwbitest/*</exclude>
+                        <exclude>src/test/java/com/baiyx/tinkerplay/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

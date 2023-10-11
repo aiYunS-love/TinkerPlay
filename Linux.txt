@@ -322,7 +322,7 @@ curl -d '{"qxdm":"33","kssj" : "2018-01-01","jssj" : "2022-12-31","datetype" : "
 
 docker部署redis并设置密码: docker run --restart=always --name redis -p 6379:6379 -v /mydata/redis/data/redis.conf:/etc/redis/redis.conf -v /mydata/redis/data:/data -d redis:latest redis-server --appendonly yes --requirepass 19930218
 
-sudo docker run -p 1001:1001 --name wfwbitest --restart=no -v /mydata/Test/Temp:/Test/Temp -v /mydata/Test/uploadFile:/Test/uploadFile -v /mydata/Test/uploadFile/pdf:/Test/uploadFile/pdf -v /mydata/wfwbitest/logs/wfwbitest:/logs/wfwbitest -d baiyx/wfw_bi_test:1.0.1-SNAPSHOT
+sudo docker run -p 1001:1001 --name TinkerPlay --restart=no -v /mydata/Test/Temp:/Test/Temp -v /mydata/Test/uploadFile:/Test/uploadFile -v /mydata/Test/uploadFile/pdf:/Test/uploadFile/pdf -v /mydata/TinkerPlay/logs/TinkerPlay:/logs/TinkerPlay -d baiyx/TinkerPlay:1.0.1-SNAPSHOT
 
 -- 创建nacos容器: 
 docker run -d -p 8848:8848 -p 9848:9848  \
