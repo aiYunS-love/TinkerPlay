@@ -11,7 +11,7 @@
     <groupId>com.baiyx</groupId>
     <artifactId>TinkerPlay</artifactId>
     <version>1.0.1-SNAPSHOT</version>
-    <name>TinkerPlay</name>
+    <name>tinkerplay</name>
     <description>TinkerPlay for Spring Boot</description>
     <properties>
         <java.version>21</java.version>
