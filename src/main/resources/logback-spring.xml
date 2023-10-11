@@ -83,7 +83,6 @@
         <!-- 日志输出级别 -->
         <level value="INFO" />
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
         <appender-ref ref="LOGSTASH"/>
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
