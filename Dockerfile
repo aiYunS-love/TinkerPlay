@@ -7,4 +7,4 @@ COPY maven /
 # 声明服务运行在1001端口
 EXPOSE 1001
 # 指定docker容器启动时运行jar包
-ENTRYPOINT ["java", "--add-opens=java.base/java.util=ALL-UNNAMED", "-jar","/wfwbitest-1.0.1-SNAPSHOT.jar"]
+ENTRYPOINT ["java", "--add-opens=java.base/java.util=ALL-UNNAMED", "-jar","/TinkerPlay-1.0.1-SNAPSHOT.jar"]

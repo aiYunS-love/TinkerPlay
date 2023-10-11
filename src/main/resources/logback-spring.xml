@@ -14,7 +14,7 @@
         </encoder>
     </appender>
     <!--应用名称-->
-    <property name="APP_NAME" value="wfwbitest"/>
+    <property name="APP_NAME" value="tinkerplay"/>
     <!--日志文件保存路径-->
     <property name="LOG_FILE_PATH" value="${LOG_FILE:-${LOG_PATH:-${LOG_TEMP:-${java.io.tmpdir:-/tmp}}}/logs}"/>
     <contextName>${APP_NAME}</contextName>
@@ -25,7 +25,7 @@
         <!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
-            <!-- 文件名：logs/wfwbitest/wfwbitest-all.2017-12-05.0.log -->
+            <!-- 文件名：logs/tinkerplay/tinkerplay-all.2017-12-05.0.log -->
             <fileNamePattern>./logs/${APP_NAME}/%d/${APP_NAME}-all.%d.%i.log</fileNamePattern>
             <!-- 每产生一个日志文件，该日志文件的保存期限为7天 -->
             <maxHistory>7</maxHistory>
@@ -58,7 +58,7 @@
         <!-- TimeBasedRollingPolicy： 最常用的滚动策略，它根据时间来制定滚动策略，既负责滚动也负责出发滚动 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!-- 活动文件的名字会根据fileNamePattern的值，每隔一段时间改变一次 -->
-            <!-- 文件名：logs/wfwbitest/wfwbitest-all.2017-12-05.0.log -->
+            <!-- 文件名：logs/tinkerplay/tinkerplay-all.2017-12-05.0.log -->
             <fileNamePattern>./logs/${APP_NAME}/%d/es-all.%d.%i.log</fileNamePattern>
             <!-- 每产生一个日志文件，该日志文件的保存期限为7天 -->
             <maxHistory>7</maxHistory>
@@ -87,9 +87,9 @@
         <appender-ref ref="LOGSTASH"/>
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
-    <!-- com.baiyx.wfwbitest为根包，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
+    <!-- com.baiyx.tinkerplay，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.baiyx.wfwbitest" level="DEBUG">
+    <logger name="com.baiyx.tinkerplay" level="DEBUG">
         <appender-ref ref="FILE"/>
     </logger>
     <logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace">

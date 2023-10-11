@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: wfwbitest
+    name: tinkerplay
     version: 1.0.1
   datasource:
     dynamic:
@@ -220,8 +220,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
   type-aliases-package:
-    - com.baiyx.wfwbitest.entity
-    - com.baiyx.wfwbitest.Controller.Elasticsearch.EsEntity
+    - com.baiyx.tinkerplay.entity
+    - com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -298,7 +298,7 @@ nacos:
     bootstrap:
       enable: true # 是否开启 Nacos 配置预加载功能。默认为 false。
       # log-enable: true # 是否开启 Nacos 支持日志级别的加载时机。默认为 false。
-    data-id: wfwbitest-windows.yml # 使用的 Nacos 配置集的 dataId。
+    data-id: tinkerplay-windows.yml # 使用的 Nacos 配置集的 dataId。
     type: yaml # 使用的 Nacos 配置集的配置格式。默认为 PROPERTIES。
     group: DEFAULT_GROUP # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP。
     namespace: d5995b58-0e86-496b-8546-3dc112d8f9b7 # 使用的 Nacos 的命名空间，默认为 null。
