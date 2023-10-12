@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration>
 <configuration>
-<!--    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
-<!--    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
+    <!--    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>-->
+    <!--    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>-->
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%i索引【从数字0开始递增】,,, -->
     <!-- appender是configuration的子节点，是负责写日志的组件。 -->
     <!-- ConsoleAppender：把日志输出到控制台 -->
@@ -31,7 +31,7 @@
             <maxHistory>7</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!-- maxFileSize:这是活动文件的大小，默认值是10MB,本篇设置为1M，只是为了演示 -->
+                <!-- maxFileSize:这是活动文件的大小，默认值是10MB,设置为1M -->
                 <maxFileSize>1MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
@@ -64,7 +64,7 @@
             <maxHistory>7</maxHistory>
             <totalSizeCap>10MB</totalSizeCap>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!-- maxFileSize:这是活动文件的大小，默认值是10MB,本篇设置为1M，只是为了演示 -->
+                <!-- maxFileSize:这是活动文件的大小，默认值是10MB,设置为1M -->
                 <maxFileSize>1MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
@@ -88,10 +88,16 @@
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
     <!-- com.baiyx.tinkerplay，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.baiyx.tinkerplay" level="DEBUG">
+    <logger name="com.baiyx.tinkerplay" level="DEBUG" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="org.springframework.data.elasticsearch.client.WIRE" level="trace">
+    <logger name="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao" level="TRACE" additivity="true">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="org.mybatis" level="TRACE">
+        <appender-ref ref="FILE"/>
+    </logger>
+    <logger name="org.springframework.data.elasticsearch.client.WIRE" level="TRACE">
         <appender-ref ref="ES"/>
     </logger>>
     <!--<logger level="DEBUG">-->

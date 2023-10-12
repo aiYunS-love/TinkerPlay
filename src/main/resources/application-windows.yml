@@ -224,7 +224,13 @@ mybatis:
     - com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity
   configuration:
     # 打印SQL日志
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    org:
+      mybatis: TRACE
 
 pdf:
   config:
