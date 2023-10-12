@@ -91,12 +91,12 @@
     <logger name="com.baiyx.tinkerplay" level="DEBUG" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao" level="TRACE" additivity="true">
+    <logger name="com.baiyx.tinkerplay.Entity" level="TRACE" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="org.mybatis" level="TRACE">
-        <appender-ref ref="FILE"/>
-    </logger>
+<!--    <logger name="org.mybatis" level="TRACE">-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--    </logger>-->
     <logger name="org.springframework.data.elasticsearch.client.WIRE" level="TRACE">
         <appender-ref ref="ES"/>
     </logger>>
