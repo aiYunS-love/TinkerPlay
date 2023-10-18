@@ -685,7 +685,7 @@
                 <artifactId>flyway-maven-plugin</artifactId>
                 <version>9.21.1</version>
                 <configuration>
-                    <url>jdbc:mysql://localhost:3306/heima?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
+                    <url>jdbc:mysql://localhost:3306/tinkerplay?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
                     </url>
                     <user>root</user>
                     <password>19930218</password>

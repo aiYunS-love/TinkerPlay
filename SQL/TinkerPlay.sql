@@ -5,7 +5,7 @@
  Source Server Type    : MySQL
  Source Server Version : 80011
  Source Host           : localhost:3306
- Source Schema         : heima
+ Source Schema         : tinkerplay
 
  Target Server Type    : MySQL
  Target Server Version : 80011
@@ -144,10 +144,10 @@ CREATE TABLE `flyway_schema_history`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for heima_user
+-- Table structure for tinkerplay_user
 -- ----------------------------
-DROP TABLE IF EXISTS `heima_user`;
-CREATE TABLE `heima_user`  (
+DROP TABLE IF EXISTS `tinkerplay_user`;
+CREATE TABLE `tinkerplay_user`  (
   `id` int(11) NOT NULL,
   `username` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `address` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
