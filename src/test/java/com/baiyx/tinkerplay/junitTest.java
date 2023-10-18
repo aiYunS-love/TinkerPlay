@@ -136,7 +136,7 @@ public class junitTest implements Runnable{
                 .setPort(3306)
                 .setUser("root")
                 .setPassword("19930218")
-                .setDatabase("heima")
+                .setDatabase("tinkerplay")
                 .setCharacterEncoding("utf8")
                 .setInitialTimeout(6000)
                 .JDBCBuild();
@@ -836,7 +836,7 @@ public class junitTest implements Runnable{
         ResultSet rs = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/heima?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC", "root", "19930218");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tinkerplay?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC", "root", "19930218");
             sta = conn.createStatement();
             rs = sta.executeQuery("select * from user");
             List list = ResultSetToList.resultSetTolist(rs);

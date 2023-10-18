@@ -16,13 +16,13 @@ spring:
       datasource:
         master:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.119.128:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
+          url: jdbc:mysql://192.168.119.128:3306/tinkerplay?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
         slave_1:
           driver-class-name: com.mysql.cj.jdbc.Driver
-          url: jdbc:mysql://192.168.43.148:3306/heima?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
+          url: jdbc:mysql://192.168.43.148:3306/tinkerplay?useSSL=false&autoReconnect=true&useUnicode=true&characterEncoding=UTF8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&connectionTimeout=60000&socketTimeout=60000
           username: root
           password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
           type: com.alibaba.druid.pool.DruidDataSource
@@ -117,7 +117,7 @@ spring:
     # 是否允许不按顺序迁移 开发建议 true  生产建议 false
     out-of-order: false
     # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
-    schemas: heima
+    schemas: tinkerplay
     # 配置多数据源后,指定数据源执行脚本
     dataSourceArr: master,slave_1
   # 文件上传功能开启
@@ -301,7 +301,7 @@ CDC:
     enabled: true
     host: 192.168.119.128
     port: 3306
-    database: heima
+    database: tinkerplay
     tableList: user
     username: root
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)

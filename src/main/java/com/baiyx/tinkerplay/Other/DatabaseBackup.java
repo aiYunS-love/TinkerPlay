@@ -19,7 +19,7 @@ public class DatabaseBackup {
         String host = "localhost";
         String username = "root";
         String password = "19930218";
-        String databaseName = "heima";
+        String databaseName = "tinkerplay";
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String backupFilePath = "E:\\baiyx\\DatabaseBackup\\" + sdf.format(new Date());
