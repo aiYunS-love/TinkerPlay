@@ -649,12 +649,12 @@
             <version>4.5.14</version>
         </dependency>
     </dependencies>
-    <!-- 发布包到github -->
+    <!-- 发布包 -->
     <distributionManagement>
         <repository>
             <id>github</id>
-            <name>GitHub OWNER Apache Maven Packages</name>
-            <url>https://github.com/bai784724280/TinkerPlay</url>
+            <name>GitHub bai784724280 Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/bai784724280/TinkerPlay</url>
         </repository>
     </distributionManagement>
     <build>
