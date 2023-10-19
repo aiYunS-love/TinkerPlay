@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.baiyx</groupId>
     <artifactId>TinkerPlay</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>tinkerplay</name>
     <description>TinkerPlay for Spring Boot</description>
     <properties>
