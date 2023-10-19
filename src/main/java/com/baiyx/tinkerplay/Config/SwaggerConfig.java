@@ -36,7 +36,7 @@ public class SwaggerConfig {
         return new OpenAPI()
                 .info(new Info().title("TinkerPlay")
                         .description("tinkerplay")
-                        .version("1.0.1")
+                        .version("0.0.1")
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")))
                 .externalDocs(new ExternalDocumentation()
                         .description("SpringDoc")
@@ -50,7 +50,7 @@ public class SwaggerConfig {
 //                .title("小白学习")
 //                .description("baiyx-study")
 //                .contact(contact)
-//                .version("1.0.1")
+//                .version("0.0.1")
 //                .build();
 ////        return new ApiInfo(
 ////                "小白学习",
