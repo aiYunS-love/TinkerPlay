@@ -6,7 +6,7 @@ server:
 spring:
   application:
     name: tinkerplay
-    version: 0.0.1
+    version: 0.0.1-SNAPSHOT
   datasource:
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
@@ -245,7 +245,7 @@ pdf:
 #swagger:
 #  enable: true #是否开启swagger
 #  application-name: bai_yx #项目应用名
-#  application-version: 0.0.1 #项目版本信息
+#  application-version: 0.0.1-SNAPSHOT #项目版本信息
 #  application-description: baiyx_study #项目描述信息
 #  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
 
