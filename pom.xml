@@ -598,7 +598,7 @@
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.5.13</version>
+            <version>3.5.14</version>
         </dependency>
         <!-- 自动装配:配置文件配置项值、环境变量值、操作系统等等自定义可变量，自动将对应的组件（对象）注入到我们的应用中 -->
         <dependency>
