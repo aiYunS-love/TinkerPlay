@@ -78,7 +78,20 @@ JAVA_21 + springboot_3.1.5 + mybatis_3.5.13 + redis_7.0.9 + rabbitmq_3.11.10 + E
 47. 排查整体结构中存在的问题并解决
 48. 解决集成flyway自定义的数据源bean会覆盖baomidou的数据源bean,导致多数据源不生效的问题
 49. JDK20 升级到 JDK21
-50. 开启JDK21的ZGC日志记录(-XX:+UnlockExperimentalVMOptions -XX:+UseZGC -Xlog:gc*:file=/path/to/gc.log),尝试调优
+50. 开启JDK21的ZGC日志记录(--add-opens
+    java.base/java.util=ALL-UNNAMED
+    -Xms1G
+    -Xmx2G
+    -XX:ReservedCodeCacheSize=64m
+    -XX:InitialCodeCacheSize=32m
+    -XX:+UnlockExperimentalVMOptions
+    -XX:+UseZGC
+    -XX:ConcGCThreads=2
+    -XX:ParallelGCThreads=3
+    -XX:ZCollectionInterval=60
+    -XX:ZAllocationSpikeTolerance=2
+    -Xlog:safepoint,classhisto*=trace,age*,gc*=info:file=E:\baiyx\TinkerPlay\logs\ZGCLogs\gc-%t.log:time,tid,tags:filecount=5,filesize=50m),
+     尝试调优!!!
 51. ...........................
 
 #### 部署内容
