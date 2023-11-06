@@ -3,7 +3,7 @@ package com.baiyx.tinkerplay.Other.ListenerDemo.CustomListenerDemo;
 /**
  * @Author: baiyx
  * @Date: 2023年11月6日, 0006 上午 11:10:26
- * @Description: 说明
+ * @Description: 自定义监听器
  */
 
 public class CustomListenerDemo {
