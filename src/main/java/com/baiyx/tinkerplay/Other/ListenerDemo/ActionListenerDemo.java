@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 /**
  * @Author: baiyx
  * @Date: 2023年11月6日, 0006 上午 10:15:13
- * @Description: 鼠标监听案例
+ * @Description: 按钮监听案例
  */
 
 public class ActionListenerDemo {
