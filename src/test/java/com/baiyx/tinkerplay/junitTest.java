@@ -2,8 +2,8 @@ package com.baiyx.tinkerplay;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.baiyx.tinkerplay.Controller.Service.RedisService;
 import com.baiyx.tinkerplay.Other.DesignMode.BuilderMode.BuildJDBC;
-import com.baiyx.tinkerplay.Common.RedisService;
 import com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.tinkerplay.DataStructure.Stack;
 import com.baiyx.tinkerplay.Algorithm.RecursiveAlgorithm;
