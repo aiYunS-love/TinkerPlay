@@ -1,5 +1,6 @@
-package com.baiyx.tinkerplay.Common;
+package com.baiyx.tinkerplay.Controller.Service.ServiceImpl;
 
+import com.baiyx.tinkerplay.Controller.Service.RedisService;
 import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.annotation.Resource;

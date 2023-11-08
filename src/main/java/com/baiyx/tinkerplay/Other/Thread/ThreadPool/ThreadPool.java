@@ -1,4 +1,4 @@
-package com.baiyx.tinkerplay.Other.Thread;
+package com.baiyx.tinkerplay.Other.Thread.ThreadPool;
 
 import java.util.concurrent.*;
 

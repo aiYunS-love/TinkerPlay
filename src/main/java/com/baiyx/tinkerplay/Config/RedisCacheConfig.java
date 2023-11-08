@@ -6,8 +6,8 @@ import java.text.SimpleDateFormat;
 import java.time.Duration;
 
 import com.alibaba.fastjson.support.spring.GenericFastJsonRedisSerializer;
-import com.baiyx.tinkerplay.Common.RedisService;
-import com.baiyx.tinkerplay.Common.RedisServiceImpl;
+import com.baiyx.tinkerplay.Controller.Service.RedisService;
+import com.baiyx.tinkerplay.Controller.Service.ServiceImpl.RedisServiceImpl;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
