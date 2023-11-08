@@ -1,7 +1,7 @@
 package com.baiyx.tinkerplay.Controller;
 
 import com.baiyx.tinkerplay.Common.CommonResult;
-import com.baiyx.tinkerplay.Common.RedisService;
+import com.baiyx.tinkerplay.Controller.Service.RedisService;
 import com.baiyx.tinkerplay.CustomAnnotations.WebLog;
 import com.baiyx.tinkerplay.Entity.Sms;
 import com.baiyx.tinkerplay.Rabbitmq.BroadcastMessageSender;
