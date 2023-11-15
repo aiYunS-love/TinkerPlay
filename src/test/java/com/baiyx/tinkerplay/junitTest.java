@@ -3,6 +3,7 @@ package com.baiyx.tinkerplay;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.tinkerplay.Controller.Service.RedisService;
+import com.baiyx.tinkerplay.Other.Play.DB;
 import com.baiyx.tinkerplay.Other.DesignMode.BuilderMode.BuildJDBC;
 import com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.tinkerplay.DataStructure.Stack;
@@ -996,6 +997,27 @@ public class junitTest implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 测试解析SQL
+    @Test
+    public void test28(){
+        String sql1 = "ALTER TABLE alterSQL ADD COLUMN column_1 int DEFAULT null COMMENT 'comment_1', ADD COLUMN column_2 varchar DEFAULT null COMMENT 'comment_2'";
+        System.out.print(DB.analyzeSql(sql1));
+        System.out.println();
+
+        String sql2 = "CREATE TABLE `account`  (\n" +
+                "  `id` int(11) NOT NULL,\n" +
+                "  `uid` int(11) NULL DEFAULT NULL,\n" +
+                "  `money` double NULL DEFAULT NULL,\n" +
+                "  PRIMARY KEY (`id`) USING BTREE\n" +
+                ") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '某某表' ROW_FORMAT = Dynamic";
+        System.out.print(DB.analyzeSql(sql2));
+        System.out.println();
+
+        String sql3 = "update p_item_serv_pub set col_nm_en = 'bthAdr', col_nm_en_2 = 'bthAdr_2' where sys_no = 'MI' AND tb_nm_en = 'c_cus_priv_ext' and col_nm_en = 'dbthAdr'";
+        System.out.print(DB.analyzeSql(sql3));
+        System.out.println();
     }
 
 }
