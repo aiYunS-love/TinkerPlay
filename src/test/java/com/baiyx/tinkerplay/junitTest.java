@@ -1002,7 +1002,7 @@ public class junitTest implements Runnable{
     @Test
     public void test28(){
         String sql1 = "ALTER TABLE alterSQL ADD COLUMN column_1 int DEFAULT null COMMENT 'comment_1', ADD COLUMN column_2 varchar DEFAULT null COMMENT 'comment_2'";
-        System.out.print(DB.analyzeSql(sql1));
+        System.out.print(AnalyzeSql.analyze(sql1));
         System.out.println();
 
         String sql2 = "CREATE TABLE `account`  (\n" +
@@ -1011,11 +1011,31 @@ public class junitTest implements Runnable{
                 "  `money` double NULL DEFAULT NULL,\n" +
                 "  PRIMARY KEY (`id`) USING BTREE\n" +
                 ") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '某某表' ROW_FORMAT = Dynamic";
-        System.out.print(DB.analyzeSql(sql2));
+        System.out.print(AnalyzeSql.analyze(sql2));
         System.out.println();
 
         String sql3 = "update p_item_serv_pub set col_nm_en = 'bthAdr', col_nm_en_2 = 'bthAdr_2' where sys_no = 'MI' AND tb_nm_en = 'c_cus_priv_ext' and col_nm_en = 'dbthAdr'";
-        System.out.print(DB.analyzeSql(sql3));
+        System.out.print(AnalyzeSql.analyze(sql3));
+        System.out.println();
+
+        String sql4 = "INSERT INTO p_tran_auth_config(trd_cd, chnl_no, sys_no) VALUES('divisionQry', '', '11')";
+        System.out.print(AnalyzeSql.analyze(sql4));
+        System.out.println();
+
+        String sql5 = "REPLACE INTO p_tran_auth_config(trd_cd, chnl_no, sys_no) VALUES ('divisionQry', 'MI', '')";
+        System.out.print(AnalyzeSql.analyze(sql5));
+        System.out.println();
+
+        String sql6 = "delete from p_tran_auth_config where trd_cd = 'divisionQry' or sys_no = '11'";
+        System.out.print(AnalyzeSql.analyze(sql6));
+        System.out.println();
+
+        String sql7 = "drop table if exists p_tran_auth_config";
+        System.out.print(AnalyzeSql.analyze(sql7));
+        System.out.println();
+
+        String sql8 = "ALTER TABLE alterSQL modify column_1 char(64) character set utf8mb4 collate utf8mb4_bin NOT NULL comment '字段说明'";
+        System.out.print(AnalyzeSql.analyze(sql8));
         System.out.println();
     }
 

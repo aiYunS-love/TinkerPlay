@@ -6,6 +6,10 @@ import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.alter.Alter;
 import net.sf.jsqlparser.statement.alter.AlterExpression;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
+import net.sf.jsqlparser.statement.delete.Delete;
+import net.sf.jsqlparser.statement.drop.Drop;
+import net.sf.jsqlparser.statement.insert.Insert;
+import net.sf.jsqlparser.statement.replace.Replace;
 import net.sf.jsqlparser.statement.update.Update;
 import net.sf.jsqlparser.statement.update.UpdateSet;
 import org.apache.calcite.sql.SqlNode;
@@ -170,70 +174,4 @@ public class DB extends Thread {
         }
     }
 
-    public static String analyzeSql(String sql) {
-        try {
-            StringBuilder stringBuilder = new StringBuilder();
-            Statement statement = CCJSqlParserUtil.parse(sql);
-            if (statement instanceof Alter) {
-                // 处理 ALTER TABLE 语句
-                stringBuilder.append("新增: ");
-                Alter alter = (Alter) statement;
-                String tableName = alter.getTable().getName();
-                List<AlterExpression> columnNames = alter.getAlterExpressions();
-                if (columnNames != null && columnNames.size() > 0) {
-                    for (int i = 0; i < columnNames.size(); i++) {
-                        stringBuilder.append(columnNames.get(i).getColDataTypeList().get(0).getColumnName());
-                        if (sql.contains("COMMENT") || sql.contains("comment")) {
-                            stringBuilder.append("(");
-                            List<String> columnSpecs = columnNames.get(i).getColDataTypeList().get(0).getColumnSpecs();
-                            stringBuilder.append(columnSpecs.get(indexOfIgnoreCase(columnSpecs,"COMMENT") + 1));
-                            stringBuilder.append(")");
-                        }
-                        if (i != columnNames.size() - 1) {
-                            stringBuilder.append("、");
-                        } else {
-                            stringBuilder.append("，");
-                        }
-                    }
-                }
-                stringBuilder.append(columnNames.size());
-                stringBuilder.append(" 个字段");
-            } else if (statement instanceof CreateTable) {
-                // 处理其他类型的 SQL 语句
-                stringBuilder.append("新建: ");
-                stringBuilder.append(((CreateTable) statement).getTable().getName());
-                List<String> tableOptionsStrings = ((CreateTable) statement).getTableOptionsStrings();
-                if (tableOptionsStrings.contains("COMMENT") || tableOptionsStrings.contains("comment")) {
-                    stringBuilder.append("(");
-                    stringBuilder.append(tableOptionsStrings.get(indexOfIgnoreCase(tableOptionsStrings,"comment") + 2));
-                    stringBuilder.append(")");
-                }
-                stringBuilder.append(" 表");
-            } else if (statement instanceof Update) {
-                stringBuilder.append("更新: ");
-                stringBuilder.append(((Update) statement).getTable().getName());
-                stringBuilder.append("表的 ");
-                ArrayList<UpdateSet> updateSet = ((Update) statement).getUpdateSets();
-                for (int i = 0; i < updateSet.size(); i++) {
-                    stringBuilder.append(updateSet.get(i).getColumns().get(0));
-                    stringBuilder.append(", ");
-                }
-                stringBuilder.append(updateSet.size());
-                stringBuilder.append("个字段");
-            }
-            return stringBuilder.toString();
-        } catch (JSQLParserException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public static int indexOfIgnoreCase(List<String> list, String target) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).equalsIgnoreCase(target)) {
-                return i;
-            }
-        }
-        return -1; // 如果未找到匹配项
-    }
 }
