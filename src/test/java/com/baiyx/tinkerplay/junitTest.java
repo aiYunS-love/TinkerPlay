@@ -29,10 +29,9 @@ import org.apache.flink.util.Collector;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.encryption.pbe.config.EnvironmentPBEConfig;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.TestPropertySource;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -66,8 +65,8 @@ import static com.baiyx.tinkerplay.Utils.TokenCreateUtil.isJwtExpired;
  * @Date: 2022-7-7 下午 04:57
  * @Description: 单元测试
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest
+@TestPropertySource(locations = "classpath:application-windows.yml")
 public class junitTest implements Runnable{
     @Autowired
     private UserDao userRepository;
