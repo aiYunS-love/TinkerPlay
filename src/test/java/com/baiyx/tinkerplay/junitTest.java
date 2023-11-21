@@ -3,7 +3,6 @@ package com.baiyx.tinkerplay;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baiyx.tinkerplay.Controller.Service.RedisService;
-import com.baiyx.tinkerplay.Other.Play.DB;
 import com.baiyx.tinkerplay.Other.DesignMode.BuilderMode.BuildJDBC;
 import com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.ProjBaseDao;
 import com.baiyx.tinkerplay.DataStructure.Stack;
@@ -292,7 +291,7 @@ public class junitTest implements Runnable{
     @Test
     public void test14() {
         try {
-            QRCodeGenerator.generateQRCodeImage("maomiaomiao and ergougou ", 350, 350, "D:\\Users\\lenovo\\Desktop\\QRTest.png");
+            QRCodeGeneratorUtil.generateQRCodeImage("maomiaomiao and ergougou ", 350, 350, "D:\\Users\\lenovo\\Desktop\\QRTest.png");
         } catch (WriterException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -303,7 +302,7 @@ public class junitTest implements Runnable{
     // 测试识别二维码图片工具类
     @Test
     public void test15() {
-        System.out.println(QRCodeUtils.deEncodeByPath("D:\\Users\\lenovo\\Desktop\\a.jpg"));
+        System.out.println(QRCodeUtil.deEncodeByPath("D:\\Users\\lenovo\\Desktop\\a.jpg"));
     }
 
     // 测试栈的数据结构
@@ -387,7 +386,7 @@ public class junitTest implements Runnable{
                 TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         tmf.init(ks);
         X509TrustManager defaultTrustManager = (X509TrustManager)tmf.getTrustManagers()[0];
-        InstallCert.SavingTrustManager tm = new InstallCert.SavingTrustManager(defaultTrustManager);
+        InstallCertUtil.SavingTrustManager tm = new InstallCertUtil.SavingTrustManager(defaultTrustManager);
         context.init(null, new TrustManager[] {tm}, null);
         SSLSocketFactory factory = context.getSocketFactory();
 
@@ -425,9 +424,9 @@ public class junitTest implements Runnable{
                     (" " + (i + 1) + " Subject " + cert.getSubjectDN());
             System.out.println("   Issuer  " + cert.getIssuerDN());
             sha1.update(cert.getEncoded());
-            System.out.println("   sha1    " + InstallCert.toHexString(sha1.digest()));
+            System.out.println("   sha1    " + InstallCertUtil.toHexString(sha1.digest()));
             md5.update(cert.getEncoded());
-            System.out.println("   md5     " + InstallCert.toHexString(md5.digest()));
+            System.out.println("   md5     " + InstallCertUtil.toHexString(md5.digest()));
             System.out.println();
         }
 
@@ -462,14 +461,14 @@ public class junitTest implements Runnable{
     // 测试Sm2工具类,测试Sm2加解密
     @Test
     public void test18()throws Exception{
-        KeyPair keyPair = Sm2Utils.generateSm2KeyPair();
+        KeyPair keyPair = Sm2Util.generateSm2KeyPair();
         String privateKey = Base64.getEncoder().encodeToString(keyPair.getPrivate().getEncoded());
         String publicKey  = Base64.getEncoder().encodeToString(keyPair.getPublic().getEncoded());
         String data = "{\"daId\":\"123456\"}";
-        String encryptedJsonStr =  Hex.encodeHexString(Sm2Utils.encrypt(data, publicKey)) + "";//16进制字符串
-        String decryptedJsonStr = Sm2Utils.decrypt(Hex.decodeHex(encryptedJsonStr), privateKey);
-        String sign = Hex.encodeHexString(Base64.getDecoder().decode(Sm2Utils.sign(data, privateKey)));
-        boolean flag = Sm2Utils.verify(Hex.encodeHexString(data.getBytes()), sign, publicKey);
+        String encryptedJsonStr =  Hex.encodeHexString(Sm2Util.encrypt(data, publicKey)) + "";//16进制字符串
+        String decryptedJsonStr = Sm2Util.decrypt(Hex.decodeHex(encryptedJsonStr), privateKey);
+        String sign = Hex.encodeHexString(Base64.getDecoder().decode(Sm2Util.sign(data, privateKey)));
+        boolean flag = Sm2Util.verify(Hex.encodeHexString(data.getBytes()), sign, publicKey);
         System.out.println("base64后privateKey:" + privateKey);
         System.out.println("base64后publicKey:" + publicKey);
         System.out.println("加密前数据:" + data);
@@ -839,7 +838,7 @@ public class junitTest implements Runnable{
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/tinkerplay?useUnicode=true&characterEncoding=utf-8&useSSL=true&serverTimezone=UTC", "root", "19930218");
             sta = conn.createStatement();
             rs = sta.executeQuery("select * from user");
-            List list = ResultSetToList.resultSetTolist(rs);
+            List list = ResultSetToListUtil.resultSetTolist(rs);
             System.out.println(list);
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
@@ -1002,7 +1001,7 @@ public class junitTest implements Runnable{
     @Test
     public void test28(){
         String sql1 = "ALTER TABLE alterSQL ADD COLUMN column_1 int DEFAULT null COMMENT 'comment_1', ADD COLUMN column_2 varchar DEFAULT null COMMENT 'comment_2'";
-        System.out.print(AnalyzeSql.analyze(sql1));
+        System.out.print(AnalyzeSqlUtil.analyze(sql1));
         System.out.println();
 
         String sql2 = "CREATE TABLE `account`  (\n" +
@@ -1011,31 +1010,31 @@ public class junitTest implements Runnable{
                 "  `money` double NULL DEFAULT NULL,\n" +
                 "  PRIMARY KEY (`id`) USING BTREE\n" +
                 ") ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '某某表' ROW_FORMAT = Dynamic";
-        System.out.print(AnalyzeSql.analyze(sql2));
+        System.out.print(AnalyzeSqlUtil.analyze(sql2));
         System.out.println();
 
         String sql3 = "update p_item_serv_pub set col_nm_en = 'bthAdr', col_nm_en_2 = 'bthAdr_2' where sys_no = 'MI' AND tb_nm_en = 'c_cus_priv_ext' and col_nm_en = 'dbthAdr'";
-        System.out.print(AnalyzeSql.analyze(sql3));
+        System.out.print(AnalyzeSqlUtil.analyze(sql3));
         System.out.println();
 
         String sql4 = "INSERT INTO p_tran_auth_config(trd_cd, chnl_no, sys_no) VALUES('divisionQry', '', '11')";
-        System.out.print(AnalyzeSql.analyze(sql4));
+        System.out.print(AnalyzeSqlUtil.analyze(sql4));
         System.out.println();
 
         String sql5 = "REPLACE INTO p_tran_auth_config(trd_cd, chnl_no, sys_no) VALUES ('divisionQry', 'MI', '')";
-        System.out.print(AnalyzeSql.analyze(sql5));
+        System.out.print(AnalyzeSqlUtil.analyze(sql5));
         System.out.println();
 
         String sql6 = "delete from p_tran_auth_config where trd_cd = 'divisionQry' or sys_no = '11'";
-        System.out.print(AnalyzeSql.analyze(sql6));
+        System.out.print(AnalyzeSqlUtil.analyze(sql6));
         System.out.println();
 
         String sql7 = "drop table if exists p_tran_auth_config";
-        System.out.print(AnalyzeSql.analyze(sql7));
+        System.out.print(AnalyzeSqlUtil.analyze(sql7));
         System.out.println();
 
         String sql8 = "ALTER TABLE alterSQL modify column_1 char(64) character set utf8mb4 collate utf8mb4_bin NOT NULL comment '字段说明'";
-        System.out.print(AnalyzeSql.analyze(sql8));
+        System.out.print(AnalyzeSqlUtil.analyze(sql8));
         System.out.println();
     }
 

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * @Date: 2023年8月10日, 0010 下午 3:09:17
  * @Description: 正则工具类
  */
-public class RegexUtils {
+public class RegexUtil {
 
     /**
      * 验证Email

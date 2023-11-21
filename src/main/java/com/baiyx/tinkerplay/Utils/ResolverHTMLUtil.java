@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
  * @Description: 解析HTML页面工具类
  */
 
-public class ResolverHTML {
+public class ResolverHTMLUtil {
 
     // 爬博客园文章
     public static void ResolverHTML1(String html){

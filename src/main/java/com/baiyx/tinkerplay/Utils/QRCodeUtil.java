@@ -17,7 +17,7 @@ import java.util.Map;
  * @Description: 二维码识别（图片）
  */
 
-public class QRCodeUtils {
+public class QRCodeUtil {
 
     /**
      * 解析二维码,此方法解析一个路径的二维码图片

@@ -12,7 +12,7 @@ import javax.net.ssl.X509TrustManager;
  * @Description: 从网站获取java所需的证书，调用时传入域名
  */
 
-public class InstallCert {
+public class InstallCertUtil{
 
     private static final char[] HEXDIGITS = "0123456789abcdef".toCharArray();
 

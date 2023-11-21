@@ -15,7 +15,7 @@ import java.net.URL;
  * @Date: 2022-9-23 下午 08:57
  * @Description: 请求其他接口工具类
  */
-public class ToInterface {
+public class ToInterfaceUtil {
     /**
      * 调测日志记录器。
      */
