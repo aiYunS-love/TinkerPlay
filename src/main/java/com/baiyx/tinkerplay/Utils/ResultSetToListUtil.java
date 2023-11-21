@@ -13,7 +13,7 @@ import java.util.Map;
  * @Description: JDBC结果集转换List集合
  */
 
-public class ResultSetToList {
+public class ResultSetToListUtil {
 
     public static List resultSetTolist(ResultSet rs){
         List list = new ArrayList();

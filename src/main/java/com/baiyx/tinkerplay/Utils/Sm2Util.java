@@ -35,7 +35,7 @@ import org.bouncycastle.jce.provider.BouncyCastleProvider;
  * @Description: Sm2工具类
  */
 
-public class Sm2Utils {
+public class Sm2Util {
 
     /**
      * 加签

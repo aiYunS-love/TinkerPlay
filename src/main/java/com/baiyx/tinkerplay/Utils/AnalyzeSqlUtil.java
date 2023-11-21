@@ -21,7 +21,7 @@ import java.util.List;
  * @Date: 2023年11月16日, 0016 下午 3:56:32
  * @Description: 简单分析SQL执行内容
  */
-public class AnalyzeSql {
+public class AnalyzeSqlUtil {
     public static String analyze(String sql) {
         try {
             StringBuilder stringBuilder = new StringBuilder();

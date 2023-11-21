@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * @Date: 2022-9-22 下午 04:18
  * @Description: 字符串拼接工具类
  */
-public class StrSpliceUtils {
+public class StrSpliceUtil {
 
     // 数组元素
     public static String strSplice(ArrayList arrayList){

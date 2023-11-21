@@ -16,7 +16,7 @@ import java.nio.file.Path;
  * @Description: 生成二维码工具
  */
 
-public class QRCodeGenerator {
+public class QRCodeGeneratorUtil {
 
     public static void generateQRCodeImage(String text, int width, int height, String filePath)
             throws WriterException, IOException {

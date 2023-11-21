@@ -283,7 +283,7 @@ public class UserServiceImpl implements UserService {
         if(projbaseList != null && projbaseList.size() != 0){
             UserDao.removeESC(projbaseList);
             //调办结接口
-            StringBuffer stringBuffer = ToInterface.interfaceUtil("https://govbdctj.zjzwfw.gov.cn:7079/api/right/ignoreOuth/house/callback/fillhousefinish",projIds.toString(),"POST");
+            StringBuffer stringBuffer = ToInterfaceUtil.interfaceUtil("https://govbdctj.zjzwfw.gov.cn:7079/api/right/ignoreOuth/house/callback/fillhousefinish",projIds.toString(),"POST");
             JSONObject sbObj = (JSONObject) JSON.parse(stringBuffer.toString());
             resultMsg.setStatus(sbObj.getString("status"));
             resultMsg.setMsg(sbObj.getString("msg"));
@@ -293,7 +293,7 @@ public class UserServiceImpl implements UserService {
             resultMsg.setRequestId(sbObj.getString("requestId"));
             resultMsg.setSuccess(sbObj.getString("success"));
             if(ywhs != null && ywhs.size() != 0){
-                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
+                resultMsg.setMessage("这些数据: " + StrSpliceUtil.strSplice(ywhs) + " 已存在projbase表中!");
             }else{
                 resultMsg.setMessage(sbObj.getString("message"));
             }
@@ -307,7 +307,7 @@ public class UserServiceImpl implements UserService {
             resultMsg.setRequestId("123456789");
             resultMsg.setSuccess("false");
             if(ywhs != null && ywhs.size() != 0){
-                resultMsg.setMessage("这些数据: " + StrSpliceUtils.strSplice(ywhs) + " 已存在projbase表中!");
+                resultMsg.setMessage("这些数据: " + StrSpliceUtil.strSplice(ywhs) + " 已存在projbase表中!");
             }else{
                 resultMsg.setMessage("不存在可推的数据或数据已存在projbase表中!!!");
             }
