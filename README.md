@@ -4,7 +4,7 @@
 从系统设计规划-->编码开发-->测试调试-->规划部署-->运维支持-->程序调优-->迭代改进的一体化角度出发! 学习、温习、记录工作生活中遇到的常规性需求解决思路和案例、集成各种中间件的思路和案例、各种处理策略、算法基础、设计模式基础、测试知识点的代码库.
 
 #### 架构
-JAVA_21 + springboot_3.1.5 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.9.5构建
+JAVA_21 + springboot_3.1.6 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.9.5构建
 
 
 #### 配置文件application.yml说明
@@ -74,7 +74,7 @@ JAVA_21 + springboot_3.1.5 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + E
 44. 完善日志配置: 日志输出格式,日志分割规则,日志常规配置等
 45. 测试git提交
 46. 框架版本全面升级:JAVA_1.8 + springboot_2.7.5 + mybatis_3.4.6 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.8.4构建
-    到 JAVA_20 + springboot_3.1.5 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.9.5构建
+    到 JAVA_20 + springboot_3.1.6 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + ELK_7.17.3 等,maven_3.9.5构建
 47. 排查整体结构中存在的问题并解决
 48. 解决集成flyway自定义的数据源bean会覆盖baomidou的数据源bean,导致多数据源不生效的问题
 49. JDK20 升级到 JDK21
