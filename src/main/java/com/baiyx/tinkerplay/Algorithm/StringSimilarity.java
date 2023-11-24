@@ -10,8 +10,8 @@ import java.util.Arrays;
 
 public class StringSimilarity {
     public static void main(String[] args) {
-        String str1 = "百鱼新";
-        String str2 = "白宇鑫";
+        String str1 = "hello";
+        String str2 = "holle";
 
         int similarity = calculateSimilarity(str1, str2);
         System.out.println("相似程度: " + similarity + "%");
