@@ -318,6 +318,17 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-x-content</artifactId>
             <version>7.17.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.33</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch</groupId>
@@ -594,7 +605,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.3</version>
         </dependency>
         <!-- 自动插入到编辑器和构建工具中，增强java -->
         <dependency>
@@ -613,7 +624,7 @@
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-            <version>3.0.2</version>
+            <version>3.0.3</version>
         </dependency>
         <!-- JSON包 -->
         <dependency>
