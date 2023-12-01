@@ -1,4 +1,4 @@
-package com.baiyx.tinkerplay.Other.SingletonPattern;
+package com.baiyx.tinkerplay.Other.DesignMode.SingletonMode;
 
 /**
  * @Author: baiyx
