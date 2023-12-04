@@ -10,12 +10,18 @@ JAVA_21 + springboot_3.2.0 + mybatis_3.5.14 + redis_7.0.9 + rabbitmq_3.11.10 + E
 #### 配置文件application.yml说明
 
 1.  多数据源配置
-2.  redis配置
-3.  rabbitmq配置
+2.  redis配置及配置类
+3.  rabbitmq配置及配置类
 4.  mybatis配置
-5.  swagger配置
-6.  Flyway
-7.  .....等
+5.  swagger配置及配置类
+6.  Flyway配置及配置类
+7.  Minio配置及配置类
+8.  nacos配置
+9.  druid配置
+10. springdoc配置及配置类
+11. elasticsearch配置及配置类
+12. flink配置
+13. ....等
 
 #### TinkerPlay内容
 
