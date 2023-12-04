@@ -709,7 +709,7 @@
             <plugin>
                 <groupId>org.flywaydb</groupId>
                 <artifactId>flyway-maven-plugin</artifactId>
-                <version>9.21.1</version>
+                <version>10.1.0</version>
                 <configuration>
                     <url>jdbc:mysql://localhost:3306/tinkerplay?characterEncoding=utf-8&amp;useSSL=false&amp;serverTimezone=Asia/Shanghai
                     </url>
@@ -821,9 +821,9 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.3.1</version>
                 <configuration>
-                    <encoding>UTF-8</encoding>
+                    <propertiesEncoding>UTF-8</propertiesEncoding>
                     <nonFilteredFileExtensions>
                         <nonFilteredFileExtension>pdf</nonFilteredFileExtension>
                     </nonFilteredFileExtensions>
