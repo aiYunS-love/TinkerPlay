@@ -7,6 +7,10 @@ spring:
   application:
     name: tinkerplay
     version: 0.0.1-SNAPSHOT
+  # 开启虚拟线程
+  threads:
+    virtual:
+      enabled: true
   datasource:
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
