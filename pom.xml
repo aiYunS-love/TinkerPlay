@@ -532,7 +532,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>3.3.2</version>
+            <version>3.3.3</version>
         </dependency>
         <!--消息队列AMQP依赖，包含RabbitMQ-->
         <dependency>
