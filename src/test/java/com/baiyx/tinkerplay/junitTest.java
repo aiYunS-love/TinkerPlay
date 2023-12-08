@@ -1036,6 +1036,18 @@ public class junitTest implements Runnable{
         String sql8 = "ALTER TABLE alterSQL modify column_1 char(64) character set utf8mb4 collate utf8mb4_bin NOT NULL comment '字段说明'";
         System.out.print(AnalyzeSqlUtil.analyze(sql8));
         System.out.println();
+
+        String sql9 = "CREATE INDEX uk_c_cus_rel_ptu_user_id_idx USING BTREE ON eicc.c_cus_rel_ptu (user_id)";
+        System.out.print(AnalyzeSqlUtil.analyze(sql9));
+        System.out.println();
+
+        String sql10 = "CREATE UNIQUE INDEX index_name ON table_name (indexColumn1, indexColumn2)";
+        System.out.print(AnalyzeSqlUtil.analyze(sql10));
+        System.out.println();
+
+        String sql11 = "CREATE UNIQUE INDEX idx_username ON users (username, age) USING BTREE";
+        System.out.print(AnalyzeSqlUtil.analyze(sql11));
+        System.out.println();
     }
 
 }

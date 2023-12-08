@@ -5,6 +5,7 @@ import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.alter.Alter;
 import net.sf.jsqlparser.statement.alter.AlterExpression;
+import net.sf.jsqlparser.statement.create.index.CreateIndex;
 import net.sf.jsqlparser.statement.create.table.CreateTable;
 import net.sf.jsqlparser.statement.delete.Delete;
 import net.sf.jsqlparser.statement.drop.Drop;
@@ -95,6 +96,25 @@ public class AnalyzeSqlUtil {
             } else if (statement instanceof Drop) {
                 stringBuilder.append("删除表结构: ");
                 stringBuilder.append(((Drop) statement).getName());
+            } else if (statement instanceof CreateIndex) {
+                stringBuilder.append(((CreateIndex) statement).getTable().getName());
+                stringBuilder.append(" 表, 新建: ");
+                stringBuilder.append(((CreateIndex) statement).getIndex().getType());
+                stringBuilder.append(" 类型索引");
+                stringBuilder.append("(");
+                stringBuilder.append(((CreateIndex) statement).getIndex().getName());
+                stringBuilder.append(": ");
+                List<String> indesCols = ((CreateIndex) statement).getIndex().getColumnsNames();
+                for (int i = 0; i < indesCols.size(); i++) {
+                    stringBuilder.append(indesCols.get(i));
+                    stringBuilder.append(" 字段");
+                    if (indesCols.size() - 1 == i) {
+                        stringBuilder.append(".");
+                    } else {
+                        stringBuilder.append(", ");
+                    }
+                }
+                stringBuilder.append(") ");
             }
             return stringBuilder.toString();
         } catch (JSQLParserException e) {
