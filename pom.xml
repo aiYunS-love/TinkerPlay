@@ -116,17 +116,17 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.1</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams-scala_2.13</artifactId>
-            <version>3.5.1</version>
+            <version>3.6.1</version>
         </dependency>
         <!-- 发送短信的三方包 -->
         <dependency>
@@ -231,12 +231,12 @@
         <dependency>
             <groupId>com.alibaba.boot</groupId>
             <artifactId>nacos-config-spring-boot-starter</artifactId>
-            <version>0.2.12</version>
+            <version>0.3.0-RC</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-loadbalancer</artifactId>
-            <version>4.0.4</version>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.cloud</groupId>
@@ -324,17 +324,6 @@
             <groupId>org.elasticsearch</groupId>
             <artifactId>elasticsearch-x-content</artifactId>
             <version>7.17.3</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.yaml</groupId>
-                    <artifactId>snakeyaml</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.yaml</groupId>
-            <artifactId>snakeyaml</artifactId>
-            <version>1.33</version>
         </dependency>
         <dependency>
             <groupId>org.elasticsearch</groupId>
@@ -576,10 +565,9 @@
         </dependency>
         <!-- mysql驱动 -->
         <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
             <version>8.0.32</version>
-            <scope>runtime</scope>
         </dependency>
         <!-- 常用工具类jar包 -->
         <dependency>
