@@ -34,7 +34,7 @@
         select * from user where id=#{id};
     </select>
 
-    <select id="findById2" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo" resultType="com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
+    <select id="findById2" parameterType="long" resultType="com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser where id=#{id};
     </select>
 

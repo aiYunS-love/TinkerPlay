@@ -1,7 +1,13 @@
 package com.baiyx.tinkerplay.Config;
 
+import co.elastic.clients.json.JsonpMapper;
+import co.elastic.clients.transport.rest_client.RestClientOptions;
+import co.elastic.clients.transport.rest_client.RestClientTransport;
 import com.baiyx.tinkerplay.Controller.Elasticsearch.Repository.EsUserRepository;
+import org.elasticsearch.client.RestClient;
 import org.elasticsearch.client.RestHighLevelClient;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
@@ -20,10 +26,16 @@ import org.springframework.data.repository.core.support.RepositoryFactorySupport
 @EnableJpaRepositories("com.baiyx.tinkerplay.Controller.Elasticsearch.Repository")
 public class EsConfig {
 
+    @Value("${spring.elasticsearch.rest.uris}")
+    private String uris;
+
     @Bean(name = "myElasticsearchClient")
     public RestHighLevelClient myElasticsearchClient() {
+        if (uris.startsWith("http://")) {
+            uris = uris.replace("http://","");
+        }
         final ClientConfiguration clientConfiguration = ClientConfiguration.builder()
-                .connectedTo("192.168.119.128:9200") // 指定Elasticsearch服务器的主机和端口
+                .connectedTo(uris) // 指定Elasticsearch服务器的主机和端口
                 .build();
         return RestClients.create(clientConfiguration).rest();
     }
@@ -38,6 +50,12 @@ public class EsConfig {
     public EsUserRepository myEsUserRepository() {
         RepositoryFactorySupport factory = new ElasticsearchRepositoryFactory(elasticsearchTemplate());
         return factory.getRepository(EsUserRepository.class);
+    }
+
+    @Bean
+    public RestClientTransport restClientTransport(RestClient restClient, JsonpMapper jsonMapper,
+                                                   ObjectProvider<RestClientOptions> restClientOptions) {
+        return new RestClientTransport(restClient, jsonMapper, restClientOptions.getIfAvailable());
     }
 
 }
