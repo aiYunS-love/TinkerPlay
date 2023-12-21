@@ -688,7 +688,7 @@
     </distributionManagement>
     <build>
         <!--指定打包后的finalName-->
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <resources>
             <!-- 把需要打包的文件打包到classes目录中 -->
             <resource>
@@ -778,12 +778,10 @@
                                 <!--定义哪些文件拷贝到容器中-->
                                 <assembly>
                                     <!--定义拷贝到容器的目录-->
-                                    <targetDir>/</targetDir>
+                                    <targetDir>/${project.artifactId}</targetDir>
                                     <!--只拷贝生成的jar包-->
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
-                                <!--定义容器启动命令-->
-                                <entryPoint>["java", "--add-opens=java.base/java.util=ALL-UNNAMED", "-jar","/${project.build.finalName}.jar"]</entryPoint>
                                 <!--定义维护者-->
                                 <maintainer>baiyx</maintainer>
                                 <!--使用Dockerfile构建时打开-->
@@ -810,10 +808,9 @@
                                         <volume>/mydata/Test/uploadFile:/Test/uploadFile</volume>
                                     </bind>
                                     <from>
-                                        <image>baiyx/${project.name}</image>
+                                        <image>baiyx/${project.name}:${project.version}</image>
                                     </from>
                                 </volumes>
-                                <cmd>java --add-opens=java.base/java.util=ALL-UNNAMED -jar /${project.name}</cmd>
                             </run>
                         </image>
                     </images>
