@@ -1,16 +1,7 @@
 server:
   port: 9092
-  servlet:
-    context-path: /api
 
 spring:
-  application:
-    name: tinkerplay
-    version: 0.0.1-SNAPSHOT
-  # 开启虚拟线程
-  threads:
-    virtual:
-      enabled: true
   datasource:
     dynamic:
       # 设置默认的数据源或者数据源组,默认值即为master
@@ -38,29 +29,10 @@ spring:
           type: com.alibaba.druid.pool.DruidDataSource
       # druid 连接池管理
       druid:
-        filter:
-          slf4j:
-            enabled: true
-            statement-create-after-log-enabled: false
-            statement-close-after-log-enabled: false
-            result-set-open-after-log-enabled: false
-            result-set-close-after-log-enabled: false
-          config:
-            #开启密钥加密
-            enabled: true
-        # 配置默认的监控统计拦截的Filter
-        # 不配置则监控页面中的SQL无法统计
-        # stat - SQL监控配置
-        # wall - SQL防火墙配置
-        # slf4j - Druid日志配置
-        filters: stat,wall,slf4j
         # 初始化连接池大小
         initial-size: 5
         # 连接池最大连接数
         max-active: 20
-        # 每个连接上PSCache的最大值
-        # 如果大于0，pool-prepared-statements自动开启
-        max-pool-prepared-statement-per-connection-size: -1
         # 连接时最大等待时间（单位：毫秒）
         max-wait: 60000
         # 保持空闲连接不被关闭的最小生存时间（单位：毫秒）
@@ -76,139 +48,16 @@ spring:
         # 检测归还连接时的有效性
         # 开启后会影响性能
         test-on-return: false
-        # 检测空闲连接
-        # 不影响性能，建议开启
-        test-while-idle: true
         # 检测关闭空闲连接的时间间隔（单位：毫秒）
         time-between-eviction-runs-millis: 60000
-        # 检测连接有效的SQL
-        # 为空则test-while-idle、test-on-borrow、test-on-return配置失效
-        validation-query: SELECT 1
-        # 检测连接是否有效的超时时间
-        validation-query-timeout: 1
-        stat-view-servlet:
-          # 访问白名单
-          allow: 127.0.0.1
-          # 配置统计页面
-          enabled: true
-          # 访问密码
-          login-password: 123456
-          # 访问用户名
-          login-username: root
-          # 允许重置监控数据
-          reset-enable: true
-        web-stat-filter:
-          # 配置统计页面过滤
-          enabled: true
-          # 排除路径
-          exclusions: .js,*.gif,*.jpg,*.bmp,*.png,*.css,*.ico,/druid/*
-          # 开启session统计
-          session-stat-enable: true
-          # session统计的最大个数
-          session-stat-max-count: 100
-          # 过滤路径
-          url-pattern: /*
   # 自动升级数据库脚本,与Flyway配置类功能相同,保留一个即可
   flyway:
-    # 是否启用flyway
-    enabled: true
-    # flyway 的 clean 命令会删除指定 schema 下的所有 table, 生产务必禁掉。这个默认值是 false
-    clean-disabled: true
-    # 编码格式，默认UTF-8
-    encoding: UTF-8
-    # 迁移sql脚本文件存放路径，默认db/mysql
-    locations: classpath:db/mysql
-    # 迁移sql脚本文件名称的前缀，默认V
-    sql-migration-prefix: V
-    # 迁移sql脚本文件名称的分隔符，默认2个下划线__
-    sql-migration-separator: __
-    # 迁移sql脚本文件名称的后缀
-    sql-migration-suffixes: .sql
-    # 迁移时是否进行校验，默认true
-    validate-on-migrate: true
-    # 当迁移发现数据库非空且存在没有元数据的表时，自动执行基准迁移，新建schema_version表
-    baseline-on-migrate: true
-    # 指定 baseline 的版本号,默认值为 1, 低于该版本号的 SQL 文件, migrate 时会被忽略
-    baseline-version: 1
-    # 是否允许不按顺序迁移 开发建议 true  生产建议 false
-    out-of-order: false
-    # 但flyway Clean 命令会依次在这些schema下都执行一遍. 所以 确保生产 spring.flyway.clean-disabled 为 true
-    schemas: tinkerplay
     # 配置多数据源后,指定数据源执行脚本
     dataSourceArr: master,slave_1
   # 文件上传功能开启
   servlet:
     multipart:
-      # 是否开启文件上传支持，默认为true
-      enabled: true
-      # 文件写入磁盘的阈值，默认为0
-      file-size-threshold: 0
-      # 上传文件的临时保存位置
-      # location: /Test/Temp
       location: E:\baiyx\Temp
-      # 上传的单个文件的最大大小，默认为1MB
-      max-file-size: 50MB
-      # 多文件上传时文件的总大小，默认为10MB
-      max-request-size: 100MB
-      # 文件是否延迟解析，默认为false
-      resolve-lazily: false
-  data:
-    redis:
-      database: 0
-      #    cluster:
-      #      nodes: 192.168.102.131:6379,192.168.102.132:6379,192.168.102.133:6379,192.168.102.134:6379,192.168.102.135:6379,192.168.102.136:6379
-      # 非集群使用
-      port: 6379
-      # host: 127.0.0.1
-      host: 192.168.119.128
-      # password: b0650fa
-      password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
-      timeout: 60000 #连接超时时间（毫秒）
-      # 缓存配置
-      cache:
-        type: redis
-      client-name: cacheTest
-      pool:
-        # 连接池中的最大空闲连接
-        max-idle: 3000
-        # 连接池最大连接数（使用负值表示没有限制）
-        max-active: 6000
-        # 连接池最大阻塞等待时间（使用负值表示没有限制）
-        max-wait: -1
-  rabbitmq:
-    # addresses: 192.168.100.120:5672,192.168.100.121:5672,192.168.100.122:5672
-    # addresses: 192.168.119.128:5672
-    addresses: 192.168.119.128
-    port: 5672
-    virtual-host: /baiyx
-    username: baiyx
-    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
-    #开启消息确认模式，新版本已经弃用
-    # publisher-confirms: true
-    #开启消息送达提示
-    publisher-returns: true
-    # springboot.rabbitmq.publisher-confirm 新版本已被弃用，现在使用 spring.rabbitmq.publisher-confirm-type = correlated 实现相同效果
-    publisher-confirm-type: correlated
-  elasticsearch:
-    rest:
-      uris: http://192.168.119.128:9200
-  # 解决springboot升级2.7.5导致的ApplicationContextException
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  cloud:
-    nacos:
-      config:
-        import-check:
-          enabled: false
-      discovery:
-        server-addr: 192.168.119.128:8848
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
 
 # RES加密默认密钥(对应属性类EncryptProperties中的@ConfigurationProperties(prefix = "body.encrypt")的key属性)
 body:
@@ -216,112 +65,33 @@ body:
     key: iamwalkerencrypt
 
 # 文件上传位置
-# file-save-path: /Test/uploadFile/
 file-save-path: E:\baiyx\uploadFile\
 
 mybatis:
-  #映射的xml的sql文件路径
-  mapper-locations: classpath:mapper/*.xml
-  #实体类路径
-  type-aliases-package:
-    - com.baiyx.tinkerplay.entity
-    - com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
     org:
-      mybatis: TRACE
+      mybatis: DEBUG
 
 pdf:
   config:
-    # pdf模板路径
-    templatePath: /templates/test输出pdf模板.pdf
     # pdf输出位置
     output: E:\baiyx\uploadFile\pdf\
-    # 字体路径
-    fontPath: /templates/fonts/simsun.ttf
-
-## swagger 暂时注释 测试SwaggerConfig配置类
-#swagger:
-#  enable: true #是否开启swagger
-#  application-name: bai_yx #项目应用名
-#  application-version: 0.0.1-SNAPSHOT #项目版本信息
-#  application-description: baiyx_study #项目描述信息
-#  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
-
-# 配置swagger文档的访问路径，访问地址：http://127.0.0.1:8080/swagger-ui.html
-springdoc:
-  api-docs:
-    enabled: true
-  swagger-ui:
-    path: /swagger-ui.html
-    tags-sorter: alpha
-    operations-sorter: method
-
-#pagehelper分页插件配置
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
-
-data:
-  elasticsearch:
-    repositories:
-      enabled: true
-    cluster-nodes: 192.168.119.128:9300 # es的连接地址及端口号
-    cluster-name: elasticsearch # es集群的名称
 
 minio:
   endpoint: http://localhost:9095 #MinIO服务所在地址
-  bucketName: baiyx #存储桶名称
-  accessKey: minioadmin #访问的key
-  secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的秘钥
-  # secretKey: minioadmin
-# Minio桶给其他方开放下载权限的地址及密钥等
-#s3:
-#  url: http://127.0.0.1:9095
-#  accessKey: PFAuSKutzVo3tR1W
-#  secretKey: I0bPkDJF3tkgfRjLqrBYOnNNznLFbnBX
-
-#高于jasypt3.0.0版本如下
-jasypt:
-  encryptor:
-    # 盐加密
-    password: baiyx
-    # 指定加密方式
-    algorithm: PBEWithMD5AndDES
-    iv-generator-classname: org.jasypt.iv.NoIvGenerator
 
 # jwt加密TOKEN_SECRET
 token:
   TOKEN_SECRET: my-secret-key
 
-nacos:
-  # Nacos 配置中心的配置项，对应 NacosConfigProperties 配置类
-  config:
-    server-addr: 192.168.119.128:8848 # Nacos 服务器地址
-    bootstrap:
-      enable: true # 是否开启 Nacos 配置预加载功能。默认为 false。
-      # log-enable: true # 是否开启 Nacos 支持日志级别的加载时机。默认为 false。
-    data-id: tinkerplay-windows.yml # 使用的 Nacos 配置集的 dataId。
-    type: yaml # 使用的 Nacos 配置集的配置格式。默认为 PROPERTIES。
-    group: TinkerPlay # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP。
-    namespace: TinkerPlay # 使用的 Nacos 的命名空间，默认为 null。
-
 CDC:
   DataSource:
     enabled: false
-    host: 192.168.119.128
-    port: 3306
-    database: tinkerplay
-    tableList: user
-    username: root
-    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
 
 TimedTask:
   enabled: false
