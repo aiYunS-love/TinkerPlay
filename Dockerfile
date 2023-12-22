@@ -2,6 +2,10 @@ FROM openjdk:21
 
 MAINTAINER baiyx
 
+VOLUME /logs/TinkerPlay
+VOLUME /Test/Temp
+VOLUME /Test/uploadFile
+
 WORKDIR /TinkerPlay
 
 COPY target/TinkerPlay-0.0.1-SNAPSHOT.jar .
