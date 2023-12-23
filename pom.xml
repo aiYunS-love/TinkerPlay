@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0</version>
+        <version>3.2.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.baiyx</groupId>
@@ -688,7 +688,7 @@
     </distributionManagement>
     <build>
         <!--指定打包后的finalName-->
-        <finalName>${project.artifactId}</finalName>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <resources>
             <!-- 把需要打包的文件打包到classes目录中 -->
             <resource>
@@ -749,6 +749,7 @@
                         <phase>package</phase>
                         <goals>
                             <goal>build</goal>
+                            <goal>start</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -767,32 +768,41 @@
                     <images>
                         <image>
                             <!--由于推送到私有镜像仓库，镜像名需要添加仓库地址-->
-                            <name>baiyx/${project.name}:${project.version}</name>
+                            <name>${project.name}:${project.version}</name>
+<!--                            <alias>${project.name}</alias>-->
                             <!--定义镜像构建行为-->
                             <build>
                                 <!--定义基础镜像-->
                                 <from>openjdk:21</from>
+                                <!--定义维护者-->
+                                <maintainer>baiyx</maintainer>
                                 <args>
                                     <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                 </args>
                                 <!--定义哪些文件拷贝到容器中-->
                                 <assembly>
                                     <!--定义拷贝到容器的目录-->
-                                    <targetDir>/</targetDir>
+                                    <targetDir>/${project.artifactId}</targetDir>
                                     <!--只拷贝生成的jar包-->
                                     <descriptorRef>artifact</descriptorRef>
                                 </assembly>
-                                <!--定义容器启动命令-->
-                                <entryPoint>["java", "--add-opens=java.base/java.util=ALL-UNNAMED", "-jar","/${project.build.finalName}.jar"]</entryPoint>
-                                <!--定义维护者-->
-                                <maintainer>baiyx</maintainer>
+
                                 <!--使用Dockerfile构建时打开-->
                                 <!--<dockerFileDir>${project.basedir}</dockerFileDir>-->
+                                <entryPoint>
+                                    <!-- exec form for ENTRYPOINT -->
+                                    <exec>
+                                        <arg>java</arg>
+                                        <arg>--add-opens=java.base/java.util=ALL-UNNAMED</arg>
+                                        <arg>-jar</arg>
+                                        <arg>/${project.artifactId}/${project.build.finalName}.jar</arg>
+                                    </exec>
+                                </entryPoint>
                             </build>
                             <!--定义容器启动行为-->
                             <run>
                                 <!--设置容器名，可采用通配符-->
-                                <containerNamePattern>${project.artifactId}</containerNamePattern>
+                                <containerNamePattern>${project.name}</containerNamePattern>
                                 <!--设置端口映射-->
                                 <ports>
                                     <port>1001:1001</port>
@@ -809,11 +819,7 @@
                                         <volume>/mydata/Test/Temp:/Test/Temp</volume>
                                         <volume>/mydata/Test/uploadFile:/Test/uploadFile</volume>
                                     </bind>
-                                    <from>
-                                        <image>baiyx/${project.name}</image>
-                                    </from>
                                 </volumes>
-                                <cmd>java --add-opens=java.base/java.util=ALL-UNNAMED -jar /${project.name}</cmd>
                             </run>
                         </image>
                     </images>
