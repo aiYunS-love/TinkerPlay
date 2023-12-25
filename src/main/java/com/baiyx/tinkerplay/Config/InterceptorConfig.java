@@ -1,6 +1,6 @@
 package com.baiyx.tinkerplay.Config;
 
-import com.baiyx.tinkerplay.Other.InterceptorAndFilter.MyInterceptor;
+import com.baiyx.tinkerplay.InterceptorAndFilter.MyInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -14,12 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class InterceptorConfig implements WebMvcConfigurer {
 
-    @Autowired
-    private MyInterceptor myInterceptor;
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(myInterceptor)
+        registry.addInterceptor(new MyInterceptor(1.0))
                 .addPathPatterns("/**/getConfigInfo"); // 设置拦截器的匹配路径
     }
 }

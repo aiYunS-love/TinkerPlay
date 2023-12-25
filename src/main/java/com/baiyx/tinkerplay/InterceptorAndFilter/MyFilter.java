@@ -1,4 +1,4 @@
-package com.baiyx.tinkerplay.Other.InterceptorAndFilter;
+package com.baiyx.tinkerplay.InterceptorAndFilter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

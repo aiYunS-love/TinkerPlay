@@ -99,7 +99,8 @@ JAVA_21 + springboot_3.2.0 + mybatis_3.5.15 + redis_7.0.9 + rabbitmq_3.11.10 + E
     -Xlog:safepoint,classhisto*=trace,age*,gc*=info:file=E:\baiyx\TinkerPlay\logs\ZGCLogs\gc-%t.log:time,tid,tags:filecount=5,filesize=50m),
      尝试调优!!!
 51. 现有功能全部适配SpringBoot_3.2.0版本,测试并发现问题及处理
-52. ...........................
+52. 配合拦截器,实现限流的基本思路和原理
+53. ................................
 
 #### 部署内容
 Linux:
