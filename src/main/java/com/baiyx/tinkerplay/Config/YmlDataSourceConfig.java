@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 @Configuration
 @Component("YmlDataSourceConfig")
 @RequiredArgsConstructor
-@EnableConfigurationProperties(DynamicDataSourceProperties.class)
+//@EnableConfigurationProperties(DynamicDataSourceProperties.class)
 public class YmlDataSourceConfig {
 
     private final DynamicDataSourceProperties properties;
