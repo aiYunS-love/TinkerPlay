@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.1</version>
+        <version>3.2.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.baiyx</groupId>
@@ -270,7 +270,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.24</version>
+            <version>5.8.25</version>
         </dependency>
         <!-- 上传OSS -->
         <dependency>
@@ -547,7 +547,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>dynamic-datasource-spring-boot3-starter</artifactId>
-            <version>4.2.0</version>
+            <version>4.3.0</version>
         </dependency>
         <!-- 德鲁伊数据连接池 -->
         <dependency>

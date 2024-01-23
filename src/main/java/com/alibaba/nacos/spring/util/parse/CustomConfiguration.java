@@ -1,4 +1,4 @@
-package com.baiyx.tinkerplay.Config;
+package com.alibaba.nacos.spring.util.parse;
 
 import com.alibaba.nacos.spring.util.parse.DefaultYamlConfigParse;
 import org.springframework.context.annotation.Bean;
