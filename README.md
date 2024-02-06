@@ -96,7 +96,7 @@ JAVA_21 + springboot_3.2.2 + mybatis_3.5.15 + redis_7.0.9 + rabbitmq_3.11.10 + E
     -XX:ParallelGCThreads=3
     -XX:ZCollectionInterval=60
     -XX:ZAllocationSpikeTolerance=2
-    -Xlog:safepoint,classhisto*=trace,age*,gc*=info:file=E:\baiyx\TinkerPlay\logs\ZGCLogs\gc-%t.log:time,tid,tags:filecount=5,filesize=50m),
+    -Xlog:safepoint,classhisto*=trace,age*,gc*=info:file=E:\baiyx\TinkerPlay\logs\TinkerPlay\gc-%t.log:time,tid,tags:filecount=5,filesize=50m),
      尝试调优!!!
 51. 现有功能全部适配SpringBoot_3.2.0版本,测试并发现问题及处理
 52. 配合拦截器,实现限流的基本思路和原理
