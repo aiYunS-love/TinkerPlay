@@ -270,7 +270,7 @@
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.25</version>
+            <version>5.8.26</version>
         </dependency>
         <!-- 上传OSS -->
         <dependency>
@@ -741,7 +741,7 @@
             <plugin>
                 <groupId>io.fabric8</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-                <version>0.43.4</version>
+                <version>0.44.0</version>
                 <executions>
                     <!--如果想在项目打包时构建镜像添加-->
                     <execution>
