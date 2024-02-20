@@ -80,7 +80,6 @@ public class MysqlEventListener implements ApplicationRunner{
             StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
             // 批处理环境
             // ExecutionEnvironment env2 = ExecutionEnvironment.getExecutionEnvironment();
-            env.setParallelism(1);
             DebeziumSourceFunction<DataChangeInfo> dataChangeInfoMySqlSource = buildDataChangeSource();
             DataStream<DataChangeInfo> streamSource = env
                     .addSource(dataChangeInfoMySqlSource, "mysql-source")
