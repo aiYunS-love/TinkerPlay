@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.TokenAccessDao">
+<mapper namespace="com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.TokenAccessDao">
 
-    <select id="checkStatus" resultType="integer" parameterType="com.baiyx.tinkerplay.Entity.TokenAccess">
+    <select id="checkStatus" resultType="integer" parameterType="com.aiyuns.tinkerplay.Entity.TokenAccess">
         select status from permission where staff_name=#{staff_name} and user_id=#{user_id} and username=#{username};
     </select>
 

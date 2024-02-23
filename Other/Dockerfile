@@ -1,6 +1,6 @@
 FROM openjdk:21
 
-MAINTAINER baiyx
+MAINTAINER aiYunS
 
 VOLUME /logs/TinkerPlay
 VOLUME /Test/Temp

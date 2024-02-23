@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 
 /**
- * @Author: baiyx
+ * @Author: aiYunS
  * @Date: 2023年12月19日, 0019 下午 2:59:10
  * @Description: 将替代类注册成bean
  */

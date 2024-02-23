@@ -8,7 +8,7 @@
         <version>3.2.3</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.baiyx</groupId>
+    <groupId>com.aiyuns</groupId>
     <artifactId>TinkerPlay</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>tinkerplay</name>
@@ -16,7 +16,7 @@
     <properties>
         <java.version>21</java.version>
         <!--打包后镜像的前缀-->
-        <docker.image.prefix>baiyx</docker.image.prefix>
+        <docker.image.prefix>aiyuns</docker.image.prefix>
         <!--docker仓库地址-->
         <docker.repostory>192.168.119.128:2375</docker.repostory>
         <!--自定义yml变量符号-->
@@ -775,7 +775,7 @@
                                 <!--定义基础镜像-->
                                 <from>openjdk:21</from>
                                 <!--定义维护者-->
-                                <maintainer>baiyx</maintainer>
+                                <maintainer>aiYunS</maintainer>
                                 <args>
                                     <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
                                 </args>
@@ -846,7 +846,7 @@
 <!--                <skip>true</skip>-->
                     <!-- 排除单元测试的类不进行编译打包 -->
                     <excludes>
-                        <exclude>src/test/java/com/baiyx/tinkerplay/*</exclude>
+                        <exclude>src/test/java/com/aiyuns/tinkerplay/*</exclude>
                     </excludes>
                 </configuration>
             </plugin>

@@ -22,7 +22,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.regex.Pattern;
 
 /**
- * @Author: baiyx
+ * @Author: aiYunS
  * @Date: 2023年12月19日, 0019 下午 2:10:50
  * @Description: 解决由于升级springboot 3.2.0版本导致 org.yaml.snakeyaml 2.2版本的SafeConstructor类移除了无参构造方法 替代类
  */
