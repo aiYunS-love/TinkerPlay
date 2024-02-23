@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.ISysJobRepository">
+<mapper namespace="com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.ISysJobRepository">
 
-    <insert id="addSysJob" parameterType="com.baiyx.tinkerplay.Entity.SysJobPO">
+    <insert id="addSysJob" parameterType="com.aiyuns.tinkerplay.Entity.SysJobPO">
         insert into timedtask(beanName,methodName,methodParams,cronExpression,remark,jobStatus,createTime,updateTime) values
         (#{beanName},#{methodName},#{methodParams},#{cronExpression},#{remark},#{jobStatus},now(),now());
     </insert>
 
-    <select id="getSysJobListByStatus" parameterType="int" resultType="com.baiyx.tinkerplay.Entity.SysJobPO">
+    <select id="getSysJobListByStatus" parameterType="int" resultType="com.aiyuns.tinkerplay.Entity.SysJobPO">
         select * from timedtask where jobStatus=#{jobStatus};
     </select>
 
-    <update id="editSysJob" parameterType="com.baiyx.tinkerplay.Entity.SysJobPO">
+    <update id="editSysJob" parameterType="com.aiyuns.tinkerplay.Entity.SysJobPO">
         update timedtask set beanName=#{beanName},methodName=#{methodName},methodParams=#{methodParams},cronExpression=#{cronExpression},remark=#{remark},jobStatus=#{jobStatus},updateTime=now() where jobId=#{jobId};
     </update>
 
@@ -19,7 +19,7 @@
         delete from timedtask where jobId=#{jobId};
     </delete>
 
-    <select id="findAllSysJob" resultType="com.baiyx.tinkerplay.Entity.SysJobPO">
+    <select id="findAllSysJob" resultType="com.aiyuns.tinkerplay.Entity.SysJobPO">
         select * from timedtask;
     </select>
 

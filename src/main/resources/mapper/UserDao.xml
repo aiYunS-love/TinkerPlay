@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.UserDao">
+<mapper namespace="com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.UserDao">
 
-    <select id="findAll0" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="findAll0" resultType="com.aiyuns.tinkerplay.Entity.User">
         select * from user;
     </select>
 
-    <select id="findAll2" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="findAll2" resultType="com.aiyuns.tinkerplay.Entity.User">
         select * from user;
     </select>
 
-    <select id="findAll3" resultType="com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
+    <select id="findAll3" resultType="com.aiyuns.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser;
     </select>
 
-    <insert id="insertOne" parameterType="com.baiyx.tinkerplay.Entity.User">
+    <insert id="insertOne" parameterType="com.aiyuns.tinkerplay.Entity.User">
         insert into user(id,username,birthday,sex,address) values(#{id},#{username},#{birthday},#{sex},#{address});
     </insert>
 
-    <insert id="insertOne3" useGeneratedKeys="true" keyProperty="id" parameterType="com.baiyx.tinkerplay.Entity.User">
+    <insert id="insertOne3" useGeneratedKeys="true" keyProperty="id" parameterType="com.aiyuns.tinkerplay.Entity.User">
         insert into user(username,birthday,sex,address,ID_CARD,PHONE,EMAIL) values(#{username},#{birthday},#{sex},#{address},#{ID_CARD},#{PHONE},#{EMAIL});
     </insert>
 
-    <delete id="deleteByName" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo">
+    <delete id="deleteByName" parameterType="com.aiyuns.tinkerplay.Entity.QueryRequestVo">
         delete from user where username=#{username};
     </delete>
 
-    <update id="updateOne" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo">
+    <update id="updateOne" parameterType="com.aiyuns.tinkerplay.Entity.QueryRequestVo">
         update user set username=#{username},birthday=#{birthday},sex=#{sex},address=#{address},PHONE=#{PHONE},EMAIL=#{EMAIL},ID_CARD=#{ID_CARD} where id=#{id};
     </update>
 
-    <select id="findById" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="findById" parameterType="com.aiyuns.tinkerplay.Entity.QueryRequestVo" resultType="com.aiyuns.tinkerplay.Entity.User">
         select * from user where id=#{id};
     </select>
 
-    <select id="findById2" parameterType="long" resultType="com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
+    <select id="findById2" parameterType="long" resultType="com.aiyuns.tinkerplay.Controller.Elasticsearch.EsEntity.EsUser">
         select * from esuser where id=#{id};
     </select>
 
-    <select id="findByName" parameterType="string" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="findByName" parameterType="string" resultType="com.aiyuns.tinkerplay.Entity.User">
         select id,username,address,sex,birthday from user where username=#{username};
     </select>
 
-    <select id="findByTime" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="findByTime" parameterType="com.aiyuns.tinkerplay.Entity.QueryRequestVo" resultType="com.aiyuns.tinkerplay.Entity.User">
         select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
     </select>
 
-    <select id="RowConvertCol" parameterType="com.baiyx.tinkerplay.Entity.QueryRequestVo" resultType="com.baiyx.tinkerplay.Utils.RowConvertColUtil">
+    <select id="RowConvertCol" parameterType="com.aiyuns.tinkerplay.Entity.QueryRequestVo" resultType="com.aiyuns.tinkerplay.Utils.RowConvertColUtil">
         select id,username,address,sex,birthday from user where birthday between #{startTime} and #{endTime};
     </select>
 
@@ -57,7 +57,7 @@
         </foreach>
     </insert>
 
-    <select id="getIPorMACaddress" resultType="com.baiyx.tinkerplay.Entity.User">
+    <select id="getIPorMACaddress" resultType="com.aiyuns.tinkerplay.Entity.User">
         select * from user;
     </select>
 

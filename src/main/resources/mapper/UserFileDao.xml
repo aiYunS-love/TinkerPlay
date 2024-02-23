@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.UserFileDao">
+<mapper namespace="com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.UserFileDao">
 
-    <resultMap id="UserFileMap" type="com.baiyx.tinkerplay.Entity.UserFile">
+    <resultMap id="UserFileMap" type="com.aiyuns.tinkerplay.Entity.UserFile">
         <!-- 只需要映射列名和属性名不一致的-->
         <id column="id" property="id"></id>
         <result column="file_name" property="fileName"></result>
@@ -38,7 +38,7 @@
     </select>
 
     <!-- 更新文件下载次数-->
-    <update id="update" parameterType="com.baiyx.tinkerplay.Entity.UserFile">
+    <update id="update" parameterType="com.aiyuns.tinkerplay.Entity.UserFile">
         update files set download_counts = #{downloadCounts} where id = #{id};
     </update>
 

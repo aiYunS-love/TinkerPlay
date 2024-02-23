@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.baiyx.tinkerplay.Controller.Service.ServiceImpl.Dao.ProjBaseDao">
+<mapper namespace="com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.ProjBaseDao">
 
     <select id="CountProjbase" resultType="long">
         select count(*) from projbase
@@ -10,15 +10,15 @@
         select count(1) from audit_vehicle_archives
     </select>
 
-    <select id="selectProjbase1" parameterType="map" resultType="com.baiyx.tinkerplay.Entity.Projbase">
+    <select id="selectProjbase1" parameterType="map" resultType="com.aiyuns.tinkerplay.Entity.Projbase">
         select * from projbase
     </select>
 
-    <select id="selectProjbase2" parameterType="map" resultType="com.baiyx.tinkerplay.Entity.Projbase">
+    <select id="selectProjbase2" parameterType="map" resultType="com.aiyuns.tinkerplay.Entity.Projbase">
         select * from projbase2
     </select>
 
-    <select id="readProjbase" parameterType="map" resultType="com.baiyx.tinkerplay.Entity.Projbase">
+    <select id="readProjbase" parameterType="map" resultType="com.aiyuns.tinkerplay.Entity.Projbase">
         select jsonObj,gmtApply,cjsj from projbase limit #{start} , #{end}
     </select>
 

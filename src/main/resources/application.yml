@@ -196,7 +196,17 @@ spring:
           enabled: false
       discovery:
         server-addr: 192.168.119.128:8848 #配置Nacos地址
-
+  kafka:
+    bootstrap-servers: 192.168.119.128:9093
+    consumer:
+      group-id: my-consumer-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      
 management:
   endpoints:
     web:
@@ -216,8 +226,8 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
   #实体类路径
   type-aliases-package:
-    - com.baiyx.tinkerplay.entity
-    - com.baiyx.tinkerplay.Controller.Elasticsearch.EsEntity
+    - com.aiyuns.tinkerplay.entity
+    - com.aiyuns.tinkerplay.Controller.Elasticsearch.EsEntity
   configuration:
     # 打印SQL日志
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
@@ -239,7 +249,7 @@ pdf:
 ## swagger 暂时注释 测试SwaggerConfig配置类
 #swagger:
 #  enable: true #是否开启swagger
-#  application-name: baiyx #项目应用名
+#  application-name: aiyuns #项目应用名
 #  application-version: 0.0.1-SNAPSHOT #项目版本信息
 #  application-description: 小白Test #项目描述信息
 #  try-host: http://localhost:${server.port}/${server.servlet.context-path}/swagger-ui/index.html#/ #接口调试地址
@@ -269,7 +279,7 @@ data:
 
 minio:
   endpoint: http://192.168.0.107:9095 #MinIO服务所在地址
-  bucketName: baiyx #存储桶名称
+  bucketName: aiyuns #存储桶名称
   accessKey: minioadmin #访问的账号
   secretKey: ENC(SD4Ucjs348Zl+nhypn1jZZop5Smktw2y) #访问的密码
   # secretKey: minioadmin
@@ -282,7 +292,7 @@ minio:
 #高于jasypt3.0.0版本如下
 jasypt:
   encryptor:
-    # 盐加密
+    # 加密
     password: baiyx
     # 指定加密方式
     algorithm: PBEWithMD5AndDES

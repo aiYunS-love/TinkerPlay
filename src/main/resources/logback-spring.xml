@@ -86,12 +86,12 @@
         <appender-ref ref="LOGSTASH"/>
     </root>
     <!-- 指定项目中某个包，当有日志操作行为时的日志记录级别 -->
-    <!-- com.baiyx.tinkerplay，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
+    <!-- com.aiyuns.tinkerplay，也就是只要是发生在这个根包下面的所有日志操作行为的权限都是DEBUG -->
     <!-- 级别依次为【从高到低】：FATAL > ERROR > WARN > INFO > DEBUG > TRACE  -->
-    <logger name="com.baiyx.tinkerplay" level="DEBUG" additivity="true">
+    <logger name="com.aiyuns.tinkerplay" level="DEBUG" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
-    <logger name="com.baiyx.tinkerplay.Entity" level="TRACE" additivity="true">
+    <logger name="com.aiyuns.tinkerplay.Entity" level="TRACE" additivity="true">
         <appender-ref ref="FILE"/>
     </logger>
 <!--    <logger name="org.mybatis" level="TRACE">-->

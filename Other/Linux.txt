@@ -201,12 +201,12 @@ systemctl stop firewalld.service
 
 启动/关闭Redis
 cd /etc/init.d
-[root@baiyx init.d]# service redis start
-[root@baiyx init.d]# service redis stop
+[root@aiyuns init.d]# service redis start
+[root@aiyuns init.d]# service redis stop
 
 启动Nginx
 cd /usr/local/nginx/sbin
-[root@baiyx sbin]# /usr/local/nginx/sbin/nginx -s reload
+[root@aiyuns sbin]# /usr/local/nginx/sbin/nginx -s reload
 检查nginx配置文件:/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf
 重启nginx:
 /usr/local/nginx/sbin/nginx -s reload
@@ -324,7 +324,7 @@ docker启动redis: docker run --restart=always --name redis2 -p 6380:6380 -v /myda
 
 docker部署redis并设置密码: docker run --restart=always --name redis -p 6379:6379 -v /mydata/redis/data/redis.conf:/etc/redis/redis.conf -v /mydata/redis/data:/data -d redis:latest redis-server --appendonly yes --requirepass 19930218
 
-sudo docker run -p 1001:1001 --name TinkerPlay --restart=no -v /mydata/Test/Temp:/Test/Temp -v /mydata/Test/uploadFile:/Test/uploadFile -v /mydata/Test/uploadFile/pdf:/Test/uploadFile/pdf -v /mydata/TinkerPlay/logs/TinkerPlay:/logs/TinkerPlay -d baiyx/tinkerplay:0.0.1-SNAPSHOT
+sudo docker run -p 1001:1001 --name TinkerPlay --restart=no -v /mydata/Test/Temp:/Test/Temp -v /mydata/Test/uploadFile:/Test/uploadFile -v /mydata/Test/uploadFile/pdf:/Test/uploadFile/pdf -v /mydata/TinkerPlay/logs/TinkerPlay:/logs/TinkerPlay -d aiyuns/tinkerplay:0.0.1-SNAPSHOT
 
 -- 创建nacos容器: 
 docker run -d -p 8848:8848 -p 9848:9848  \
