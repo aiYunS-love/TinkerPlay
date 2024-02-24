@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMqConfig {
     /**
-     * 订单消息实际消费队列所绑定的交换机
+     * 实际消费队列所绑定的交换机
      */
     @Bean
     DirectExchange orderDirect() {
@@ -26,7 +26,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 订单延迟队列队列所绑定的交换机
+     * 延迟队列所绑定的交换机
      */
     @Bean
     DirectExchange orderTtlDirect() {
@@ -37,7 +37,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 订单实际消费队列
+     * 实际消费队列
      */
     @Bean
     public Queue orderQueue() {
@@ -45,7 +45,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 订单延迟队列（死信队列）
+     * 延迟队列（死信队列）
      */
     @Bean
     public Queue orderTtlQueue() {
@@ -57,7 +57,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 将订单队列绑定到交换机
+     * 将队列绑定到交换机
      */
     @Bean
     Binding orderBinding(DirectExchange orderDirect,Queue orderQueue){
@@ -68,7 +68,7 @@ public class RabbitMqConfig {
     }
 
     /**
-     * 将订单延迟队列绑定到交换机
+     * 将延迟队列绑定到交换机
      */
     @Bean
     Binding orderTtlBinding(DirectExchange orderTtlDirect,Queue orderTtlQueue){
