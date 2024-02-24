@@ -27,7 +27,7 @@ public class SendSmsUtil {
      * @return: void
      */
 
-    public static void sendSms(String[] phoneNumbers, Integer templateId, String smsSign,String[] params){
+    public static SmsSingleSenderResult sendSms(String[] phoneNumbers, Integer templateId, String smsSign,String[] params){
         try {
             if(phoneNumbers == null || phoneNumbers.length == 0){
                 throw new RuntimeException("手机号不能为空!");
@@ -45,7 +45,7 @@ public class SendSmsUtil {
             // 签名参数未提供或者为空时，会使用默认签名发送短信
             MySmsSingleSender ssender = new MySmsSingleSender(1400826667, "1666486b3e054c09db4fd7e6a7b94a51");
             SmsSingleSenderResult result = ssender.sendWithParam("86", phoneNumbers[0], templateId, params, smsSign, "", "");
-            System.out.println(result) ;
+            return result;
         } catch (HTTPException e) {
             // HTTP响应码错误
             e.printStackTrace();
@@ -56,5 +56,6 @@ public class SendSmsUtil {
             // 网络IO错误
             e.printStackTrace();
         }
+        return null;
     }
 }

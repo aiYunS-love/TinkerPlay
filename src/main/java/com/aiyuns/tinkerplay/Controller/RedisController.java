@@ -6,8 +6,11 @@ import com.aiyuns.tinkerplay.CustomAnnotations.WebLog;
 import com.aiyuns.tinkerplay.Entity.Sms;
 import com.aiyuns.tinkerplay.Rabbitmq.BroadcastMessageSender;
 import com.aiyuns.tinkerplay.Utils.SendSmsUtil;
+import com.aiyuns.tinkerplay.Utils.UnicodeUtil;
+import com.github.qcloudsms.SmsSingleSenderResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -70,7 +73,11 @@ public class RedisController {
             // 发送验证码
             String[] params = new String[1];
             params[0] = authCode;
-            SendSmsUtil.sendSms(sms.getPhoneNumbers(),sms.getTemplateId(),sms.getSmsSign(),params);
+            SmsSingleSenderResult result = SendSmsUtil.sendSms(sms.getPhoneNumbers(),sms.getTemplateId(),sms.getSmsSign(),params);
+            if (StringUtils.isNotBlank(result.errMsg)) {
+                String errmsg = UnicodeUtil.unicodeToString(result.errMsg);
+                return CommonResult.failed(errmsg);
+            }
             // 新起线程存到redis缓存,默认60s超时
             new Thread(() -> {
                 redisService.set(sms.getPhoneNumbers()[0],sb,60);
