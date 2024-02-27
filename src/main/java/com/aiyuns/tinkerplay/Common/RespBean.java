@@ -1,4 +1,4 @@
-package com.aiyuns.tinkerplay.Bean;
+package com.aiyuns.tinkerplay.Common;
 
 /**
  * @Author: aiYunS
