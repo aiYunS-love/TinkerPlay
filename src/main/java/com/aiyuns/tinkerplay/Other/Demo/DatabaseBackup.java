@@ -1,4 +1,4 @@
-package com.aiyuns.tinkerplay.Other;
+package com.aiyuns.tinkerplay.Other.Demo;
 
 import com.aiyuns.tinkerplay.Utils.FileCompressionUtil;
 
