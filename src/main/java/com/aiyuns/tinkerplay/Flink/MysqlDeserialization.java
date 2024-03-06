@@ -1,6 +1,7 @@
 package com.aiyuns.tinkerplay.Flink;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.ImmutableMap;
 import com.ververica.cdc.debezium.DebeziumDeserializationSchema;
 import io.debezium.data.Envelope;
 import org.apache.flink.api.common.typeinfo.TypeInformation;
@@ -8,8 +9,10 @@ import org.apache.flink.util.Collector;
 import org.apache.kafka.connect.data.Field;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.Struct;
+import org.apache.kafka.connect.source.SourceRecord;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -28,6 +31,17 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
     public static final String AFTER = "after";
     public static final String SOURCE = "source";
     public static final String UPDATE = "UPDATE";
+
+    /**
+     * 获取操作类型 READ CREATE UPDATE DELETE TRUNCATE;
+     * 变更类型： 0 初始化 1新增 2修改 3删除 4导致源中的现有表被截断的操作
+     */
+    private static final Map<String, Integer> OPERATION_MAP = ImmutableMap.of(
+            "READ", 0,
+            "CREATE", 1,
+            "UPDATE", 2,
+            "DELETE", 3,
+            "TRUNCATE", 4);
 
     // 反序列化数据,转为变更JSON对象
 //    @Override
@@ -57,7 +71,7 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
 
     // 反序列化数据,转为变更JSON对象
     @Override
-    public void deserialize(com.ververica.cdc.connectors.shaded.org.apache.kafka.connect.source.SourceRecord sourceRecord, Collector<DataChangeInfo> collector) throws Exception {
+    public void deserialize(SourceRecord sourceRecord, Collector<DataChangeInfo> collector) throws Exception {
         String topic = sourceRecord.topic();
         String[] fields = topic.split("\\.");
         String database = fields[1];
@@ -70,7 +84,12 @@ public class MysqlDeserialization implements DebeziumDeserializationSchema<DataC
         //5.获取操作类型  CREATE UPDATE DELETE
         Envelope.Operation operation = Envelope.operationFor(sourceRecord);
         String type = operation.toString().toUpperCase();
-        int eventType = type.equals(CREATE) ? 1 : UPDATE.equals(type) ? 2 : 3;
+        int eventType = OPERATION_MAP.get(type);
+        if (eventType == 3) {
+            dataChangeInfo.setData(getJsonObject(struct, BEFORE).toJSONString());
+        } else {
+            dataChangeInfo.setData(getJsonObject(struct, AFTER).toJSONString());
+        }
         dataChangeInfo.setEventType(eventType);
         dataChangeInfo.setFileName(Optional.ofNullable(source.get(BIN_FILE)).map(Object::toString).orElse(""));
         dataChangeInfo.setFilePos(Optional.ofNullable(source.get(POS)).map(x->Integer.parseInt(x.toString())).orElse(0));

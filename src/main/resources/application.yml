@@ -314,8 +314,8 @@ nacos:
     group: TinkerPlay # 使用的 Nacos 配置分组，默认为 DEFAULT_GROUP。
     namespace: TinkerPlay # 使用的 Nacos 的命名空间，默认为 null。
 
-CDC:
-  DataSource:
+cdc:
+  datasource:
     enabled: true
     host: 192.168.119.128
     port: 3306
@@ -324,5 +324,5 @@ CDC:
     username: root
     password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
 
-TimedTask:
+timedtask:
   enabled: true

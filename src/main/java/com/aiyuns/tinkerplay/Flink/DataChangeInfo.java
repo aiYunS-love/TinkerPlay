@@ -10,7 +10,6 @@ import lombok.Data;
 @Data
 public class DataChangeInfo {
 
-
     /**
      * 变更前数据
      */
@@ -20,9 +19,13 @@ public class DataChangeInfo {
      */
     private String afterData;
     /**
-     * 变更类型 1新增 2修改 3删除
+     * 变更类型 0 初始化 1新增 2修改 3删除 4导致源中的现有表被截断的操作
      */
     private Integer eventType;
+    /**
+     * 操作的数据
+     */
+    private String data;
     /**
      * binlog文件名
      */

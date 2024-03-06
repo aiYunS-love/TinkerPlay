@@ -1,5 +1,6 @@
 package com.aiyuns.tinkerplay.Listener;
 
+import com.aiyuns.tinkerplay.Config.FlinkCDCConfig;
 import com.aiyuns.tinkerplay.Controller.Service.ServiceImpl.Dao.ISysJobRepository;
 import com.aiyuns.tinkerplay.Entity.SysJobPO;
 import com.aiyuns.tinkerplay.Flink.DataChangeInfo;
@@ -22,6 +23,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -39,28 +41,14 @@ public class MysqlEventListener implements ApplicationRunner{
 
     @Autowired
     private ISysJobRepository sysJobRepository;
-
     @Autowired
     private CronTaskRegistrar cronTaskRegistrar;
-
     /**
      * CDC数据源配置
      */
-    @Value("${CDC.DataSource.host}")
-    private String host;
-    @Value("${CDC.DataSource.port}")
-    private String port;
-    @Value("${CDC.DataSource.database}")
-    private String database;
-    @Value("${CDC.DataSource.tableList}")
-    private String tableList;
-    @Value("${CDC.DataSource.username}")
-    private String username;
-    @Value("${CDC.DataSource.password}")
-    private String password;
-    @Value("${CDC.DataSource.enabled}")
-    private boolean cdcenabled = true;
-    @Value("${TimedTask.enabled}")
+    @Resource
+    FlinkCDCConfig flinkCDCConfig;
+    @Value("${timedtask.enabled}")
     private boolean timedtaskenabled = true;
     private final DataChangeSink dataChangeSink;
 
@@ -74,7 +62,7 @@ public class MysqlEventListener implements ApplicationRunner{
         if (timedtaskenabled) {
             this.scanTimedTask();
         }
-        if (cdcenabled){
+        if (flinkCDCConfig.isEnabled()){
             log.info("开始启动Flink CDC获取ERP变更数据......");
             // 流式数据处理环境
             StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
@@ -82,7 +70,8 @@ public class MysqlEventListener implements ApplicationRunner{
             // ExecutionEnvironment env2 = ExecutionEnvironment.getExecutionEnvironment();
             DebeziumSourceFunction<DataChangeInfo> dataChangeInfoMySqlSource = buildDataChangeSource();
             DataStream<DataChangeInfo> streamSource = env
-                    .addSource(dataChangeInfoMySqlSource, "mysql-source")
+                    .addSource(dataChangeInfoMySqlSource)
+                    .name("mysql-source")
                     .setParallelism(1);
             streamSource.addSink(dataChangeSink);
             env.execute("mysql-cdc");
@@ -93,18 +82,13 @@ public class MysqlEventListener implements ApplicationRunner{
      * 构造CDC数据源
      */
     private DebeziumSourceFunction<DataChangeInfo> buildDataChangeSource() {
-        String[] tables = tableList.replace(" ", "").split(",");
         return MySqlSource.<DataChangeInfo>builder()
-                .hostname(host)
-                .port(Integer.parseInt(port))
-                .databaseList(database)
-                .tableList(tables)
-                .username(username)
-                .password(password)
-                /**initial初始化快照,即全量导入后增量导入(检测更新数据写入)
-                 * latest:只进行增量导入(不读取历史变化)
-                 * timestamp:指定时间戳进行数据导入(大于等于指定时间错读取数据)
-                 */
+                .hostname(flinkCDCConfig.getHostname())
+                .port(flinkCDCConfig.getPort())
+                .databaseList(flinkCDCConfig.getDatabase())
+                .tableList(flinkCDCConfig.getTableList())
+                .username(flinkCDCConfig.getUsername())
+                .password(flinkCDCConfig.getPassword())
                 .startupOptions(StartupOptions.latest())
                 .deserializer(new MysqlDeserialization())
                 .serverTimeZone("GMT+8")

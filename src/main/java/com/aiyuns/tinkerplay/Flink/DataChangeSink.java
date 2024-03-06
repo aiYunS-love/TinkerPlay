@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Slf4j
-public class DataChangeSink implements SinkFunction<com.aiyuns.tinkerplay.Flink.DataChangeInfo> {
+public class DataChangeSink implements SinkFunction<DataChangeInfo> {
 
     @Override
     public void invoke(com.aiyuns.tinkerplay.Flink.DataChangeInfo dataChangeInfo, Context context) {

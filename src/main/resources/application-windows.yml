@@ -89,9 +89,15 @@ minio:
 token:
   TOKEN_SECRET: my-secret-key
 
-CDC:
-  DataSource:
+cdc:
+  datasource:
     enabled: false
+    hostname: localhost
+    port: 3306
+    database: tinkerplay
+    tableList: user
+    username: root
+    password: ENC(dcIi+uEmTIuWfrJ1vpbk5sadABUbXpMz)
 
-TimedTask:
+timedtask:
   enabled: false
