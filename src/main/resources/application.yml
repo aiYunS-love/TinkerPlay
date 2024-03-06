@@ -317,7 +317,7 @@ nacos:
 cdc:
   datasource:
     enabled: true
-    host: 192.168.119.128
+    hostname: 192.168.119.128
     port: 3306
     database: tinkerplay
     tableList: user
