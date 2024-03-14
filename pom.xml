@@ -39,7 +39,7 @@
             <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>33.0.0-jre</version>
+            <version>33.1.0-jre</version>
             </dependency>
             <!-- nacos -->
             <dependency>
@@ -425,17 +425,17 @@
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webmvc-api</artifactId>
-            <version>2.3.0</version>
+            <version>2.4.0</version>
         </dependency>
         <dependency>
             <groupId>org.springdoc</groupId>
             <artifactId>springdoc-openapi-starter-webflux-ui</artifactId>
-            <version>2.2.0</version>
+            <version>2.4.0</version>
         </dependency>
         <!-- 服务启动时自动升级内置的SQL脚本 -->
         <!-- 支持低数据库5.7版本 -->
@@ -511,7 +511,7 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>easyexcel</artifactId>
-            <version>3.3.3</version>
+            <version>3.3.4</version>
         </dependency>
         <!--消息队列AMQP依赖，包含RabbitMQ-->
         <dependency>
@@ -769,6 +769,20 @@
                                     <exec>
                                         <arg>java</arg>
                                         <arg>--add-opens=java.base/java.util=ALL-UNNAMED</arg>
+                                        <arg>--add-opens=java.base/java.lang=ALL-UNNAMED</arg>
+                                        <arg>--add-opens=java.base/java.nio=ALL-UNNAMED</arg>
+                                        <arg>--add-opens=java.base/sun.nio.ch=ALL-UNNAMED</arg>
+                                        <arg>-Xms1G</arg>
+                                        <arg>-Xmx2G</arg>
+                                        <arg>-XX:ReservedCodeCacheSize=64m</arg>
+                                        <arg>-XX:InitialCodeCacheSize=32m</arg>
+                                        <arg>-XX:+UnlockExperimentalVMOptions</arg>
+                                        <arg>-XX:+UseZGC</arg>
+                                        <arg>-XX:ConcGCThreads=2</arg>
+                                        <arg>-XX:ParallelGCThreads=3</arg>
+                                        <arg>-XX:ZCollectionInterval=60</arg>
+                                        <arg>-XX:ZAllocationSpikeTolerance=2</arg>
+                                        <arg>-Xlog:safepoint,classhisto*=trace,age*,gc*=info:file=/logs/${project.artifactId}/gc-%t.log:time,tid,tags:filecount=5,filesize=50m</arg>
                                         <arg>-jar</arg>
                                         <arg>/${project.artifactId}/${project.build.finalName}.jar</arg>
                                     </exec>
