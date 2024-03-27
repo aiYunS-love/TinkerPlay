@@ -391,8 +391,8 @@
         <!-- SM2非对称加密生成密钥 -->
         <dependency>
             <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.70</version>
+            <artifactId>bcprov-jdk18on</artifactId>
+            <version>1.77</version>
         </dependency>
         <!-- 爬虫 解析HTML页面 -->
         <dependency>
